@@ -14,10 +14,6 @@
     <ProjectReference Include="..\..\..\2d\libcocos2d.vcxproj">
       <Project>{98a51ba8-fc3a-415b-ac8f-8c7bd464e93e}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\editor-support\dragonbones\proj.win32\libDragonBones.vcxproj">
-      <Project>{6b494955-1e66-40da-830d-0d31b8d301ef}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\editor-support\spine\proj.win32\libSpine.vcxproj">
       <Project>{b7c2a162-dec9-4418-972e-240ab3cbfcae}</Project>
     </ProjectReference>

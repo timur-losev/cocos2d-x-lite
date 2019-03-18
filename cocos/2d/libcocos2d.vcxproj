@@ -35,8 +35,8 @@
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '12.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v120_xp</PlatformToolset>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0'">v140</PlatformToolset>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v140_xp</PlatformToolset>
-    <PlatformToolset Condition="'$(VisualStudioVersion)' == '15.0'">v140</PlatformToolset>
-    <PlatformToolset Condition="'$(VisualStudioVersion)' == '15.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v140_xp</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '15.0'">v141</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '15.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v141</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -68,7 +68,7 @@
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>$(EngineRoot)external\win32\libs;$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(EngineRoot)external\win32\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LibraryPath>../../external/sqlite3/libraries/win32;$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A\lib;$(LibraryPath)</LibraryPath>
@@ -80,7 +80,7 @@
     </PreBuildEvent>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A\include;$(EngineRoot)extensions;$(EngineRoot);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(EngineRoot)extensions;$(EngineRoot);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_USRDLL;_DEBUG;_WINDOWS;_LIB;COCOS2DXWIN32_EXPORTS;GL_GLEXT_PROTOTYPES;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_USE3DDLL;_EXPORT_DLL_;_USRSTUDIODLL;_USREXDLL;_USEGUIDLL;PROTOBUF_USE_DLLS;LIBPROTOBUF_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -231,6 +231,87 @@ xcopy /Y /Q "$(ProjectDir)..\..\external\win32\libs\*.*" "$(OutDir)"
     <ClCompile Include="..\base\TGAlib.cpp" />
     <ClCompile Include="..\base\ZipUtils.cpp" />
     <ClCompile Include="..\cocos2d.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\ActionTimeline\CCActionTimeline.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\ActionTimeline\CCActionTimelineCache.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\ActionTimeline\CCActionTimelineNode.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\ActionTimeline\CCBoneNode.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\ActionTimeline\CCFrame.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\ActionTimeline\CCSkeletonNode.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\ActionTimeline\CCSkinNode.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\ActionTimeline\CCTimeLine.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\ActionTimeline\CSLoader.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\CCActionFrame.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\CCActionFrameEasing.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\CCActionManagerEx.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\CCActionNode.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\CCActionObject.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\CCArmature.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\CCArmatureAnimation.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\CCArmatureDataManager.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\CCArmatureDefine.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\CCBatchNode.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\CCBone.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\CCColliderDetector.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\CCComAttribute.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\CCComAudio.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\CCComController.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\CCComExtensionData.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\CCComRender.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\CCDataReaderHelper.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\CCDatas.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\CCDecorativeDisplay.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\CCDisplayFactory.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\CCDisplayManager.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\CCInputDelegate.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\CCProcessBase.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\CCSGUIReader.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\CCSkin.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\CCSpriteFrameCacheHelper.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\CCSSceneReader.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\CCTransformHelp.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\CCTween.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\CCUtilMath.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\CocoLoader.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\CocosStudioExtension.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\CocoStudio.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\DictionaryHelper.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\FlatBuffersSerialize.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\TriggerBase.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\TriggerMng.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\TriggerObj.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\WidgetCallBackHandlerProtocol.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\ArmatureNodeReader\ArmatureNodeReader.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\ButtonReader\ButtonReader.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\CheckBoxReader\CheckBoxReader.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\ComAudioReader\ComAudioReader.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\GameMapReader\GameMapReader.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\GameNode3DReader\GameNode3DReader.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\ImageViewReader\ImageViewReader.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\LayoutReader\LayoutReader.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\Light3DReader\Light3DReader.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\ListViewReader\ListViewReader.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\LoadingBarReader\LoadingBarReader.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\Node3DReader\Node3DReader.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\NodeReaderDefine.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\NodeReaderProtocol.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\NodeReader\NodeReader.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\PageViewReader\PageViewReader.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\Particle3DReader\Particle3DReader.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\ParticleReader\ParticleReader.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\ProjectNodeReader\ProjectNodeReader.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\ScrollViewReader\ScrollViewReader.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\SingleNodeReader\SingleNodeReader.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\SkeletonReader\BoneNodeReader.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\SkeletonReader\SkeletonNodeReader.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\SliderReader\SliderReader.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\Sprite3DReader\Sprite3DReader.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\SpriteReader\SpriteReader.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\TextAtlasReader\TextAtlasReader.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\TextBMFontReader\TextBMFontReader.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\TextFieldReader\TextFieldReader.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\TextReader\TextReader.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\UserCameraReader\UserCameraReader.cpp" />
+    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\WidgetReader.cpp" />
     <ClCompile Include="..\editor-support\creator\CCCameraNode.cpp" />
     <ClCompile Include="..\editor-support\creator\CCGraphicsNode.cpp" />
     <ClCompile Include="..\editor-support\creator\CCScale9Sprite.cpp" />
@@ -468,6 +549,95 @@ xcopy /Y /Q "$(ProjectDir)..\..\external\win32\libs\*.*" "$(OutDir)"
     <ClInclude Include="..\base\utlist.h" />
     <ClInclude Include="..\base\ZipUtils.h" />
     <ClInclude Include="..\cocos2d.h" />
+    <ClInclude Include="..\editor-support\cocostudio\ActionTimeline\CCActionTimeline.h" />
+    <ClInclude Include="..\editor-support\cocostudio\ActionTimeline\CCActionTimelineCache.h" />
+    <ClInclude Include="..\editor-support\cocostudio\ActionTimeline\CCActionTimelineNode.h" />
+    <ClInclude Include="..\editor-support\cocostudio\ActionTimeline\CCBoneNode.h" />
+    <ClInclude Include="..\editor-support\cocostudio\ActionTimeline\CCFrame.h" />
+    <ClInclude Include="..\editor-support\cocostudio\ActionTimeline\CCSkeletonNode.h" />
+    <ClInclude Include="..\editor-support\cocostudio\ActionTimeline\CCSkinNode.h" />
+    <ClInclude Include="..\editor-support\cocostudio\ActionTimeline\CCTimeLine.h" />
+    <ClInclude Include="..\editor-support\cocostudio\ActionTimeline\CCTimelineMacro.h" />
+    <ClInclude Include="..\editor-support\cocostudio\ActionTimeline\CSLoader.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CCActionFrame.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CCActionFrameEasing.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CCActionManagerEx.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CCActionNode.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CCActionObject.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CCArmature.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CCArmatureAnimation.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CCArmatureDataManager.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CCArmatureDefine.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CCBatchNode.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CCBone.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CCColliderDetector.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CCComAttribute.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CCComAudio.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CCComBase.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CCComController.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CCComExtensionData.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CCComRender.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CCDataReaderHelper.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CCDatas.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CCDecorativeDisplay.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CCDisplayFactory.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CCDisplayManager.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CCInputDelegate.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CCProcessBase.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CCSGUIReader.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CCSkin.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CCSpriteFrameCacheHelper.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CCSSceneReader.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CCTransformHelp.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CCTween.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CCUtilMath.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CocoLoader.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CocosStudioExport.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CocosStudioExtension.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CocoStudio.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CSParse3DBinary_generated.h" />
+    <ClInclude Include="..\editor-support\cocostudio\CSParseBinary_generated.h" />
+    <ClInclude Include="..\editor-support\cocostudio\DictionaryHelper.h" />
+    <ClInclude Include="..\editor-support\cocostudio\FlatBuffersSerialize.h" />
+    <ClInclude Include="..\editor-support\cocostudio\TriggerBase.h" />
+    <ClInclude Include="..\editor-support\cocostudio\TriggerMng.h" />
+    <ClInclude Include="..\editor-support\cocostudio\TriggerObj.h" />
+    <ClInclude Include="..\editor-support\cocostudio\WidgetCallBackHandlerProtocol.h" />
+    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\ArmatureNodeReader\ArmatureNodeReader.h" />
+    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\ArmatureNodeReader\CSArmatureNode_generated.h" />
+    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\ButtonReader\ButtonReader.h" />
+    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\CheckBoxReader\CheckBoxReader.h" />
+    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\ComAudioReader\ComAudioReader.h" />
+    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\GameMapReader\GameMapReader.h" />
+    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\GameNode3DReader\GameNode3DReader.h" />
+    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\ImageViewReader\ImageViewReader.h" />
+    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\LayoutReader\LayoutReader.h" />
+    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\Light3DReader\Light3DReader.h" />
+    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\ListViewReader\ListViewReader.h" />
+    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\LoadingBarReader\LoadingBarReader.h" />
+    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\Node3DReader\Node3DReader.h" />
+    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\NodeReaderDefine.h" />
+    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\NodeReaderProtocol.h" />
+    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\NodeReader\NodeReader.h" />
+    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\PageViewReader\PageViewReader.h" />
+    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\Particle3DReader\Particle3DReader.h" />
+    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\ParticleReader\ParticleReader.h" />
+    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\ProjectNodeReader\ProjectNodeReader.h" />
+    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\ScrollViewReader\ScrollViewReader.h" />
+    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\SingleNodeReader\SingleNodeReader.h" />
+    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\SkeletonReader\BoneNodeReader.h" />
+    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\SkeletonReader\CSBoneBinary_generated.h" />
+    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\SkeletonReader\SkeletonNodeReader.h" />
+    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\SliderReader\SliderReader.h" />
+    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\Sprite3DReader\Sprite3DReader.h" />
+    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\SpriteReader\SpriteReader.h" />
+    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\TextAtlasReader\TextAtlasReader.h" />
+    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\TextBMFontReader\TextBMFontReader.h" />
+    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\TextFieldReader\TextFieldReader.h" />
+    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\TextReader\TextReader.h" />
+    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\UserCameraReader\UserCameraReader.h" />
+    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\WidgetReader.h" />
+    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\WidgetReaderProtocol.h" />
     <ClInclude Include="..\editor-support\creator\CCCameraNode.h" />
     <ClInclude Include="..\editor-support\creator\CCGraphicsNode.h" />
     <ClInclude Include="..\editor-support\creator\CCScale9Sprite.h" />
@@ -621,6 +791,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\external\win32\libs\*.*" "$(OutDir)"
     <ClInclude Include="CCTweenFunction.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\editor-support\cocostudio\Android.mk" />
     <None Include="..\editor-support\creator\CCGraphicsNode.frag" />
     <None Include="..\editor-support\creator\CCGraphicsNode.vert" />
     <None Include="..\math\Mat4.inl" />
@@ -639,6 +810,9 @@ xcopy /Y /Q "$(ProjectDir)..\..\external\win32\libs\*.*" "$(OutDir)"
     <ProjectReference Include="..\..\external\sources\Box2D\proj.win32\libBox2D.vcxproj">
       <Project>{EB7E5610-C178-49C9-8B4C-1C283E616ED9}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\editor-support\cocostudio\CMakeLists.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
