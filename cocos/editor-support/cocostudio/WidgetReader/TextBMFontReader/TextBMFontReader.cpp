@@ -7,7 +7,7 @@
 #include "cocostudio/CocoLoader.h"
 #include "cocostudio/CSParseBinary_generated.h"
 
-#include "tinyxml2.h"
+#include "tinyxml2/tinyxml2.h"
 #include "flatbuffers/flatbuffers.h"
 
 USING_NS_CC;
@@ -207,7 +207,7 @@ namespace cocostudio
             {
                 if (FileUtils::getInstance()->isFileExist(path))
                 {
-                    FontAtlas* newAtlas = FontAtlasCache::getFontAtlasFNT(path);
+                    FontAtlas* newAtlas = FontAtlasCache::getFontAtlasFNT(path, nullptr);
                     if (newAtlas)
                     {
                         fileExist = true;

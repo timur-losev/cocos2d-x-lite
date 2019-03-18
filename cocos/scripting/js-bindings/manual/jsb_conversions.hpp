@@ -3,6 +3,8 @@
 #include "cocos/scripting/js-bindings/jswrapper/SeApi.h"
 #include "cocos/scripting/js-bindings/manual/jsb_classtype.hpp"
 
+#include "cocos/editor-support/cocostudio/CocosStudioExtension.h"
+
 #include "cocos2d.h"
 #include "cocos/ui/CocosGUI.h"
 #include "extensions/cocos-ext.h"
@@ -89,6 +91,9 @@ bool seval_to_AffineTransform(const se::Value& v, cocos2d::AffineTransform* ret)
 bool seval_to_Data(const se::Value& v, cocos2d::Data* ret);
 bool seval_to_DownloaderHints(const se::Value& v, cocos2d::network::DownloaderHints* ret);
 bool seval_to_TTFConfig(const se::Value& v, cocos2d::TTFConfig* ret);
+
+bool seval_to_ResourceData(const se::Value& v, cocos2d::ResourceData* ret);
+bool ResourceData_to_seval(const cocos2d::ResourceData& v, se::Value* ret);
 
 //box2d seval to native convertion
 bool seval_to_b2Vec2(const se::Value& v, b2Vec2* ret);

@@ -33,6 +33,6 @@ void sendEvent(unsigned int event)
     sprintf(buf, "%d", event);
     std::string custom_event_name(buf);
     CC_SAFE_DELETE_ARRAY(buf);
-    EventCustom eventCustom(custom_event_name);
-    TriggerMng::getInstance()->dispatchEvent(&eventCustom);
+    EventCustom* eventCustom = new EventCustom(custom_event_name);
+    TriggerMng::getInstance()->dispatchEvent(eventCustom);
 }

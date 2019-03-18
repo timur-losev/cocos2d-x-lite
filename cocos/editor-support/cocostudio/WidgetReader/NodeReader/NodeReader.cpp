@@ -28,7 +28,7 @@
 #include "cocostudio/ActionTimeline/CCActionTimeline.h"
 #include "cocostudio/CCComExtensionData.h"
 
-#include "tinyxml2.h"
+#include "tinyxml2/tinyxml2.h"
 #include "flatbuffers/flatbuffers.h"
 #include "ui/UILayoutComponent.h"
 

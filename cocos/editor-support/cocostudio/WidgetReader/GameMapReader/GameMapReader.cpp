@@ -29,7 +29,7 @@
 #include "cocostudio/CSParseBinary_generated.h"
 #include "cocostudio/WidgetReader/NodeReader/NodeReader.h"
 
-#include "tinyxml2.h"
+#include "tinyxml2/tinyxml2.h"
 #include "flatbuffers/flatbuffers.h"
 
 USING_NS_CC;
@@ -222,13 +222,16 @@ namespace cocostudio
             
             if (!valid)
             {
-                Node* node = Node::create();
+                /*Node* node = Node::create();
                 setPropsWithFlatBuffers(node, (Table*)gameMapOptions);
                 auto label = Label::create();
                 label->setString(__String::createWithFormat("Some error of gid are in TMX Layer '%s'", layerName.c_str())->getCString());
                 node->setScale(1.0f);
                 node->addChild(label);
-                return node;
+                return node;*/
+
+                assert(false);
+                return nullptr;
             }
             /**/
             

@@ -1,7 +1,7 @@
 
 #include "CocoStudio.h"
 
-#if 0
+#if 1
 #include "cocostudio/WidgetReader/NodeReader/NodeReader.h"
 #include "cocostudio/WidgetReader/SingleNodeReader/SingleNodeReader.h"
 #include "cocostudio/WidgetReader/SpriteReader/SpriteReader.h"
@@ -34,7 +34,7 @@ namespace cocostudio
 {
     void destroyCocosStudio()
     {        
-        #if 0
+        #if 1
         NodeReader::destroyInstance();
         SingleNodeReader::destroyInstance();
         SpriteReader::destroyInstance();

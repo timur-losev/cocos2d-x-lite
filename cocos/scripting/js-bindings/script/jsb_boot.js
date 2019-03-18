@@ -1764,6 +1764,7 @@ cc._initDebugSetting = function (mode) {
 
 cc.initEngine = function (config, cb) {
     require("script/jsb.js");
+    console.log("TIMUR TIMUR");
     cc._renderType = cc.game.RENDER_TYPE_OPENGL;
     cc._initDebugSetting(config[cc.game.CONFIG_KEY.debugMode]);
     cc._engineLoaded = true;
