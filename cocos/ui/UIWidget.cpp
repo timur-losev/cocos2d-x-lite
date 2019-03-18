@@ -23,12 +23,14 @@ THE SOFTWARE.
 ****************************************************************************/
 
 #include "ui/UIWidget.h"
+#include "ui/UILayout.h"
 #include "ui/UIHelper.h"
 #include "base/CCEventListenerTouch.h"
 #include "base/CCEventListenerKeyboard.h"
 #include "base/CCDirector.h"
 #include "base/CCEventFocus.h"
 #include "base/CCEventDispatcher.h"
+#include "ui/UILayoutComponent.h"
 #include "renderer/CCGLProgram.h"
 #include "renderer/CCGLProgramState.h"
 #include "renderer/ccShaders.h"
@@ -39,9 +41,107 @@ NS_CC_BEGIN
 
 namespace ui {
 
+class Widget::FocusNavigationController
+{
+    void enableFocusNavigation(bool flag);
+
+    FocusNavigationController():
+    _keyboardListener(nullptr),
+    _firstFocusedWidget(nullptr),
+    _enableFocusNavigation(false),
+    _keyboardEventPriority(1)
+    {
+        //no-op
+    }
+    ~FocusNavigationController();
+protected:
+    void setFirstFocsuedWidget(Widget* widget);
+
+    void onKeypadKeyPressed(EventKeyboard::KeyCode, Event*);
+
+    void addKeyboardEventListener();
+    void removeKeyboardEventListener();
+
+    friend class Widget;
+private:
+    EventListenerKeyboard* _keyboardListener ;
+    Widget* _firstFocusedWidget ;
+    bool _enableFocusNavigation ;
+    const int _keyboardEventPriority;
+};
+
+Widget::FocusNavigationController::~FocusNavigationController()
+{
+    this->removeKeyboardEventListener();
+}
+
+void Widget::FocusNavigationController::onKeypadKeyPressed(EventKeyboard::KeyCode  keyCode, Event *event)
+{
+    if (_enableFocusNavigation && _firstFocusedWidget)
+    {
+        if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_DOWN)
+        {
+            _firstFocusedWidget = _firstFocusedWidget->findNextFocusedWidget(Widget::FocusDirection::DOWN, _firstFocusedWidget);
+        }
+        if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_UP)
+        {
+            _firstFocusedWidget = _firstFocusedWidget->findNextFocusedWidget(Widget::FocusDirection::UP, _firstFocusedWidget);
+        }
+        if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_LEFT)
+        {
+            _firstFocusedWidget = _firstFocusedWidget->findNextFocusedWidget(Widget::FocusDirection::LEFT, _firstFocusedWidget);
+        }
+        if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_RIGHT)
+        {
+            _firstFocusedWidget = _firstFocusedWidget->findNextFocusedWidget(Widget::FocusDirection::RIGHT, _firstFocusedWidget);
+        }
+    }
+}
+
+void Widget::FocusNavigationController::enableFocusNavigation(bool flag)
+{
+    if (_enableFocusNavigation == flag)
+        return;
+
+    _enableFocusNavigation = flag;
+
+    if (flag)
+        this->addKeyboardEventListener();
+    else
+        this->removeKeyboardEventListener();
+}
+
+void Widget::FocusNavigationController::setFirstFocsuedWidget(Widget* widget)
+{
+    _firstFocusedWidget = widget;
+}
+
+void Widget::FocusNavigationController::addKeyboardEventListener()
+{
+    if (nullptr == _keyboardListener)
+    {
+        _keyboardListener = EventListenerKeyboard::create();
+        _keyboardListener->onKeyReleased = CC_CALLBACK_2(Widget::FocusNavigationController::onKeypadKeyPressed, this);
+        EventDispatcher* dispatcher = Director::getInstance()->getEventDispatcher();
+        dispatcher->addEventListenerWithFixedPriority(_keyboardListener, _keyboardEventPriority);
+    }
+}
+
+void Widget::FocusNavigationController::removeKeyboardEventListener()
+{
+    if (nullptr != _keyboardListener)
+    {
+        EventDispatcher* dispatcher = Director::getInstance()->getEventDispatcher();
+        dispatcher->removeEventListener(_keyboardListener);
+        _keyboardListener = nullptr;
+    }
+}
+
 Widget* Widget::_focusedWidget = nullptr;
+Widget::FocusNavigationController* Widget::_focusNavigationController = nullptr;
 
 Widget::Widget():
+_usingLayoutComponent(false),
 _unifySize(false),
 _enabled(true),
 _bright(true),
@@ -59,6 +159,7 @@ _hitted(false),
 _touchListener(nullptr),
 _flippedX(false),
 _flippedY(false),
+_layoutParameterType(LayoutParameter::Type::NONE),
 _focused(false),
 _focusEnabled(true),
 _touchEventListener(nullptr),
@@ -85,6 +186,7 @@ void Widget::cleanupWidget()
     if (_focusedWidget == this)
     {
         //delete
+        CC_SAFE_DELETE(_focusNavigationController);
         _focusedWidget = nullptr;
     }
 
@@ -129,7 +231,8 @@ void Widget::onEnter()
     }
 #endif
 
-    updateSizeAndPosition();
+    if (!_usingLayoutComponent)
+        updateSizeAndPosition();
     ProtectedNode::onEnter();
 }
 
@@ -171,6 +274,19 @@ void Widget::initRenderer()
 {
 }
 
+LayoutComponent* Widget::getOrCreateLayoutComponent()
+{
+    auto layoutComponent = this->getComponent(__LAYOUT_COMPONENT_NAME);
+    if (nullptr == layoutComponent)
+    {
+        LayoutComponent *component = LayoutComponent::create();
+        this->addComponent(component);
+        layoutComponent = component;
+    }
+
+    return (LayoutComponent*)layoutComponent;
+}
+
 void Widget::setContentSize(const cocos2d::Size &contentSize)
 {
     Size previousSize = ProtectedNode::getContentSize();
@@ -189,7 +305,7 @@ void Widget::setContentSize(const cocos2d::Size &contentSize)
     {
         ProtectedNode::setContentSize(getVirtualRendererSize());
     }
-    if (_running)
+    if (!_usingLayoutComponent && _running)
     {
         Widget* widgetParent = getWidgetParent();
         Size pSize;
@@ -218,29 +334,39 @@ void Widget::setContentSize(const cocos2d::Size &contentSize)
 
 void Widget::setSizePercent(const Vec2 &percent)
 {
-    _sizePercent = percent;
-    Size cSize = _customSize;
-    if (_running)
+    if (_usingLayoutComponent)
     {
-        Widget* widgetParent = getWidgetParent();
-        if (widgetParent)
-        {
-            cSize = Size(widgetParent->getContentSize().width * percent.x, widgetParent->getContentSize().height * percent.y);
-        }
-        else
-        {
-            cSize = Size(_parent->getContentSize().width * percent.x, _parent->getContentSize().height * percent.y);
-        }
-    }
-    if (_ignoreSize)
-    {
-        this->setContentSize(getVirtualRendererSize());
+        auto component = this->getOrCreateLayoutComponent();
+        component->setUsingPercentContentSize(true);
+        component->setPercentContentSize(percent);
+        component->refreshLayout();
     }
     else
     {
-        this->setContentSize(cSize);
+        _sizePercent = percent;
+        Size cSize = _customSize;
+        if (_running)
+        {
+            Widget* widgetParent = getWidgetParent();
+            if (widgetParent)
+            {
+                cSize = Size(widgetParent->getContentSize().width * percent.x, widgetParent->getContentSize().height * percent.y);
+            }
+            else
+            {
+                cSize = Size(_parent->getContentSize().width * percent.x, _parent->getContentSize().height * percent.y);
+            }
+        }
+        if (_ignoreSize)
+        {
+            this->setContentSize(getVirtualRendererSize());
+        }
+        else
+        {
+            this->setContentSize(cSize);
+        }
+        _customSize = cSize;
     }
-    _customSize = cSize;
 }
 
 void Widget::updateSizeAndPosition()
@@ -325,8 +451,21 @@ void Widget::updateSizeAndPosition(const cocos2d::Size &parentSize)
 void Widget::setSizeType(SizeType type)
 {
     _sizeType = type;
+
+    if (_usingLayoutComponent)
+    {
+        auto component = this->getOrCreateLayoutComponent();
+
+        if (_sizeType == Widget::SizeType::PERCENT)
+        {
+            component->setUsingPercentContentSize(true);
+        }
+        else
+        {
+            component->setUsingPercentContentSize(false);
+        }
+    }
 }
-    
 Widget::SizeType Widget::getSizeType() const
 {
     return _sizeType;
@@ -367,6 +506,12 @@ const Size& Widget::getCustomSize() const
 
 const Vec2& Widget::getSizePercent()
 {
+    if (_usingLayoutComponent)
+    {
+        auto component = this->getOrCreateLayoutComponent();
+        _sizePercent = component->getPercentContentSize();
+    }
+
     return _sizePercent;
 }
 
@@ -382,15 +527,17 @@ Node* Widget::getVirtualRenderer()
 
 void Widget::onSizeChanged()
 {
-    for (auto& child : getChildren())
+    if (!_usingLayoutComponent)
     {
-        Widget* widgetChild = dynamic_cast<Widget*>(child);
-        if (widgetChild)
+        for (auto& child : getChildren())
         {
-            widgetChild->updateSizeAndPosition();
+            Widget* widgetChild = dynamic_cast<Widget*>(child);
+            if (widgetChild)
+            {
+                widgetChild->updateSizeAndPosition();
+            }
         }
     }
-    
 }
 
 Size Widget::getVirtualRendererSize() const
@@ -619,7 +766,9 @@ bool Widget::onTouchBegan(Touch *touch, Event *unusedEvent)
         _touchBeganPosition = touch->getLocation();
         if(hitTest(_touchBeganPosition))
         {
-            _hitted = true;
+            if (isClippingParentContainsPoint(_touchBeganPosition)) {
+                _hitted = true;
+            }
         }
     }
     if (!_hitted)
@@ -801,6 +950,48 @@ bool Widget::hitTest(const Vec2 &pt) const
     return false;
 }
 
+bool Widget::isClippingParentContainsPoint(const Vec2 &pt)
+{
+    _affectByClipping = false;
+    Node* parent = getParent();
+    Widget* clippingParent = nullptr;
+    while (parent)
+    {
+        Layout* layoutParent = dynamic_cast<Layout*>(parent);
+        if (layoutParent)
+        {
+            if (layoutParent->isClippingEnabled())
+            {
+                _affectByClipping = true;
+                clippingParent = layoutParent;
+                break;
+            }
+        }
+        parent = parent->getParent();
+    }
+
+    if (!_affectByClipping)
+    {
+        return true;
+    }
+
+
+    if (clippingParent)
+    {
+        bool bRet = false;
+        if (clippingParent->hitTest(pt))
+        {
+            bRet = true;
+        }
+        if (bRet)
+        {
+            return clippingParent->isClippingParentContainsPoint(pt);
+        }
+        return false;
+    }
+    return true;
+}
+
 void Widget::interceptTouchEvent(cocos2d::ui::Widget::TouchEventType event, cocos2d::ui::Widget *sender, Touch *touch)
 {
     Widget* widgetParent = getWidgetParent();
@@ -813,7 +1004,7 @@ void Widget::interceptTouchEvent(cocos2d::ui::Widget::TouchEventType event, coco
 
 void Widget::setPosition(const Vec2 &pos)
 {
-    if (_running)
+    if (!_usingLayoutComponent && _running)
     {
         Widget* widgetParent = getWidgetParent();
         if (widgetParent)
@@ -834,27 +1025,60 @@ void Widget::setPosition(const Vec2 &pos)
 
 void Widget::setPositionPercent(const Vec2 &percent)
 {
-    _positionPercent = percent;
-    if (_running)
+    if (_usingLayoutComponent)
     {
-        Widget* widgetParent = getWidgetParent();
-        if (widgetParent)
+        auto component = this->getOrCreateLayoutComponent();
+        component->setPositionPercentX(percent.x);
+        component->setPositionPercentY(percent.y);
+        component->refreshLayout();
+    }
+    else
+    {
+        _positionPercent = percent;
+        if (_running)
         {
-            Size parentSize = widgetParent->getContentSize();
-            Vec2 absPos(parentSize.width * _positionPercent.x, parentSize.height * _positionPercent.y);
-            setPosition(absPos);
+            Widget* widgetParent = getWidgetParent();
+            if (widgetParent)
+            {
+                Size parentSize = widgetParent->getContentSize();
+                Vec2 absPos(parentSize.width * _positionPercent.x, parentSize.height * _positionPercent.y);
+                setPosition(absPos);
+            }
         }
     }
 }
 
-const Vec2& Widget::getPositionPercent()
-{
+const Vec2& Widget::getPositionPercent(){
+
+    if (_usingLayoutComponent)
+    {
+        auto component = this->getOrCreateLayoutComponent();
+        float percentX = component->getPositionPercentX();
+        float percentY = component->getPositionPercentY();
+
+        _positionPercent.set(percentX, percentY);
+    }
     return _positionPercent;
 }
 
 void Widget::setPositionType(PositionType type)
 {
     _positionType = type;
+
+    if (_usingLayoutComponent)
+    {
+        auto component = this->getOrCreateLayoutComponent();
+        if (type == Widget::PositionType::ABSOLUTE)
+        {
+            component->setPositionPercentXEnabled(false);
+            component->setPositionPercentYEnabled(false);
+        }
+        else
+        {
+            component->setPositionPercentXEnabled(true);
+            component->setPositionPercentYEnabled(true);
+        }
+    }
 }
 
 Widget::PositionType Widget::getPositionType() const
@@ -905,6 +1129,21 @@ const Vec2& Widget::getTouchMovePosition()const
 const Vec2& Widget::getTouchEndPosition()const
 {
     return _touchEndPosition;
+}
+
+void Widget::setLayoutParameter(LayoutParameter *parameter)
+{
+    if (!parameter)
+    {
+        return;
+    }
+    _layoutParameterDictionary.insert((int)parameter->getLayoutType(), parameter);
+    _layoutParameterType = parameter->getLayoutType();
+}
+
+LayoutParameter* Widget::getLayoutParameter()const
+{
+    return dynamic_cast<LayoutParameter*>(_layoutParameterDictionary.at((int)_layoutParameterType));
 }
 
 std::string Widget::getDescription() const
@@ -1017,6 +1256,12 @@ void Widget::copyProperties(Widget *widget)
     _propagateTouchEvents = widget->_propagateTouchEvents;
 
     copySpecialProperties(widget);
+
+    Map<int, LayoutParameter*>& layoutParameterDic = widget->_layoutParameterDictionary;
+    for (auto iter = layoutParameterDic.begin(); iter != layoutParameterDic.end(); ++iter)
+    {
+        setLayoutParameter(iter->second->clone());
+    }
 }
 
     void Widget::setFlippedX(bool flippedX)
@@ -1110,6 +1355,9 @@ void Widget::setFocused(bool focus)
     //make sure there is only one focusedWidget
     if (focus) {
         _focusedWidget = this;
+        if (_focusNavigationController) {
+            _focusNavigationController->setFirstFocsuedWidget(this);
+        }
     }
 
 }
@@ -1127,6 +1375,42 @@ void Widget::setFocusEnabled(bool enable)
 bool Widget::isFocusEnabled()const
 {
     return _focusEnabled;
+}
+
+Widget* Widget::findNextFocusedWidget(FocusDirection direction,  Widget* current)
+{
+    if (nullptr == onNextFocusedWidget || nullptr == onNextFocusedWidget(direction) ) {
+        if (this->isFocused() || dynamic_cast<Layout*>(current))
+        {
+            Node* parent = this->getParent();
+
+            Layout* layout = dynamic_cast<Layout*>(parent);
+            if (nullptr == layout)
+            {
+                //the outer layout's default behaviour is : loop focus
+                if (dynamic_cast<Layout*>(current))
+                {
+                    return current->findNextFocusedWidget(direction, current);
+                }
+                return current;
+            }
+            else
+            {
+                Widget *nextWidget = layout->findNextFocusedWidget(direction, current);
+                return nextWidget;
+            }
+        }
+        else
+        {
+            return current;
+        }
+    }
+    else
+    {
+        Widget *getFocusWidget = onNextFocusedWidget(direction);
+        this->dispatchFocusEvent(this, getFocusWidget);
+        return getFocusWidget;
+    }
 }
 
 void Widget::dispatchFocusEvent(cocos2d::ui::Widget *widgetLoseFocus, cocos2d::ui::Widget *widgetGetFocus)
@@ -1187,6 +1471,30 @@ Widget* Widget::getCurrentFocusedWidget()
     return _focusedWidget;
 }
 
+void Widget::enableDpadNavigation(bool enable)
+{
+    if (enable)
+    {
+        if (nullptr == _focusNavigationController)
+        {
+            _focusNavigationController = new (std::nothrow) FocusNavigationController;
+            if (_focusedWidget)
+            {
+                _focusNavigationController->setFirstFocsuedWidget(_focusedWidget);
+            }
+        }
+    }
+    else
+    {
+        CC_SAFE_DELETE(_focusNavigationController);
+    }
+
+    if (nullptr != _focusNavigationController)
+    {
+        _focusNavigationController->enableFocusNavigation(enable);
+    }
+}
+
 
 bool Widget::isUnifySizeEnabled()const
 {
@@ -1197,6 +1505,18 @@ void Widget::setUnifySizeEnabled(bool enable)
 {
     _unifySize = enable;
 }
+
+
+void Widget::setLayoutComponentEnabled(bool enable)
+{
+    _usingLayoutComponent = enable;
+}
+
+bool Widget::isLayoutComponentEnabled()const
+{
+    return _usingLayoutComponent;
+}
+
 
 
 }
