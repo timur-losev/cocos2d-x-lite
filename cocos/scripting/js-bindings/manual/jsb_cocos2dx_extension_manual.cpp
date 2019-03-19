@@ -26,6 +26,70 @@ static bool jsb_cocos2d_extension_empty_func(se::State& s)
 }
 SE_BIND_FUNC(jsb_cocos2d_extension_empty_func)
 
+class JSB_ScrollViewDelegate
+    : public Ref
+    , public ScrollViewDelegate
+{
+public:
+    JSB_ScrollViewDelegate():
+        _JSDelegate(nullptr)
+    {
+        
+    }
+
+    virtual ~JSB_ScrollViewDelegate()
+    {
+        if (_JSDelegate) {
+            _JSDelegate->unroot();
+            _JSDelegate->decRef();
+        }
+    }
+
+    virtual void scrollViewDidScroll(ScrollView* view) override
+    {
+        assert(_JSDelegate);
+        auto iter = se::NativePtrToObjectMap::find(view);
+        if (iter == se::NativePtrToObjectMap::end())
+            return;
+
+        se::Object* target = iter->second;
+        
+        se::Value funcProp;
+        _JSDelegate->getProperty("scrollViewDidScroll", &funcProp);
+
+        assert(funcProp.isObject() && funcProp.toObject()->isFunction());
+
+        se::Object* func = funcProp.toObject();
+
+        se::ScriptEngine::getInstance()->clearException();
+        se::AutoHandleScope hs;
+
+        se::ValueArray args;
+        args.resize(1);
+
+        args[0].setObject(target);
+
+        func->call(args, _JSDelegate);
+    }
+
+    virtual void scrollViewDidZoom(ScrollView* view) override
+    {
+        /*js_proxy_t * p = jsb_get_native_proxy(view);
+        if (!p) return;
+
+        jsval arg = OBJECT_TO_JSVAL(p->obj);
+        ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(_JSDelegate.ref()), "scrollViewDidZoom", 1, &arg);*/
+    }
+
+    void setJSDelegate(se::Object* pJSDelegate)
+    {
+        _JSDelegate = pJSDelegate;
+        _JSDelegate->root();
+        _JSDelegate->incRef();
+    }
+private:
+    se::Object* _JSDelegate;
+};
 
 static bool js_cocos2dx_extension_loadRemoteImage(se::State& s)
 {
@@ -309,6 +373,40 @@ static bool js_cocos2dx_extension_initTextureAsync(se::State& s)
 }
 SE_BIND_FUNC(js_cocos2dx_extension_initTextureAsync)
 
+static bool js_cocos2dx_CCScrollView_setDelegate(se::State& s)
+{
+    const auto& args = s.args();
+    int argc = (int)args.size();
+
+    bool ok = false;
+
+    cocos2d::extension::ScrollView* cobj = (cocos2d::extension::ScrollView *)(s.nativeThisObject());
+
+    SE_PRECONDITION2(cobj, false, "Invalid Native Object");
+
+    if (argc == 1)
+    {
+        // save the delegate
+        JSB_ScrollViewDelegate* nativeDelegate = new JSB_ScrollViewDelegate();
+        nativeDelegate->setJSDelegate(args[0].toObject());
+
+        cobj->setUserObject(nativeDelegate);
+        cobj->setDelegate(nativeDelegate);
+
+        nativeDelegate->release();
+
+        s.rval().setUndefined();
+        return true;
+    }
+    CCLOGERROR("wrong number of arguments: %d, was expecting %d", argc, 1);
+    return false;
+}
+
+
+SE_BIND_FUNC(js_cocos2dx_CCScrollView_setDelegate)
+
+extern se::Object* __jsb_cocos2d_extension_ScrollView_proto;
+
 bool register_all_cocos2dx_extension_manual(se::Object* obj)
 {
 
@@ -326,6 +424,8 @@ bool register_all_cocos2dx_extension_manual(se::Object* obj)
     __jsbObj->defineFunction("loadRemoteImg", _SE(js_cocos2dx_extension_loadRemoteImage));
     __jsbObj->defineFunction("initRemoteImg", _SE(js_cocos2dx_extension_initRemoteImage));
     __jsbObj->defineFunction("initTextureAsync", _SE(js_cocos2dx_extension_initTextureAsync));
+
+    __jsb_cocos2d_extension_ScrollView_proto->defineFunction("setDelegate", _SE(js_cocos2dx_CCScrollView_setDelegate));
 
     se::ScriptEngine::getInstance()->clearException();
 

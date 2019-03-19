@@ -290,19 +290,6 @@ getSearchPaths : function (
     return new Array();
 },
 
-/**
- * @method Manifest
- * @constructor
-* @param {String|String} str
-* @param {String} str
-*/
-Manifest : function(
-str,
-str 
-)
-{
-},
-
 };
 
 /**
@@ -1651,16 +1638,6 @@ getValue : function (
 },
 
 /**
- * @method getPreviousLocation
- * @return {vec2_object}
- */
-getPreviousLocation : function (
-)
-{
-    return cc.Vec2;
-},
-
-/**
  * @method distanceBetweenPointAndPoint
  * @param {vec2_object} arg0
  * @param {vec2_object} arg1
@@ -1682,6 +1659,16 @@ potentiometerEnded : function (
 vec2 
 )
 {
+},
+
+/**
+ * @method getPreviousLocation
+ * @return {vec2_object}
+ */
+getPreviousLocation : function (
+)
+{
+    return cc.Vec2;
 },
 
 /**
@@ -1771,16 +1758,6 @@ ControlPotentiometer : function (
  * @class ControlSlider
  */
 cc.ControlSlider = {
-
-/**
- * @method setBackgroundSprite
- * @param {cc.Sprite} arg0
- */
-setBackgroundSprite : function (
-sprite 
-)
-{
-},
 
 /**
  * @method getMaximumAllowedValue
@@ -1967,6 +1944,16 @@ getProgressSprite : function (
  * @param {cc.Sprite} arg0
  */
 setSelectedThumbSprite : function (
+sprite 
+)
+{
+},
+
+/**
+ * @method setBackgroundSprite
+ * @param {cc.Sprite} arg0
+ */
+setBackgroundSprite : function (
 sprite 
 )
 {
@@ -2789,16 +2776,6 @@ verticalfillorder
 },
 
 /**
- * @method scrollViewDidZoom
- * @param {cc.ScrollView} arg0
- */
-scrollViewDidZoom : function (
-scrollview 
-)
-{
-},
-
-/**
  * @method _updateContentSize
  */
 _updateContentSize : function (
@@ -2854,6 +2831,16 @@ scrollview
  * @method reloadData
  */
 reloadData : function (
+)
+{
+},
+
+/**
+ * @method scrollViewDidZoom
+ * @param {cc.ScrollView} arg0
+ */
+scrollViewDidZoom : function (
+scrollview 
 )
 {
 },

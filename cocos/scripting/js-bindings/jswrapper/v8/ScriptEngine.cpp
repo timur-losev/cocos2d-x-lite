@@ -61,50 +61,6 @@ namespace se {
             ScriptEngine::getInstance()->garbageCollect();
         }
 
-        std::string stackTraceToString(v8::Local<v8::StackTrace> stack)
-        {
-            std::string stackStr;
-            if (stack.IsEmpty())
-                return stackStr;
-
-            char tmp[100] = {0};
-            for (int i = 0, e = stack->GetFrameCount(); i < e; ++i)
-            {
-                v8::Local<v8::StackFrame> frame = stack->GetFrame(i);
-                v8::Local<v8::String> script = frame->GetScriptName();
-                std::string scriptName;
-                if (!script.IsEmpty())
-                {
-                    scriptName = *v8::String::Utf8Value(script);
-                }
-
-                v8::Local<v8::String> func = frame->GetFunctionName();
-                std::string funcName;
-                if (!func.IsEmpty())
-                {
-                    funcName = *v8::String::Utf8Value(func);
-                }
-
-                stackStr += "[";
-                snprintf(tmp, sizeof(tmp), "%d", i);
-                stackStr += tmp;
-                stackStr += "]";
-                stackStr += (funcName.empty() ? "anonymous" : funcName.c_str());
-                stackStr += "@";
-                stackStr += (scriptName.empty() ? "(no filename)" : scriptName.c_str());
-                stackStr += ":";
-                snprintf(tmp, sizeof(tmp), "%d", frame->GetLineNumber());
-                stackStr += tmp;
-
-                if (i < (e-1))
-                {
-                    stackStr += "\n";
-                }
-            }
-
-            return stackStr;
-        }
-
         se::Value __oldConsoleLog;
         se::Value __oldConsoleDebug;
         se::Value __oldConsoleInfo;
@@ -235,6 +191,50 @@ namespace se {
         {
             getInstance()->_exceptionCallback(location, message.c_str(), "(no stack information)");
         }
+    }
+
+    std::string ScriptEngine::stackTraceToString(v8::Local<v8::StackTrace> stack)
+    {
+        std::string stackStr;
+        if (stack.IsEmpty())
+            return stackStr;
+
+        char tmp[100] = { 0 };
+        for (int i = 0, e = stack->GetFrameCount(); i < e; ++i)
+        {
+            v8::Local<v8::StackFrame> frame = stack->GetFrame(i);
+            v8::Local<v8::String> script = frame->GetScriptName();
+            std::string scriptName;
+            if (!script.IsEmpty())
+            {
+                scriptName = *v8::String::Utf8Value(script);
+            }
+
+            v8::Local<v8::String> func = frame->GetFunctionName();
+            std::string funcName;
+            if (!func.IsEmpty())
+            {
+                funcName = *v8::String::Utf8Value(func);
+            }
+
+            stackStr += "[";
+            snprintf(tmp, sizeof(tmp), "%d", i);
+            stackStr += tmp;
+            stackStr += "]";
+            stackStr += (funcName.empty() ? "anonymous" : funcName.c_str());
+            stackStr += "@";
+            stackStr += (scriptName.empty() ? "(no filename)" : scriptName.c_str());
+            stackStr += ":";
+            snprintf(tmp, sizeof(tmp), "%d", frame->GetLineNumber());
+            stackStr += tmp;
+
+            if (i < (e - 1))
+            {
+                stackStr += "\n";
+            }
+        }
+
+        return stackStr;
     }
 
     void ScriptEngine::onMessageCallback(v8::Local<v8::Message> message, v8::Local<v8::Value> data)

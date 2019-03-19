@@ -527,66 +527,12 @@ static bool js_cocos2dx_extension_Manifest_getSearchPaths(se::State& s)
 }
 SE_BIND_FUNC(js_cocos2dx_extension_Manifest_getSearchPaths)
 
-SE_DECLARE_FINALIZE_FUNC(js_cocos2d_extension_Manifest_finalize)
-
-static bool js_cocos2dx_extension_Manifest_constructor(se::State& s)
-{
-    CC_UNUSED bool ok = true;
-    const auto& args = s.args();
-    size_t argc = args.size();
-    do {
-        if (argc == 2) {
-            std::string arg0;
-            ok &= seval_to_std_string(args[0], &arg0);
-            if (!ok) { ok = true; break; }
-            std::string arg1;
-            ok &= seval_to_std_string(args[1], &arg1);
-            if (!ok) { ok = true; break; }
-            cocos2d::extension::Manifest* cobj = new (std::nothrow) cocos2d::extension::Manifest(arg0, arg1);
-            s.thisObject()->setPrivateData(cobj);
-            return true;
-        }
-    } while(false);
-    do {
-        if (argc == 0) {
-            cocos2d::extension::Manifest* cobj = new (std::nothrow) cocos2d::extension::Manifest();
-            s.thisObject()->setPrivateData(cobj);
-            return true;
-        }
-    } while(false);
-    do {
-        if (argc == 1) {
-            std::string arg0;
-            ok &= seval_to_std_string(args[0], &arg0);
-            if (!ok) { ok = true; break; }
-            cocos2d::extension::Manifest* cobj = new (std::nothrow) cocos2d::extension::Manifest(arg0);
-            s.thisObject()->setPrivateData(cobj);
-            return true;
-        }
-    } while(false);
-    SE_REPORT_ERROR("wrong number of arguments: %d", (int)argc);
-    return false;
-}
-SE_BIND_CTOR(js_cocos2dx_extension_Manifest_constructor, __jsb_cocos2d_extension_Manifest_class, js_cocos2d_extension_Manifest_finalize)
 
 
-
-
-static bool js_cocos2d_extension_Manifest_finalize(se::State& s)
-{
-    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::extension::Manifest)", s.nativeThisObject());
-    cocos2d::extension::Manifest* cobj = (cocos2d::extension::Manifest*)s.nativeThisObject();
-    if (cobj->getReferenceCount() == 1)
-        cobj->autorelease();
-    else
-        cobj->release();
-    return true;
-}
-SE_BIND_FINALIZE_FUNC(js_cocos2d_extension_Manifest_finalize)
 
 bool js_register_cocos2dx_extension_Manifest(se::Object* obj)
 {
-    auto cls = se::Class::create("Manifest", obj, nullptr, _SE(js_cocos2dx_extension_Manifest_constructor));
+    auto cls = se::Class::create("Manifest", obj, nullptr, nullptr);
 
     cls->defineFunction("getManifestRoot", _SE(js_cocos2dx_extension_Manifest_getManifestRoot));
     cls->defineFunction("setUpdating", _SE(js_cocos2dx_extension_Manifest_setUpdating));
@@ -600,7 +546,6 @@ bool js_register_cocos2dx_extension_Manifest(se::Object* obj)
     cls->defineFunction("parseJSONString", _SE(js_cocos2dx_extension_Manifest_parseJSONString));
     cls->defineFunction("getVersionFileUrl", _SE(js_cocos2dx_extension_Manifest_getVersionFileUrl));
     cls->defineFunction("getSearchPaths", _SE(js_cocos2dx_extension_Manifest_getSearchPaths));
-    cls->defineFinalizeFunction(_SE(js_cocos2d_extension_Manifest_finalize));
     cls->install();
     JSBClassType::registerClass<cocos2d::extension::Manifest>(cls);
 
@@ -1597,7 +1542,7 @@ extern se::Object* __jsb_cocos2d_Layer_proto;
 
 static bool js_cocos2d_extension_Control_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::extension::Control)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::extension::Control)", s.nativeThisObject());
     cocos2d::extension::Control* cobj = (cocos2d::extension::Control*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -2508,7 +2453,7 @@ extern se::Object* __jsb_cocos2d_extension_Control_proto;
 
 static bool js_cocos2d_extension_ControlButton_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::extension::ControlButton)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::extension::ControlButton)", s.nativeThisObject());
     cocos2d::extension::ControlButton* cobj = (cocos2d::extension::ControlButton*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -2569,7 +2514,7 @@ bool js_register_cocos2dx_extension_ControlButton(se::Object* obj)
     __jsb_cocos2d_extension_ControlButton_proto = cls->getProto();
     __jsb_cocos2d_extension_ControlButton_class = cls;
 
-    se::ScriptEngine::getInstance()->evalString("(function () { cc.ControlButton.extend = cc.Class.extend; })()");
+    jsb_set_extend_property("cc", "ControlButton");
     se::ScriptEngine::getInstance()->clearException();
     return true;
 }
@@ -2805,7 +2750,7 @@ extern se::Object* __jsb_cocos2d_extension_Control_proto;
 
 static bool js_cocos2d_extension_ControlHuePicker_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::extension::ControlHuePicker)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::extension::ControlHuePicker)", s.nativeThisObject());
     cocos2d::extension::ControlHuePicker* cobj = (cocos2d::extension::ControlHuePicker*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -3032,7 +2977,7 @@ extern se::Object* __jsb_cocos2d_extension_Control_proto;
 
 static bool js_cocos2d_extension_ControlSaturationBrightnessPicker_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::extension::ControlSaturationBrightnessPicker)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::extension::ControlSaturationBrightnessPicker)", s.nativeThisObject());
     cocos2d::extension::ControlSaturationBrightnessPicker* cobj = (cocos2d::extension::ControlSaturationBrightnessPicker*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -3265,7 +3210,7 @@ extern se::Object* __jsb_cocos2d_extension_Control_proto;
 
 static bool js_cocos2d_extension_ControlColourPicker_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::extension::ControlColourPicker)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::extension::ControlColourPicker)", s.nativeThisObject());
     cocos2d::extension::ControlColourPicker* cobj = (cocos2d::extension::ControlColourPicker*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -3296,7 +3241,7 @@ bool js_register_cocos2dx_extension_ControlColourPicker(se::Object* obj)
     __jsb_cocos2d_extension_ControlColourPicker_proto = cls->getProto();
     __jsb_cocos2d_extension_ControlColourPicker_class = cls;
 
-    se::ScriptEngine::getInstance()->evalString("(function () { cc.ControlColourPicker.extend = cc.Class.extend; })()");
+    jsb_set_extend_property("cc", "ControlColourPicker");
     se::ScriptEngine::getInstance()->clearException();
     return true;
 }
@@ -3498,24 +3443,6 @@ static bool js_cocos2dx_extension_ControlPotentiometer_getValue(se::State& s)
 }
 SE_BIND_FUNC(js_cocos2dx_extension_ControlPotentiometer_getValue)
 
-static bool js_cocos2dx_extension_ControlPotentiometer_getPreviousLocation(se::State& s)
-{
-    cocos2d::extension::ControlPotentiometer* cobj = (cocos2d::extension::ControlPotentiometer*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_extension_ControlPotentiometer_getPreviousLocation : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 0) {
-        cocos2d::Vec2 result = cobj->getPreviousLocation();
-        ok &= Vec2_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_ControlPotentiometer_getPreviousLocation : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_extension_ControlPotentiometer_getPreviousLocation)
-
 static bool js_cocos2dx_extension_ControlPotentiometer_distanceBetweenPointAndPoint(se::State& s)
 {
     cocos2d::extension::ControlPotentiometer* cobj = (cocos2d::extension::ControlPotentiometer*)s.nativeThisObject();
@@ -3557,6 +3484,24 @@ static bool js_cocos2dx_extension_ControlPotentiometer_potentiometerEnded(se::St
     return false;
 }
 SE_BIND_FUNC(js_cocos2dx_extension_ControlPotentiometer_potentiometerEnded)
+
+static bool js_cocos2dx_extension_ControlPotentiometer_getPreviousLocation(se::State& s)
+{
+    cocos2d::extension::ControlPotentiometer* cobj = (cocos2d::extension::ControlPotentiometer*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_extension_ControlPotentiometer_getPreviousLocation : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 0) {
+        cocos2d::Vec2 result = cobj->getPreviousLocation();
+        ok &= Vec2_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_ControlPotentiometer_getPreviousLocation : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_extension_ControlPotentiometer_getPreviousLocation)
 
 static bool js_cocos2dx_extension_ControlPotentiometer_setProgressTimer(se::State& s)
 {
@@ -3708,7 +3653,7 @@ extern se::Object* __jsb_cocos2d_extension_Control_proto;
 
 static bool js_cocos2d_extension_ControlPotentiometer_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::extension::ControlPotentiometer)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::extension::ControlPotentiometer)", s.nativeThisObject());
     cocos2d::extension::ControlPotentiometer* cobj = (cocos2d::extension::ControlPotentiometer*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -3732,9 +3677,9 @@ bool js_register_cocos2dx_extension_ControlPotentiometer(se::Object* obj)
     cls->defineFunction("getMinimumValue", _SE(js_cocos2dx_extension_ControlPotentiometer_getMinimumValue));
     cls->defineFunction("setThumbSprite", _SE(js_cocos2dx_extension_ControlPotentiometer_setThumbSprite));
     cls->defineFunction("getValue", _SE(js_cocos2dx_extension_ControlPotentiometer_getValue));
-    cls->defineFunction("getPreviousLocation", _SE(js_cocos2dx_extension_ControlPotentiometer_getPreviousLocation));
     cls->defineFunction("distanceBetweenPointAndPoint", _SE(js_cocos2dx_extension_ControlPotentiometer_distanceBetweenPointAndPoint));
     cls->defineFunction("potentiometerEnded", _SE(js_cocos2dx_extension_ControlPotentiometer_potentiometerEnded));
+    cls->defineFunction("getPreviousLocation", _SE(js_cocos2dx_extension_ControlPotentiometer_getPreviousLocation));
     cls->defineFunction("setProgressTimer", _SE(js_cocos2dx_extension_ControlPotentiometer_setProgressTimer));
     cls->defineFunction("setMinimumValue", _SE(js_cocos2dx_extension_ControlPotentiometer_setMinimumValue));
     cls->defineFunction("getThumbSprite", _SE(js_cocos2dx_extension_ControlPotentiometer_getThumbSprite));
@@ -3749,32 +3694,13 @@ bool js_register_cocos2dx_extension_ControlPotentiometer(se::Object* obj)
     __jsb_cocos2d_extension_ControlPotentiometer_proto = cls->getProto();
     __jsb_cocos2d_extension_ControlPotentiometer_class = cls;
 
-    se::ScriptEngine::getInstance()->evalString("(function () { cc.ControlPotentiometer.extend = cc.Class.extend; })()");
+    jsb_set_extend_property("cc", "ControlPotentiometer");
     se::ScriptEngine::getInstance()->clearException();
     return true;
 }
 
 se::Object* __jsb_cocos2d_extension_ControlSlider_proto = nullptr;
 se::Class* __jsb_cocos2d_extension_ControlSlider_class = nullptr;
-
-static bool js_cocos2dx_extension_ControlSlider_setBackgroundSprite(se::State& s)
-{
-    cocos2d::extension::ControlSlider* cobj = (cocos2d::extension::ControlSlider*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_extension_ControlSlider_setBackgroundSprite : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 1) {
-        cocos2d::Sprite* arg0 = nullptr;
-        ok &= seval_to_native_ptr(args[0], &arg0);
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_ControlSlider_setBackgroundSprite : Error processing arguments");
-        cobj->setBackgroundSprite(arg0);
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_extension_ControlSlider_setBackgroundSprite)
 
 static bool js_cocos2dx_extension_ControlSlider_getMaximumAllowedValue(se::State& s)
 {
@@ -4143,6 +4069,25 @@ static bool js_cocos2dx_extension_ControlSlider_setSelectedThumbSprite(se::State
 }
 SE_BIND_FUNC(js_cocos2dx_extension_ControlSlider_setSelectedThumbSprite)
 
+static bool js_cocos2dx_extension_ControlSlider_setBackgroundSprite(se::State& s)
+{
+    cocos2d::extension::ControlSlider* cobj = (cocos2d::extension::ControlSlider*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_extension_ControlSlider_setBackgroundSprite : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        cocos2d::Sprite* arg0 = nullptr;
+        ok &= seval_to_native_ptr(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_ControlSlider_setBackgroundSprite : Error processing arguments");
+        cobj->setBackgroundSprite(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_extension_ControlSlider_setBackgroundSprite)
+
 static bool js_cocos2dx_extension_ControlSlider_setMaximumAllowedValue(se::State& s)
 {
     cocos2d::extension::ControlSlider* cobj = (cocos2d::extension::ControlSlider*)s.nativeThisObject();
@@ -4271,7 +4216,7 @@ extern se::Object* __jsb_cocos2d_extension_Control_proto;
 
 static bool js_cocos2d_extension_ControlSlider_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::extension::ControlSlider)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::extension::ControlSlider)", s.nativeThisObject());
     cocos2d::extension::ControlSlider* cobj = (cocos2d::extension::ControlSlider*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -4285,7 +4230,6 @@ bool js_register_cocos2dx_extension_ControlSlider(se::Object* obj)
 {
     auto cls = se::Class::create("ControlSlider", obj, __jsb_cocos2d_extension_Control_proto, _SE(js_cocos2dx_extension_ControlSlider_constructor));
 
-    cls->defineFunction("setBackgroundSprite", _SE(js_cocos2dx_extension_ControlSlider_setBackgroundSprite));
     cls->defineFunction("getMaximumAllowedValue", _SE(js_cocos2dx_extension_ControlSlider_getMaximumAllowedValue));
     cls->defineFunction("initWithSprites", _SE(js_cocos2dx_extension_ControlSlider_initWithSprites));
     cls->defineFunction("getMinimumAllowedValue", _SE(js_cocos2dx_extension_ControlSlider_getMinimumAllowedValue));
@@ -4304,6 +4248,7 @@ bool js_register_cocos2dx_extension_ControlSlider(se::Object* obj)
     cls->defineFunction("setMinimumAllowedValue", _SE(js_cocos2dx_extension_ControlSlider_setMinimumAllowedValue));
     cls->defineFunction("getProgressSprite", _SE(js_cocos2dx_extension_ControlSlider_getProgressSprite));
     cls->defineFunction("setSelectedThumbSprite", _SE(js_cocos2dx_extension_ControlSlider_setSelectedThumbSprite));
+    cls->defineFunction("setBackgroundSprite", _SE(js_cocos2dx_extension_ControlSlider_setBackgroundSprite));
     cls->defineFunction("setMaximumAllowedValue", _SE(js_cocos2dx_extension_ControlSlider_setMaximumAllowedValue));
     cls->defineFunction("ctor", _SE(js_cocos2dx_extension_ControlSlider_ctor));
     cls->defineStaticFunction("create", _SE(js_cocos2dx_extension_ControlSlider_create));
@@ -4314,7 +4259,7 @@ bool js_register_cocos2dx_extension_ControlSlider(se::Object* obj)
     __jsb_cocos2d_extension_ControlSlider_proto = cls->getProto();
     __jsb_cocos2d_extension_ControlSlider_class = cls;
 
-    se::ScriptEngine::getInstance()->evalString("(function () { cc.ControlSlider.extend = cc.Class.extend; })()");
+    jsb_set_extend_property("cc", "ControlSlider");
     se::ScriptEngine::getInstance()->clearException();
     return true;
 }
@@ -4742,7 +4687,7 @@ extern se::Object* __jsb_cocos2d_extension_Control_proto;
 
 static bool js_cocos2d_extension_ControlStepper_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::extension::ControlStepper)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::extension::ControlStepper)", s.nativeThisObject());
     cocos2d::extension::ControlStepper* cobj = (cocos2d::extension::ControlStepper*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -4785,7 +4730,7 @@ bool js_register_cocos2dx_extension_ControlStepper(se::Object* obj)
     __jsb_cocos2d_extension_ControlStepper_proto = cls->getProto();
     __jsb_cocos2d_extension_ControlStepper_class = cls;
 
-    se::ScriptEngine::getInstance()->evalString("(function () { cc.ControlStepper.extend = cc.Class.extend; })()");
+    jsb_set_extend_property("cc", "ControlStepper");
     se::ScriptEngine::getInstance()->clearException();
     return true;
 }
@@ -5023,7 +4968,7 @@ extern se::Object* __jsb_cocos2d_extension_Control_proto;
 
 static bool js_cocos2d_extension_ControlSwitch_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::extension::ControlSwitch)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::extension::ControlSwitch)", s.nativeThisObject());
     cocos2d::extension::ControlSwitch* cobj = (cocos2d::extension::ControlSwitch*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -5051,7 +4996,7 @@ bool js_register_cocos2dx_extension_ControlSwitch(se::Object* obj)
     __jsb_cocos2d_extension_ControlSwitch_proto = cls->getProto();
     __jsb_cocos2d_extension_ControlSwitch_class = cls;
 
-    se::ScriptEngine::getInstance()->evalString("(function () { cc.ControlSwitch.extend = cc.Class.extend; })()");
+    jsb_set_extend_property("cc", "ControlSwitch");
     se::ScriptEngine::getInstance()->clearException();
     return true;
 }
@@ -5739,7 +5684,7 @@ extern se::Object* __jsb_cocos2d_Layer_proto;
 
 static bool js_cocos2d_extension_ScrollView_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::extension::ScrollView)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::extension::ScrollView)", s.nativeThisObject());
     cocos2d::extension::ScrollView* cobj = (cocos2d::extension::ScrollView*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -5794,7 +5739,7 @@ bool js_register_cocos2dx_extension_ScrollView(se::Object* obj)
     __jsb_cocos2d_extension_ScrollView_proto = cls->getProto();
     __jsb_cocos2d_extension_ScrollView_class = cls;
 
-    se::ScriptEngine::getInstance()->evalString("(function () { cc.ScrollView.extend = cc.Class.extend; })()");
+    jsb_set_extend_property("cc", "ScrollView");
     se::ScriptEngine::getInstance()->clearException();
     return true;
 }
@@ -5897,7 +5842,7 @@ extern se::Object* __jsb_cocos2d_Node_proto;
 
 static bool js_cocos2d_extension_TableViewCell_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::extension::TableViewCell)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::extension::TableViewCell)", s.nativeThisObject());
     cocos2d::extension::TableViewCell* cobj = (cocos2d::extension::TableViewCell*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -5923,7 +5868,7 @@ bool js_register_cocos2dx_extension_TableViewCell(se::Object* obj)
     __jsb_cocos2d_extension_TableViewCell_proto = cls->getProto();
     __jsb_cocos2d_extension_TableViewCell_class = cls;
 
-    se::ScriptEngine::getInstance()->evalString("(function () { cc.TableViewCell.extend = cc.Class.extend; })()");
+    jsb_set_extend_property("cc", "TableViewCell");
     se::ScriptEngine::getInstance()->clearException();
     return true;
 }
@@ -5968,25 +5913,6 @@ static bool js_cocos2dx_extension_TableView_setVerticalFillOrder(se::State& s)
     return false;
 }
 SE_BIND_FUNC(js_cocos2dx_extension_TableView_setVerticalFillOrder)
-
-static bool js_cocos2dx_extension_TableView_scrollViewDidZoom(se::State& s)
-{
-    cocos2d::extension::TableView* cobj = (cocos2d::extension::TableView*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_extension_TableView_scrollViewDidZoom : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 1) {
-        cocos2d::extension::ScrollView* arg0 = nullptr;
-        ok &= seval_to_native_ptr(args[0], &arg0);
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_TableView_scrollViewDidZoom : Error processing arguments");
-        cobj->scrollViewDidZoom(arg0);
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_extension_TableView_scrollViewDidZoom)
 
 static bool js_cocos2dx_extension_TableView__updateContentSize(se::State& s)
 {
@@ -6097,6 +6023,25 @@ static bool js_cocos2dx_extension_TableView_reloadData(se::State& s)
 }
 SE_BIND_FUNC(js_cocos2dx_extension_TableView_reloadData)
 
+static bool js_cocos2dx_extension_TableView_scrollViewDidZoom(se::State& s)
+{
+    cocos2d::extension::TableView* cobj = (cocos2d::extension::TableView*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_extension_TableView_scrollViewDidZoom : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        cocos2d::extension::ScrollView* arg0 = nullptr;
+        ok &= seval_to_native_ptr(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_TableView_scrollViewDidZoom : Error processing arguments");
+        cobj->scrollViewDidZoom(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_extension_TableView_scrollViewDidZoom)
+
 static bool js_cocos2dx_extension_TableView_insertCellAtIndex(se::State& s)
 {
     cocos2d::extension::TableView* cobj = (cocos2d::extension::TableView*)s.nativeThisObject();
@@ -6180,7 +6125,7 @@ extern se::Object* __jsb_cocos2d_extension_ScrollView_proto;
 
 static bool js_cocos2d_extension_TableView_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::extension::TableView)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::extension::TableView)", s.nativeThisObject());
     cocos2d::extension::TableView* cobj = (cocos2d::extension::TableView*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -6196,13 +6141,13 @@ bool js_register_cocos2dx_extension_TableView(se::Object* obj)
 
     cls->defineFunction("updateCellAtIndex", _SE(js_cocos2dx_extension_TableView_updateCellAtIndex));
     cls->defineFunction("setVerticalFillOrder", _SE(js_cocos2dx_extension_TableView_setVerticalFillOrder));
-    cls->defineFunction("scrollViewDidZoom", _SE(js_cocos2dx_extension_TableView_scrollViewDidZoom));
     cls->defineFunction("_updateContentSize", _SE(js_cocos2dx_extension_TableView__updateContentSize));
     cls->defineFunction("getVerticalFillOrder", _SE(js_cocos2dx_extension_TableView_getVerticalFillOrder));
     cls->defineFunction("removeCellAtIndex", _SE(js_cocos2dx_extension_TableView_removeCellAtIndex));
     cls->defineFunction("initWithViewSize", _SE(js_cocos2dx_extension_TableView_initWithViewSize));
     cls->defineFunction("scrollViewDidScroll", _SE(js_cocos2dx_extension_TableView_scrollViewDidScroll));
     cls->defineFunction("reloadData", _SE(js_cocos2dx_extension_TableView_reloadData));
+    cls->defineFunction("scrollViewDidZoom", _SE(js_cocos2dx_extension_TableView_scrollViewDidZoom));
     cls->defineFunction("insertCellAtIndex", _SE(js_cocos2dx_extension_TableView_insertCellAtIndex));
     cls->defineFunction("cellAtIndex", _SE(js_cocos2dx_extension_TableView_cellAtIndex));
     cls->defineFunction("dequeueCell", _SE(js_cocos2dx_extension_TableView_dequeueCell));
@@ -6214,7 +6159,7 @@ bool js_register_cocos2dx_extension_TableView(se::Object* obj)
     __jsb_cocos2d_extension_TableView_proto = cls->getProto();
     __jsb_cocos2d_extension_TableView_class = cls;
 
-    se::ScriptEngine::getInstance()->evalString("(function () { cc.TableView.extend = cc.Class.extend; })()");
+    jsb_set_extend_property("cc", "TableView");
     se::ScriptEngine::getInstance()->clearException();
     return true;
 }

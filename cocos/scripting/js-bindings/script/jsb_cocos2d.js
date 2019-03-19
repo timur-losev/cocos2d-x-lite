@@ -1303,7 +1303,7 @@ cc.callFunc = function (selector, target, data) {
             selector.call(this, sender, data);
         };
     }
-    if (target !== undefined) {
+    if (!target) {
         cc.CallFunc.create(callback);
     }
     else {

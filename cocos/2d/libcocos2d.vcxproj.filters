@@ -121,6 +121,15 @@
     <Filter Include="ui\UIWidgets\ScrollWidget">
       <UniqueIdentifier>{d00372fa-4d51-43fc-9e12-d2da727ddef7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="extension\GUI">
+      <UniqueIdentifier>{ffbf9033-3d85-4454-9a89-75dd8a2db8a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="extension\GUI\CCScrollView">
+      <UniqueIdentifier>{2de8a1dc-6ab8-45f4-87db-ef54d58fbe69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="extension\GUI\CCControl">
+      <UniqueIdentifier>{fbe3bbb0-eac9-4601-a403-dd22d79642bd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\external\sources\xxhash\xxhash.c">
@@ -1076,6 +1085,48 @@
     </ClCompile>
     <ClCompile Include="..\ui\UITabControl.cpp">
       <Filter>ui\Layouts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\extensions\GUI\CCScrollView\CCScrollView.cpp">
+      <Filter>extension\GUI\CCScrollView</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\extensions\GUI\CCScrollView\CCTableView.cpp">
+      <Filter>extension\GUI\CCScrollView</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\extensions\GUI\CCScrollView\CCTableViewCell.cpp">
+      <Filter>extension\GUI\CCScrollView</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\extensions\GUI\CCControlExtension\CCControl.cpp">
+      <Filter>extension\GUI\CCControl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\extensions\GUI\CCControlExtension\CCControlButton.cpp">
+      <Filter>extension\GUI\CCControl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\extensions\GUI\CCControlExtension\CCControlColourPicker.cpp">
+      <Filter>extension\GUI\CCControl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\extensions\GUI\CCControlExtension\CCControlHuePicker.cpp">
+      <Filter>extension\GUI\CCControl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\extensions\GUI\CCControlExtension\CCControlPotentiometer.cpp">
+      <Filter>extension\GUI\CCControl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\extensions\GUI\CCControlExtension\CCControlSaturationBrightnessPicker.cpp">
+      <Filter>extension\GUI\CCControl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\extensions\GUI\CCControlExtension\CCControlSlider.cpp">
+      <Filter>extension\GUI\CCControl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\extensions\GUI\CCControlExtension\CCControlStepper.cpp">
+      <Filter>extension\GUI\CCControl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\extensions\GUI\CCControlExtension\CCControlSwitch.cpp">
+      <Filter>extension\GUI\CCControl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\extensions\GUI\CCControlExtension\CCControlUtils.cpp">
+      <Filter>extension\GUI\CCControl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\extensions\GUI\CCControlExtension\CCInvocation.cpp">
+      <Filter>extension\GUI\CCControl</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2136,6 +2187,51 @@
     </ClInclude>
     <ClInclude Include="..\ui\UITabControl.h">
       <Filter>ui\Layouts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extensions\GUI\CCScrollView\CCScrollView.h">
+      <Filter>extension\GUI\CCScrollView</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extensions\GUI\CCScrollView\CCTableView.h">
+      <Filter>extension\GUI\CCScrollView</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extensions\GUI\CCScrollView\CCTableViewCell.h">
+      <Filter>extension\GUI\CCScrollView</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extensions\GUI\CCControlExtension\CCControl.h">
+      <Filter>extension\GUI\CCControl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extensions\GUI\CCControlExtension\CCControlButton.h">
+      <Filter>extension\GUI\CCControl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extensions\GUI\CCControlExtension\CCControlColourPicker.h">
+      <Filter>extension\GUI\CCControl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extensions\GUI\CCControlExtension\CCControlExtensions.h">
+      <Filter>extension\GUI\CCControl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extensions\GUI\CCControlExtension\CCControlHuePicker.h">
+      <Filter>extension\GUI\CCControl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extensions\GUI\CCControlExtension\CCControlPotentiometer.h">
+      <Filter>extension\GUI\CCControl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extensions\GUI\CCControlExtension\CCControlSaturationBrightnessPicker.h">
+      <Filter>extension\GUI\CCControl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extensions\GUI\CCControlExtension\CCControlSlider.h">
+      <Filter>extension\GUI\CCControl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extensions\GUI\CCControlExtension\CCControlStepper.h">
+      <Filter>extension\GUI\CCControl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extensions\GUI\CCControlExtension\CCControlSwitch.h">
+      <Filter>extension\GUI\CCControl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extensions\GUI\CCControlExtension\CCControlUtils.h">
+      <Filter>extension\GUI\CCControl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extensions\GUI\CCControlExtension\CCInvocation.h">
+      <Filter>extension\GUI\CCControl</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

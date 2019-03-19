@@ -276,6 +276,7 @@ namespace se {
         v8::Local<v8::Context> _getContext() const;
         void _setGarbageCollecting(bool isGarbageCollecting);
         //
+        static std::string stackTraceToString(v8::Local<v8::StackTrace> stack);
     private:
         ScriptEngine();
         ~ScriptEngine();
@@ -285,7 +286,7 @@ namespace se {
         static void onFatalErrorCallback(const char* location, const char* message);
         static void onOOMErrorCallback(const char* location, bool is_heap_oom);
         static void onMessageCallback(v8::Local<v8::Message> message, v8::Local<v8::Value> data);
-
+        
         std::chrono::steady_clock::time_point _startTime;
         std::vector<RegisterCallback> _registerCallbackArray;
         std::vector<std::function<void()>> _beforeInitHookArray;

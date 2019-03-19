@@ -18,6 +18,9 @@
     <Filter Include="manual\cocostudio">
       <UniqueIdentifier>{0b59fb05-babd-4c70-a3d3-8630235da244}</UniqueIdentifier>
     </Filter>
+    <Filter Include="manual\ext">
+      <UniqueIdentifier>{d9423db4-13de-41cc-ad84-71cdfad1f962}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\auto\jsb_cocos2dx_auto.cpp">
@@ -57,9 +60,6 @@
       <Filter>manual</Filter>
     </ClCompile>
     <ClCompile Include="..\manual\jsb_classtype.cpp">
-      <Filter>manual</Filter>
-    </ClCompile>
-    <ClCompile Include="..\manual\jsb_cocos2dx_extension_manual.cpp">
       <Filter>manual</Filter>
     </ClCompile>
     <ClCompile Include="..\manual\jsb_cocos2dx_manual.cpp">
@@ -197,6 +197,9 @@
     <ClCompile Include="..\manual\cocostudio\jsb_cocos2dx_studio_conversions.cpp">
       <Filter>manual\cocostudio</Filter>
     </ClCompile>
+    <ClCompile Include="..\manual\jsb_cocos2dx_extension_manual.cpp">
+      <Filter>manual\ext</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\auto\jsb_cocos2dx_auto.hpp">
@@ -236,9 +239,6 @@
       <Filter>manual</Filter>
     </ClInclude>
     <ClInclude Include="..\manual\jsb_classtype.hpp">
-      <Filter>manual</Filter>
-    </ClInclude>
-    <ClInclude Include="..\manual\jsb_cocos2dx_extension_manual.hpp">
       <Filter>manual</Filter>
     </ClInclude>
     <ClInclude Include="..\manual\jsb_cocos2dx_manual.hpp">
@@ -402,6 +402,9 @@
     </ClInclude>
     <ClInclude Include="..\manual\cocostudio\jsb_cocos2dx_studio_conversions.h">
       <Filter>manual\cocostudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\manual\jsb_cocos2dx_extension_manual.hpp">
+      <Filter>manual\ext</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

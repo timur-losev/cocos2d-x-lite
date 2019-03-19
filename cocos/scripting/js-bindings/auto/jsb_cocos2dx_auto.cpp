@@ -12563,6 +12563,11 @@ SE_DECLARE_FINALIZE_FUNC(js_cocos2d_Sequence_finalize)
 
 static bool js_cocos2dx_Sequence_constructor(se::State& s)
 {
+
+    auto st = v8::StackTrace::CurrentStackTrace(v8::Isolate::GetCurrent(), 1000);
+
+    std::string bt = se::ScriptEngine::stackTraceToString(st);
+
     cocos2d::Sequence* cobj = new (std::nothrow) cocos2d::Sequence();
     s.thisObject()->setPrivateData(cobj);
     return true;
