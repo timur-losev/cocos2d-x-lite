@@ -89,6 +89,13 @@ public:
      @brief Get application version.
      */
     virtual std::string getVersion() override;
+
+    /**
+   @brief Get application store identifier.
+   * @js NA
+   * @lua NA
+   */
+    virtual std::string getPackageIdentifier() override;
     
     /**
      @brief Open url in default browser

@@ -33233,23 +33233,6 @@ static bool js_cocos2dx_Device_setAccelerometerInterval(se::State& s)
 }
 SE_BIND_FUNC(js_cocos2dx_Device_setAccelerometerInterval)
 
-static bool js_cocos2dx_Device_setKeepScreenOn(se::State& s)
-{
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 1) {
-        bool arg0;
-        ok &= seval_to_boolean(args[0], &arg0);
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_Device_setKeepScreenOn : Error processing arguments");
-        cocos2d::Device::setKeepScreenOn(arg0);
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_Device_setKeepScreenOn)
-
 static bool js_cocos2dx_Device_vibrate(se::State& s)
 {
     const auto& args = s.args();
@@ -33267,6 +33250,23 @@ static bool js_cocos2dx_Device_vibrate(se::State& s)
 }
 SE_BIND_FUNC(js_cocos2dx_Device_vibrate)
 
+static bool js_cocos2dx_Device_setKeepScreenOn(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        bool arg0;
+        ok &= seval_to_boolean(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_Device_setKeepScreenOn : Error processing arguments");
+        cocos2d::Device::setKeepScreenOn(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_Device_setKeepScreenOn)
+
 static bool js_cocos2dx_Device_getDPI(se::State& s)
 {
     const auto& args = s.args();
@@ -33283,6 +33283,38 @@ static bool js_cocos2dx_Device_getDPI(se::State& s)
 }
 SE_BIND_FUNC(js_cocos2dx_Device_getDPI)
 
+static bool js_cocos2dx_Device_getIdentifier(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 0) {
+        std::string result = cocos2d::Device::getIdentifier();
+        ok &= std_string_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_Device_getIdentifier : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_Device_getIdentifier)
+
+static bool js_cocos2dx_Device_getOSVersion(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 0) {
+        std::string result = cocos2d::Device::getOSVersion();
+        ok &= std_string_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_Device_getOSVersion : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_Device_getOSVersion)
+
 
 
 
@@ -33292,9 +33324,11 @@ bool js_register_cocos2dx_Device(se::Object* obj)
 
     cls->defineStaticFunction("setAccelerometerEnabled", _SE(js_cocos2dx_Device_setAccelerometerEnabled));
     cls->defineStaticFunction("setAccelerometerInterval", _SE(js_cocos2dx_Device_setAccelerometerInterval));
-    cls->defineStaticFunction("setKeepScreenOn", _SE(js_cocos2dx_Device_setKeepScreenOn));
     cls->defineStaticFunction("vibrate", _SE(js_cocos2dx_Device_vibrate));
+    cls->defineStaticFunction("setKeepScreenOn", _SE(js_cocos2dx_Device_setKeepScreenOn));
     cls->defineStaticFunction("getDPI", _SE(js_cocos2dx_Device_getDPI));
+    cls->defineStaticFunction("getIdentifier", _SE(js_cocos2dx_Device_getIdentifier));
+    cls->defineStaticFunction("getOSVersion", _SE(js_cocos2dx_Device_getOSVersion));
     cls->install();
     JSBClassType::registerClass<cocos2d::Device>(cls);
 
@@ -33386,6 +33420,42 @@ static bool js_cocos2dx_Application_getCurrentLanguage(se::State& s)
 }
 SE_BIND_FUNC(js_cocos2dx_Application_getCurrentLanguage)
 
+static bool js_cocos2dx_Application_getPackageIdentifier(se::State& s)
+{
+    cocos2d::Application* cobj = (cocos2d::Application*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_Application_getPackageIdentifier : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 0) {
+        std::string result = cobj->getPackageIdentifier();
+        ok &= std_string_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_Application_getPackageIdentifier : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_Application_getPackageIdentifier)
+
+static bool js_cocos2dx_Application_getVersion(se::State& s)
+{
+    cocos2d::Application* cobj = (cocos2d::Application*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_Application_getVersion : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 0) {
+        std::string result = cobj->getVersion();
+        ok &= std_string_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_Application_getVersion : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_Application_getVersion)
+
 static bool js_cocos2dx_Application_openURL(se::State& s)
 {
     cocos2d::Application* cobj = (cocos2d::Application*)s.nativeThisObject();
@@ -33406,24 +33476,6 @@ static bool js_cocos2dx_Application_openURL(se::State& s)
     return false;
 }
 SE_BIND_FUNC(js_cocos2dx_Application_openURL)
-
-static bool js_cocos2dx_Application_getVersion(se::State& s)
-{
-    cocos2d::Application* cobj = (cocos2d::Application*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_Application_getVersion : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 0) {
-        std::string result = cobj->getVersion();
-        ok &= std_string_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_Application_getVersion : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_Application_getVersion)
 
 static bool js_cocos2dx_Application_destroyInstance(se::State& s)
 {
@@ -33463,8 +33515,9 @@ bool js_register_cocos2dx_Application(se::Object* obj)
 
     cls->defineFunction("getTargetPlatform", _SE(js_cocos2dx_Application_getTargetPlatform));
     cls->defineFunction("getCurrentLanguage", _SE(js_cocos2dx_Application_getCurrentLanguage));
-    cls->defineFunction("openURL", _SE(js_cocos2dx_Application_openURL));
+    cls->defineFunction("getPackageIdentifier", _SE(js_cocos2dx_Application_getPackageIdentifier));
     cls->defineFunction("getVersion", _SE(js_cocos2dx_Application_getVersion));
+    cls->defineFunction("openURL", _SE(js_cocos2dx_Application_openURL));
     cls->defineStaticFunction("destroyInstance", _SE(js_cocos2dx_Application_destroyInstance));
     cls->defineStaticFunction("getInstance", _SE(js_cocos2dx_Application_getInstance));
     cls->install();
@@ -34358,8 +34411,8 @@ static bool js_cocos2dx_TextFieldTTF_getCharCount(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        unsigned long result = cobj->getCharCount();
-        ok &= ulong_to_seval(result, &s.rval());
+        unsigned int result = cobj->getCharCount();
+        ok &= uint32_to_seval(result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_cocos2dx_TextFieldTTF_getCharCount : Error processing arguments");
         return true;
     }
@@ -34685,8 +34738,8 @@ static bool js_cocos2dx_TextFieldTTF_setCursorPosition(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 1) {
-        unsigned long arg0 = 0;
-        ok &= seval_to_ulong(args[0], &arg0);
+        unsigned int arg0 = 0;
+        ok &= seval_to_uint32(args[0], (uint32_t*)&arg0);
         SE_PRECONDITION2(ok, false, "js_cocos2dx_TextFieldTTF_setCursorPosition : Error processing arguments");
         cobj->setCursorPosition(arg0);
         return true;
@@ -35944,27 +35997,6 @@ static bool js_cocos2dx_TMXMapInfo_setTileSize(se::State& s)
 }
 SE_BIND_FUNC(js_cocos2dx_TMXMapInfo_setTileSize)
 
-static bool js_cocos2dx_TMXMapInfo_initWithTMXFile(se::State& s)
-{
-    cocos2d::TMXMapInfo* cobj = (cocos2d::TMXMapInfo*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_TMXMapInfo_initWithTMXFile : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 1) {
-        std::string arg0;
-        ok &= seval_to_std_string(args[0], &arg0);
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_TMXMapInfo_initWithTMXFile : Error processing arguments");
-        bool result = cobj->initWithTMXFile(arg0);
-        ok &= boolean_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_TMXMapInfo_initWithTMXFile : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_TMXMapInfo_initWithTMXFile)
-
 static bool js_cocos2dx_TMXMapInfo_getOrientation(se::State& s)
 {
     cocos2d::TMXMapInfo* cobj = (cocos2d::TMXMapInfo*)s.nativeThisObject();
@@ -36167,6 +36199,45 @@ static bool js_cocos2dx_TMXMapInfo_setHexSideLength(se::State& s)
 }
 SE_BIND_FUNC(js_cocos2dx_TMXMapInfo_setHexSideLength)
 
+static bool js_cocos2dx_TMXMapInfo_initWithTMXFile(se::State& s)
+{
+    cocos2d::TMXMapInfo* cobj = (cocos2d::TMXMapInfo*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_TMXMapInfo_initWithTMXFile : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        std::string arg0;
+        ok &= seval_to_std_string(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TMXMapInfo_initWithTMXFile : Error processing arguments");
+        bool result = cobj->initWithTMXFile(arg0);
+        ok &= boolean_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TMXMapInfo_initWithTMXFile : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TMXMapInfo_initWithTMXFile)
+
+static bool js_cocos2dx_TMXMapInfo_getParentGID(se::State& s)
+{
+    cocos2d::TMXMapInfo* cobj = (cocos2d::TMXMapInfo*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_TMXMapInfo_getParentGID : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 0) {
+        int result = cobj->getParentGID();
+        ok &= int32_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TMXMapInfo_getParentGID : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TMXMapInfo_getParentGID)
+
 static bool js_cocos2dx_TMXMapInfo_getTilesets(se::State& s)
 {
     CC_UNUSED bool ok = true;
@@ -36196,24 +36267,6 @@ static bool js_cocos2dx_TMXMapInfo_getTilesets(se::State& s)
     return false;
 }
 SE_BIND_FUNC(js_cocos2dx_TMXMapInfo_getTilesets)
-
-static bool js_cocos2dx_TMXMapInfo_getParentGID(se::State& s)
-{
-    cocos2d::TMXMapInfo* cobj = (cocos2d::TMXMapInfo*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_TMXMapInfo_getParentGID : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 0) {
-        int result = cobj->getParentGID();
-        ok &= int32_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_TMXMapInfo_getParentGID : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_TMXMapInfo_getParentGID)
 
 static bool js_cocos2dx_TMXMapInfo_setParentElement(se::State& s)
 {
@@ -36792,7 +36845,6 @@ bool js_register_cocos2dx_TMXMapInfo(se::Object* obj)
     cls->defineFunction("getAllChildren", _SE(js_cocos2dx_TMXMapInfo_getAllChildren));
     cls->defineFunction("getHexSideLength", _SE(js_cocos2dx_TMXMapInfo_getHexSideLength));
     cls->defineFunction("setTileSize", _SE(js_cocos2dx_TMXMapInfo_setTileSize));
-    cls->defineFunction("initWithTMXFile", _SE(js_cocos2dx_TMXMapInfo_initWithTMXFile));
     cls->defineFunction("getOrientation", _SE(js_cocos2dx_TMXMapInfo_getOrientation));
     cls->defineFunction("setObjectGroups", _SE(js_cocos2dx_TMXMapInfo_setObjectGroups));
     cls->defineFunction("setLayers", _SE(js_cocos2dx_TMXMapInfo_setLayers));
@@ -36803,8 +36855,9 @@ bool js_register_cocos2dx_TMXMapInfo(se::Object* obj)
     cls->defineFunction("getLayers", _SE(js_cocos2dx_TMXMapInfo_getLayers));
     cls->defineFunction("getStaggerAxis", _SE(js_cocos2dx_TMXMapInfo_getStaggerAxis));
     cls->defineFunction("setHexSideLength", _SE(js_cocos2dx_TMXMapInfo_setHexSideLength));
-    cls->defineFunction("getTilesets", _SE(js_cocos2dx_TMXMapInfo_getTilesets));
+    cls->defineFunction("initWithTMXFile", _SE(js_cocos2dx_TMXMapInfo_initWithTMXFile));
     cls->defineFunction("getParentGID", _SE(js_cocos2dx_TMXMapInfo_getParentGID));
+    cls->defineFunction("getTilesets", _SE(js_cocos2dx_TMXMapInfo_getTilesets));
     cls->defineFunction("setParentElement", _SE(js_cocos2dx_TMXMapInfo_setParentElement));
     cls->defineFunction("initWithXML", _SE(js_cocos2dx_TMXMapInfo_initWithXML));
     cls->defineFunction("setParentGID", _SE(js_cocos2dx_TMXMapInfo_setParentGID));

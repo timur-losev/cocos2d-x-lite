@@ -1482,16 +1482,16 @@ texturerestype
 
 /**
  * @method init
- * @param {String} arg0
- * @param {String} arg1
- * @param {String} arg2
- * @param {ccui.Widget::TextureResType} arg3
- * @return {bool}
- */
-init : function (
-str, 
-str, 
-str, 
+* @param {String} str
+* @param {String} str
+* @param {String} str
+* @param {ccui.Widget::TextureResType} texturerestype
+* @return {bool|bool}
+*/
+init : function(
+str,
+str,
+str,
 texturerestype 
 )
 {
@@ -1852,20 +1852,20 @@ isSelected : function (
 
 /**
  * @method init
- * @param {String} arg0
- * @param {String} arg1
- * @param {String} arg2
- * @param {String} arg3
- * @param {String} arg4
- * @param {ccui.Widget::TextureResType} arg5
- * @return {bool}
- */
-init : function (
-str, 
-str, 
-str, 
-str, 
-str, 
+* @param {String} str
+* @param {String} str
+* @param {String} str
+* @param {String} str
+* @param {String} str
+* @param {ccui.Widget::TextureResType} texturerestype
+* @return {bool|bool}
+*/
+init : function(
+str,
+str,
+str,
+str,
+str,
 texturerestype 
 )
 {
@@ -2441,14 +2441,14 @@ getOutlineSize : function (
 
 /**
  * @method init
- * @param {String} arg0
- * @param {String} arg1
- * @param {float} arg2
- * @return {bool}
- */
-init : function (
-str, 
-str, 
+* @param {String} str
+* @param {String} str
+* @param {float} float
+* @return {bool|bool}
+*/
+init : function(
+str,
+str,
 float 
 )
 {
@@ -4207,13 +4207,13 @@ getAttachWithIME : function (
  * @method onTextFieldDeleteBackward
  * @param {cc.TextFieldTTF} arg0
  * @param {char} arg1
- * @param {unsigned long} arg2
+ * @param {unsigned int} arg2
  * @return {bool}
  */
 onTextFieldDeleteBackward : function (
 textfieldttf, 
 char, 
-long 
+int 
 )
 {
     return false;
@@ -4259,7 +4259,7 @@ getDetachWithIME : function (
 
 /**
  * @method getCharCount
- * @return {unsigned long}
+ * @return {unsigned int}
  */
 getCharCount : function (
 )
@@ -4308,11 +4308,11 @@ isPasswordEnabled : function (
 /**
  * @method insertText
  * @param {char} arg0
- * @param {unsigned long} arg1
+ * @param {unsigned int} arg1
  */
 insertText : function (
 char, 
-long 
+int 
 )
 {
 },
@@ -4331,13 +4331,13 @@ str
  * @method onTextFieldInsertText
  * @param {cc.TextFieldTTF} arg0
  * @param {char} arg1
- * @param {unsigned long} arg2
+ * @param {unsigned int} arg2
  * @return {bool}
  */
 onTextFieldInsertText : function (
 textfieldttf, 
 char, 
-long 
+int 
 )
 {
     return false;
@@ -4713,10 +4713,10 @@ bool
 
 /**
  * @method setCursorPosition
- * @param {unsigned long} arg0
+ * @param {unsigned int} arg0
  */
 setCursorPosition : function (
-long 
+int 
 )
 {
 },
@@ -5297,19 +5297,19 @@ PageView : function (
 /**
  * @class Helper
  */
-ccui.Helper = {
+ccui.helper = {
 
 /**
  * @method getSubStringOfUTF8String
  * @param {String} arg0
- * @param {unsigned long} arg1
- * @param {unsigned long} arg2
+ * @param {unsigned int} arg1
+ * @param {unsigned int} arg2
  * @return {String}
  */
 getSubStringOfUTF8String : function (
 str, 
-long, 
-long 
+int, 
+int 
 )
 {
     return ;
@@ -7721,7 +7721,7 @@ int
 
 /**
  * @method getTabCount
- * @return {unsigned long}
+ * @return {unsigned int}
  */
 getTabCount : function (
 )

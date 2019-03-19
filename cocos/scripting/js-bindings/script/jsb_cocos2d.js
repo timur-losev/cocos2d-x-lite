@@ -27,6 +27,26 @@
 // CCConfig.js
 //
 cc.ENGINE_VERSION = "Cocos2d-x-lite v1.8.2";
+cc.FIX_ARTIFACTS_BY_STRECHING_TEXEL = 0;
+cc.DIRECTOR_STATS_POSITION = {x: 0, y: 0};
+cc.DIRECTOR_FPS_INTERVAL = 0.5;
+cc.COCOSNODE_RENDER_SUBPIXEL = 1;
+cc.SPRITEBATCHNODE_RENDER_SUBPIXEL = 1;
+cc.OPTIMIZE_BLEND_FUNC_FOR_PREMULTIPLIED_ALPHA = 0;
+cc.TEXTURE_ATLAS_USE_TRIANGLE_STRIP = 0;
+cc.TEXTURE_ATLAS_USE_VAO = 0;
+cc.TEXTURE_NPOT_SUPPORT = 0;
+cc.RETINA_DISPLAY_SUPPORT = 1;
+cc.RETINA_DISPLAY_FILENAME_SUFFIX = "-hd";
+cc.USE_LA88_LABELS = 1;
+cc.SPRITE_DEBUG_DRAW = 0;
+cc.SPRITEBATCHNODE_DEBUG_DRAW = 0;
+cc.LABELBMFONT_DEBUG_DRAW = 0;
+cc.LABELATLAS_DEBUG_DRAW = 0;
+cc.IS_RETINA_DISPLAY_SUPPORTED = 1;
+cc.DEFAULT_ENGINE = cc.ENGINE_VERSION + "-native";
+cc.ENABLE_STACKABLE_ACTIONS = 1;
+cc.ENABLE_GL_STATE_CACHE = 1;
 
 // Resolution policies
 
@@ -54,11 +74,56 @@ cc.ResolutionPolicy = {
     UNKNOWN:5
 };
 
+cc.LANGUAGE_ENGLISH    = 0;
+cc.LANGUAGE_CHINESE    = 1;
+cc.LANGUAGE_FRENCH     = 2;
+cc.LANGUAGE_ITALIAN    = 3;
+cc.LANGUAGE_GERMAN     = 4;
+cc.LANGUAGE_SPANISH    = 5;
+cc.LANGUAGE_RUSSIAN    = 6;
+cc.LANGUAGE_KOREAN     = 7;
+cc.LANGUAGE_JAPANESE   = 8;
+cc.LANGUAGE_HUNGARIAN  = 9;
+cc.LANGUAGE_PORTUGUESE = 10;
+cc.LANGUAGE_ARABIC     = 11;
 cc.Director.PROJECTION_2D = 0;
 cc.Director.PROJECTION_3D = 1;
 cc.Director.PROJECTION_CUSTOM = 3;
 cc.Director.PROJECTION_DEFAULT = cc.Director.PROJECTION_3D;
 
+cc.DEVICE_ORIENTATION_PORTRAIT = 0;
+cc.DEVICE_ORIENTATION_LANDSCAPE_LEFT = 1;
+cc.DEVICE_ORIENTATION_PORTRAIT_UPSIDE_DOWN = 2;
+cc.DEVICE_ORIENTATION_LANDSCAPE_RIGHT = 3;
+cc.DEVICE_MAX_ORIENTATIONS = 2;
+
+cc.IMAGE_FORMAT_JPEG = 0;
+cc.IMAGE_FORMAT_PNG = 1;
+cc.IMAGE_FORMAT_RAWDATA = 9;
+
+cc.TOUCH_ALL_AT_ONCE = 0;
+cc.TOUCH_ONE_BY_ONE = 1;
+
+cc.TRANSITION_ORIENTATION_LEFT_OVER = 0;
+cc.TRANSITION_ORIENTATION_RIGHT_OVER = 1;
+cc.TRANSITION_ORIENTATION_UP_OVER = 0;
+cc.TRANSITION_ORIENTATION_DOWN_OVER = 1;
+
+cc.RED = {r:255, g:0, b:0};
+cc.GREEN = {r:0, g:255, b:0};
+cc.BLUE = {r:0, g:0, b:255};
+cc.BLACK = {r:0, g:0, b:0};
+cc.WHITE = {r:255, g:255, b:255};
+cc.YELLOW = {r:255, g:255, b:0};
+
+cc.POINT_ZERO = {x:0, y:0};
+
+cc.PARTICLE_DEFAULT_CAPACITY = 500;
+
+cc.MENU_STATE_WAITING = 0;
+cc.MENU_STATE_TRACKING_TOUCH = 1;
+cc.MENU_HANDLER_PRIORITY = -128;
+cc.DEFAULT_PADDING = 5;
 cc.Scheduler.PRIORITY_SYSTEM = -2147483648;
 cc.Scheduler.PRIORITY_NON_SYSTEM = cc.Scheduler.PRIORITY_SYSTEM + 1;
 
@@ -89,6 +154,81 @@ _Class.PIXEL_FORMAT_ATC_INTERPOLATED_ALPHA = 20;
 _Class.PIXEL_FORMAT_DEFAULT = _Class.PIXEL_FORMAT_AUTO;
 _Class.defaultPixelFormat = _Class.PIXEL_FORMAT_DEFAULT;
 
+// For blend
+cc.ONE = 1;
+cc.ZERO = 0;
+cc.SRC_ALPHA = 0x0302;
+cc.SRC_ALPHA_SATURATE = 0x308;
+cc.SRC_COLOR = 0x300;
+cc.DST_ALPHA = 0x304;
+cc.DST_COLOR = 0x306;
+cc.ONE_MINUS_SRC_ALPHA = 0x0303;
+cc.ONE_MINUS_SRC_COLOR = 0x301;
+cc.ONE_MINUS_DST_ALPHA = 0x305;
+cc.ONE_MINUS_DST_COLOR = 0x0307;
+cc.ONE_MINUS_CONSTANT_ALPHA = 0x8004;
+cc.ONE_MINUS_CONSTANT_COLOR = 0x8002;
+
+//texture parameters
+cc.LINEAR   = 0x2601;
+cc.REPEAT   = 0x2901;
+cc.CLAMP_TO_EDGE    = 0x812f;
+cc.MIRRORED_REPEAT   = 0x8370;
+
+cc.VERTEX_ATTRIB_FLAG_NONE = 0;
+cc.VERTEX_ATTRIB_FLAG_POSITION = 1 << 0;
+cc.VERTEX_ATTRIB_FLAG_COLOR = 1 << 1;
+cc.VERTEX_ATTRIB_FLAG_TEX_COORDS = 1 << 2;
+cc.VERTEX_ATTRIB_FLAG_POS_COLOR_TEX = ( cc.VERTEX_ATTRIB_FLAG_POSITION | cc.VERTEX_ATTRIB_FLAG_COLOR | cc.VERTEX_ATTRIB_FLAG_TEX_COORDS );
+cc.GL_ALL = 0;
+
+cc.VERTEX_ATTRIB_POSITION = 0;
+cc.VERTEX_ATTRIB_COLOR = 1;
+cc.VERTEX_ATTRIB_TEX_COORDS = 2;
+cc.VERTEX_ATTRIB_MAX = 3;
+
+cc.UNIFORM_PMATRIX = 0;
+cc.UNIFORM_MVMATRIX = 1;
+cc.UNIFORM_MVPMATRIX = 2;
+cc.UNIFORM_TIME = 3;
+cc.UNIFORM_SINTIME = 4;
+cc.UNIFORM_COSTIME = 5;
+cc.UNIFORM_RANDOM01 = 6;
+cc.UNIFORM_SAMPLER = 7;
+cc.UNIFORM_MAX = 8;
+
+// Shaders 
+cc.UNIFORM_TIME_S = "CC_Time";
+cc.UNIFORM_COS_TIME_S   = 'CC_CosTime';
+cc.UNIFORM_COSTIME_S = "CC_CosTime";
+cc.UNIFORM_SIN_TIME_S   = 'CC_SinTime';
+cc.UNIFORM_SINTIME_S = "CC_SinTime";
+cc.UNIFORM_PMATRIX_S = "CC_PMatrix";
+cc.UNIFORM_MVMATRIX_S = "CC_MVMatrix";
+cc.UNIFORM_MVPMATRIX_S = "CC_MVPMatrix";
+cc.UNIFORM_P_MATRIX_S   = 'CC_PMatrix';
+cc.UNIFORM_MV_MATRIX_S  = 'CC_MVMatrix';
+cc.UNIFORM_MVP_MATRIX_S = 'CC_MVPMatrix';
+cc.UNIFORM_RANDOM01_S   = 'CC_Random01';
+cc.UNIFORM_SAMPLER_S    = 'CC_Texture0';
+cc.UNIFORM_ALPHA_TEST_VALUE_S = "CC_AlphaValue";
+
+cc.ITEM_SIZE = 32;
+
+cc.CURRENT_ITEM = 0xc0c05001;
+cc.ZOOM_ACTION_TAG = 0xc0c05002;
+cc.NORMAL_TAG = 8801;
+cc.SELECTED_TAG = 8802;
+cc.DISABLE_TAG = 8803;
+
+
+cc.stencilBits = -1;           //CCClippingNode.js
+
+cc.g_NumberOfDraws = 0;        //CCDirector.js
+
+cc.PRIORITY_NON_SYSTEM = cc.PRIORITY_SYSTEM + 1;          //CCScheduler.js
+
+cc.s_globalOrderOfArrival = 1;
 cc.Event.TOUCH = 0;                  //CCEvent.js
 cc.Event.KEYBOARD = 1;
 cc.Event.ACCELERATION = 2;
@@ -112,6 +252,8 @@ cc.EventMouse.BUTTON_8 = 7;
 cc.EventTouch.MAX_TOUCHES = 5;
 cc.EventTouch.EventCode = {BEGAN: 0, MOVED: 1, ENDED: 2, CANCELLED: 3};
 
+cc.SpriteBatchNode.DEFAULT_CAPACITY = 29;                  //CCSpriteBatchNode.js
+
 cc.ParticleSystem.SHAPE_MODE = 0;            //CCParticleSystem.js
 cc.ParticleSystem.TEXTURE_MODE = 1;
 cc.ParticleSystem.STAR_SHAPE = 0;
@@ -120,10 +262,344 @@ cc.ParticleSystem.DURATION_INFINITY = -1;
 cc.ParticleSystem.START_SIZE_EQUAL_TO_END_SIZE = -1;
 cc.ParticleSystem.START_RADIUS_EQUAL_TO_END_RADIUS = -1;
 
+cc.IMAGE_FORMAT_RAWDATA = 2;           //CCRenderTexture.js
 cc.TMXLayerInfo.ATTRIB_NONE = 1 << 0;            //CCTMXXMLParser.js
 cc.TMXLayerInfo.ATTRIB_BASE64 = 1 << 1;
 cc.TMXLayerInfo.ATTRIB_GZIP = 1 << 2;
 cc.TMXLayerInfo.ATTRIB_ZLIB = 1 << 3;
+
+cc.SCENE_FADE = 4208917214;             //CCTransition.js
+
+cc.SCENE_RADIAL = 0xc001;               //CCTransitionProgress.js
+
+
+//
+// CCMacro.js export
+//
+
+/**
+ * @constant
+ * @type Number
+ */
+cc.INVALID_INDEX = -1;
+
+/**
+ * PI is the ratio of a circle's circumference to its diameter.
+ * @constant
+ * @type Number
+ */
+cc.PI = Math.PI;
+
+/**
+ * @constant
+ * @type Number
+ */
+cc.FLT_MAX = parseFloat('3.402823466e+38F');
+
+/**
+ * @constant
+ * @type Number
+ */
+cc.RAD = cc.PI / 180;
+
+/**
+ * @constant
+ * @type Number
+ */
+cc.DEG = 180 / cc.PI;
+
+/**
+ * maximum unsigned int value
+ * @constant
+ * @type Number
+ */
+cc.UINT_MAX = 0xffffffff;
+
+/**
+ * <p>
+ * simple macro that swaps 2 variables<br/>
+ *  modified from c++ macro, you need to pass in the x and y variables names in string, <br/>
+ *  and then a reference to the whole object as third variable
+ * </p>
+ * @param x
+ * @param y
+ * @param ref
+ * @function
+ * @deprecated
+ */
+cc.swap = function (x, y, ref) {
+    if ((typeof ref) == 'object' && (typeof ref.x) != 'undefined' && (typeof ref.y) != 'undefined') {
+        var tmp = ref[x];
+        ref[x] = ref[y];
+        ref[y] = tmp;
+    } else
+        cc.log("cc.swap is being modified from original macro, please check usage");
+};
+
+/**
+ * <p>
+ *     Linear interpolation between 2 numbers, the ratio sets how much it is biased to each end
+ * </p>
+ * @param {Number} a number A
+ * @param {Number} b number B
+ * @param {Number} r ratio between 0 and 1
+ * @function
+ * @example
+ * cc.lerp(2,10,0.5)//returns 6<br/>
+ * cc.lerp(2,10,0.2)//returns 3.6
+ */
+cc.lerp = function (a, b, r) {
+    return a + (b - a) * r;
+};
+
+/**
+ * get a random number from 0 to 0xffffff
+ * @function
+ * @returns {number}
+ */
+cc.rand = function () {
+    return Math.random() * 0xffffff;
+};
+
+/**
+ * returns a random float between -1 and 1
+ * @return {Number}
+ * @function
+ */
+cc.randomMinus1To1 = function () {
+    return (Math.random() - 0.5) * 2;
+};
+
+/**
+ * returns a random float between 0 and 1
+ * @return {Number}
+ * @function
+ */
+cc.random0To1 = Math.random;
+
+/**
+ * converts degrees to radians
+ * @param {Number} angle
+ * @return {Number}
+ * @function
+ */
+cc.degreesToRadians = function (angle) {
+    return angle * cc.RAD;
+};
+
+/**
+ * converts radians to degrees
+ * @param {Number} angle
+ * @return {Number}
+ * @function
+ */
+cc.radiansToDegrees = function (angle) {
+    return angle * cc.DEG;
+};
+
+/**
+ * @constant
+ * @type Number
+ */
+cc.REPEAT_FOREVER = 0xffffffff;
+
+/**
+ * default gl blend src function. Compatible with premultiplied alpha images.
+ * @constant
+ * @type Number
+ */
+cc.BLEND_SRC = cc.OPTIMIZE_BLEND_FUNC_FOR_PREMULTIPLIED_ALPHA ? 1 : 0x0302;
+
+/**
+ * default gl blend dst function. Compatible with premultiplied alpha images.
+ * @constant
+ * @type Number
+ */
+cc.BLEND_DST = 0x0303;
+
+/**
+ * Helpful macro that setups the GL server state, the correct GL program and sets the Model View Projection matrix
+ * @param {cc.Node} node setup node
+ * @function
+ */
+cc.nodeDrawSetup = function (node) {
+    //cc.glEnable(node._glServerState);
+    if (node._shaderProgram) {
+        //cc._renderContext.useProgram(node._shaderProgram._programObj);
+        node._shaderProgram.use();
+        node._shaderProgram.setUniformForModelViewAndProjectionMatrixWithMat4();
+    }
+};
+
+/**
+ * <p>
+ *     GL states that are enabled:<br/>
+ *       - GL_TEXTURE_2D<br/>
+ *       - GL_VERTEX_ARRAY<br/>
+ *       - GL_TEXTURE_COORD_ARRAY<br/>
+ *       - GL_COLOR_ARRAY<br/>
+ * </p>
+ * @function
+ */
+cc.enableDefaultGLStates = function () {
+    //TODO OPENGL STUFF
+    /*
+     glEnableClientState(GL_VERTEX_ARRAY);
+     glEnableClientState(GL_COLOR_ARRAY);
+     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+     glEnable(GL_TEXTURE_2D);*/
+};
+
+/**
+ * <p>
+ *   Disable default GL states:<br/>
+ *     - GL_TEXTURE_2D<br/>
+ *     - GL_TEXTURE_COORD_ARRAY<br/>
+ *     - GL_COLOR_ARRAY<br/>
+ * </p>
+ * @function
+ */
+cc.disableDefaultGLStates = function () {
+    //TODO OPENGL
+    /*
+     glDisable(GL_TEXTURE_2D);
+     glDisableClientState(GL_COLOR_ARRAY);
+     glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+     glDisableClientState(GL_VERTEX_ARRAY);
+     */
+};
+
+/**
+ * <p>
+ *  Increments the GL Draws counts by one.<br/>
+ *  The number of calls per frame are displayed on the screen when the CCDirector's stats are enabled.<br/>
+ * </p>
+ * @param {Number} addNumber
+ * @function
+ */
+cc.incrementGLDraws = function (addNumber) {
+    cc.g_NumberOfDraws += addNumber;
+};
+
+/**
+ * @constant
+ * @type Number
+ */
+cc.FLT_EPSILON = 0.0000001192092896;
+
+/**
+ * <p>
+ *     On Mac it returns 1;<br/>
+ *     On iPhone it returns 2 if RetinaDisplay is On. Otherwise it returns 1
+ * </p>
+ * @function
+ */
+cc.contentScaleFactor = cc.IS_RETINA_DISPLAY_SUPPORTED ? function () {
+    return cc.director.getContentScaleFactor();
+} : function () {
+    return 1;
+};
+
+/**
+ * Converts a Point in points to pixels
+ * @param {cc.Point} points
+ * @return {cc.Point}
+ * @function
+ */
+cc.pointPointsToPixels = function (points) {
+    var scale = cc.contentScaleFactor();
+    return cc.p(points.x * scale, points.y * scale);
+};
+
+/**
+ * Converts a Point in pixels to points
+ * @param {Point} pixels
+ * @function
+ */
+cc.pointPixelsToPoints = function (pixels) {
+    var scale = cc.contentScaleFactor();
+    return cc.p(pixels.x / scale, pixels.y / scale);
+};
+
+cc._pointPixelsToPointsOut = function(pixels, outPoint){
+    var scale = cc.contentScaleFactor();
+    outPoint.x = pixels.x / scale;
+    outPoint.y = pixels.y / scale;
+};
+
+/**
+ * Converts a Size in points to pixels
+ * @param {cc.Size} sizeInPoints
+ * @return {cc.Size}
+ * @function
+ */
+cc.sizePointsToPixels = function (sizeInPoints) {
+    var scale = cc.contentScaleFactor();
+    return cc.size(sizeInPoints.width * scale, sizeInPoints.height * scale);
+};
+
+/**
+ * Converts a size in pixels to points
+ * @param {cc.Size} sizeInPixels
+ * @return {cc.Size}
+ * @function
+ */
+cc.sizePixelsToPoints = function (sizeInPixels) {
+    var scale = cc.contentScaleFactor();
+    return cc.size(sizeInPixels.width / scale, sizeInPixels.height / scale);
+};
+
+cc._sizePixelsToPointsOut = function (sizeInPixels, outSize) {
+    var scale = cc.contentScaleFactor();
+    outSize.width = sizeInPixels.width / scale;
+    outSize.height = sizeInPixels.height / scale;
+};
+
+/**
+ * Converts a rect in pixels to points
+ * @param {cc.Rect} pixel
+ * @function
+ */
+cc.rectPixelsToPoints = cc.IS_RETINA_DISPLAY_SUPPORTED ? function (pixel) {
+    var scale = cc.contentScaleFactor();
+    return cc.rect(pixel.x / scale, pixel.y / scale,
+        pixel.width / scale, pixel.height / scale);
+} : function (p) {
+    return p;
+};
+
+/**
+ * Converts a rect in points to pixels
+ * @param {cc.Rect} point
+ * @function
+ */
+cc.rectPointsToPixels = cc.IS_RETINA_DISPLAY_SUPPORTED ? function (point) {
+    var scale = cc.contentScaleFactor();
+    return cc.rect(point.x * scale, point.y * scale,
+        point.width * scale, point.height * scale);
+} : function (p) {
+    return p;
+};
+
+cc.checkGLErrorDebug = function () {
+    if (cc.renderMode == cc._RENDER_TYPE_WEBGL) {
+        var _error = cc._renderContext.getError();
+        if (_error) {
+            cc.log(CC._localZOrder.checkGLErrorDebug, _error);
+        }
+    }
+};
+
+
+//
+// Reusable objects
+//
+cc._reuse_p = [ {x:0, y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0} ];
+cc._reuse_p_index = 0;
+cc._reuse_size = {width:0, height:0};
+cc._reuse_rect = {x:0, y:0, width:0, height:0};
+cc._reuse_color3b = {r:255, g:255, b:255 };
+cc._reuse_color4b = {r:255, g:255, b:255, a:255 };
 
 // Temporary basic structures, will be overwrite by value-types/
 // Point
@@ -1194,6 +1670,123 @@ cc.Sprite.prototype.getTexture = function() {
         this._jsb_texture = texture;
     }
     return texture;
+}
+
+cc.Director.prototype.runScene = function(scene){
+    if (!this.getRunningScene()) {
+        this.runWithScene(scene);
+    }
+    else {
+        this.replaceScene(scene);
+    }
+};
+
+var _windowTimeIntervalId = 0;
+var _windowTimeFunHash = {};
+var WindowTimeFun = cc.Class.extend({
+    _code: null,
+    _intervalId: 0,
+    ctor: function (code) {
+        this._intervalId = _windowTimeIntervalId++;
+        this._code = code;
+    },
+    fun: function () {
+        if (!this._code) return;
+        var code = this._code;
+        if (typeof code == "string") {
+            Function(code)();
+        }
+        else if (typeof code == "function") {
+            code.apply(null, this._args);
+        }
+    }
+});
+
+/**
+ * overwrite window's setTimeout
+ @param {String|Function} code
+ @param {number} delay
+ @return {number}
+ */
+var setTimeout = function (code, delay) {
+    var target = new WindowTimeFun(code);
+    if (arguments.length > 2)
+        target._args = Array.prototype.slice.call(arguments, 2);
+    var original = target.fun;
+    target.fun = function () {
+        original.apply(this, arguments);
+        clearTimeout(target._intervalId);
+    }
+    cc.director.getScheduler().schedule(target.fun, target, delay / 1000, 0, 0, false, target._intervalId+"");
+    _windowTimeFunHash[target._intervalId] = target;
+    return target._intervalId;
+};
+
+/**
+ * overwrite window's setInterval
+ @param {String|Function} code
+ @param {number} delay
+ @return {number}
+ */
+var setInterval = function (code, delay) {
+    var target = new WindowTimeFun(code);
+    if (arguments.length > 2)
+        target._args = Array.prototype.slice.call(arguments, 2);
+    cc.director.getScheduler().schedule(target.fun, target, delay / 1000, cc.REPEAT_FOREVER, 0, false, target._intervalId+"");
+    _windowTimeFunHash[target._intervalId] = target;
+    return target._intervalId;
+};
+
+/**
+ * overwrite window's clearInterval
+ @param {number} intervalId
+ */
+var clearInterval = function (intervalId) {
+    var target = _windowTimeFunHash[intervalId];
+    if (target) {
+        cc.director.getScheduler().unschedule(target._intervalId+"", target);
+        delete _windowTimeFunHash[intervalId];
+    }
+};
+var clearTimeout = clearInterval;
+
+//
+// cc.Scheduler scheduleCallbackForTarget
+//
+_p = cc.Scheduler.prototype;
+_p.unscheduleUpdateForTarget = _p.unscheduleUpdate;
+_p.unscheduleAllCallbacksForTarget = function (target) {
+    this.unschedule(target.__instanceId + "", target);
+};
+_p._schedule = _p.schedule;
+_p.schedule = function (callback, target, interval, repeat, delay, paused, key) {
+    var isSelector = false;
+    if(typeof callback !== "function"){
+        var selector = callback;
+        isSelector = true;
+    }
+    if(isSelector === false){
+        //callback, target, interval, repeat, delay, paused, key
+        //callback, target, interval, paused, key
+        if(arguments.length === 4 || arguments.length === 5) {
+            key = delay;
+            paused = repeat;
+            delay = 0;
+            repeat = cc.REPEAT_FOREVER;
+        }
+    }else{
+        //selector, target, interval, repeat, delay, paused
+        //selector, target, interval, paused
+        if(arguments.length === 4){
+            paused = repeat;
+            repeat = cc.REPEAT_FOREVER;
+            delay = 0;
+        }
+    }
+    if (key === undefined) {
+        key = target.__instanceId + "";
+    }
+    this._schedule(callback, target, interval, repeat, delay, paused, key);
 }
 
 //

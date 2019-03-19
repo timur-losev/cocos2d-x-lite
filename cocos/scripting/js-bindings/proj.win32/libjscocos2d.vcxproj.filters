@@ -15,6 +15,9 @@
     <Filter Include="jswrapper\v8">
       <UniqueIdentifier>{9a591c3c-2315-4910-860e-a8abb363b7bd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="manual\cocostudio">
+      <UniqueIdentifier>{0b59fb05-babd-4c70-a3d3-8630235da244}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\auto\jsb_cocos2dx_auto.cpp">
@@ -187,6 +190,12 @@
     </ClCompile>
     <ClCompile Include="..\manual\jsb_opengl_registration.cpp">
       <Filter>manual</Filter>
+    </ClCompile>
+    <ClCompile Include="..\auto\jsb_cocos2dx_studio_auto.cpp">
+      <Filter>auto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\manual\cocostudio\jsb_cocos2dx_studio_conversions.cpp">
+      <Filter>manual\cocostudio</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -387,6 +396,12 @@
     </ClInclude>
     <ClInclude Include="..\manual\jsb_opengl_registration.hpp">
       <Filter>manual</Filter>
+    </ClInclude>
+    <ClInclude Include="..\auto\jsb_cocos2dx_studio_auto.hpp">
+      <Filter>auto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\manual\cocostudio\jsb_cocos2dx_studio_conversions.h">
+      <Filter>manual\cocostudio</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

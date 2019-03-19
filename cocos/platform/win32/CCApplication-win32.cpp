@@ -310,6 +310,11 @@ void Application::setStartupScriptFilename(const std::string& startupScriptFile)
     std::replace(_startupScriptFilename.begin(), _startupScriptFilename.end(), '\\', '/');
 }
 
+std::string Application::getPackageIdentifier()
+{
+    return "";
+}
+
 NS_CC_END
 
 //////////////////////////////////////////////////////////////////////////

@@ -93,6 +93,7 @@ cc.shaderCache = cc.ShaderCache.getInstance();
 // It should be invoked only once.
 cc.shaderCache.notifyAllGLProgramsCreated();
 cc.plistParser = cc.PlistParser.getInstance();
+cc.spriteFrameCache = cc.SpriteFrameCache.getInstance();
 
 // File utils (Temporary, won't be accessible)
 cc.fileUtils = cc.FileUtils.getInstance();
@@ -1764,7 +1765,7 @@ cc._initDebugSetting = function (mode) {
 
 cc.initEngine = function (config, cb) {
     require("script/jsb.js");
-    console.log("TIMUR TIMUR");
+    
     cc._renderType = cc.game.RENDER_TYPE_OPENGL;
     cc._initDebugSetting(config[cc.game.CONFIG_KEY.debugMode]);
     cc._engineLoaded = true;

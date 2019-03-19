@@ -15,7 +15,7 @@
 #define USE_AUDIO 1
 #define USE_SPINE 0
 #define USE_DRAGON_BONES 0
-#define USE_NET_WORK 0
+#define USE_NET_WORK 1
 
 
 #include "cocos/scripting/js-bindings/manual/jsb_module_register.hpp"
@@ -36,6 +36,8 @@
 #include "cocos/scripting/js-bindings/manual/jsb_xmlhttprequest.hpp"
 #include "cocos/scripting/js-bindings/manual/jsb_websocket.hpp"
 #include "cocos/scripting/js-bindings/manual/jsb_socketio.hpp"
+
+#include "cocos/scripting/js-bindings/auto/jsb_cocos2dx_studio_auto.hpp"
 
 #if USE_VIDEO
 #include "cocos/scripting/js-bindings/auto/jsb_cocos2dx_experimental_video_auto.hpp"
@@ -192,6 +194,8 @@ bool jsb_register_all_modules()
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     se->addRegisterCallback(register_javascript_java_bridge);
 #endif
+
+    se->addRegisterCallback(register_all_cocos2dx_studio);
 
     // run_boot_script has to be at last.
     se->addRegisterCallback(run_boot_script);

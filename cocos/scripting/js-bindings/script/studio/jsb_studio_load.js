@@ -21,9 +21,6 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
- 
-console.log("TIMUR 3");
-
 ccs._load = (function(){
 
     /**
@@ -207,6 +204,9 @@ ccs.load = function(file, path){
                 break;
             }
         }
+        
+        console.log("TIMURRRR")
+        console.log(file)
 
         // fallback json
         object.node = ccs._load(file, null, path);

@@ -93,6 +93,16 @@ public:
     static void vibrate(float duration);
 
     /**
+ *  Get device 'unique' identifier.
+ */
+    static std::string getIdentifier();
+
+    /**
+     *  Get device os version.
+     */
+    static std::string getOSVersion();
+
+    /**
      * Gets texture data for text.
      */
     static Data getTextureDataForText(const char * text, const FontDefinition& textDefinition, TextAlign align, int &width, int &height, bool& hasPremultipliedAlpha);

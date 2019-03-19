@@ -80,6 +80,13 @@ public:
     virtual std::string getVersion() override;
 
     /**
+    @brief Get application store identifier.
+    * @js NA
+    * @lua NA
+    */
+    virtual std::string getPackageIdentifier() override;
+
+    /**
      @brief Open url in default browser
      @param String with url to open.
      @return true if the resource located by the URL was successfully opened; otherwise false.

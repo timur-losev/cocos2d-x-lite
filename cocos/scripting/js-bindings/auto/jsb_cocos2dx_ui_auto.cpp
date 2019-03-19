@@ -75,7 +75,7 @@ SE_BIND_CTOR(js_cocos2dx_ui_LayoutParameter_constructor, __jsb_cocos2d_ui_Layout
 
 static bool js_cocos2d_ui_LayoutParameter_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::ui::LayoutParameter)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::ui::LayoutParameter)", s.nativeThisObject());
     cocos2d::ui::LayoutParameter* cobj = (cocos2d::ui::LayoutParameter*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -177,7 +177,7 @@ extern se::Object* __jsb_cocos2d_ui_LayoutParameter_proto;
 
 static bool js_cocos2d_ui_LinearLayoutParameter_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::ui::LinearLayoutParameter)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::ui::LinearLayoutParameter)", s.nativeThisObject());
     cocos2d::ui::LinearLayoutParameter* cobj = (cocos2d::ui::LinearLayoutParameter*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -353,7 +353,7 @@ extern se::Object* __jsb_cocos2d_ui_LayoutParameter_proto;
 
 static bool js_cocos2d_ui_RelativeLayoutParameter_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::ui::RelativeLayoutParameter)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::ui::RelativeLayoutParameter)", s.nativeThisObject());
     cocos2d::ui::RelativeLayoutParameter* cobj = (cocos2d::ui::RelativeLayoutParameter*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -2642,7 +2642,7 @@ extern se::Object* __jsb_cocos2d_ui_Widget_proto;
 
 static bool js_cocos2d_ui_Layout_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::ui::Layout)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::ui::Layout)", s.nativeThisObject());
     cocos2d::ui::Layout* cobj = (cocos2d::ui::Layout*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -2699,7 +2699,7 @@ bool js_register_cocos2dx_ui_Layout(se::Object* obj)
     __jsb_cocos2d_ui_Layout_proto = cls->getProto();
     __jsb_cocos2d_ui_Layout_class = cls;
 
-    se::ScriptEngine::getInstance()->evalString("(function () { ccui.Layout.extend = cc.Class.extend; })()");
+    jsb_set_extend_property("ccui", "Layout");
     se::ScriptEngine::getInstance()->clearException();
     return true;
 }
@@ -3039,60 +3039,87 @@ SE_BIND_FUNC(js_cocos2dx_ui_Button_loadTextureDisabled)
 
 static bool js_cocos2dx_ui_Button_init(se::State& s)
 {
+    CC_UNUSED bool ok = true;
     cocos2d::ui::Button* cobj = (cocos2d::ui::Button*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_ui_Button_init : Invalid Native Object");
+    SE_PRECONDITION2( cobj, false, "js_cocos2dx_ui_Button_init : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 1) {
-        std::string arg0;
-        ok &= seval_to_std_string(args[0], &arg0);
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_Button_init : Error processing arguments");
-        bool result = cobj->init(arg0);
-        ok &= boolean_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_Button_init : Error processing arguments");
-        return true;
-    }
-    if (argc == 2) {
-        std::string arg0;
-        std::string arg1;
-        ok &= seval_to_std_string(args[0], &arg0);
-        ok &= seval_to_std_string(args[1], &arg1);
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_Button_init : Error processing arguments");
-        bool result = cobj->init(arg0, arg1);
-        ok &= boolean_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_Button_init : Error processing arguments");
-        return true;
-    }
-    if (argc == 3) {
-        std::string arg0;
-        std::string arg1;
-        std::string arg2;
-        ok &= seval_to_std_string(args[0], &arg0);
-        ok &= seval_to_std_string(args[1], &arg1);
-        ok &= seval_to_std_string(args[2], &arg2);
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_Button_init : Error processing arguments");
-        bool result = cobj->init(arg0, arg1, arg2);
-        ok &= boolean_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_Button_init : Error processing arguments");
-        return true;
-    }
-    if (argc == 4) {
-        std::string arg0;
-        std::string arg1;
-        std::string arg2;
-        cocos2d::ui::Widget::TextureResType arg3;
-        ok &= seval_to_std_string(args[0], &arg0);
-        ok &= seval_to_std_string(args[1], &arg1);
-        ok &= seval_to_std_string(args[2], &arg2);
-        ok &= seval_to_int32(args[3], (int32_t*)&arg3);
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_Button_init : Error processing arguments");
-        bool result = cobj->init(arg0, arg1, arg2, arg3);
-        ok &= boolean_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_Button_init : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 4);
+    do {
+        if (argc == 1) {
+            std::string arg0;
+            ok &= seval_to_std_string(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            bool result = cobj->init(arg0);
+            ok &= boolean_to_seval(result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_Button_init : Error processing arguments");
+            return true;
+        }
+    } while(false);
+
+    do {
+        if (argc == 2) {
+            std::string arg0;
+            ok &= seval_to_std_string(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            std::string arg1;
+            ok &= seval_to_std_string(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            bool result = cobj->init(arg0, arg1);
+            ok &= boolean_to_seval(result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_Button_init : Error processing arguments");
+            return true;
+        }
+    } while(false);
+
+    do {
+        if (argc == 3) {
+            std::string arg0;
+            ok &= seval_to_std_string(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            std::string arg1;
+            ok &= seval_to_std_string(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            std::string arg2;
+            ok &= seval_to_std_string(args[2], &arg2);
+            if (!ok) { ok = true; break; }
+            bool result = cobj->init(arg0, arg1, arg2);
+            ok &= boolean_to_seval(result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_Button_init : Error processing arguments");
+            return true;
+        }
+    } while(false);
+
+    do {
+        if (argc == 4) {
+            std::string arg0;
+            ok &= seval_to_std_string(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            std::string arg1;
+            ok &= seval_to_std_string(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            std::string arg2;
+            ok &= seval_to_std_string(args[2], &arg2);
+            if (!ok) { ok = true; break; }
+            cocos2d::ui::Widget::TextureResType arg3;
+            ok &= seval_to_int32(args[3], (int32_t*)&arg3);
+            if (!ok) { ok = true; break; }
+            bool result = cobj->init(arg0, arg1, arg2, arg3);
+            ok &= boolean_to_seval(result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_Button_init : Error processing arguments");
+            return true;
+        }
+    } while(false);
+
+    do {
+        if (argc == 0) {
+            bool result = cobj->init();
+            ok &= boolean_to_seval(result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_Button_init : Error processing arguments");
+            return true;
+        }
+    } while(false);
+
+    SE_REPORT_ERROR("wrong number of arguments: %d", (int)argc);
     return false;
 }
 SE_BIND_FUNC(js_cocos2dx_ui_Button_init)
@@ -3596,7 +3623,7 @@ extern se::Object* __jsb_cocos2d_ui_Widget_proto;
 
 static bool js_cocos2d_ui_Button_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::ui::Button)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::ui::Button)", s.nativeThisObject());
     cocos2d::ui::Button* cobj = (cocos2d::ui::Button*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -3656,7 +3683,7 @@ bool js_register_cocos2dx_ui_Button(se::Object* obj)
     __jsb_cocos2d_ui_Button_proto = cls->getProto();
     __jsb_cocos2d_ui_Button_class = cls;
 
-    se::ScriptEngine::getInstance()->evalString("(function () { ccui.Button.extend = cc.Class.extend; })()");
+    jsb_set_extend_property("ccui", "Button");
     se::ScriptEngine::getInstance()->clearException();
     return true;
 }
@@ -3913,48 +3940,72 @@ SE_BIND_FUNC(js_cocos2dx_ui_AbstractCheckButton_isSelected)
 
 static bool js_cocos2dx_ui_AbstractCheckButton_init(se::State& s)
 {
+    CC_UNUSED bool ok = true;
     cocos2d::ui::AbstractCheckButton* cobj = (cocos2d::ui::AbstractCheckButton*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_ui_AbstractCheckButton_init : Invalid Native Object");
+    SE_PRECONDITION2( cobj, false, "js_cocos2dx_ui_AbstractCheckButton_init : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 5) {
-        std::string arg0;
-        std::string arg1;
-        std::string arg2;
-        std::string arg3;
-        std::string arg4;
-        ok &= seval_to_std_string(args[0], &arg0);
-        ok &= seval_to_std_string(args[1], &arg1);
-        ok &= seval_to_std_string(args[2], &arg2);
-        ok &= seval_to_std_string(args[3], &arg3);
-        ok &= seval_to_std_string(args[4], &arg4);
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_AbstractCheckButton_init : Error processing arguments");
-        bool result = cobj->init(arg0, arg1, arg2, arg3, arg4);
-        ok &= boolean_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_AbstractCheckButton_init : Error processing arguments");
-        return true;
-    }
-    if (argc == 6) {
-        std::string arg0;
-        std::string arg1;
-        std::string arg2;
-        std::string arg3;
-        std::string arg4;
-        cocos2d::ui::Widget::TextureResType arg5;
-        ok &= seval_to_std_string(args[0], &arg0);
-        ok &= seval_to_std_string(args[1], &arg1);
-        ok &= seval_to_std_string(args[2], &arg2);
-        ok &= seval_to_std_string(args[3], &arg3);
-        ok &= seval_to_std_string(args[4], &arg4);
-        ok &= seval_to_int32(args[5], (int32_t*)&arg5);
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_AbstractCheckButton_init : Error processing arguments");
-        bool result = cobj->init(arg0, arg1, arg2, arg3, arg4, arg5);
-        ok &= boolean_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_AbstractCheckButton_init : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 6);
+    do {
+        if (argc == 5) {
+            std::string arg0;
+            ok &= seval_to_std_string(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            std::string arg1;
+            ok &= seval_to_std_string(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            std::string arg2;
+            ok &= seval_to_std_string(args[2], &arg2);
+            if (!ok) { ok = true; break; }
+            std::string arg3;
+            ok &= seval_to_std_string(args[3], &arg3);
+            if (!ok) { ok = true; break; }
+            std::string arg4;
+            ok &= seval_to_std_string(args[4], &arg4);
+            if (!ok) { ok = true; break; }
+            bool result = cobj->init(arg0, arg1, arg2, arg3, arg4);
+            ok &= boolean_to_seval(result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_AbstractCheckButton_init : Error processing arguments");
+            return true;
+        }
+    } while(false);
+
+    do {
+        if (argc == 6) {
+            std::string arg0;
+            ok &= seval_to_std_string(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            std::string arg1;
+            ok &= seval_to_std_string(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            std::string arg2;
+            ok &= seval_to_std_string(args[2], &arg2);
+            if (!ok) { ok = true; break; }
+            std::string arg3;
+            ok &= seval_to_std_string(args[3], &arg3);
+            if (!ok) { ok = true; break; }
+            std::string arg4;
+            ok &= seval_to_std_string(args[4], &arg4);
+            if (!ok) { ok = true; break; }
+            cocos2d::ui::Widget::TextureResType arg5;
+            ok &= seval_to_int32(args[5], (int32_t*)&arg5);
+            if (!ok) { ok = true; break; }
+            bool result = cobj->init(arg0, arg1, arg2, arg3, arg4, arg5);
+            ok &= boolean_to_seval(result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_AbstractCheckButton_init : Error processing arguments");
+            return true;
+        }
+    } while(false);
+
+    do {
+        if (argc == 0) {
+            bool result = cobj->init();
+            ok &= boolean_to_seval(result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_AbstractCheckButton_init : Error processing arguments");
+            return true;
+        }
+    } while(false);
+
+    SE_REPORT_ERROR("wrong number of arguments: %d", (int)argc);
     return false;
 }
 SE_BIND_FUNC(js_cocos2dx_ui_AbstractCheckButton_init)
@@ -4364,7 +4415,7 @@ extern se::Object* __jsb_cocos2d_ui_AbstractCheckButton_proto;
 
 static bool js_cocos2d_ui_CheckBox_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::ui::CheckBox)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::ui::CheckBox)", s.nativeThisObject());
     cocos2d::ui::CheckBox* cobj = (cocos2d::ui::CheckBox*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -4388,7 +4439,7 @@ bool js_register_cocos2dx_ui_CheckBox(se::Object* obj)
     __jsb_cocos2d_ui_CheckBox_proto = cls->getProto();
     __jsb_cocos2d_ui_CheckBox_class = cls;
 
-    se::ScriptEngine::getInstance()->evalString("(function () { ccui.CheckBox.extend = cc.Class.extend; })()");
+    jsb_set_extend_property("ccui", "CheckBox");
     se::ScriptEngine::getInstance()->clearException();
     return true;
 }
@@ -4568,7 +4619,7 @@ extern se::Object* __jsb_cocos2d_ui_AbstractCheckButton_proto;
 
 static bool js_cocos2d_ui_RadioButton_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::ui::RadioButton)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::ui::RadioButton)", s.nativeThisObject());
     cocos2d::ui::RadioButton* cobj = (cocos2d::ui::RadioButton*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -4592,7 +4643,7 @@ bool js_register_cocos2dx_ui_RadioButton(se::Object* obj)
     __jsb_cocos2d_ui_RadioButton_proto = cls->getProto();
     __jsb_cocos2d_ui_RadioButton_class = cls;
 
-    se::ScriptEngine::getInstance()->evalString("(function () { ccui.RadioButton.extend = cc.Class.extend; })()");
+    jsb_set_extend_property("ccui", "RadioButton");
     se::ScriptEngine::getInstance()->clearException();
     return true;
 }
@@ -4904,7 +4955,7 @@ extern se::Object* __jsb_cocos2d_ui_Widget_proto;
 
 static bool js_cocos2d_ui_RadioButtonGroup_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::ui::RadioButtonGroup)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::ui::RadioButtonGroup)", s.nativeThisObject());
     cocos2d::ui::RadioButtonGroup* cobj = (cocos2d::ui::RadioButtonGroup*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -4938,7 +4989,7 @@ bool js_register_cocos2dx_ui_RadioButtonGroup(se::Object* obj)
     __jsb_cocos2d_ui_RadioButtonGroup_proto = cls->getProto();
     __jsb_cocos2d_ui_RadioButtonGroup_class = cls;
 
-    se::ScriptEngine::getInstance()->evalString("(function () { ccui.RadioButtonGroup.extend = cc.Class.extend; })()");
+    jsb_set_extend_property("ccui", "RadioButtonGroup");
     se::ScriptEngine::getInstance()->clearException();
     return true;
 }
@@ -5185,7 +5236,7 @@ extern se::Object* __jsb_cocos2d_ui_Widget_proto;
 
 static bool js_cocos2d_ui_ImageView_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::ui::ImageView)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::ui::ImageView)", s.nativeThisObject());
     cocos2d::ui::ImageView* cobj = (cocos2d::ui::ImageView*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -5216,7 +5267,7 @@ bool js_register_cocos2dx_ui_ImageView(se::Object* obj)
     __jsb_cocos2d_ui_ImageView_proto = cls->getProto();
     __jsb_cocos2d_ui_ImageView_class = cls;
 
-    se::ScriptEngine::getInstance()->evalString("(function () { ccui.ImageView.extend = cc.Class.extend; })()");
+    jsb_set_extend_property("ccui", "ImageView");
     se::ScriptEngine::getInstance()->clearException();
     return true;
 }
@@ -5482,25 +5533,39 @@ SE_BIND_FUNC(js_cocos2dx_ui_Text_getOutlineSize)
 
 static bool js_cocos2dx_ui_Text_init(se::State& s)
 {
+    CC_UNUSED bool ok = true;
     cocos2d::ui::Text* cobj = (cocos2d::ui::Text*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_ui_Text_init : Invalid Native Object");
+    SE_PRECONDITION2( cobj, false, "js_cocos2dx_ui_Text_init : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 3) {
-        std::string arg0;
-        std::string arg1;
-        float arg2 = 0;
-        ok &= seval_to_std_string(args[0], &arg0);
-        ok &= seval_to_std_string(args[1], &arg1);
-        ok &= seval_to_float(args[2], &arg2);
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_Text_init : Error processing arguments");
-        bool result = cobj->init(arg0, arg1, arg2);
-        ok &= boolean_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_Text_init : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 3);
+    do {
+        if (argc == 3) {
+            std::string arg0;
+            ok &= seval_to_std_string(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            std::string arg1;
+            ok &= seval_to_std_string(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            float arg2 = 0;
+            ok &= seval_to_float(args[2], &arg2);
+            if (!ok) { ok = true; break; }
+            bool result = cobj->init(arg0, arg1, arg2);
+            ok &= boolean_to_seval(result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_Text_init : Error processing arguments");
+            return true;
+        }
+    } while(false);
+
+    do {
+        if (argc == 0) {
+            bool result = cobj->init();
+            ok &= boolean_to_seval(result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_Text_init : Error processing arguments");
+            return true;
+        }
+    } while(false);
+
+    SE_REPORT_ERROR("wrong number of arguments: %d", (int)argc);
     return false;
 }
 SE_BIND_FUNC(js_cocos2dx_ui_Text_init)
@@ -5904,7 +5969,7 @@ extern se::Object* __jsb_cocos2d_ui_Widget_proto;
 
 static bool js_cocos2d_ui_Text_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::ui::Text)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::ui::Text)", s.nativeThisObject());
     cocos2d::ui::Text* cobj = (cocos2d::ui::Text*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -5958,7 +6023,7 @@ bool js_register_cocos2dx_ui_Text(se::Object* obj)
     __jsb_cocos2d_ui_Text_proto = cls->getProto();
     __jsb_cocos2d_ui_Text_class = cls;
 
-    se::ScriptEngine::getInstance()->evalString("(function () { ccui.Text.extend = cc.Class.extend; })()");
+    jsb_set_extend_property("ccui", "Text");
     se::ScriptEngine::getInstance()->clearException();
     return true;
 }
@@ -6147,7 +6212,7 @@ extern se::Object* __jsb_cocos2d_ui_Widget_proto;
 
 static bool js_cocos2d_ui_TextAtlas_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::ui::TextAtlas)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::ui::TextAtlas)", s.nativeThisObject());
     cocos2d::ui::TextAtlas* cobj = (cocos2d::ui::TextAtlas*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -6176,7 +6241,7 @@ bool js_register_cocos2dx_ui_TextAtlas(se::Object* obj)
     __jsb_cocos2d_ui_TextAtlas_proto = cls->getProto();
     __jsb_cocos2d_ui_TextAtlas_class = cls;
 
-    se::ScriptEngine::getInstance()->evalString("(function () { ccui.TextAtlas.extend = cc.Class.extend; })()");
+    jsb_set_extend_property("ccui", "TextAtlas");
     se::ScriptEngine::getInstance()->clearException();
     return true;
 }
@@ -6477,7 +6542,7 @@ extern se::Object* __jsb_cocos2d_ui_Widget_proto;
 
 static bool js_cocos2d_ui_LoadingBar_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::ui::LoadingBar)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::ui::LoadingBar)", s.nativeThisObject());
     cocos2d::ui::LoadingBar* cobj = (cocos2d::ui::LoadingBar*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -6510,7 +6575,7 @@ bool js_register_cocos2dx_ui_LoadingBar(se::Object* obj)
     __jsb_cocos2d_ui_LoadingBar_proto = cls->getProto();
     __jsb_cocos2d_ui_LoadingBar_class = cls;
 
-    se::ScriptEngine::getInstance()->evalString("(function () { ccui.LoadingBar.extend = cc.Class.extend; })()");
+    jsb_set_extend_property("ccui", "LoadingBar");
     se::ScriptEngine::getInstance()->clearException();
     return true;
 }
@@ -7594,7 +7659,7 @@ extern se::Object* __jsb_cocos2d_ui_Layout_proto;
 
 static bool js_cocos2d_ui_ScrollView_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::ui::ScrollView)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::ui::ScrollView)", s.nativeThisObject());
     cocos2d::ui::ScrollView* cobj = (cocos2d::ui::ScrollView*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -7671,7 +7736,7 @@ bool js_register_cocos2dx_ui_ScrollView(se::Object* obj)
     __jsb_cocos2d_ui_ScrollView_proto = cls->getProto();
     __jsb_cocos2d_ui_ScrollView_class = cls;
 
-    se::ScriptEngine::getInstance()->evalString("(function () { ccui.ScrollView.extend = cc.Class.extend; })()");
+    jsb_set_extend_property("ccui", "ScrollView");
     se::ScriptEngine::getInstance()->clearException();
     return true;
 }
@@ -8398,7 +8463,7 @@ extern se::Object* __jsb_cocos2d_ui_ScrollView_proto;
 
 static bool js_cocos2d_ui_ListView_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::ui::ListView)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::ui::ListView)", s.nativeThisObject());
     cocos2d::ui::ListView* cobj = (cocos2d::ui::ListView*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -8454,7 +8519,7 @@ bool js_register_cocos2dx_ui_ListView(se::Object* obj)
     __jsb_cocos2d_ui_ListView_proto = cls->getProto();
     __jsb_cocos2d_ui_ListView_class = cls;
 
-    se::ScriptEngine::getInstance()->evalString("(function () { ccui.ListView.extend = cc.Class.extend; })()");
+    jsb_set_extend_property("ccui", "ListView");
     se::ScriptEngine::getInstance()->clearException();
     return true;
 }
@@ -9108,7 +9173,7 @@ extern se::Object* __jsb_cocos2d_ui_Widget_proto;
 
 static bool js_cocos2d_ui_Slider_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::ui::Slider)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::ui::Slider)", s.nativeThisObject());
     cocos2d::ui::Slider* cobj = (cocos2d::ui::Slider*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -9156,7 +9221,7 @@ bool js_register_cocos2dx_ui_Slider(se::Object* obj)
     __jsb_cocos2d_ui_Slider_proto = cls->getProto();
     __jsb_cocos2d_ui_Slider_class = cls;
 
-    se::ScriptEngine::getInstance()->evalString("(function () { ccui.Slider.extend = cc.Class.extend; })()");
+    jsb_set_extend_property("ccui", "Slider");
     se::ScriptEngine::getInstance()->clearException();
     return true;
 }
@@ -9269,10 +9334,10 @@ static bool js_cocos2dx_ui_UICCTextField_onTextFieldDeleteBackward(se::State& s)
     if (argc == 3) {
         cocos2d::TextFieldTTF* arg0 = nullptr;
         const char* arg1 = nullptr;
-        unsigned long arg2 = 0;
+        unsigned int arg2 = 0;
         ok &= seval_to_native_ptr(args[0], &arg0);
         std::string arg1_tmp; ok &= seval_to_std_string(args[1], &arg1_tmp); arg1 = arg1_tmp.c_str();
-        ok &= seval_to_ulong(args[2], &arg2);
+        ok &= seval_to_uint32(args[2], (uint32_t*)&arg2);
         SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_UICCTextField_onTextFieldDeleteBackward : Error processing arguments");
         bool result = cobj->onTextFieldDeleteBackward(arg0, arg1, arg2);
         ok &= boolean_to_seval(result, &s.rval());
@@ -9362,8 +9427,8 @@ static bool js_cocos2dx_ui_UICCTextField_getCharCount(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        unsigned long result = cobj->getCharCount();
-        ok &= ulong_to_seval(result, &s.rval());
+        unsigned int result = cobj->getCharCount();
+        ok &= uint32_to_seval(result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_UICCTextField_getCharCount : Error processing arguments");
         return true;
     }
@@ -9452,9 +9517,9 @@ static bool js_cocos2dx_ui_UICCTextField_insertText(se::State& s)
     CC_UNUSED bool ok = true;
     if (argc == 2) {
         const char* arg0 = nullptr;
-        unsigned long arg1 = 0;
+        unsigned int arg1 = 0;
         std::string arg0_tmp; ok &= seval_to_std_string(args[0], &arg0_tmp); arg0 = arg0_tmp.c_str();
-        ok &= seval_to_ulong(args[1], &arg1);
+        ok &= seval_to_uint32(args[1], (uint32_t*)&arg1);
         SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_UICCTextField_insertText : Error processing arguments");
         cobj->insertText(arg0, arg1);
         return true;
@@ -9493,10 +9558,10 @@ static bool js_cocos2dx_ui_UICCTextField_onTextFieldInsertText(se::State& s)
     if (argc == 3) {
         cocos2d::TextFieldTTF* arg0 = nullptr;
         const char* arg1 = nullptr;
-        unsigned long arg2 = 0;
+        unsigned int arg2 = 0;
         ok &= seval_to_native_ptr(args[0], &arg0);
         std::string arg1_tmp; ok &= seval_to_std_string(args[1], &arg1_tmp); arg1 = arg1_tmp.c_str();
-        ok &= seval_to_ulong(args[2], &arg2);
+        ok &= seval_to_uint32(args[2], (uint32_t*)&arg2);
         SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_UICCTextField_onTextFieldInsertText : Error processing arguments");
         bool result = cobj->onTextFieldInsertText(arg0, arg1, arg2);
         ok &= boolean_to_seval(result, &s.rval());
@@ -9678,7 +9743,7 @@ extern se::Object* __jsb_cocos2d_TextFieldTTF_proto;
 
 static bool js_cocos2d_ui_UICCTextField_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::ui::UICCTextField)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::ui::UICCTextField)", s.nativeThisObject());
     cocos2d::ui::UICCTextField* cobj = (cocos2d::ui::UICCTextField*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -10261,8 +10326,8 @@ static bool js_cocos2dx_ui_TextField_setCursorPosition(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 1) {
-        unsigned long arg0 = 0;
-        ok &= seval_to_ulong(args[0], &arg0);
+        unsigned int arg0 = 0;
+        ok &= seval_to_uint32(args[0], (uint32_t*)&arg0);
         SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_TextField_setCursorPosition : Error processing arguments");
         cobj->setCursorPosition(arg0);
         return true;
@@ -10663,7 +10728,7 @@ extern se::Object* __jsb_cocos2d_ui_Widget_proto;
 
 static bool js_cocos2d_ui_TextField_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::ui::TextField)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::ui::TextField)", s.nativeThisObject());
     cocos2d::ui::TextField* cobj = (cocos2d::ui::TextField*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -10731,7 +10796,7 @@ bool js_register_cocos2dx_ui_TextField(se::Object* obj)
     __jsb_cocos2d_ui_TextField_proto = cls->getProto();
     __jsb_cocos2d_ui_TextField_class = cls;
 
-    se::ScriptEngine::getInstance()->evalString("(function () { ccui.TextField.extend = cc.Class.extend; })()");
+    jsb_set_extend_property("ccui", "TextField");
     se::ScriptEngine::getInstance()->clearException();
     return true;
 }
@@ -10903,7 +10968,7 @@ extern se::Object* __jsb_cocos2d_ui_Widget_proto;
 
 static bool js_cocos2d_ui_TextBMFont_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::ui::TextBMFont)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::ui::TextBMFont)", s.nativeThisObject());
     cocos2d::ui::TextBMFont* cobj = (cocos2d::ui::TextBMFont*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -10932,7 +10997,7 @@ bool js_register_cocos2dx_ui_TextBMFont(se::Object* obj)
     __jsb_cocos2d_ui_TextBMFont_proto = cls->getProto();
     __jsb_cocos2d_ui_TextBMFont_class = cls;
 
-    se::ScriptEngine::getInstance()->evalString("(function () { ccui.TextBMFont.extend = cc.Class.extend; })()");
+    jsb_set_extend_property("ccui", "TextBMFont");
     se::ScriptEngine::getInstance()->clearException();
     return true;
 }
@@ -11506,7 +11571,7 @@ extern se::Object* __jsb_cocos2d_ui_ListView_proto;
 
 static bool js_cocos2d_ui_PageView_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::ui::PageView)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::ui::PageView)", s.nativeThisObject());
     cocos2d::ui::PageView* cobj = (cocos2d::ui::PageView*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -11555,7 +11620,7 @@ bool js_register_cocos2dx_ui_PageView(se::Object* obj)
     __jsb_cocos2d_ui_PageView_proto = cls->getProto();
     __jsb_cocos2d_ui_PageView_class = cls;
 
-    se::ScriptEngine::getInstance()->evalString("(function () { ccui.PageView.extend = cc.Class.extend; })()");
+    jsb_set_extend_property("ccui", "PageView");
     se::ScriptEngine::getInstance()->clearException();
     return true;
 }
@@ -11570,11 +11635,11 @@ static bool js_cocos2dx_ui_Helper_getSubStringOfUTF8String(se::State& s)
     CC_UNUSED bool ok = true;
     if (argc == 3) {
         std::string arg0;
-        unsigned long arg1 = 0;
-        unsigned long arg2 = 0;
+        unsigned int arg1 = 0;
+        unsigned int arg2 = 0;
         ok &= seval_to_std_string(args[0], &arg0);
-        ok &= seval_to_ulong(args[1], &arg1);
-        ok &= seval_to_ulong(args[2], &arg2);
+        ok &= seval_to_uint32(args[1], (uint32_t*)&arg1);
+        ok &= seval_to_uint32(args[2], (uint32_t*)&arg2);
         SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_Helper_getSubStringOfUTF8String : Error processing arguments");
         std::string result = cocos2d::ui::Helper::getSubStringOfUTF8String(arg0, arg1, arg2);
         ok &= std_string_to_seval(result, &s.rval());
@@ -11728,7 +11793,7 @@ SE_BIND_FUNC(js_cocos2dx_ui_Helper_doLayout)
 
 bool js_register_cocos2dx_ui_Helper(se::Object* obj)
 {
-    auto cls = se::Class::create("Helper", obj, nullptr, nullptr);
+    auto cls = se::Class::create("helper", obj, nullptr, nullptr);
 
     cls->defineStaticFunction("getSubStringOfUTF8String", _SE(js_cocos2dx_ui_Helper_getSubStringOfUTF8String));
     cls->defineStaticFunction("convertBoundingBoxToScreen", _SE(js_cocos2dx_ui_Helper_convertBoundingBoxToScreen));
@@ -11840,7 +11905,7 @@ SE_BIND_SUB_CLS_CTOR(js_cocos2dx_ui_RichElement_ctor, __jsb_cocos2d_ui_RichEleme
 
 static bool js_cocos2d_ui_RichElement_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::ui::RichElement)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::ui::RichElement)", s.nativeThisObject());
     cocos2d::ui::RichElement* cobj = (cocos2d::ui::RichElement*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -11865,7 +11930,7 @@ bool js_register_cocos2dx_ui_RichElement(se::Object* obj)
     __jsb_cocos2d_ui_RichElement_proto = cls->getProto();
     __jsb_cocos2d_ui_RichElement_class = cls;
 
-    se::ScriptEngine::getInstance()->evalString("(function () { ccui.RichElement.extend = cc.Class.extend; })()");
+    jsb_set_extend_property("ccui", "RichElement");
     se::ScriptEngine::getInstance()->clearException();
     return true;
 }
@@ -12384,7 +12449,7 @@ extern se::Object* __jsb_cocos2d_ui_RichElement_proto;
 
 static bool js_cocos2d_ui_RichElementText_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::ui::RichElementText)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::ui::RichElementText)", s.nativeThisObject());
     cocos2d::ui::RichElementText* cobj = (cocos2d::ui::RichElementText*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -12408,7 +12473,7 @@ bool js_register_cocos2dx_ui_RichElementText(se::Object* obj)
     __jsb_cocos2d_ui_RichElementText_proto = cls->getProto();
     __jsb_cocos2d_ui_RichElementText_class = cls;
 
-    se::ScriptEngine::getInstance()->evalString("(function () { ccui.RichElementText.extend = cc.Class.extend; })()");
+    jsb_set_extend_property("ccui", "RichElementText");
     se::ScriptEngine::getInstance()->clearException();
     return true;
 }
@@ -12588,7 +12653,7 @@ extern se::Object* __jsb_cocos2d_ui_RichElement_proto;
 
 static bool js_cocos2d_ui_RichElementImage_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::ui::RichElementImage)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::ui::RichElementImage)", s.nativeThisObject());
     cocos2d::ui::RichElementImage* cobj = (cocos2d::ui::RichElementImage*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -12615,7 +12680,7 @@ bool js_register_cocos2dx_ui_RichElementImage(se::Object* obj)
     __jsb_cocos2d_ui_RichElementImage_proto = cls->getProto();
     __jsb_cocos2d_ui_RichElementImage_class = cls;
 
-    se::ScriptEngine::getInstance()->evalString("(function () { ccui.RichElementImage.extend = cc.Class.extend; })()");
+    jsb_set_extend_property("ccui", "RichElementImage");
     se::ScriptEngine::getInstance()->clearException();
     return true;
 }
@@ -12702,7 +12767,7 @@ extern se::Object* __jsb_cocos2d_ui_RichElement_proto;
 
 static bool js_cocos2d_ui_RichElementCustomNode_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::ui::RichElementCustomNode)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::ui::RichElementCustomNode)", s.nativeThisObject());
     cocos2d::ui::RichElementCustomNode* cobj = (cocos2d::ui::RichElementCustomNode*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -12726,7 +12791,7 @@ bool js_register_cocos2dx_ui_RichElementCustomNode(se::Object* obj)
     __jsb_cocos2d_ui_RichElementCustomNode_proto = cls->getProto();
     __jsb_cocos2d_ui_RichElementCustomNode_class = cls;
 
-    se::ScriptEngine::getInstance()->evalString("(function () { ccui.RichElementCustomNode.extend = cc.Class.extend; })()");
+    jsb_set_extend_property("ccui", "RichElementCustomNode");
     se::ScriptEngine::getInstance()->clearException();
     return true;
 }
@@ -12784,7 +12849,7 @@ extern se::Object* __jsb_cocos2d_ui_RichElement_proto;
 
 static bool js_cocos2d_ui_RichElementNewLine_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::ui::RichElementNewLine)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::ui::RichElementNewLine)", s.nativeThisObject());
     cocos2d::ui::RichElementNewLine* cobj = (cocos2d::ui::RichElementNewLine*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -12807,7 +12872,7 @@ bool js_register_cocos2dx_ui_RichElementNewLine(se::Object* obj)
     __jsb_cocos2d_ui_RichElementNewLine_proto = cls->getProto();
     __jsb_cocos2d_ui_RichElementNewLine_class = cls;
 
-    se::ScriptEngine::getInstance()->evalString("(function () { ccui.RichElementNewLine.extend = cc.Class.extend; })()");
+    jsb_set_extend_property("ccui", "RichElementNewLine");
     se::ScriptEngine::getInstance()->clearException();
     return true;
 }
@@ -13865,7 +13930,7 @@ extern se::Object* __jsb_cocos2d_ui_Widget_proto;
 
 static bool js_cocos2d_ui_RichText_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::ui::RichText)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::ui::RichText)", s.nativeThisObject());
     cocos2d::ui::RichText* cobj = (cocos2d::ui::RichText*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -13933,7 +13998,7 @@ bool js_register_cocos2dx_ui_RichText(se::Object* obj)
     __jsb_cocos2d_ui_RichText_proto = cls->getProto();
     __jsb_cocos2d_ui_RichText_class = cls;
 
-    se::ScriptEngine::getInstance()->evalString("(function () { ccui.RichText.extend = cc.Class.extend; })()");
+    jsb_set_extend_property("ccui", "RichText");
     se::ScriptEngine::getInstance()->clearException();
     return true;
 }
@@ -14016,7 +14081,7 @@ extern se::Object* __jsb_cocos2d_ui_Layout_proto;
 
 static bool js_cocos2d_ui_HBox_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::ui::HBox)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::ui::HBox)", s.nativeThisObject());
     cocos2d::ui::HBox* cobj = (cocos2d::ui::HBox*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -14040,7 +14105,7 @@ bool js_register_cocos2dx_ui_HBox(se::Object* obj)
     __jsb_cocos2d_ui_HBox_proto = cls->getProto();
     __jsb_cocos2d_ui_HBox_class = cls;
 
-    se::ScriptEngine::getInstance()->evalString("(function () { ccui.HBox.extend = cc.Class.extend; })()");
+    jsb_set_extend_property("ccui", "HBox");
     se::ScriptEngine::getInstance()->clearException();
     return true;
 }
@@ -14123,7 +14188,7 @@ extern se::Object* __jsb_cocos2d_ui_Layout_proto;
 
 static bool js_cocos2d_ui_VBox_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::ui::VBox)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::ui::VBox)", s.nativeThisObject());
     cocos2d::ui::VBox* cobj = (cocos2d::ui::VBox*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -14147,7 +14212,7 @@ bool js_register_cocos2dx_ui_VBox(se::Object* obj)
     __jsb_cocos2d_ui_VBox_proto = cls->getProto();
     __jsb_cocos2d_ui_VBox_class = cls;
 
-    se::ScriptEngine::getInstance()->evalString("(function () { ccui.VBox.extend = cc.Class.extend; })()");
+    jsb_set_extend_property("ccui", "VBox");
     se::ScriptEngine::getInstance()->clearException();
     return true;
 }
@@ -14230,7 +14295,7 @@ extern se::Object* __jsb_cocos2d_ui_Layout_proto;
 
 static bool js_cocos2d_ui_RelativeBox_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::ui::RelativeBox)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::ui::RelativeBox)", s.nativeThisObject());
     cocos2d::ui::RelativeBox* cobj = (cocos2d::ui::RelativeBox*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -14254,7 +14319,7 @@ bool js_register_cocos2dx_ui_RelativeBox(se::Object* obj)
     __jsb_cocos2d_ui_RelativeBox_proto = cls->getProto();
     __jsb_cocos2d_ui_RelativeBox_class = cls;
 
-    se::ScriptEngine::getInstance()->evalString("(function () { ccui.RelativeBox.extend = cc.Class.extend; })()");
+    jsb_set_extend_property("ccui", "RelativeBox");
     se::ScriptEngine::getInstance()->clearException();
     return true;
 }
@@ -16928,7 +16993,7 @@ extern se::Object* __jsb_cocos2d_Component_proto;
 
 static bool js_cocos2d_ui_LayoutComponent_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::ui::LayoutComponent)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::ui::LayoutComponent)", s.nativeThisObject());
     cocos2d::ui::LayoutComponent* cobj = (cocos2d::ui::LayoutComponent*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -17001,7 +17066,7 @@ bool js_register_cocos2dx_ui_LayoutComponent(se::Object* obj)
     __jsb_cocos2d_ui_LayoutComponent_proto = cls->getProto();
     __jsb_cocos2d_ui_LayoutComponent_class = cls;
 
-    se::ScriptEngine::getInstance()->evalString("(function () { ccui.LayoutComponent.extend = cc.Class.extend; })()");
+    jsb_set_extend_property("ccui", "LayoutComponent");
     se::ScriptEngine::getInstance()->clearException();
     return true;
 }
@@ -17308,7 +17373,7 @@ extern se::Object* __jsb_cocos2d_ui_AbstractCheckButton_proto;
 
 static bool js_cocos2d_ui_TabHeader_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::ui::TabHeader)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::ui::TabHeader)", s.nativeThisObject());
     cocos2d::ui::TabHeader* cobj = (cocos2d::ui::TabHeader*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -17340,7 +17405,7 @@ bool js_register_cocos2dx_ui_TabHeader(se::Object* obj)
     __jsb_cocos2d_ui_TabHeader_proto = cls->getProto();
     __jsb_cocos2d_ui_TabHeader_class = cls;
 
-    se::ScriptEngine::getInstance()->evalString("(function () { ccui.TabHeader.extend = cc.Class.extend; })()");
+    jsb_set_extend_property("ccui", "TabHeader");
     se::ScriptEngine::getInstance()->clearException();
     return true;
 }
@@ -17394,8 +17459,8 @@ static bool js_cocos2dx_ui_TabControl_getTabCount(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        unsigned long result = cobj->getTabCount();
-        ok &= ulong_to_seval(result, &s.rval());
+        unsigned int result = cobj->getTabCount();
+        ok &= uint32_to_seval(result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_TabControl_getTabCount : Error processing arguments");
         return true;
     }
@@ -17778,7 +17843,7 @@ extern se::Object* __jsb_cocos2d_ui_Widget_proto;
 
 static bool js_cocos2d_ui_TabControl_finalize(se::State& s)
 {
-    CCLOG("jsbindings: finalizing JS object %p (cocos2d::ui::TabControl)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::ui::TabControl)", s.nativeThisObject());
     cocos2d::ui::TabControl* cobj = (cocos2d::ui::TabControl*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -17819,7 +17884,7 @@ bool js_register_cocos2dx_ui_TabControl(se::Object* obj)
     __jsb_cocos2d_ui_TabControl_proto = cls->getProto();
     __jsb_cocos2d_ui_TabControl_class = cls;
 
-    se::ScriptEngine::getInstance()->evalString("(function () { ccui.TabControl.extend = cc.Class.extend; })()");
+    jsb_set_extend_property("ccui", "TabControl");
     se::ScriptEngine::getInstance()->clearException();
     return true;
 }

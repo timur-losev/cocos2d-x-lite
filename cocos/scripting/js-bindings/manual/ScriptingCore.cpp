@@ -178,11 +178,11 @@ int ScriptingCore::sendEvent(cocos2d::ScriptEvent* evt)
 //            return handleTouchesEvent(data->nativeObject, data->actionType, data->touches, data->event);
 //        }
 //            break;
-//        case kComponentEvent:
-//        {
-//            return handleComponentEvent(evt->data);
-//        }
-//            break;
+        case kComponentEvent:
+        {
+            //return handleComponentEvent(evt->data);
+        }
+            break;
         default:
             CCASSERT(false, "Invalid script event.");
             break;

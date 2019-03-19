@@ -14520,21 +14520,21 @@ float
 },
 
 /**
- * @method setKeepScreenOn
- * @param {bool} arg0
- */
-setKeepScreenOn : function (
-bool 
-)
-{
-},
-
-/**
  * @method vibrate
  * @param {float} arg0
  */
 vibrate : function (
 float 
+)
+{
+},
+
+/**
+ * @method setKeepScreenOn
+ * @param {bool} arg0
+ */
+setKeepScreenOn : function (
+bool 
 )
 {
 },
@@ -14547,6 +14547,26 @@ getDPI : function (
 )
 {
     return 0;
+},
+
+/**
+ * @method getIdentifier
+ * @return {String}
+ */
+getIdentifier : function (
+)
+{
+    return ;
+},
+
+/**
+ * @method getOSVersion
+ * @return {String}
+ */
+getOSVersion : function (
+)
+{
+    return ;
 },
 
 };
@@ -14596,15 +14616,13 @@ getCurrentLanguage : function (
 },
 
 /**
- * @method openURL
- * @param {String} arg0
- * @return {bool}
+ * @method getPackageIdentifier
+ * @return {String}
  */
-openURL : function (
-str 
+getPackageIdentifier : function (
 )
 {
-    return false;
+    return ;
 },
 
 /**
@@ -14615,6 +14633,18 @@ getVersion : function (
 )
 {
     return ;
+},
+
+/**
+ * @method openURL
+ * @param {String} arg0
+ * @return {bool}
+ */
+openURL : function (
+str 
+)
+{
+    return false;
 },
 
 /**
@@ -15059,7 +15089,7 @@ cc.TextFieldTTF = {
 
 /**
  * @method getCharCount
- * @return {unsigned long}
+ * @return {unsigned int}
  */
 getCharCount : function (
 )
@@ -15219,10 +15249,10 @@ getPlaceHolder : function (
 
 /**
  * @method setCursorPosition
- * @param {unsigned long} arg0
+ * @param {unsigned int} arg0
  */
 setCursorPosition : function (
-long 
+int 
 )
 {
 },
@@ -15768,18 +15798,6 @@ size
 },
 
 /**
- * @method initWithTMXFile
- * @param {String} arg0
- * @return {bool}
- */
-initWithTMXFile : function (
-str 
-)
-{
-    return false;
-},
-
-/**
  * @method getOrientation
  * @return {int}
  */
@@ -15884,13 +15902,15 @@ int
 },
 
 /**
- * @method getTilesets
-* @return {Array|Array}
-*/
-getTilesets : function(
+ * @method initWithTMXFile
+ * @param {String} arg0
+ * @return {bool}
+ */
+initWithTMXFile : function (
+str 
 )
 {
-    return new Array();
+    return false;
 },
 
 /**
@@ -15901,6 +15921,16 @@ getParentGID : function (
 )
 {
     return 0;
+},
+
+/**
+ * @method getTilesets
+* @return {Array|Array}
+*/
+getTilesets : function(
+)
+{
+    return new Array();
 },
 
 /**
