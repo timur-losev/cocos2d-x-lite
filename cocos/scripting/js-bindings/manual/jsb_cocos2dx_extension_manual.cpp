@@ -51,6 +51,7 @@ public:
         auto iter = se::NativePtrToObjectMap::find(view);
         if (iter == se::NativePtrToObjectMap::end())
             return;
+        se::AutoHandleScope hs;
 
         se::Object* target = iter->second;
         
@@ -62,7 +63,7 @@ public:
         se::Object* func = funcProp.toObject();
 
         se::ScriptEngine::getInstance()->clearException();
-        se::AutoHandleScope hs;
+        
 
         se::ValueArray args;
         args.resize(1);

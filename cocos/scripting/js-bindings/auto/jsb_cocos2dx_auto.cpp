@@ -2028,6 +2028,50 @@ static bool js_cocos2dx_Node_getChildren(se::State& s)
 }
 SE_BIND_FUNC(js_cocos2dx_Node_getChildren)
 
+static bool js_cocos2dx_Node_setOnExitCallback(se::State& s)
+{
+    cocos2d::Node* cobj = (cocos2d::Node*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_Node_setOnExitCallback : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        std::function<void ()> arg0;
+        do {
+            if (args[0].isObject() && args[0].toObject()->isFunction())
+            {
+                se::Value jsThis(s.thisObject());
+                se::Value jsFunc(args[0]);
+                jsThis.toObject()->attachObject(jsFunc.toObject());
+                auto lambda = [=]() -> void {
+                    se::ScriptEngine::getInstance()->clearException();
+                    se::AutoHandleScope hs;
+        
+                    se::Value rval;
+                    se::Object* thisObj = jsThis.isObject() ? jsThis.toObject() : nullptr;
+                    se::Object* funcObj = jsFunc.toObject();
+                    bool succeed = funcObj->call(se::EmptyValueArray, thisObj, &rval);
+                    if (!succeed) {
+                        se::ScriptEngine::getInstance()->clearException();
+                    }
+                };
+                arg0 = lambda;
+            }
+            else
+            {
+                arg0 = nullptr;
+            }
+        } while(false)
+        ;
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_Node_setOnExitCallback : Error processing arguments");
+        cobj->setOnExitCallback(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_Node_setOnExitCallback)
+
 static bool js_cocos2dx_Node_pause(se::State& s)
 {
     cocos2d::Node* cobj = (cocos2d::Node*)s.nativeThisObject();
@@ -2251,6 +2295,50 @@ static bool js_cocos2dx_Node_getColor(se::State& s)
 }
 SE_BIND_FUNC(js_cocos2dx_Node_getColor)
 
+static bool js_cocos2dx_Node_setonEnterTransitionDidFinishCallback(se::State& s)
+{
+    cocos2d::Node* cobj = (cocos2d::Node*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_Node_setonEnterTransitionDidFinishCallback : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        std::function<void ()> arg0;
+        do {
+            if (args[0].isObject() && args[0].toObject()->isFunction())
+            {
+                se::Value jsThis(s.thisObject());
+                se::Value jsFunc(args[0]);
+                jsThis.toObject()->attachObject(jsFunc.toObject());
+                auto lambda = [=]() -> void {
+                    se::ScriptEngine::getInstance()->clearException();
+                    se::AutoHandleScope hs;
+        
+                    se::Value rval;
+                    se::Object* thisObj = jsThis.isObject() ? jsThis.toObject() : nullptr;
+                    se::Object* funcObj = jsFunc.toObject();
+                    bool succeed = funcObj->call(se::EmptyValueArray, thisObj, &rval);
+                    if (!succeed) {
+                        se::ScriptEngine::getInstance()->clearException();
+                    }
+                };
+                arg0 = lambda;
+            }
+            else
+            {
+                arg0 = nullptr;
+            }
+        } while(false)
+        ;
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_Node_setonEnterTransitionDidFinishCallback : Error processing arguments");
+        cobj->setonEnterTransitionDidFinishCallback(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_Node_setonEnterTransitionDidFinishCallback)
+
 static bool js_cocos2dx_Node_removeAllComponents(se::State& s)
 {
     cocos2d::Node* cobj = (cocos2d::Node*)s.nativeThisObject();
@@ -2330,6 +2418,24 @@ static bool js_cocos2dx_Node_getTag(se::State& s)
     return false;
 }
 SE_BIND_FUNC(js_cocos2dx_Node_getTag)
+
+static bool js_cocos2dx_Node_getonEnterTransitionDidFinishCallback(se::State& s)
+{
+    cocos2d::Node* cobj = (cocos2d::Node*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_Node_getonEnterTransitionDidFinishCallback : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 0) {
+        const std::function<void ()>& result = cobj->getonEnterTransitionDidFinishCallback();
+        #pragma warning NO CONVERSION FROM NATIVE FOR std::function;
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_Node_getonEnterTransitionDidFinishCallback : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_Node_getonEnterTransitionDidFinishCallback)
 
 static bool js_cocos2dx_Node_setAfterVisitCallback(se::State& s)
 {
@@ -2520,6 +2626,50 @@ static bool js_cocos2dx_Node_setGLProgramState(se::State& s)
 }
 SE_BIND_FUNC(js_cocos2dx_Node_setGLProgramState)
 
+static bool js_cocos2dx_Node_setOnEnterCallback(se::State& s)
+{
+    cocos2d::Node* cobj = (cocos2d::Node*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_Node_setOnEnterCallback : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        std::function<void ()> arg0;
+        do {
+            if (args[0].isObject() && args[0].toObject()->isFunction())
+            {
+                se::Value jsThis(s.thisObject());
+                se::Value jsFunc(args[0]);
+                jsThis.toObject()->attachObject(jsFunc.toObject());
+                auto lambda = [=]() -> void {
+                    se::ScriptEngine::getInstance()->clearException();
+                    se::AutoHandleScope hs;
+        
+                    se::Value rval;
+                    se::Object* thisObj = jsThis.isObject() ? jsThis.toObject() : nullptr;
+                    se::Object* funcObj = jsFunc.toObject();
+                    bool succeed = funcObj->call(se::EmptyValueArray, thisObj, &rval);
+                    if (!succeed) {
+                        se::ScriptEngine::getInstance()->clearException();
+                    }
+                };
+                arg0 = lambda;
+            }
+            else
+            {
+                arg0 = nullptr;
+            }
+        } while(false)
+        ;
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_Node_setOnEnterCallback : Error processing arguments");
+        cobj->setOnEnterCallback(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_Node_setOnEnterCallback)
+
 static bool js_cocos2dx_Node_stopActionsByFlags(se::State& s)
 {
     cocos2d::Node* cobj = (cocos2d::Node*)s.nativeThisObject();
@@ -2557,6 +2707,50 @@ static bool js_cocos2dx_Node_setNormalizedPosition(se::State& s)
     return false;
 }
 SE_BIND_FUNC(js_cocos2dx_Node_setNormalizedPosition)
+
+static bool js_cocos2dx_Node_setonExitTransitionDidStartCallback(se::State& s)
+{
+    cocos2d::Node* cobj = (cocos2d::Node*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_Node_setonExitTransitionDidStartCallback : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        std::function<void ()> arg0;
+        do {
+            if (args[0].isObject() && args[0].toObject()->isFunction())
+            {
+                se::Value jsThis(s.thisObject());
+                se::Value jsFunc(args[0]);
+                jsThis.toObject()->attachObject(jsFunc.toObject());
+                auto lambda = [=]() -> void {
+                    se::ScriptEngine::getInstance()->clearException();
+                    se::AutoHandleScope hs;
+        
+                    se::Value rval;
+                    se::Object* thisObj = jsThis.isObject() ? jsThis.toObject() : nullptr;
+                    se::Object* funcObj = jsFunc.toObject();
+                    bool succeed = funcObj->call(se::EmptyValueArray, thisObj, &rval);
+                    if (!succeed) {
+                        se::ScriptEngine::getInstance()->clearException();
+                    }
+                };
+                arg0 = lambda;
+            }
+            else
+            {
+                arg0 = nullptr;
+            }
+        } while(false)
+        ;
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_Node_setonExitTransitionDidStartCallback : Error processing arguments");
+        cobj->setonExitTransitionDidStartCallback(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_Node_setonExitTransitionDidStartCallback)
 
 static bool js_cocos2dx_Node_convertTouchToNodeSpace(se::State& s)
 {
@@ -2781,6 +2975,24 @@ static bool js_cocos2dx_Node_getAfterVisitCallback(se::State& s)
     return false;
 }
 SE_BIND_FUNC(js_cocos2dx_Node_getAfterVisitCallback)
+
+static bool js_cocos2dx_Node_getOnEnterCallback(se::State& s)
+{
+    cocos2d::Node* cobj = (cocos2d::Node*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_Node_getOnEnterCallback : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 0) {
+        const std::function<void ()>& result = cobj->getOnEnterCallback();
+        #pragma warning NO CONVERSION FROM NATIVE FOR std::function;
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_Node_getOnEnterCallback : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_Node_getOnEnterCallback)
 
 static bool js_cocos2dx_Node_isOpacityModifyRGB(se::State& s)
 {
@@ -3174,6 +3386,9 @@ SE_BIND_FUNC(js_cocos2dx_Node_getAnchorPointInPoints)
 
 static bool js_cocos2dx_Node_runAction(se::State& s)
 {
+    auto st = v8::StackTrace::CurrentStackTrace(v8::Isolate::GetCurrent(), 1000);
+    std::string bt = se::ScriptEngine::stackTraceToString(st);
+
     cocos2d::Node* cobj = (cocos2d::Node*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_cocos2dx_Node_runAction : Invalid Native Object");
     const auto& args = s.args();
@@ -3853,6 +4068,24 @@ static bool js_cocos2dx_Node_setScale(se::State& s)
 }
 SE_BIND_FUNC(js_cocos2dx_Node_setScale)
 
+static bool js_cocos2dx_Node_getOnExitCallback(se::State& s)
+{
+    cocos2d::Node* cobj = (cocos2d::Node*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_Node_getOnExitCallback : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 0) {
+        const std::function<void ()>& result = cobj->getOnExitCallback();
+        #pragma warning NO CONVERSION FROM NATIVE FOR std::function;
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_Node_getOnExitCallback : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_Node_getOnExitCallback)
+
 static bool js_cocos2dx_Node_getChildByTag(se::State& s)
 {
     cocos2d::Node* cobj = (cocos2d::Node*)s.nativeThisObject();
@@ -4225,6 +4458,24 @@ static bool js_cocos2dx_Node_enumerateChildren(se::State& s)
 }
 SE_BIND_FUNC(js_cocos2dx_Node_enumerateChildren)
 
+static bool js_cocos2dx_Node_getonExitTransitionDidStartCallback(se::State& s)
+{
+    cocos2d::Node* cobj = (cocos2d::Node*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_Node_getonExitTransitionDidStartCallback : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 0) {
+        const std::function<void ()>& result = cobj->getonExitTransitionDidStartCallback();
+        #pragma warning NO CONVERSION FROM NATIVE FOR std::function;
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_Node_getonExitTransitionDidStartCallback : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_Node_getonExitTransitionDidStartCallback)
+
 static bool js_cocos2dx_Node_removeFromParentAndCleanup(se::State& s)
 {
     CC_UNUSED bool ok = true;
@@ -4564,6 +4815,7 @@ bool js_register_cocos2dx_Node(se::Object* obj)
     cls->defineFunction("setOpacityModifyRGB", _SE(js_cocos2dx_Node_setOpacityModifyRGB));
     cls->defineFunction("setCascadeOpacityEnabled", _SE(js_cocos2dx_Node_setCascadeOpacityEnabled));
     cls->defineFunction("getChildren", _SE(js_cocos2dx_Node_getChildren));
+    cls->defineFunction("setOnExitCallback", _SE(js_cocos2dx_Node_setOnExitCallback));
     cls->defineFunction("pause", _SE(js_cocos2dx_Node_pause));
     cls->defineFunction("convertToWorldSpaceAR", _SE(js_cocos2dx_Node_convertToWorldSpaceAR));
     cls->defineFunction("isIgnoreAnchorPointForPosition", _SE(js_cocos2dx_Node_isIgnoreAnchorPointForPosition));
@@ -4576,10 +4828,12 @@ bool js_register_cocos2dx_Node(se::Object* obj)
     cls->defineFunction("setScaleY", _SE(js_cocos2dx_Node_setScaleY));
     cls->defineFunction("setScaleX", _SE(js_cocos2dx_Node_setScaleX));
     cls->defineFunction("getColor", _SE(js_cocos2dx_Node_getColor));
+    cls->defineFunction("setonEnterTransitionDidFinishCallback", _SE(js_cocos2dx_Node_setonEnterTransitionDidFinishCallback));
     cls->defineFunction("removeAllComponents", _SE(js_cocos2dx_Node_removeAllComponents));
     cls->defineFunction("_setLocalZOrder", _SE(js_cocos2dx_Node__setLocalZOrder));
     cls->defineFunction("setCameraMask", _SE(js_cocos2dx_Node_setCameraMask));
     cls->defineFunction("getTag", _SE(js_cocos2dx_Node_getTag));
+    cls->defineFunction("getonEnterTransitionDidFinishCallback", _SE(js_cocos2dx_Node_getonEnterTransitionDidFinishCallback));
     cls->defineFunction("setAfterVisitCallback", _SE(js_cocos2dx_Node_setAfterVisitCallback));
     cls->defineFunction("getNodeToWorldTransform", _SE(js_cocos2dx_Node_getNodeToWorldAffineTransform));
     cls->defineFunction("removeChild", _SE(js_cocos2dx_Node_removeChild));
@@ -4588,8 +4842,10 @@ bool js_register_cocos2dx_Node(se::Object* obj)
     cls->defineFunction("getEventDispatcher", _SE(js_cocos2dx_Node_getEventDispatcher));
     cls->defineFunction("setSkewX", _SE(js_cocos2dx_Node_setSkewX));
     cls->defineFunction("setGLProgramState", _SE(js_cocos2dx_Node_setGLProgramState));
+    cls->defineFunction("setOnEnterCallback", _SE(js_cocos2dx_Node_setOnEnterCallback));
     cls->defineFunction("stopActionsByFlags", _SE(js_cocos2dx_Node_stopActionsByFlags));
     cls->defineFunction("setNormalizedPosition", _SE(js_cocos2dx_Node_setNormalizedPosition));
+    cls->defineFunction("setonExitTransitionDidStartCallback", _SE(js_cocos2dx_Node_setonExitTransitionDidStartCallback));
     cls->defineFunction("convertTouchToNodeSpace", _SE(js_cocos2dx_Node_convertTouchToNodeSpace));
     cls->defineFunction("removeAllChildren", _SE(js_cocos2dx_Node_removeAllChildrenWithCleanup));
     cls->defineFunction("getRotationX", _SE(js_cocos2dx_Node_getRotationSkewX));
@@ -4601,6 +4857,7 @@ bool js_register_cocos2dx_Node(se::Object* obj)
     cls->defineFunction("resume", _SE(js_cocos2dx_Node_resume));
     cls->defineFunction("getNodeToParentTransform", _SE(js_cocos2dx_Node_getNodeToParentAffineTransform));
     cls->defineFunction("getAfterVisitCallback", _SE(js_cocos2dx_Node_getAfterVisitCallback));
+    cls->defineFunction("getOnEnterCallback", _SE(js_cocos2dx_Node_getOnEnterCallback));
     cls->defineFunction("isOpacityModifyRGB", _SE(js_cocos2dx_Node_isOpacityModifyRGB));
     cls->defineFunction("stopActionByTag", _SE(js_cocos2dx_Node_stopActionByTag));
     cls->defineFunction("reorderChild", _SE(js_cocos2dx_Node_reorderChild));
@@ -4651,6 +4908,7 @@ bool js_register_cocos2dx_Node(se::Object* obj)
     cls->defineFunction("getVertexZ", _SE(js_cocos2dx_Node_getPositionZ));
     cls->defineFunction("setGlobalZOrder", _SE(js_cocos2dx_Node_setGlobalZOrder));
     cls->defineFunction("setScale", _SE(js_cocos2dx_Node_setScale));
+    cls->defineFunction("getOnExitCallback", _SE(js_cocos2dx_Node_getOnExitCallback));
     cls->defineFunction("getChildByTag", _SE(js_cocos2dx_Node_getChildByTag));
     cls->defineFunction("getScaleZ", _SE(js_cocos2dx_Node_getScaleZ));
     cls->defineFunction("getScaleY", _SE(js_cocos2dx_Node_getScaleY));
@@ -4668,6 +4926,7 @@ bool js_register_cocos2dx_Node(se::Object* obj)
     cls->defineFunction("draw", _SE(js_cocos2dx_Node_draw));
     cls->defineFunction("setUserObject", _SE(js_cocos2dx_Node_setUserObject));
     cls->defineFunction("enumerateChildren", _SE(js_cocos2dx_Node_enumerateChildren));
+    cls->defineFunction("getonExitTransitionDidStartCallback", _SE(js_cocos2dx_Node_getonExitTransitionDidStartCallback));
     cls->defineFunction("removeFromParent", _SE(js_cocos2dx_Node_removeFromParentAndCleanup));
     cls->defineFunction("convertTouchToNodeSpaceAR", _SE(js_cocos2dx_Node_convertTouchToNodeSpaceAR));
     cls->defineFunction("sortAllChildren", _SE(js_cocos2dx_Node_sortAllChildren));
@@ -12524,7 +12783,13 @@ static bool js_cocos2dx_Sequence_init(se::State& s)
     CC_UNUSED bool ok = true;
     if (argc == 1) {
         cocos2d::Vector<cocos2d::FiniteTimeAction *> arg0;
-        ok &= seval_to_Vector(args[0], &arg0);
+        if (args[0].toObject()->isArray())
+            ok &= seval_to_Vector(args[0], &arg0);
+        else {
+            cocos2d::FiniteTimeAction * action = nullptr;
+            ok &= seval_to_native_ptr(args[0], &action);
+            arg0.pushBack(action);
+        }
         SE_PRECONDITION2(ok, false, "js_cocos2dx_Sequence_init : Error processing arguments");
         bool result = cobj->init(arg0);
         ok &= boolean_to_seval(result, &s.rval());
@@ -12538,6 +12803,9 @@ SE_BIND_FUNC(js_cocos2dx_Sequence_init)
 
 static bool js_cocos2dx_Sequence_initWithTwoActions(se::State& s)
 {
+    auto st = v8::StackTrace::CurrentStackTrace(v8::Isolate::GetCurrent(), 1000);
+    std::string bt = se::ScriptEngine::stackTraceToString(st);
+
     cocos2d::Sequence* cobj = (cocos2d::Sequence*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_cocos2dx_Sequence_initWithTwoActions : Invalid Native Object");
     const auto& args = s.args();
@@ -12563,9 +12831,6 @@ SE_DECLARE_FINALIZE_FUNC(js_cocos2d_Sequence_finalize)
 
 static bool js_cocos2dx_Sequence_constructor(se::State& s)
 {
-    auto st = v8::StackTrace::CurrentStackTrace(v8::Isolate::GetCurrent(), 1000);
-    std::string bt = se::ScriptEngine::stackTraceToString(st);
-
     cocos2d::Sequence* cobj = new (std::nothrow) cocos2d::Sequence();
     s.thisObject()->setPrivateData(cobj);
     return true;
@@ -12855,6 +13120,9 @@ se::Class* __jsb_cocos2d_Spawn_class = nullptr;
 
 static bool js_cocos2dx_Spawn_init(se::State& s)
 {
+    auto st = v8::StackTrace::CurrentStackTrace(v8::Isolate::GetCurrent(), 1000);
+    std::string bt = se::ScriptEngine::stackTraceToString(st);
+
     cocos2d::Spawn* cobj = (cocos2d::Spawn*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_cocos2dx_Spawn_init : Invalid Native Object");
     const auto& args = s.args();

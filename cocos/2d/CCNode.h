@@ -1680,42 +1680,42 @@ public:
      * Set the callback of event onEnter.
      * @param callback A std::function<void()> callback.
      */
-//    void setOnEnterCallback(const std::function<void()>& callback) { _onEnterCallback = callback; }
-//    /**
-//     * Get the callback of event onEnter.
-//     * @return A std:function<void()> callback.
-//     */
-//    const std::function<void()>& getOnEnterCallback() const { return _onEnterCallback; }
-//    /**
-//     * Set the callback of event onExit.
-//     * @param callback A std::function<void()> callback.
-//     */
-//    void setOnExitCallback(const std::function<void()>& callback) { _onExitCallback = callback; }
-//    /**
-//     * Get the callback of event onExit.
-//     * @return A std::function<void()>.
-//     */
-//    const std::function<void()>& getOnExitCallback() const { return _onExitCallback; }
-//    /**
-//     * Set the callback of event EnterTransitionDidFinish.
-//     * @param callback A std::function<void()> callback.
-//     */
-//    void setonEnterTransitionDidFinishCallback(const std::function<void()>& callback) { _onEnterTransitionDidFinishCallback = callback; }
-//    /**
-//     * Get the callback of event EnterTransitionDidFinish.
-//     * @return std::function<void()>
-//     */
-//    const std::function<void()>& getonEnterTransitionDidFinishCallback() const { return _onEnterTransitionDidFinishCallback; }
-//    /**
-//     * Set the callback of event ExitTransitionDidStart.
-//     * @param callback A std::function<void()> callback.
-//     */
-//    void setonExitTransitionDidStartCallback(const std::function<void()>& callback) { _onExitTransitionDidStartCallback = callback; }
-//    /**
-//     * Get the callback of event ExitTransitionDidStart.
-//     * @return std::function<void()>
-//     */
-//    const std::function<void()>& getonExitTransitionDidStartCallback() const { return _onExitTransitionDidStartCallback; }
+    void setOnEnterCallback(const std::function<void()>& callback) { _onEnterCallback = callback; }
+    /**
+     * Get the callback of event onEnter.
+     * @return A std:function<void()> callback.
+     */
+    const std::function<void()>& getOnEnterCallback() const { return _onEnterCallback; }
+    /**
+     * Set the callback of event onExit.
+     * @param callback A std::function<void()> callback.
+     */
+    void setOnExitCallback(const std::function<void()>& callback) { _onExitCallback = callback; }
+    /**
+     * Get the callback of event onExit.
+     * @return A std::function<void()>.
+     */
+    const std::function<void()>& getOnExitCallback() const { return _onExitCallback; }
+    /**
+     * Set the callback of event EnterTransitionDidFinish.
+     * @param callback A std::function<void()> callback.
+     */
+    void setonEnterTransitionDidFinishCallback(const std::function<void()>& callback) { _onEnterTransitionDidFinishCallback = callback; }
+    /**
+     * Get the callback of event EnterTransitionDidFinish.
+     * @return std::function<void()>
+     */
+    const std::function<void()>& getonEnterTransitionDidFinishCallback() const { return _onEnterTransitionDidFinishCallback; }
+    /**
+     * Set the callback of event ExitTransitionDidStart.
+     * @param callback A std::function<void()> callback.
+     */
+    void setonExitTransitionDidStartCallback(const std::function<void()>& callback) { _onExitTransitionDidStartCallback = callback; }
+    /**
+     * Get the callback of event ExitTransitionDidStart.
+     * @return std::function<void()>
+     */
+    const std::function<void()>& getonExitTransitionDidStartCallback() const { return _onExitTransitionDidStartCallback; }
 
     /**
      * Set the callback of BeforeVisit.
@@ -1836,10 +1836,10 @@ private:
 protected:
     static unsigned int s_globalOrderOfArrival;
 
-    //    std::function<void()> _onEnterCallback;
-    //    std::function<void()> _onExitCallback;
-    //    std::function<void()> _onEnterTransitionDidFinishCallback;
-    //    std::function<void()> _onExitTransitionDidStartCallback;
+    std::function<void()> _onEnterCallback;
+    std::function<void()> _onExitCallback;
+    std::function<void()> _onEnterTransitionDidFinishCallback;
+    std::function<void()> _onExitTransitionDidStartCallback;
     std::function<void(Renderer*)>* _beforeVisitCallback;
     std::function<void(Renderer*)>* _afterVisitCallback;
 

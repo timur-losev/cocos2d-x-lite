@@ -308,6 +308,9 @@ cc.Sequence.prototype._ctor = function(tempArray) {
         }
         this.initWithTwoActions(prev, actions[last]);
     }
+    else {
+        this.init(actions[0]);
+    }
 };
 cc.sequence = cc.Sequence.create = function (tempArray) {
     var actions = (tempArray instanceof Array) ? tempArray : arguments;
@@ -326,9 +329,11 @@ cc.sequence = cc.Sequence.create = function (tempArray) {
         return new cc.Sequence(prev, actions[last]);
     }
     else {
-        return null;
+        return new cc.Sequence(actions[0]);
     }
 };
+
+
 
 cc.Repeat.prototype._ctor = function (action, times) {
     times !== undefined && this.initWithAction(action, times);
@@ -376,7 +381,7 @@ cc.spawn = cc.Spawn.create = function (tempArray) {
         return new cc.Spawn(prev, actions[last]);
     }
     else {
-        return null;
+        return new cc.Spawn(actions[0]);
     }
 };
 

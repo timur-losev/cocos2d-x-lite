@@ -830,6 +830,16 @@ getChildren : function(
 },
 
 /**
+ * @method setOnExitCallback
+ * @param {function} arg0
+ */
+setOnExitCallback : function (
+func 
+)
+{
+},
+
+/**
  * @method pause
  */
 pause : function (
@@ -952,6 +962,16 @@ getColor : function (
 },
 
 /**
+ * @method setonEnterTransitionDidFinishCallback
+ * @param {function} arg0
+ */
+setonEnterTransitionDidFinishCallback : function (
+func 
+)
+{
+},
+
+/**
  * @method removeAllComponents
  */
 removeAllComponents : function (
@@ -989,6 +1009,16 @@ getTag : function (
 )
 {
     return 0;
+},
+
+/**
+ * @method getonEnterTransitionDidFinishCallback
+ * @return {function}
+ */
+getonEnterTransitionDidFinishCallback : function (
+)
+{
+    return std::function<void ()>;
 },
 
 /**
@@ -1076,6 +1106,16 @@ glprogramstate
 },
 
 /**
+ * @method setOnEnterCallback
+ * @param {function} arg0
+ */
+setOnEnterCallback : function (
+func 
+)
+{
+},
+
+/**
  * @method stopActionsByFlags
  * @param {unsigned int} arg0
  */
@@ -1091,6 +1131,16 @@ int
  */
 setNormalizedPosition : function (
 vec2 
+)
+{
+},
+
+/**
+ * @method setonExitTransitionDidStartCallback
+ * @param {function} arg0
+ */
+setonExitTransitionDidStartCallback : function (
+func 
 )
 {
 },
@@ -1205,6 +1255,16 @@ getAfterVisitCallback : function (
 )
 {
     return std::function<void (cocos2d::Renderer )>;
+},
+
+/**
+ * @method getOnEnterCallback
+ * @return {function}
+ */
+getOnEnterCallback : function (
+)
+{
+    return std::function<void ()>;
 },
 
 /**
@@ -1733,6 +1793,16 @@ float
 },
 
 /**
+ * @method getOnExitCallback
+ * @return {function}
+ */
+getOnExitCallback : function (
+)
+{
+    return std::function<void ()>;
+},
+
+/**
  * @method getChildByTag
  * @param {int} arg0
  * @return {cc.Node}
@@ -1910,6 +1980,16 @@ str,
 func 
 )
 {
+},
+
+/**
+ * @method getonExitTransitionDidStartCallback
+ * @return {function}
+ */
+getonExitTransitionDidStartCallback : function (
+)
+{
+    return std::function<void ()>;
 },
 
 /**

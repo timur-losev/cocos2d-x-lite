@@ -1317,8 +1317,8 @@ void Node::onEnter()
     }
 #endif
 
-//    if (_onEnterCallback)
-//        _onEnterCallback();
+    if (_onEnterCallback)
+        _onEnterCallback();
 
     if (_componentContainer && !_componentContainer->isEmpty())
     {
@@ -1352,8 +1352,8 @@ void Node::onEnterTransitionDidFinish()
     }
 #endif
 
-//    if (_onEnterTransitionDidFinishCallback)
-//        _onEnterTransitionDidFinishCallback();
+    if (_onEnterTransitionDidFinishCallback)
+        _onEnterTransitionDidFinishCallback();
 
     _isTransitionFinished = true;
     for( const auto &child: _children)
@@ -1377,8 +1377,8 @@ void Node::onExitTransitionDidStart()
     }
 #endif
 
-//    if (_onExitTransitionDidStartCallback)
-//        _onExitTransitionDidStartCallback();
+    if (_onExitTransitionDidStartCallback)
+        _onExitTransitionDidStartCallback();
 
     for( const auto &child: _children)
         child->onExitTransitionDidStart();
@@ -1401,8 +1401,8 @@ void Node::onExit()
     }
 #endif
 
-//    if (_onExitCallback)
-//        _onExitCallback();
+    if (_onExitCallback)
+        _onExitCallback();
 
     if (_componentContainer && !_componentContainer->isEmpty())
     {
