@@ -13963,6 +13963,1347 @@ RenderTexture : function (
 };
 
 /**
+ * @class TransitionEaseScene
+ */
+cc.TransitionEaseScene = {
+
+/**
+ * @method easeActionWithAction
+ * @param {cc.ActionInterval} arg0
+ * @return {cc.ActionInterval}
+ */
+easeActionWithAction : function (
+actioninterval 
+)
+{
+    return cc.ActionInterval;
+},
+
+};
+
+/**
+ * @class TransitionScene
+ */
+cc.TransitionScene = {
+
+/**
+ * @method getInScene
+ * @return {cc.Scene}
+ */
+getInScene : function (
+)
+{
+    return cc.Scene;
+},
+
+/**
+ * @method finish
+ */
+finish : function (
+)
+{
+},
+
+/**
+ * @method initWithDuration
+ * @param {float} arg0
+ * @param {cc.Scene} arg1
+ * @return {bool}
+ */
+initWithDuration : function (
+float, 
+scene 
+)
+{
+    return false;
+},
+
+/**
+ * @method getDuration
+ * @return {float}
+ */
+getDuration : function (
+)
+{
+    return 0;
+},
+
+/**
+ * @method hideOutShowIn
+ */
+hideOutShowIn : function (
+)
+{
+},
+
+/**
+ * @method create
+ * @param {float} arg0
+ * @param {cc.Scene} arg1
+ * @return {cc.TransitionScene}
+ */
+create : function (
+float, 
+scene 
+)
+{
+    return cc.TransitionScene;
+},
+
+/**
+ * @method TransitionScene
+ * @constructor
+ */
+TransitionScene : function (
+)
+{
+},
+
+};
+
+/**
+ * @class TransitionSceneOriented
+ */
+cc.TransitionSceneOriented = {
+
+/**
+ * @method initWithDuration
+ * @param {float} arg0
+ * @param {cc.Scene} arg1
+ * @param {cc.TransitionScene::Orientation} arg2
+ * @return {bool}
+ */
+initWithDuration : function (
+float, 
+scene, 
+orientation 
+)
+{
+    return false;
+},
+
+/**
+ * @method create
+ * @param {float} arg0
+ * @param {cc.Scene} arg1
+ * @param {cc.TransitionScene::Orientation} arg2
+ * @return {cc.TransitionSceneOriented}
+ */
+create : function (
+float, 
+scene, 
+orientation 
+)
+{
+    return cc.TransitionSceneOriented;
+},
+
+/**
+ * @method TransitionSceneOriented
+ * @constructor
+ */
+TransitionSceneOriented : function (
+)
+{
+},
+
+};
+
+/**
+ * @class TransitionRotoZoom
+ */
+cc.TransitionRotoZoom = {
+
+/**
+ * @method create
+ * @param {float} arg0
+ * @param {cc.Scene} arg1
+ * @return {cc.TransitionRotoZoom}
+ */
+create : function (
+float, 
+scene 
+)
+{
+    return cc.TransitionRotoZoom;
+},
+
+/**
+ * @method TransitionRotoZoom
+ * @constructor
+ */
+TransitionRotoZoom : function (
+)
+{
+},
+
+};
+
+/**
+ * @class TransitionJumpZoom
+ */
+cc.TransitionJumpZoom = {
+
+/**
+ * @method create
+ * @param {float} arg0
+ * @param {cc.Scene} arg1
+ * @return {cc.TransitionJumpZoom}
+ */
+create : function (
+float, 
+scene 
+)
+{
+    return cc.TransitionJumpZoom;
+},
+
+/**
+ * @method TransitionJumpZoom
+ * @constructor
+ */
+TransitionJumpZoom : function (
+)
+{
+},
+
+};
+
+/**
+ * @class TransitionMoveInL
+ */
+cc.TransitionMoveInL = {
+
+/**
+ * @method action
+ * @return {cc.ActionInterval}
+ */
+action : function (
+)
+{
+    return cc.ActionInterval;
+},
+
+/**
+ * @method easeActionWithAction
+ * @param {cc.ActionInterval} arg0
+ * @return {cc.ActionInterval}
+ */
+easeActionWithAction : function (
+actioninterval 
+)
+{
+    return cc.ActionInterval;
+},
+
+/**
+ * @method create
+ * @param {float} arg0
+ * @param {cc.Scene} arg1
+ * @return {cc.TransitionMoveInL}
+ */
+create : function (
+float, 
+scene 
+)
+{
+    return cc.TransitionMoveInL;
+},
+
+/**
+ * @method TransitionMoveInL
+ * @constructor
+ */
+TransitionMoveInL : function (
+)
+{
+},
+
+};
+
+/**
+ * @class TransitionMoveInR
+ */
+cc.TransitionMoveInR = {
+
+/**
+ * @method create
+ * @param {float} arg0
+ * @param {cc.Scene} arg1
+ * @return {cc.TransitionMoveInR}
+ */
+create : function (
+float, 
+scene 
+)
+{
+    return cc.TransitionMoveInR;
+},
+
+/**
+ * @method TransitionMoveInR
+ * @constructor
+ */
+TransitionMoveInR : function (
+)
+{
+},
+
+};
+
+/**
+ * @class TransitionMoveInT
+ */
+cc.TransitionMoveInT = {
+
+/**
+ * @method create
+ * @param {float} arg0
+ * @param {cc.Scene} arg1
+ * @return {cc.TransitionMoveInT}
+ */
+create : function (
+float, 
+scene 
+)
+{
+    return cc.TransitionMoveInT;
+},
+
+/**
+ * @method TransitionMoveInT
+ * @constructor
+ */
+TransitionMoveInT : function (
+)
+{
+},
+
+};
+
+/**
+ * @class TransitionMoveInB
+ */
+cc.TransitionMoveInB = {
+
+/**
+ * @method create
+ * @param {float} arg0
+ * @param {cc.Scene} arg1
+ * @return {cc.TransitionMoveInB}
+ */
+create : function (
+float, 
+scene 
+)
+{
+    return cc.TransitionMoveInB;
+},
+
+/**
+ * @method TransitionMoveInB
+ * @constructor
+ */
+TransitionMoveInB : function (
+)
+{
+},
+
+};
+
+/**
+ * @class TransitionSlideInL
+ */
+cc.TransitionSlideInL = {
+
+/**
+ * @method action
+ * @return {cc.ActionInterval}
+ */
+action : function (
+)
+{
+    return cc.ActionInterval;
+},
+
+/**
+ * @method easeActionWithAction
+ * @param {cc.ActionInterval} arg0
+ * @return {cc.ActionInterval}
+ */
+easeActionWithAction : function (
+actioninterval 
+)
+{
+    return cc.ActionInterval;
+},
+
+/**
+ * @method create
+ * @param {float} arg0
+ * @param {cc.Scene} arg1
+ * @return {cc.TransitionSlideInL}
+ */
+create : function (
+float, 
+scene 
+)
+{
+    return cc.TransitionSlideInL;
+},
+
+/**
+ * @method TransitionSlideInL
+ * @constructor
+ */
+TransitionSlideInL : function (
+)
+{
+},
+
+};
+
+/**
+ * @class TransitionSlideInR
+ */
+cc.TransitionSlideInR = {
+
+/**
+ * @method create
+ * @param {float} arg0
+ * @param {cc.Scene} arg1
+ * @return {cc.TransitionSlideInR}
+ */
+create : function (
+float, 
+scene 
+)
+{
+    return cc.TransitionSlideInR;
+},
+
+/**
+ * @method TransitionSlideInR
+ * @constructor
+ */
+TransitionSlideInR : function (
+)
+{
+},
+
+};
+
+/**
+ * @class TransitionSlideInB
+ */
+cc.TransitionSlideInB = {
+
+/**
+ * @method create
+ * @param {float} arg0
+ * @param {cc.Scene} arg1
+ * @return {cc.TransitionSlideInB}
+ */
+create : function (
+float, 
+scene 
+)
+{
+    return cc.TransitionSlideInB;
+},
+
+/**
+ * @method TransitionSlideInB
+ * @constructor
+ */
+TransitionSlideInB : function (
+)
+{
+},
+
+};
+
+/**
+ * @class TransitionSlideInT
+ */
+cc.TransitionSlideInT = {
+
+/**
+ * @method create
+ * @param {float} arg0
+ * @param {cc.Scene} arg1
+ * @return {cc.TransitionSlideInT}
+ */
+create : function (
+float, 
+scene 
+)
+{
+    return cc.TransitionSlideInT;
+},
+
+/**
+ * @method TransitionSlideInT
+ * @constructor
+ */
+TransitionSlideInT : function (
+)
+{
+},
+
+};
+
+/**
+ * @class TransitionShrinkGrow
+ */
+cc.TransitionShrinkGrow = {
+
+/**
+ * @method easeActionWithAction
+ * @param {cc.ActionInterval} arg0
+ * @return {cc.ActionInterval}
+ */
+easeActionWithAction : function (
+actioninterval 
+)
+{
+    return cc.ActionInterval;
+},
+
+/**
+ * @method create
+ * @param {float} arg0
+ * @param {cc.Scene} arg1
+ * @return {cc.TransitionShrinkGrow}
+ */
+create : function (
+float, 
+scene 
+)
+{
+    return cc.TransitionShrinkGrow;
+},
+
+/**
+ * @method TransitionShrinkGrow
+ * @constructor
+ */
+TransitionShrinkGrow : function (
+)
+{
+},
+
+};
+
+/**
+ * @class TransitionFlipX
+ */
+cc.TransitionFlipX = {
+
+/**
+ * @method create
+* @param {float|float} float
+* @param {cc.Scene|cc.Scene} scene
+* @param {cc.TransitionScene::Orientation} orientation
+* @return {cc.TransitionFlipX|cc.TransitionFlipX}
+*/
+create : function(
+float,
+scene,
+orientation 
+)
+{
+    return cc.TransitionFlipX;
+},
+
+/**
+ * @method TransitionFlipX
+ * @constructor
+ */
+TransitionFlipX : function (
+)
+{
+},
+
+};
+
+/**
+ * @class TransitionFlipY
+ */
+cc.TransitionFlipY = {
+
+/**
+ * @method create
+* @param {float|float} float
+* @param {cc.Scene|cc.Scene} scene
+* @param {cc.TransitionScene::Orientation} orientation
+* @return {cc.TransitionFlipY|cc.TransitionFlipY}
+*/
+create : function(
+float,
+scene,
+orientation 
+)
+{
+    return cc.TransitionFlipY;
+},
+
+/**
+ * @method TransitionFlipY
+ * @constructor
+ */
+TransitionFlipY : function (
+)
+{
+},
+
+};
+
+/**
+ * @class TransitionFlipAngular
+ */
+cc.TransitionFlipAngular = {
+
+/**
+ * @method create
+* @param {float|float} float
+* @param {cc.Scene|cc.Scene} scene
+* @param {cc.TransitionScene::Orientation} orientation
+* @return {cc.TransitionFlipAngular|cc.TransitionFlipAngular}
+*/
+create : function(
+float,
+scene,
+orientation 
+)
+{
+    return cc.TransitionFlipAngular;
+},
+
+/**
+ * @method TransitionFlipAngular
+ * @constructor
+ */
+TransitionFlipAngular : function (
+)
+{
+},
+
+};
+
+/**
+ * @class TransitionZoomFlipX
+ */
+cc.TransitionZoomFlipX = {
+
+/**
+ * @method create
+* @param {float|float} float
+* @param {cc.Scene|cc.Scene} scene
+* @param {cc.TransitionScene::Orientation} orientation
+* @return {cc.TransitionZoomFlipX|cc.TransitionZoomFlipX}
+*/
+create : function(
+float,
+scene,
+orientation 
+)
+{
+    return cc.TransitionZoomFlipX;
+},
+
+/**
+ * @method TransitionZoomFlipX
+ * @constructor
+ */
+TransitionZoomFlipX : function (
+)
+{
+},
+
+};
+
+/**
+ * @class TransitionZoomFlipY
+ */
+cc.TransitionZoomFlipY = {
+
+/**
+ * @method create
+* @param {float|float} float
+* @param {cc.Scene|cc.Scene} scene
+* @param {cc.TransitionScene::Orientation} orientation
+* @return {cc.TransitionZoomFlipY|cc.TransitionZoomFlipY}
+*/
+create : function(
+float,
+scene,
+orientation 
+)
+{
+    return cc.TransitionZoomFlipY;
+},
+
+/**
+ * @method TransitionZoomFlipY
+ * @constructor
+ */
+TransitionZoomFlipY : function (
+)
+{
+},
+
+};
+
+/**
+ * @class TransitionZoomFlipAngular
+ */
+cc.TransitionZoomFlipAngular = {
+
+/**
+ * @method create
+* @param {float|float} float
+* @param {cc.Scene|cc.Scene} scene
+* @param {cc.TransitionScene::Orientation} orientation
+* @return {cc.TransitionZoomFlipAngular|cc.TransitionZoomFlipAngular}
+*/
+create : function(
+float,
+scene,
+orientation 
+)
+{
+    return cc.TransitionZoomFlipAngular;
+},
+
+/**
+ * @method TransitionZoomFlipAngular
+ * @constructor
+ */
+TransitionZoomFlipAngular : function (
+)
+{
+},
+
+};
+
+/**
+ * @class TransitionFade
+ */
+cc.TransitionFade = {
+
+/**
+ * @method initWithDuration
+* @param {float|float} float
+* @param {cc.Scene|cc.Scene} scene
+* @param {color3b_object} color3b
+* @return {bool|bool}
+*/
+initWithDuration : function(
+float,
+scene,
+color3b 
+)
+{
+    return false;
+},
+
+/**
+ * @method create
+* @param {float|float} float
+* @param {cc.Scene|cc.Scene} scene
+* @param {color3b_object} color3b
+* @return {cc.TransitionFade|cc.TransitionFade}
+*/
+create : function(
+float,
+scene,
+color3b 
+)
+{
+    return cc.TransitionFade;
+},
+
+/**
+ * @method TransitionFade
+ * @constructor
+ */
+TransitionFade : function (
+)
+{
+},
+
+};
+
+/**
+ * @class TransitionCrossFade
+ */
+cc.TransitionCrossFade = {
+
+/**
+ * @method create
+ * @param {float} arg0
+ * @param {cc.Scene} arg1
+ * @return {cc.TransitionCrossFade}
+ */
+create : function (
+float, 
+scene 
+)
+{
+    return cc.TransitionCrossFade;
+},
+
+/**
+ * @method TransitionCrossFade
+ * @constructor
+ */
+TransitionCrossFade : function (
+)
+{
+},
+
+};
+
+/**
+ * @class TransitionTurnOffTiles
+ */
+cc.TransitionTurnOffTiles = {
+
+/**
+ * @method easeActionWithAction
+ * @param {cc.ActionInterval} arg0
+ * @return {cc.ActionInterval}
+ */
+easeActionWithAction : function (
+actioninterval 
+)
+{
+    return cc.ActionInterval;
+},
+
+/**
+ * @method create
+ * @param {float} arg0
+ * @param {cc.Scene} arg1
+ * @return {cc.TransitionTurnOffTiles}
+ */
+create : function (
+float, 
+scene 
+)
+{
+    return cc.TransitionTurnOffTiles;
+},
+
+/**
+ * @method TransitionTurnOffTiles
+ * @constructor
+ */
+TransitionTurnOffTiles : function (
+)
+{
+},
+
+};
+
+/**
+ * @class TransitionSplitCols
+ */
+cc.TransitionSplitCols = {
+
+/**
+ * @method action
+ * @return {cc.ActionInterval}
+ */
+action : function (
+)
+{
+    return cc.ActionInterval;
+},
+
+/**
+ * @method easeActionWithAction
+ * @param {cc.ActionInterval} arg0
+ * @return {cc.ActionInterval}
+ */
+easeActionWithAction : function (
+actioninterval 
+)
+{
+    return cc.ActionInterval;
+},
+
+/**
+ * @method create
+ * @param {float} arg0
+ * @param {cc.Scene} arg1
+ * @return {cc.TransitionSplitCols}
+ */
+create : function (
+float, 
+scene 
+)
+{
+    return cc.TransitionSplitCols;
+},
+
+/**
+ * @method TransitionSplitCols
+ * @constructor
+ */
+TransitionSplitCols : function (
+)
+{
+},
+
+};
+
+/**
+ * @class TransitionSplitRows
+ */
+cc.TransitionSplitRows = {
+
+/**
+ * @method create
+ * @param {float} arg0
+ * @param {cc.Scene} arg1
+ * @return {cc.TransitionSplitRows}
+ */
+create : function (
+float, 
+scene 
+)
+{
+    return cc.TransitionSplitRows;
+},
+
+/**
+ * @method TransitionSplitRows
+ * @constructor
+ */
+TransitionSplitRows : function (
+)
+{
+},
+
+};
+
+/**
+ * @class TransitionFadeTR
+ */
+cc.TransitionFadeTR = {
+
+/**
+ * @method easeActionWithAction
+ * @param {cc.ActionInterval} arg0
+ * @return {cc.ActionInterval}
+ */
+easeActionWithAction : function (
+actioninterval 
+)
+{
+    return cc.ActionInterval;
+},
+
+/**
+ * @method actionWithSize
+ * @param {size_object} arg0
+ * @return {cc.ActionInterval}
+ */
+actionWithSize : function (
+size 
+)
+{
+    return cc.ActionInterval;
+},
+
+/**
+ * @method create
+ * @param {float} arg0
+ * @param {cc.Scene} arg1
+ * @return {cc.TransitionFadeTR}
+ */
+create : function (
+float, 
+scene 
+)
+{
+    return cc.TransitionFadeTR;
+},
+
+/**
+ * @method TransitionFadeTR
+ * @constructor
+ */
+TransitionFadeTR : function (
+)
+{
+},
+
+};
+
+/**
+ * @class TransitionFadeBL
+ */
+cc.TransitionFadeBL = {
+
+/**
+ * @method create
+ * @param {float} arg0
+ * @param {cc.Scene} arg1
+ * @return {cc.TransitionFadeBL}
+ */
+create : function (
+float, 
+scene 
+)
+{
+    return cc.TransitionFadeBL;
+},
+
+/**
+ * @method TransitionFadeBL
+ * @constructor
+ */
+TransitionFadeBL : function (
+)
+{
+},
+
+};
+
+/**
+ * @class TransitionFadeUp
+ */
+cc.TransitionFadeUp = {
+
+/**
+ * @method create
+ * @param {float} arg0
+ * @param {cc.Scene} arg1
+ * @return {cc.TransitionFadeUp}
+ */
+create : function (
+float, 
+scene 
+)
+{
+    return cc.TransitionFadeUp;
+},
+
+/**
+ * @method TransitionFadeUp
+ * @constructor
+ */
+TransitionFadeUp : function (
+)
+{
+},
+
+};
+
+/**
+ * @class TransitionFadeDown
+ */
+cc.TransitionFadeDown = {
+
+/**
+ * @method create
+ * @param {float} arg0
+ * @param {cc.Scene} arg1
+ * @return {cc.TransitionFadeDown}
+ */
+create : function (
+float, 
+scene 
+)
+{
+    return cc.TransitionFadeDown;
+},
+
+/**
+ * @method TransitionFadeDown
+ * @constructor
+ */
+TransitionFadeDown : function (
+)
+{
+},
+
+};
+
+/**
+ * @class TransitionPageTurn
+ */
+cc.TransitionPageTurn = {
+
+/**
+ * @method actionWithSize
+ * @param {size_object} arg0
+ * @return {cc.ActionInterval}
+ */
+actionWithSize : function (
+size 
+)
+{
+    return cc.ActionInterval;
+},
+
+/**
+ * @method initWithDuration
+ * @param {float} arg0
+ * @param {cc.Scene} arg1
+ * @param {bool} arg2
+ * @return {bool}
+ */
+initWithDuration : function (
+float, 
+scene, 
+bool 
+)
+{
+    return false;
+},
+
+/**
+ * @method create
+ * @param {float} arg0
+ * @param {cc.Scene} arg1
+ * @param {bool} arg2
+ * @return {cc.TransitionPageTurn}
+ */
+create : function (
+float, 
+scene, 
+bool 
+)
+{
+    return cc.TransitionPageTurn;
+},
+
+/**
+ * @method TransitionPageTurn
+ * @constructor
+ */
+TransitionPageTurn : function (
+)
+{
+},
+
+};
+
+/**
+ * @class TransitionProgress
+ */
+cc.TransitionProgress = {
+
+/**
+ * @method create
+ * @param {float} arg0
+ * @param {cc.Scene} arg1
+ * @return {cc.TransitionProgress}
+ */
+create : function (
+float, 
+scene 
+)
+{
+    return cc.TransitionProgress;
+},
+
+/**
+ * @method TransitionProgress
+ * @constructor
+ */
+TransitionProgress : function (
+)
+{
+},
+
+};
+
+/**
+ * @class TransitionProgressRadialCCW
+ */
+cc.TransitionProgressRadialCCW = {
+
+/**
+ * @method create
+ * @param {float} arg0
+ * @param {cc.Scene} arg1
+ * @return {cc.TransitionProgressRadialCCW}
+ */
+create : function (
+float, 
+scene 
+)
+{
+    return cc.TransitionProgressRadialCCW;
+},
+
+/**
+ * @method TransitionProgressRadialCCW
+ * @constructor
+ */
+TransitionProgressRadialCCW : function (
+)
+{
+},
+
+};
+
+/**
+ * @class TransitionProgressRadialCW
+ */
+cc.TransitionProgressRadialCW = {
+
+/**
+ * @method create
+ * @param {float} arg0
+ * @param {cc.Scene} arg1
+ * @return {cc.TransitionProgressRadialCW}
+ */
+create : function (
+float, 
+scene 
+)
+{
+    return cc.TransitionProgressRadialCW;
+},
+
+/**
+ * @method TransitionProgressRadialCW
+ * @constructor
+ */
+TransitionProgressRadialCW : function (
+)
+{
+},
+
+};
+
+/**
+ * @class TransitionProgressHorizontal
+ */
+cc.TransitionProgressHorizontal = {
+
+/**
+ * @method create
+ * @param {float} arg0
+ * @param {cc.Scene} arg1
+ * @return {cc.TransitionProgressHorizontal}
+ */
+create : function (
+float, 
+scene 
+)
+{
+    return cc.TransitionProgressHorizontal;
+},
+
+/**
+ * @method TransitionProgressHorizontal
+ * @constructor
+ */
+TransitionProgressHorizontal : function (
+)
+{
+},
+
+};
+
+/**
+ * @class TransitionProgressVertical
+ */
+cc.TransitionProgressVertical = {
+
+/**
+ * @method create
+ * @param {float} arg0
+ * @param {cc.Scene} arg1
+ * @return {cc.TransitionProgressVertical}
+ */
+create : function (
+float, 
+scene 
+)
+{
+    return cc.TransitionProgressVertical;
+},
+
+/**
+ * @method TransitionProgressVertical
+ * @constructor
+ */
+TransitionProgressVertical : function (
+)
+{
+},
+
+};
+
+/**
+ * @class TransitionProgressInOut
+ */
+cc.TransitionProgressInOut = {
+
+/**
+ * @method create
+ * @param {float} arg0
+ * @param {cc.Scene} arg1
+ * @return {cc.TransitionProgressInOut}
+ */
+create : function (
+float, 
+scene 
+)
+{
+    return cc.TransitionProgressInOut;
+},
+
+/**
+ * @method TransitionProgressInOut
+ * @constructor
+ */
+TransitionProgressInOut : function (
+)
+{
+},
+
+};
+
+/**
+ * @class TransitionProgressOutIn
+ */
+cc.TransitionProgressOutIn = {
+
+/**
+ * @method create
+ * @param {float} arg0
+ * @param {cc.Scene} arg1
+ * @return {cc.TransitionProgressOutIn}
+ */
+create : function (
+float, 
+scene 
+)
+{
+    return cc.TransitionProgressOutIn;
+},
+
+/**
+ * @method TransitionProgressOutIn
+ * @constructor
+ */
+TransitionProgressOutIn : function (
+)
+{
+},
+
+};
+
+/**
  * @class GLProgram
  */
 cc.GLProgram = {

@@ -1304,10 +1304,10 @@ cc.callFunc = function (selector, target, data) {
         };
     }
     if (!target) {
-        cc.CallFunc.create(callback);
+        return cc.CallFunc.create(callback);
     }
     else {
-        cc.CallFunc.create(callback, target);
+        return cc.CallFunc.create(callback, target);
     }
 }
 cc.actionInterval = cc.ActionInterval.create;
@@ -1786,8 +1786,141 @@ _p.schedule = function (callback, target, interval, repeat, delay, paused, key) 
     if (key === undefined) {
         key = target.__instanceId + "";
     }
+    
+    if (!delay)
+        delay = 0;
+    
     this._schedule(callback, target, interval, repeat, delay, paused, key);
 }
+
+/**
+ * create a cc.rect object
+ * @param {Number|cc.point|cc.rect} [x] a Number value as x or a cc.point object as origin or a cc.rect clone object
+ * @param {Number|cc.size} [y] x1 a Number value as y or a cc.size object as size
+ * @param {Number} [w]
+ * @param {Number} [h]
+ * @return {Object} a cc.rect object
+ */
+cc.rect = function(x,y,w,h)
+{
+    var argLen = arguments.length;
+    if (argLen === 0)
+        return { x: 0, y: 0, width: 0, height: 0 };
+
+    if (argLen === 1)
+        return { x: x.x, y: x.y, width: x.width, height: x.height };
+
+    if (argLen === 2)
+        return { x: x.x, y: x.y, width: y.width, height: y.height };
+
+    if (argLen === 4)
+        return { x: x, y: y, width: w, height: h };
+
+    throw "unknown argument type";
+};
+cc._rect = function(x,y,w,h)
+{
+    cc._reuse_rect.x = x;
+    cc._reuse_rect.y = y;
+    cc._reuse_rect.width = w;
+    cc._reuse_rect.height = h;
+    return cc._reuse_rect;
+};
+cc.rectEqualToRect = function (rect1, rect2) {
+    return ( rect1.x==rect2.x && rect1.y==rect2.y && rect1.width==rect2.width && rect1.height==rect2.height);
+};
+
+cc.rectContainsRect = function (rect1, rect2) {
+    if ((rect1.x >= rect2.x) || (rect1.y >= rect2.y) ||
+        ( rect1.x + rect1.width <= rect2.x + rect2.width) ||
+        ( rect1.y + rect1.height <= rect2.y + rect2.height))
+        return false;
+    return true;
+};
+
+cc.rectGetMaxX = function (rect) {
+    return (rect.x + rect.width);
+};
+
+cc.rectGetMidX = function (rect) {
+    return (rect.x + rect.width / 2.0);
+};
+
+cc.rectGetMinX = function (rect) {
+    return rect.x;
+};
+
+cc.rectGetMaxY = function (rect) {
+    return(rect.y + rect.height);
+};
+
+cc.rectGetMidY = function (rect) {
+    return rect.y + rect.height / 2.0;
+};
+
+cc.rectGetMinY = function (rect) {
+    return rect.y;
+};
+
+cc.rectContainsPoint = function (rect, point) {
+    var ret = false;
+    if (point.x >= rect.x && point.x <= rect.x + rect.width &&
+        point.y >= rect.y && point.y <= rect.y + rect.height) {
+        ret = true;
+    }
+    return ret;
+};
+
+cc.rectIntersectsRect = function( rectA, rectB )
+{
+    var bool = ! (  rectA.x > rectB.x + rectB.width ||
+                    rectA.x + rectA.width < rectB.x ||
+                    rectA.y > rectB.y +rectB.height ||
+                    rectA.y + rectA.height < rectB.y );
+
+    return bool;
+};
+
+cc.rectOverlapsRect = function (rectA, rectB)
+{
+    return !((rectA.x + rectA.width < rectB.x) ||
+             (rectB.x + rectB.width < rectA.x) ||
+             (rectA.y + rectA.height < rectB.y) ||
+             (rectB.y + rectB.height < rectA.y));
+};
+
+cc.rectUnion = function (rectA, rectB) {
+    var rect = cc.rect(0, 0, 0, 0);
+    rect.x = Math.min(rectA.x, rectB.x);
+    rect.y = Math.min(rectA.y, rectB.y);
+    rect.width = Math.max(rectA.x + rectA.width, rectB.x + rectB.width) - rect.x;
+    rect.height = Math.max(rectA.y + rectA.height, rectB.y + rectB.height) - rect.y;
+    return rect;
+};
+
+cc.rectIntersection = function (rectA, rectB) {
+    var intersection = cc.rect(
+        Math.max(rectA.x, rectB.x),
+        Math.max(rectA.y, rectB.y),
+        0, 0);
+
+    intersection.width = Math.min(rectA.x+rectA.width, rectB.x+rectB.width) - intersection.x;
+    intersection.height = Math.min(rectA.y+rectA.height, rectB.y+rectB.height) - intersection.y;
+    return intersection;
+};
+
+cc.RectZero = function () {
+    return cc.rect(0, 0, 0, 0);
+};
+
+// Basic sturcture : Color
+cc.Color = function (r, g, b, a) {
+    this.r = r || 0;
+    this.g = g || 0;
+    this.b = b || 0;
+    this.a = (a === undefined) ? 255 : a;
+};
+
 
 //
 

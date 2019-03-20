@@ -71,6 +71,7 @@ typedef struct unz_file_info_s unz_file_info;
     class CC_DLL ZipUtils
     {
     public:
+        static int deflateMemory(unsigned char *in, ssize_t inLength, unsigned char **out, ssize_t *outLength);
         /**
          * Inflates either zlib or gzip deflated memory. The inflated memory is expected to be freed by the caller.
          *

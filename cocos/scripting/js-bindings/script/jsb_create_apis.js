@@ -312,12 +312,9 @@ cc.Sequence.prototype._ctor = function(tempArray) {
 cc.sequence = cc.Sequence.create = function (tempArray) {
     var actions = (tempArray instanceof Array) ? tempArray : arguments;
     var last = actions.length - 1;
-    cc.log("TIMUR")
-    console.log(actions)
-    console.log(actions[last])
     
     if ((last >= 0) && (actions[last] == null))
-        cc.log('parameterssssss should not be ending with null in Javascript');
+        cc.log('parameters should not be ending with null in Javascript');
 
     if (last >= 1) {
         var prev = actions[0];

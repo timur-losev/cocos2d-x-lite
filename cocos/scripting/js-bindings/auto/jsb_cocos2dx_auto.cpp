@@ -12563,9 +12563,7 @@ SE_DECLARE_FINALIZE_FUNC(js_cocos2d_Sequence_finalize)
 
 static bool js_cocos2dx_Sequence_constructor(se::State& s)
 {
-
     auto st = v8::StackTrace::CurrentStackTrace(v8::Isolate::GetCurrent(), 1000);
-
     std::string bt = se::ScriptEngine::stackTraceToString(st);
 
     cocos2d::Sequence* cobj = new (std::nothrow) cocos2d::Sequence();
@@ -31935,6 +31933,3447 @@ bool js_register_cocos2dx_RenderTexture(se::Object* obj)
     return true;
 }
 
+se::Object* __jsb_cocos2d_TransitionEaseScene_proto = nullptr;
+se::Class* __jsb_cocos2d_TransitionEaseScene_class = nullptr;
+
+static bool js_cocos2dx_TransitionEaseScene_easeActionWithAction(se::State& s)
+{
+    cocos2d::TransitionEaseScene* cobj = (cocos2d::TransitionEaseScene*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_TransitionEaseScene_easeActionWithAction : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        cocos2d::ActionInterval* arg0 = nullptr;
+        ok &= seval_to_native_ptr(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionEaseScene_easeActionWithAction : Error processing arguments");
+        cocos2d::ActionInterval* result = cobj->easeActionWithAction(arg0);
+        ok &= native_ptr_to_seval<cocos2d::ActionInterval>((cocos2d::ActionInterval*)result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionEaseScene_easeActionWithAction : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionEaseScene_easeActionWithAction)
+
+
+
+
+bool js_register_cocos2dx_TransitionEaseScene(se::Object* obj)
+{
+    auto cls = se::Class::create("TransitionEaseScene", obj, nullptr, nullptr);
+
+    cls->defineFunction("easeActionWithAction", _SE(js_cocos2dx_TransitionEaseScene_easeActionWithAction));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::TransitionEaseScene>(cls);
+
+    __jsb_cocos2d_TransitionEaseScene_proto = cls->getProto();
+    __jsb_cocos2d_TransitionEaseScene_class = cls;
+
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_TransitionScene_proto = nullptr;
+se::Class* __jsb_cocos2d_TransitionScene_class = nullptr;
+
+static bool js_cocos2dx_TransitionScene_getInScene(se::State& s)
+{
+    cocos2d::TransitionScene* cobj = (cocos2d::TransitionScene*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_TransitionScene_getInScene : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 0) {
+        cocos2d::Scene* result = cobj->getInScene();
+        ok &= native_ptr_to_seval<cocos2d::Scene>((cocos2d::Scene*)result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionScene_getInScene : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionScene_getInScene)
+
+static bool js_cocos2dx_TransitionScene_finish(se::State& s)
+{
+    cocos2d::TransitionScene* cobj = (cocos2d::TransitionScene*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_TransitionScene_finish : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    if (argc == 0) {
+        cobj->finish();
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionScene_finish)
+
+static bool js_cocos2dx_TransitionScene_initWithDuration(se::State& s)
+{
+    cocos2d::TransitionScene* cobj = (cocos2d::TransitionScene*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_TransitionScene_initWithDuration : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        float arg0 = 0;
+        cocos2d::Scene* arg1 = nullptr;
+        ok &= seval_to_float(args[0], &arg0);
+        ok &= seval_to_native_ptr(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionScene_initWithDuration : Error processing arguments");
+        bool result = cobj->initWithDuration(arg0, arg1);
+        ok &= boolean_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionScene_initWithDuration : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionScene_initWithDuration)
+
+static bool js_cocos2dx_TransitionScene_getDuration(se::State& s)
+{
+    cocos2d::TransitionScene* cobj = (cocos2d::TransitionScene*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_TransitionScene_getDuration : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 0) {
+        float result = cobj->getDuration();
+        ok &= float_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionScene_getDuration : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionScene_getDuration)
+
+static bool js_cocos2dx_TransitionScene_hideOutShowIn(se::State& s)
+{
+    cocos2d::TransitionScene* cobj = (cocos2d::TransitionScene*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_TransitionScene_hideOutShowIn : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    if (argc == 0) {
+        cobj->hideOutShowIn();
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionScene_hideOutShowIn)
+
+static bool js_cocos2dx_TransitionScene_create(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        float arg0 = 0;
+        cocos2d::Scene* arg1 = nullptr;
+        ok &= seval_to_float(args[0], &arg0);
+        ok &= seval_to_native_ptr(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionScene_create : Error processing arguments");
+        auto result = cocos2d::TransitionScene::create(arg0, arg1);
+        result->retain();
+        auto obj = se::Object::createObjectWithClass(__jsb_cocos2d_TransitionScene_class);
+        obj->setPrivateData(result);
+        s.rval().setObject(obj);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionScene_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_TransitionScene_finalize)
+
+static bool js_cocos2dx_TransitionScene_constructor(se::State& s)
+{
+    cocos2d::TransitionScene* cobj = new (std::nothrow) cocos2d::TransitionScene();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_TransitionScene_constructor, __jsb_cocos2d_TransitionScene_class, js_cocos2d_TransitionScene_finalize)
+
+static bool js_cocos2dx_TransitionScene_ctor(se::State& s)
+{
+    cocos2d::TransitionScene* cobj = new (std::nothrow) cocos2d::TransitionScene();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_TransitionScene_ctor, __jsb_cocos2d_TransitionScene_class, js_cocos2d_TransitionScene_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_Scene_proto;
+
+static bool js_cocos2d_TransitionScene_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::TransitionScene)", s.nativeThisObject());
+    cocos2d::TransitionScene* cobj = (cocos2d::TransitionScene*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_TransitionScene_finalize)
+
+bool js_register_cocos2dx_TransitionScene(se::Object* obj)
+{
+    auto cls = se::Class::create("TransitionScene", obj, __jsb_cocos2d_Scene_proto, _SE(js_cocos2dx_TransitionScene_constructor));
+
+    cls->defineFunction("getInScene", _SE(js_cocos2dx_TransitionScene_getInScene));
+    cls->defineFunction("finish", _SE(js_cocos2dx_TransitionScene_finish));
+    cls->defineFunction("initWithDuration", _SE(js_cocos2dx_TransitionScene_initWithDuration));
+    cls->defineFunction("getDuration", _SE(js_cocos2dx_TransitionScene_getDuration));
+    cls->defineFunction("hideOutShowIn", _SE(js_cocos2dx_TransitionScene_hideOutShowIn));
+    cls->defineFunction("ctor", _SE(js_cocos2dx_TransitionScene_ctor));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_TransitionScene_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_TransitionScene_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::TransitionScene>(cls);
+
+    __jsb_cocos2d_TransitionScene_proto = cls->getProto();
+    __jsb_cocos2d_TransitionScene_class = cls;
+
+    jsb_set_extend_property("cc", "TransitionScene");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_TransitionSceneOriented_proto = nullptr;
+se::Class* __jsb_cocos2d_TransitionSceneOriented_class = nullptr;
+
+static bool js_cocos2dx_TransitionSceneOriented_initWithDuration(se::State& s)
+{
+    cocos2d::TransitionSceneOriented* cobj = (cocos2d::TransitionSceneOriented*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_TransitionSceneOriented_initWithDuration : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 3) {
+        float arg0 = 0;
+        cocos2d::Scene* arg1 = nullptr;
+        cocos2d::TransitionScene::Orientation arg2;
+        ok &= seval_to_float(args[0], &arg0);
+        ok &= seval_to_native_ptr(args[1], &arg1);
+        ok &= seval_to_int32(args[2], (int32_t*)&arg2);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionSceneOriented_initWithDuration : Error processing arguments");
+        bool result = cobj->initWithDuration(arg0, arg1, arg2);
+        ok &= boolean_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionSceneOriented_initWithDuration : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 3);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionSceneOriented_initWithDuration)
+
+static bool js_cocos2dx_TransitionSceneOriented_create(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 3) {
+        float arg0 = 0;
+        cocos2d::Scene* arg1 = nullptr;
+        cocos2d::TransitionScene::Orientation arg2;
+        ok &= seval_to_float(args[0], &arg0);
+        ok &= seval_to_native_ptr(args[1], &arg1);
+        ok &= seval_to_int32(args[2], (int32_t*)&arg2);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionSceneOriented_create : Error processing arguments");
+        auto result = cocos2d::TransitionSceneOriented::create(arg0, arg1, arg2);
+        result->retain();
+        auto obj = se::Object::createObjectWithClass(__jsb_cocos2d_TransitionSceneOriented_class);
+        obj->setPrivateData(result);
+        s.rval().setObject(obj);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 3);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionSceneOriented_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_TransitionSceneOriented_finalize)
+
+static bool js_cocos2dx_TransitionSceneOriented_constructor(se::State& s)
+{
+    cocos2d::TransitionSceneOriented* cobj = new (std::nothrow) cocos2d::TransitionSceneOriented();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_TransitionSceneOriented_constructor, __jsb_cocos2d_TransitionSceneOriented_class, js_cocos2d_TransitionSceneOriented_finalize)
+
+static bool js_cocos2dx_TransitionSceneOriented_ctor(se::State& s)
+{
+    cocos2d::TransitionSceneOriented* cobj = new (std::nothrow) cocos2d::TransitionSceneOriented();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_TransitionSceneOriented_ctor, __jsb_cocos2d_TransitionSceneOriented_class, js_cocos2d_TransitionSceneOriented_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_TransitionScene_proto;
+
+static bool js_cocos2d_TransitionSceneOriented_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::TransitionSceneOriented)", s.nativeThisObject());
+    cocos2d::TransitionSceneOriented* cobj = (cocos2d::TransitionSceneOriented*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_TransitionSceneOriented_finalize)
+
+bool js_register_cocos2dx_TransitionSceneOriented(se::Object* obj)
+{
+    auto cls = se::Class::create("TransitionSceneOriented", obj, __jsb_cocos2d_TransitionScene_proto, _SE(js_cocos2dx_TransitionSceneOriented_constructor));
+
+    cls->defineFunction("initWithDuration", _SE(js_cocos2dx_TransitionSceneOriented_initWithDuration));
+    cls->defineFunction("ctor", _SE(js_cocos2dx_TransitionSceneOriented_ctor));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_TransitionSceneOriented_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_TransitionSceneOriented_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::TransitionSceneOriented>(cls);
+
+    __jsb_cocos2d_TransitionSceneOriented_proto = cls->getProto();
+    __jsb_cocos2d_TransitionSceneOriented_class = cls;
+
+    jsb_set_extend_property("cc", "TransitionSceneOriented");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_TransitionRotoZoom_proto = nullptr;
+se::Class* __jsb_cocos2d_TransitionRotoZoom_class = nullptr;
+
+static bool js_cocos2dx_TransitionRotoZoom_create(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        float arg0 = 0;
+        cocos2d::Scene* arg1 = nullptr;
+        ok &= seval_to_float(args[0], &arg0);
+        ok &= seval_to_native_ptr(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionRotoZoom_create : Error processing arguments");
+        auto result = cocos2d::TransitionRotoZoom::create(arg0, arg1);
+        result->retain();
+        auto obj = se::Object::createObjectWithClass(__jsb_cocos2d_TransitionRotoZoom_class);
+        obj->setPrivateData(result);
+        s.rval().setObject(obj);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionRotoZoom_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_TransitionRotoZoom_finalize)
+
+static bool js_cocos2dx_TransitionRotoZoom_constructor(se::State& s)
+{
+    cocos2d::TransitionRotoZoom* cobj = new (std::nothrow) cocos2d::TransitionRotoZoom();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_TransitionRotoZoom_constructor, __jsb_cocos2d_TransitionRotoZoom_class, js_cocos2d_TransitionRotoZoom_finalize)
+
+static bool js_cocos2dx_TransitionRotoZoom_ctor(se::State& s)
+{
+    cocos2d::TransitionRotoZoom* cobj = new (std::nothrow) cocos2d::TransitionRotoZoom();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_TransitionRotoZoom_ctor, __jsb_cocos2d_TransitionRotoZoom_class, js_cocos2d_TransitionRotoZoom_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_TransitionScene_proto;
+
+static bool js_cocos2d_TransitionRotoZoom_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::TransitionRotoZoom)", s.nativeThisObject());
+    cocos2d::TransitionRotoZoom* cobj = (cocos2d::TransitionRotoZoom*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_TransitionRotoZoom_finalize)
+
+bool js_register_cocos2dx_TransitionRotoZoom(se::Object* obj)
+{
+    auto cls = se::Class::create("TransitionRotoZoom", obj, __jsb_cocos2d_TransitionScene_proto, _SE(js_cocos2dx_TransitionRotoZoom_constructor));
+
+    cls->defineFunction("ctor", _SE(js_cocos2dx_TransitionRotoZoom_ctor));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_TransitionRotoZoom_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_TransitionRotoZoom_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::TransitionRotoZoom>(cls);
+
+    __jsb_cocos2d_TransitionRotoZoom_proto = cls->getProto();
+    __jsb_cocos2d_TransitionRotoZoom_class = cls;
+
+    jsb_set_extend_property("cc", "TransitionRotoZoom");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_TransitionJumpZoom_proto = nullptr;
+se::Class* __jsb_cocos2d_TransitionJumpZoom_class = nullptr;
+
+static bool js_cocos2dx_TransitionJumpZoom_create(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        float arg0 = 0;
+        cocos2d::Scene* arg1 = nullptr;
+        ok &= seval_to_float(args[0], &arg0);
+        ok &= seval_to_native_ptr(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionJumpZoom_create : Error processing arguments");
+        auto result = cocos2d::TransitionJumpZoom::create(arg0, arg1);
+        result->retain();
+        auto obj = se::Object::createObjectWithClass(__jsb_cocos2d_TransitionJumpZoom_class);
+        obj->setPrivateData(result);
+        s.rval().setObject(obj);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionJumpZoom_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_TransitionJumpZoom_finalize)
+
+static bool js_cocos2dx_TransitionJumpZoom_constructor(se::State& s)
+{
+    cocos2d::TransitionJumpZoom* cobj = new (std::nothrow) cocos2d::TransitionJumpZoom();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_TransitionJumpZoom_constructor, __jsb_cocos2d_TransitionJumpZoom_class, js_cocos2d_TransitionJumpZoom_finalize)
+
+static bool js_cocos2dx_TransitionJumpZoom_ctor(se::State& s)
+{
+    cocos2d::TransitionJumpZoom* cobj = new (std::nothrow) cocos2d::TransitionJumpZoom();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_TransitionJumpZoom_ctor, __jsb_cocos2d_TransitionJumpZoom_class, js_cocos2d_TransitionJumpZoom_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_TransitionScene_proto;
+
+static bool js_cocos2d_TransitionJumpZoom_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::TransitionJumpZoom)", s.nativeThisObject());
+    cocos2d::TransitionJumpZoom* cobj = (cocos2d::TransitionJumpZoom*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_TransitionJumpZoom_finalize)
+
+bool js_register_cocos2dx_TransitionJumpZoom(se::Object* obj)
+{
+    auto cls = se::Class::create("TransitionJumpZoom", obj, __jsb_cocos2d_TransitionScene_proto, _SE(js_cocos2dx_TransitionJumpZoom_constructor));
+
+    cls->defineFunction("ctor", _SE(js_cocos2dx_TransitionJumpZoom_ctor));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_TransitionJumpZoom_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_TransitionJumpZoom_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::TransitionJumpZoom>(cls);
+
+    __jsb_cocos2d_TransitionJumpZoom_proto = cls->getProto();
+    __jsb_cocos2d_TransitionJumpZoom_class = cls;
+
+    jsb_set_extend_property("cc", "TransitionJumpZoom");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_TransitionMoveInL_proto = nullptr;
+se::Class* __jsb_cocos2d_TransitionMoveInL_class = nullptr;
+
+static bool js_cocos2dx_TransitionMoveInL_action(se::State& s)
+{
+    cocos2d::TransitionMoveInL* cobj = (cocos2d::TransitionMoveInL*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_TransitionMoveInL_action : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 0) {
+        cocos2d::ActionInterval* result = cobj->action();
+        ok &= native_ptr_to_seval<cocos2d::ActionInterval>((cocos2d::ActionInterval*)result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionMoveInL_action : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionMoveInL_action)
+
+static bool js_cocos2dx_TransitionMoveInL_easeActionWithAction(se::State& s)
+{
+    cocos2d::TransitionMoveInL* cobj = (cocos2d::TransitionMoveInL*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_TransitionMoveInL_easeActionWithAction : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        cocos2d::ActionInterval* arg0 = nullptr;
+        ok &= seval_to_native_ptr(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionMoveInL_easeActionWithAction : Error processing arguments");
+        cocos2d::ActionInterval* result = cobj->easeActionWithAction(arg0);
+        ok &= native_ptr_to_seval<cocos2d::ActionInterval>((cocos2d::ActionInterval*)result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionMoveInL_easeActionWithAction : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionMoveInL_easeActionWithAction)
+
+static bool js_cocos2dx_TransitionMoveInL_create(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        float arg0 = 0;
+        cocos2d::Scene* arg1 = nullptr;
+        ok &= seval_to_float(args[0], &arg0);
+        ok &= seval_to_native_ptr(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionMoveInL_create : Error processing arguments");
+        auto result = cocos2d::TransitionMoveInL::create(arg0, arg1);
+        result->retain();
+        auto obj = se::Object::createObjectWithClass(__jsb_cocos2d_TransitionMoveInL_class);
+        obj->setPrivateData(result);
+        s.rval().setObject(obj);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionMoveInL_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_TransitionMoveInL_finalize)
+
+static bool js_cocos2dx_TransitionMoveInL_constructor(se::State& s)
+{
+    cocos2d::TransitionMoveInL* cobj = new (std::nothrow) cocos2d::TransitionMoveInL();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_TransitionMoveInL_constructor, __jsb_cocos2d_TransitionMoveInL_class, js_cocos2d_TransitionMoveInL_finalize)
+
+static bool js_cocos2dx_TransitionMoveInL_ctor(se::State& s)
+{
+    cocos2d::TransitionMoveInL* cobj = new (std::nothrow) cocos2d::TransitionMoveInL();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_TransitionMoveInL_ctor, __jsb_cocos2d_TransitionMoveInL_class, js_cocos2d_TransitionMoveInL_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_TransitionScene_proto;
+
+static bool js_cocos2d_TransitionMoveInL_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::TransitionMoveInL)", s.nativeThisObject());
+    cocos2d::TransitionMoveInL* cobj = (cocos2d::TransitionMoveInL*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_TransitionMoveInL_finalize)
+
+bool js_register_cocos2dx_TransitionMoveInL(se::Object* obj)
+{
+    auto cls = se::Class::create("TransitionMoveInL", obj, __jsb_cocos2d_TransitionScene_proto, _SE(js_cocos2dx_TransitionMoveInL_constructor));
+
+    cls->defineFunction("action", _SE(js_cocos2dx_TransitionMoveInL_action));
+    cls->defineFunction("easeActionWithAction", _SE(js_cocos2dx_TransitionMoveInL_easeActionWithAction));
+    cls->defineFunction("ctor", _SE(js_cocos2dx_TransitionMoveInL_ctor));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_TransitionMoveInL_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_TransitionMoveInL_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::TransitionMoveInL>(cls);
+
+    __jsb_cocos2d_TransitionMoveInL_proto = cls->getProto();
+    __jsb_cocos2d_TransitionMoveInL_class = cls;
+
+    jsb_set_extend_property("cc", "TransitionMoveInL");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_TransitionMoveInR_proto = nullptr;
+se::Class* __jsb_cocos2d_TransitionMoveInR_class = nullptr;
+
+static bool js_cocos2dx_TransitionMoveInR_create(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        float arg0 = 0;
+        cocos2d::Scene* arg1 = nullptr;
+        ok &= seval_to_float(args[0], &arg0);
+        ok &= seval_to_native_ptr(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionMoveInR_create : Error processing arguments");
+        auto result = cocos2d::TransitionMoveInR::create(arg0, arg1);
+        result->retain();
+        auto obj = se::Object::createObjectWithClass(__jsb_cocos2d_TransitionMoveInR_class);
+        obj->setPrivateData(result);
+        s.rval().setObject(obj);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionMoveInR_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_TransitionMoveInR_finalize)
+
+static bool js_cocos2dx_TransitionMoveInR_constructor(se::State& s)
+{
+    cocos2d::TransitionMoveInR* cobj = new (std::nothrow) cocos2d::TransitionMoveInR();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_TransitionMoveInR_constructor, __jsb_cocos2d_TransitionMoveInR_class, js_cocos2d_TransitionMoveInR_finalize)
+
+static bool js_cocos2dx_TransitionMoveInR_ctor(se::State& s)
+{
+    cocos2d::TransitionMoveInR* cobj = new (std::nothrow) cocos2d::TransitionMoveInR();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_TransitionMoveInR_ctor, __jsb_cocos2d_TransitionMoveInR_class, js_cocos2d_TransitionMoveInR_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_TransitionMoveInL_proto;
+
+static bool js_cocos2d_TransitionMoveInR_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::TransitionMoveInR)", s.nativeThisObject());
+    cocos2d::TransitionMoveInR* cobj = (cocos2d::TransitionMoveInR*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_TransitionMoveInR_finalize)
+
+bool js_register_cocos2dx_TransitionMoveInR(se::Object* obj)
+{
+    auto cls = se::Class::create("TransitionMoveInR", obj, __jsb_cocos2d_TransitionMoveInL_proto, _SE(js_cocos2dx_TransitionMoveInR_constructor));
+
+    cls->defineFunction("ctor", _SE(js_cocos2dx_TransitionMoveInR_ctor));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_TransitionMoveInR_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_TransitionMoveInR_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::TransitionMoveInR>(cls);
+
+    __jsb_cocos2d_TransitionMoveInR_proto = cls->getProto();
+    __jsb_cocos2d_TransitionMoveInR_class = cls;
+
+    jsb_set_extend_property("cc", "TransitionMoveInR");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_TransitionMoveInT_proto = nullptr;
+se::Class* __jsb_cocos2d_TransitionMoveInT_class = nullptr;
+
+static bool js_cocos2dx_TransitionMoveInT_create(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        float arg0 = 0;
+        cocos2d::Scene* arg1 = nullptr;
+        ok &= seval_to_float(args[0], &arg0);
+        ok &= seval_to_native_ptr(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionMoveInT_create : Error processing arguments");
+        auto result = cocos2d::TransitionMoveInT::create(arg0, arg1);
+        result->retain();
+        auto obj = se::Object::createObjectWithClass(__jsb_cocos2d_TransitionMoveInT_class);
+        obj->setPrivateData(result);
+        s.rval().setObject(obj);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionMoveInT_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_TransitionMoveInT_finalize)
+
+static bool js_cocos2dx_TransitionMoveInT_constructor(se::State& s)
+{
+    cocos2d::TransitionMoveInT* cobj = new (std::nothrow) cocos2d::TransitionMoveInT();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_TransitionMoveInT_constructor, __jsb_cocos2d_TransitionMoveInT_class, js_cocos2d_TransitionMoveInT_finalize)
+
+static bool js_cocos2dx_TransitionMoveInT_ctor(se::State& s)
+{
+    cocos2d::TransitionMoveInT* cobj = new (std::nothrow) cocos2d::TransitionMoveInT();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_TransitionMoveInT_ctor, __jsb_cocos2d_TransitionMoveInT_class, js_cocos2d_TransitionMoveInT_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_TransitionMoveInL_proto;
+
+static bool js_cocos2d_TransitionMoveInT_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::TransitionMoveInT)", s.nativeThisObject());
+    cocos2d::TransitionMoveInT* cobj = (cocos2d::TransitionMoveInT*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_TransitionMoveInT_finalize)
+
+bool js_register_cocos2dx_TransitionMoveInT(se::Object* obj)
+{
+    auto cls = se::Class::create("TransitionMoveInT", obj, __jsb_cocos2d_TransitionMoveInL_proto, _SE(js_cocos2dx_TransitionMoveInT_constructor));
+
+    cls->defineFunction("ctor", _SE(js_cocos2dx_TransitionMoveInT_ctor));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_TransitionMoveInT_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_TransitionMoveInT_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::TransitionMoveInT>(cls);
+
+    __jsb_cocos2d_TransitionMoveInT_proto = cls->getProto();
+    __jsb_cocos2d_TransitionMoveInT_class = cls;
+
+    jsb_set_extend_property("cc", "TransitionMoveInT");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_TransitionMoveInB_proto = nullptr;
+se::Class* __jsb_cocos2d_TransitionMoveInB_class = nullptr;
+
+static bool js_cocos2dx_TransitionMoveInB_create(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        float arg0 = 0;
+        cocos2d::Scene* arg1 = nullptr;
+        ok &= seval_to_float(args[0], &arg0);
+        ok &= seval_to_native_ptr(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionMoveInB_create : Error processing arguments");
+        auto result = cocos2d::TransitionMoveInB::create(arg0, arg1);
+        result->retain();
+        auto obj = se::Object::createObjectWithClass(__jsb_cocos2d_TransitionMoveInB_class);
+        obj->setPrivateData(result);
+        s.rval().setObject(obj);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionMoveInB_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_TransitionMoveInB_finalize)
+
+static bool js_cocos2dx_TransitionMoveInB_constructor(se::State& s)
+{
+    cocos2d::TransitionMoveInB* cobj = new (std::nothrow) cocos2d::TransitionMoveInB();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_TransitionMoveInB_constructor, __jsb_cocos2d_TransitionMoveInB_class, js_cocos2d_TransitionMoveInB_finalize)
+
+static bool js_cocos2dx_TransitionMoveInB_ctor(se::State& s)
+{
+    cocos2d::TransitionMoveInB* cobj = new (std::nothrow) cocos2d::TransitionMoveInB();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_TransitionMoveInB_ctor, __jsb_cocos2d_TransitionMoveInB_class, js_cocos2d_TransitionMoveInB_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_TransitionMoveInL_proto;
+
+static bool js_cocos2d_TransitionMoveInB_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::TransitionMoveInB)", s.nativeThisObject());
+    cocos2d::TransitionMoveInB* cobj = (cocos2d::TransitionMoveInB*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_TransitionMoveInB_finalize)
+
+bool js_register_cocos2dx_TransitionMoveInB(se::Object* obj)
+{
+    auto cls = se::Class::create("TransitionMoveInB", obj, __jsb_cocos2d_TransitionMoveInL_proto, _SE(js_cocos2dx_TransitionMoveInB_constructor));
+
+    cls->defineFunction("ctor", _SE(js_cocos2dx_TransitionMoveInB_ctor));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_TransitionMoveInB_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_TransitionMoveInB_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::TransitionMoveInB>(cls);
+
+    __jsb_cocos2d_TransitionMoveInB_proto = cls->getProto();
+    __jsb_cocos2d_TransitionMoveInB_class = cls;
+
+    jsb_set_extend_property("cc", "TransitionMoveInB");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_TransitionSlideInL_proto = nullptr;
+se::Class* __jsb_cocos2d_TransitionSlideInL_class = nullptr;
+
+static bool js_cocos2dx_TransitionSlideInL_action(se::State& s)
+{
+    cocos2d::TransitionSlideInL* cobj = (cocos2d::TransitionSlideInL*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_TransitionSlideInL_action : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 0) {
+        cocos2d::ActionInterval* result = cobj->action();
+        ok &= native_ptr_to_seval<cocos2d::ActionInterval>((cocos2d::ActionInterval*)result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionSlideInL_action : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionSlideInL_action)
+
+static bool js_cocos2dx_TransitionSlideInL_easeActionWithAction(se::State& s)
+{
+    cocos2d::TransitionSlideInL* cobj = (cocos2d::TransitionSlideInL*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_TransitionSlideInL_easeActionWithAction : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        cocos2d::ActionInterval* arg0 = nullptr;
+        ok &= seval_to_native_ptr(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionSlideInL_easeActionWithAction : Error processing arguments");
+        cocos2d::ActionInterval* result = cobj->easeActionWithAction(arg0);
+        ok &= native_ptr_to_seval<cocos2d::ActionInterval>((cocos2d::ActionInterval*)result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionSlideInL_easeActionWithAction : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionSlideInL_easeActionWithAction)
+
+static bool js_cocos2dx_TransitionSlideInL_create(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        float arg0 = 0;
+        cocos2d::Scene* arg1 = nullptr;
+        ok &= seval_to_float(args[0], &arg0);
+        ok &= seval_to_native_ptr(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionSlideInL_create : Error processing arguments");
+        auto result = cocos2d::TransitionSlideInL::create(arg0, arg1);
+        result->retain();
+        auto obj = se::Object::createObjectWithClass(__jsb_cocos2d_TransitionSlideInL_class);
+        obj->setPrivateData(result);
+        s.rval().setObject(obj);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionSlideInL_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_TransitionSlideInL_finalize)
+
+static bool js_cocos2dx_TransitionSlideInL_constructor(se::State& s)
+{
+    cocos2d::TransitionSlideInL* cobj = new (std::nothrow) cocos2d::TransitionSlideInL();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_TransitionSlideInL_constructor, __jsb_cocos2d_TransitionSlideInL_class, js_cocos2d_TransitionSlideInL_finalize)
+
+static bool js_cocos2dx_TransitionSlideInL_ctor(se::State& s)
+{
+    cocos2d::TransitionSlideInL* cobj = new (std::nothrow) cocos2d::TransitionSlideInL();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_TransitionSlideInL_ctor, __jsb_cocos2d_TransitionSlideInL_class, js_cocos2d_TransitionSlideInL_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_TransitionScene_proto;
+
+static bool js_cocos2d_TransitionSlideInL_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::TransitionSlideInL)", s.nativeThisObject());
+    cocos2d::TransitionSlideInL* cobj = (cocos2d::TransitionSlideInL*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_TransitionSlideInL_finalize)
+
+bool js_register_cocos2dx_TransitionSlideInL(se::Object* obj)
+{
+    auto cls = se::Class::create("TransitionSlideInL", obj, __jsb_cocos2d_TransitionScene_proto, _SE(js_cocos2dx_TransitionSlideInL_constructor));
+
+    cls->defineFunction("action", _SE(js_cocos2dx_TransitionSlideInL_action));
+    cls->defineFunction("easeActionWithAction", _SE(js_cocos2dx_TransitionSlideInL_easeActionWithAction));
+    cls->defineFunction("ctor", _SE(js_cocos2dx_TransitionSlideInL_ctor));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_TransitionSlideInL_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_TransitionSlideInL_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::TransitionSlideInL>(cls);
+
+    __jsb_cocos2d_TransitionSlideInL_proto = cls->getProto();
+    __jsb_cocos2d_TransitionSlideInL_class = cls;
+
+    jsb_set_extend_property("cc", "TransitionSlideInL");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_TransitionSlideInR_proto = nullptr;
+se::Class* __jsb_cocos2d_TransitionSlideInR_class = nullptr;
+
+static bool js_cocos2dx_TransitionSlideInR_create(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        float arg0 = 0;
+        cocos2d::Scene* arg1 = nullptr;
+        ok &= seval_to_float(args[0], &arg0);
+        ok &= seval_to_native_ptr(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionSlideInR_create : Error processing arguments");
+        auto result = cocos2d::TransitionSlideInR::create(arg0, arg1);
+        result->retain();
+        auto obj = se::Object::createObjectWithClass(__jsb_cocos2d_TransitionSlideInR_class);
+        obj->setPrivateData(result);
+        s.rval().setObject(obj);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionSlideInR_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_TransitionSlideInR_finalize)
+
+static bool js_cocos2dx_TransitionSlideInR_constructor(se::State& s)
+{
+    cocos2d::TransitionSlideInR* cobj = new (std::nothrow) cocos2d::TransitionSlideInR();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_TransitionSlideInR_constructor, __jsb_cocos2d_TransitionSlideInR_class, js_cocos2d_TransitionSlideInR_finalize)
+
+static bool js_cocos2dx_TransitionSlideInR_ctor(se::State& s)
+{
+    cocos2d::TransitionSlideInR* cobj = new (std::nothrow) cocos2d::TransitionSlideInR();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_TransitionSlideInR_ctor, __jsb_cocos2d_TransitionSlideInR_class, js_cocos2d_TransitionSlideInR_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_TransitionSlideInL_proto;
+
+static bool js_cocos2d_TransitionSlideInR_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::TransitionSlideInR)", s.nativeThisObject());
+    cocos2d::TransitionSlideInR* cobj = (cocos2d::TransitionSlideInR*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_TransitionSlideInR_finalize)
+
+bool js_register_cocos2dx_TransitionSlideInR(se::Object* obj)
+{
+    auto cls = se::Class::create("TransitionSlideInR", obj, __jsb_cocos2d_TransitionSlideInL_proto, _SE(js_cocos2dx_TransitionSlideInR_constructor));
+
+    cls->defineFunction("ctor", _SE(js_cocos2dx_TransitionSlideInR_ctor));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_TransitionSlideInR_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_TransitionSlideInR_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::TransitionSlideInR>(cls);
+
+    __jsb_cocos2d_TransitionSlideInR_proto = cls->getProto();
+    __jsb_cocos2d_TransitionSlideInR_class = cls;
+
+    jsb_set_extend_property("cc", "TransitionSlideInR");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_TransitionSlideInB_proto = nullptr;
+se::Class* __jsb_cocos2d_TransitionSlideInB_class = nullptr;
+
+static bool js_cocos2dx_TransitionSlideInB_create(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        float arg0 = 0;
+        cocos2d::Scene* arg1 = nullptr;
+        ok &= seval_to_float(args[0], &arg0);
+        ok &= seval_to_native_ptr(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionSlideInB_create : Error processing arguments");
+        auto result = cocos2d::TransitionSlideInB::create(arg0, arg1);
+        result->retain();
+        auto obj = se::Object::createObjectWithClass(__jsb_cocos2d_TransitionSlideInB_class);
+        obj->setPrivateData(result);
+        s.rval().setObject(obj);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionSlideInB_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_TransitionSlideInB_finalize)
+
+static bool js_cocos2dx_TransitionSlideInB_constructor(se::State& s)
+{
+    cocos2d::TransitionSlideInB* cobj = new (std::nothrow) cocos2d::TransitionSlideInB();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_TransitionSlideInB_constructor, __jsb_cocos2d_TransitionSlideInB_class, js_cocos2d_TransitionSlideInB_finalize)
+
+static bool js_cocos2dx_TransitionSlideInB_ctor(se::State& s)
+{
+    cocos2d::TransitionSlideInB* cobj = new (std::nothrow) cocos2d::TransitionSlideInB();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_TransitionSlideInB_ctor, __jsb_cocos2d_TransitionSlideInB_class, js_cocos2d_TransitionSlideInB_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_TransitionSlideInL_proto;
+
+static bool js_cocos2d_TransitionSlideInB_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::TransitionSlideInB)", s.nativeThisObject());
+    cocos2d::TransitionSlideInB* cobj = (cocos2d::TransitionSlideInB*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_TransitionSlideInB_finalize)
+
+bool js_register_cocos2dx_TransitionSlideInB(se::Object* obj)
+{
+    auto cls = se::Class::create("TransitionSlideInB", obj, __jsb_cocos2d_TransitionSlideInL_proto, _SE(js_cocos2dx_TransitionSlideInB_constructor));
+
+    cls->defineFunction("ctor", _SE(js_cocos2dx_TransitionSlideInB_ctor));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_TransitionSlideInB_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_TransitionSlideInB_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::TransitionSlideInB>(cls);
+
+    __jsb_cocos2d_TransitionSlideInB_proto = cls->getProto();
+    __jsb_cocos2d_TransitionSlideInB_class = cls;
+
+    jsb_set_extend_property("cc", "TransitionSlideInB");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_TransitionSlideInT_proto = nullptr;
+se::Class* __jsb_cocos2d_TransitionSlideInT_class = nullptr;
+
+static bool js_cocos2dx_TransitionSlideInT_create(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        float arg0 = 0;
+        cocos2d::Scene* arg1 = nullptr;
+        ok &= seval_to_float(args[0], &arg0);
+        ok &= seval_to_native_ptr(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionSlideInT_create : Error processing arguments");
+        auto result = cocos2d::TransitionSlideInT::create(arg0, arg1);
+        result->retain();
+        auto obj = se::Object::createObjectWithClass(__jsb_cocos2d_TransitionSlideInT_class);
+        obj->setPrivateData(result);
+        s.rval().setObject(obj);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionSlideInT_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_TransitionSlideInT_finalize)
+
+static bool js_cocos2dx_TransitionSlideInT_constructor(se::State& s)
+{
+    cocos2d::TransitionSlideInT* cobj = new (std::nothrow) cocos2d::TransitionSlideInT();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_TransitionSlideInT_constructor, __jsb_cocos2d_TransitionSlideInT_class, js_cocos2d_TransitionSlideInT_finalize)
+
+static bool js_cocos2dx_TransitionSlideInT_ctor(se::State& s)
+{
+    cocos2d::TransitionSlideInT* cobj = new (std::nothrow) cocos2d::TransitionSlideInT();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_TransitionSlideInT_ctor, __jsb_cocos2d_TransitionSlideInT_class, js_cocos2d_TransitionSlideInT_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_TransitionSlideInL_proto;
+
+static bool js_cocos2d_TransitionSlideInT_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::TransitionSlideInT)", s.nativeThisObject());
+    cocos2d::TransitionSlideInT* cobj = (cocos2d::TransitionSlideInT*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_TransitionSlideInT_finalize)
+
+bool js_register_cocos2dx_TransitionSlideInT(se::Object* obj)
+{
+    auto cls = se::Class::create("TransitionSlideInT", obj, __jsb_cocos2d_TransitionSlideInL_proto, _SE(js_cocos2dx_TransitionSlideInT_constructor));
+
+    cls->defineFunction("ctor", _SE(js_cocos2dx_TransitionSlideInT_ctor));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_TransitionSlideInT_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_TransitionSlideInT_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::TransitionSlideInT>(cls);
+
+    __jsb_cocos2d_TransitionSlideInT_proto = cls->getProto();
+    __jsb_cocos2d_TransitionSlideInT_class = cls;
+
+    jsb_set_extend_property("cc", "TransitionSlideInT");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_TransitionShrinkGrow_proto = nullptr;
+se::Class* __jsb_cocos2d_TransitionShrinkGrow_class = nullptr;
+
+static bool js_cocos2dx_TransitionShrinkGrow_easeActionWithAction(se::State& s)
+{
+    cocos2d::TransitionShrinkGrow* cobj = (cocos2d::TransitionShrinkGrow*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_TransitionShrinkGrow_easeActionWithAction : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        cocos2d::ActionInterval* arg0 = nullptr;
+        ok &= seval_to_native_ptr(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionShrinkGrow_easeActionWithAction : Error processing arguments");
+        cocos2d::ActionInterval* result = cobj->easeActionWithAction(arg0);
+        ok &= native_ptr_to_seval<cocos2d::ActionInterval>((cocos2d::ActionInterval*)result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionShrinkGrow_easeActionWithAction : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionShrinkGrow_easeActionWithAction)
+
+static bool js_cocos2dx_TransitionShrinkGrow_create(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        float arg0 = 0;
+        cocos2d::Scene* arg1 = nullptr;
+        ok &= seval_to_float(args[0], &arg0);
+        ok &= seval_to_native_ptr(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionShrinkGrow_create : Error processing arguments");
+        auto result = cocos2d::TransitionShrinkGrow::create(arg0, arg1);
+        result->retain();
+        auto obj = se::Object::createObjectWithClass(__jsb_cocos2d_TransitionShrinkGrow_class);
+        obj->setPrivateData(result);
+        s.rval().setObject(obj);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionShrinkGrow_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_TransitionShrinkGrow_finalize)
+
+static bool js_cocos2dx_TransitionShrinkGrow_constructor(se::State& s)
+{
+    cocos2d::TransitionShrinkGrow* cobj = new (std::nothrow) cocos2d::TransitionShrinkGrow();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_TransitionShrinkGrow_constructor, __jsb_cocos2d_TransitionShrinkGrow_class, js_cocos2d_TransitionShrinkGrow_finalize)
+
+static bool js_cocos2dx_TransitionShrinkGrow_ctor(se::State& s)
+{
+    cocos2d::TransitionShrinkGrow* cobj = new (std::nothrow) cocos2d::TransitionShrinkGrow();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_TransitionShrinkGrow_ctor, __jsb_cocos2d_TransitionShrinkGrow_class, js_cocos2d_TransitionShrinkGrow_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_TransitionScene_proto;
+
+static bool js_cocos2d_TransitionShrinkGrow_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::TransitionShrinkGrow)", s.nativeThisObject());
+    cocos2d::TransitionShrinkGrow* cobj = (cocos2d::TransitionShrinkGrow*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_TransitionShrinkGrow_finalize)
+
+bool js_register_cocos2dx_TransitionShrinkGrow(se::Object* obj)
+{
+    auto cls = se::Class::create("TransitionShrinkGrow", obj, __jsb_cocos2d_TransitionScene_proto, _SE(js_cocos2dx_TransitionShrinkGrow_constructor));
+
+    cls->defineFunction("easeActionWithAction", _SE(js_cocos2dx_TransitionShrinkGrow_easeActionWithAction));
+    cls->defineFunction("ctor", _SE(js_cocos2dx_TransitionShrinkGrow_ctor));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_TransitionShrinkGrow_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_TransitionShrinkGrow_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::TransitionShrinkGrow>(cls);
+
+    __jsb_cocos2d_TransitionShrinkGrow_proto = cls->getProto();
+    __jsb_cocos2d_TransitionShrinkGrow_class = cls;
+
+    jsb_set_extend_property("cc", "TransitionShrinkGrow");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_TransitionFlipX_proto = nullptr;
+se::Class* __jsb_cocos2d_TransitionFlipX_class = nullptr;
+
+static bool js_cocos2dx_TransitionFlipX_create(se::State& s)
+{
+    CC_UNUSED bool ok = true;
+    const auto& args = s.args();
+    size_t argc = args.size();
+    do {
+        if (argc == 2) {
+            float arg0 = 0;
+            ok &= seval_to_float(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            cocos2d::Scene* arg1 = nullptr;
+            ok &= seval_to_native_ptr(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            cocos2d::TransitionFlipX* result = cocos2d::TransitionFlipX::create(arg0, arg1);
+            ok &= native_ptr_to_seval<cocos2d::TransitionFlipX>((cocos2d::TransitionFlipX*)result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionFlipX_create : Error processing arguments");
+            return true;
+        }
+    } while (false);
+    do {
+        if (argc == 3) {
+            float arg0 = 0;
+            ok &= seval_to_float(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            cocos2d::Scene* arg1 = nullptr;
+            ok &= seval_to_native_ptr(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            cocos2d::TransitionScene::Orientation arg2;
+            ok &= seval_to_int32(args[2], (int32_t*)&arg2);
+            if (!ok) { ok = true; break; }
+            cocos2d::TransitionFlipX* result = cocos2d::TransitionFlipX::create(arg0, arg1, arg2);
+            ok &= native_ptr_to_seval<cocos2d::TransitionFlipX>((cocos2d::TransitionFlipX*)result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionFlipX_create : Error processing arguments");
+            return true;
+        }
+    } while (false);
+    SE_REPORT_ERROR("wrong number of arguments: %d", (int)argc);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionFlipX_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_TransitionFlipX_finalize)
+
+static bool js_cocos2dx_TransitionFlipX_constructor(se::State& s)
+{
+    cocos2d::TransitionFlipX* cobj = new (std::nothrow) cocos2d::TransitionFlipX();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_TransitionFlipX_constructor, __jsb_cocos2d_TransitionFlipX_class, js_cocos2d_TransitionFlipX_finalize)
+
+static bool js_cocos2dx_TransitionFlipX_ctor(se::State& s)
+{
+    cocos2d::TransitionFlipX* cobj = new (std::nothrow) cocos2d::TransitionFlipX();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_TransitionFlipX_ctor, __jsb_cocos2d_TransitionFlipX_class, js_cocos2d_TransitionFlipX_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_TransitionSceneOriented_proto;
+
+static bool js_cocos2d_TransitionFlipX_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::TransitionFlipX)", s.nativeThisObject());
+    cocos2d::TransitionFlipX* cobj = (cocos2d::TransitionFlipX*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_TransitionFlipX_finalize)
+
+bool js_register_cocos2dx_TransitionFlipX(se::Object* obj)
+{
+    auto cls = se::Class::create("TransitionFlipX", obj, __jsb_cocos2d_TransitionSceneOriented_proto, _SE(js_cocos2dx_TransitionFlipX_constructor));
+
+    cls->defineFunction("ctor", _SE(js_cocos2dx_TransitionFlipX_ctor));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_TransitionFlipX_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_TransitionFlipX_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::TransitionFlipX>(cls);
+
+    __jsb_cocos2d_TransitionFlipX_proto = cls->getProto();
+    __jsb_cocos2d_TransitionFlipX_class = cls;
+
+    jsb_set_extend_property("cc", "TransitionFlipX");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_TransitionFlipY_proto = nullptr;
+se::Class* __jsb_cocos2d_TransitionFlipY_class = nullptr;
+
+static bool js_cocos2dx_TransitionFlipY_create(se::State& s)
+{
+    CC_UNUSED bool ok = true;
+    const auto& args = s.args();
+    size_t argc = args.size();
+    do {
+        if (argc == 2) {
+            float arg0 = 0;
+            ok &= seval_to_float(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            cocos2d::Scene* arg1 = nullptr;
+            ok &= seval_to_native_ptr(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            cocos2d::TransitionFlipY* result = cocos2d::TransitionFlipY::create(arg0, arg1);
+            ok &= native_ptr_to_seval<cocos2d::TransitionFlipY>((cocos2d::TransitionFlipY*)result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionFlipY_create : Error processing arguments");
+            return true;
+        }
+    } while (false);
+    do {
+        if (argc == 3) {
+            float arg0 = 0;
+            ok &= seval_to_float(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            cocos2d::Scene* arg1 = nullptr;
+            ok &= seval_to_native_ptr(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            cocos2d::TransitionScene::Orientation arg2;
+            ok &= seval_to_int32(args[2], (int32_t*)&arg2);
+            if (!ok) { ok = true; break; }
+            cocos2d::TransitionFlipY* result = cocos2d::TransitionFlipY::create(arg0, arg1, arg2);
+            ok &= native_ptr_to_seval<cocos2d::TransitionFlipY>((cocos2d::TransitionFlipY*)result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionFlipY_create : Error processing arguments");
+            return true;
+        }
+    } while (false);
+    SE_REPORT_ERROR("wrong number of arguments: %d", (int)argc);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionFlipY_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_TransitionFlipY_finalize)
+
+static bool js_cocos2dx_TransitionFlipY_constructor(se::State& s)
+{
+    cocos2d::TransitionFlipY* cobj = new (std::nothrow) cocos2d::TransitionFlipY();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_TransitionFlipY_constructor, __jsb_cocos2d_TransitionFlipY_class, js_cocos2d_TransitionFlipY_finalize)
+
+static bool js_cocos2dx_TransitionFlipY_ctor(se::State& s)
+{
+    cocos2d::TransitionFlipY* cobj = new (std::nothrow) cocos2d::TransitionFlipY();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_TransitionFlipY_ctor, __jsb_cocos2d_TransitionFlipY_class, js_cocos2d_TransitionFlipY_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_TransitionSceneOriented_proto;
+
+static bool js_cocos2d_TransitionFlipY_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::TransitionFlipY)", s.nativeThisObject());
+    cocos2d::TransitionFlipY* cobj = (cocos2d::TransitionFlipY*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_TransitionFlipY_finalize)
+
+bool js_register_cocos2dx_TransitionFlipY(se::Object* obj)
+{
+    auto cls = se::Class::create("TransitionFlipY", obj, __jsb_cocos2d_TransitionSceneOriented_proto, _SE(js_cocos2dx_TransitionFlipY_constructor));
+
+    cls->defineFunction("ctor", _SE(js_cocos2dx_TransitionFlipY_ctor));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_TransitionFlipY_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_TransitionFlipY_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::TransitionFlipY>(cls);
+
+    __jsb_cocos2d_TransitionFlipY_proto = cls->getProto();
+    __jsb_cocos2d_TransitionFlipY_class = cls;
+
+    jsb_set_extend_property("cc", "TransitionFlipY");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_TransitionFlipAngular_proto = nullptr;
+se::Class* __jsb_cocos2d_TransitionFlipAngular_class = nullptr;
+
+static bool js_cocos2dx_TransitionFlipAngular_create(se::State& s)
+{
+    CC_UNUSED bool ok = true;
+    const auto& args = s.args();
+    size_t argc = args.size();
+    do {
+        if (argc == 2) {
+            float arg0 = 0;
+            ok &= seval_to_float(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            cocos2d::Scene* arg1 = nullptr;
+            ok &= seval_to_native_ptr(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            cocos2d::TransitionFlipAngular* result = cocos2d::TransitionFlipAngular::create(arg0, arg1);
+            ok &= native_ptr_to_seval<cocos2d::TransitionFlipAngular>((cocos2d::TransitionFlipAngular*)result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionFlipAngular_create : Error processing arguments");
+            return true;
+        }
+    } while (false);
+    do {
+        if (argc == 3) {
+            float arg0 = 0;
+            ok &= seval_to_float(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            cocos2d::Scene* arg1 = nullptr;
+            ok &= seval_to_native_ptr(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            cocos2d::TransitionScene::Orientation arg2;
+            ok &= seval_to_int32(args[2], (int32_t*)&arg2);
+            if (!ok) { ok = true; break; }
+            cocos2d::TransitionFlipAngular* result = cocos2d::TransitionFlipAngular::create(arg0, arg1, arg2);
+            ok &= native_ptr_to_seval<cocos2d::TransitionFlipAngular>((cocos2d::TransitionFlipAngular*)result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionFlipAngular_create : Error processing arguments");
+            return true;
+        }
+    } while (false);
+    SE_REPORT_ERROR("wrong number of arguments: %d", (int)argc);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionFlipAngular_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_TransitionFlipAngular_finalize)
+
+static bool js_cocos2dx_TransitionFlipAngular_constructor(se::State& s)
+{
+    cocos2d::TransitionFlipAngular* cobj = new (std::nothrow) cocos2d::TransitionFlipAngular();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_TransitionFlipAngular_constructor, __jsb_cocos2d_TransitionFlipAngular_class, js_cocos2d_TransitionFlipAngular_finalize)
+
+static bool js_cocos2dx_TransitionFlipAngular_ctor(se::State& s)
+{
+    cocos2d::TransitionFlipAngular* cobj = new (std::nothrow) cocos2d::TransitionFlipAngular();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_TransitionFlipAngular_ctor, __jsb_cocos2d_TransitionFlipAngular_class, js_cocos2d_TransitionFlipAngular_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_TransitionSceneOriented_proto;
+
+static bool js_cocos2d_TransitionFlipAngular_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::TransitionFlipAngular)", s.nativeThisObject());
+    cocos2d::TransitionFlipAngular* cobj = (cocos2d::TransitionFlipAngular*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_TransitionFlipAngular_finalize)
+
+bool js_register_cocos2dx_TransitionFlipAngular(se::Object* obj)
+{
+    auto cls = se::Class::create("TransitionFlipAngular", obj, __jsb_cocos2d_TransitionSceneOriented_proto, _SE(js_cocos2dx_TransitionFlipAngular_constructor));
+
+    cls->defineFunction("ctor", _SE(js_cocos2dx_TransitionFlipAngular_ctor));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_TransitionFlipAngular_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_TransitionFlipAngular_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::TransitionFlipAngular>(cls);
+
+    __jsb_cocos2d_TransitionFlipAngular_proto = cls->getProto();
+    __jsb_cocos2d_TransitionFlipAngular_class = cls;
+
+    jsb_set_extend_property("cc", "TransitionFlipAngular");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_TransitionZoomFlipX_proto = nullptr;
+se::Class* __jsb_cocos2d_TransitionZoomFlipX_class = nullptr;
+
+static bool js_cocos2dx_TransitionZoomFlipX_create(se::State& s)
+{
+    CC_UNUSED bool ok = true;
+    const auto& args = s.args();
+    size_t argc = args.size();
+    do {
+        if (argc == 2) {
+            float arg0 = 0;
+            ok &= seval_to_float(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            cocos2d::Scene* arg1 = nullptr;
+            ok &= seval_to_native_ptr(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            cocos2d::TransitionZoomFlipX* result = cocos2d::TransitionZoomFlipX::create(arg0, arg1);
+            ok &= native_ptr_to_seval<cocos2d::TransitionZoomFlipX>((cocos2d::TransitionZoomFlipX*)result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionZoomFlipX_create : Error processing arguments");
+            return true;
+        }
+    } while (false);
+    do {
+        if (argc == 3) {
+            float arg0 = 0;
+            ok &= seval_to_float(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            cocos2d::Scene* arg1 = nullptr;
+            ok &= seval_to_native_ptr(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            cocos2d::TransitionScene::Orientation arg2;
+            ok &= seval_to_int32(args[2], (int32_t*)&arg2);
+            if (!ok) { ok = true; break; }
+            cocos2d::TransitionZoomFlipX* result = cocos2d::TransitionZoomFlipX::create(arg0, arg1, arg2);
+            ok &= native_ptr_to_seval<cocos2d::TransitionZoomFlipX>((cocos2d::TransitionZoomFlipX*)result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionZoomFlipX_create : Error processing arguments");
+            return true;
+        }
+    } while (false);
+    SE_REPORT_ERROR("wrong number of arguments: %d", (int)argc);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionZoomFlipX_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_TransitionZoomFlipX_finalize)
+
+static bool js_cocos2dx_TransitionZoomFlipX_constructor(se::State& s)
+{
+    cocos2d::TransitionZoomFlipX* cobj = new (std::nothrow) cocos2d::TransitionZoomFlipX();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_TransitionZoomFlipX_constructor, __jsb_cocos2d_TransitionZoomFlipX_class, js_cocos2d_TransitionZoomFlipX_finalize)
+
+static bool js_cocos2dx_TransitionZoomFlipX_ctor(se::State& s)
+{
+    cocos2d::TransitionZoomFlipX* cobj = new (std::nothrow) cocos2d::TransitionZoomFlipX();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_TransitionZoomFlipX_ctor, __jsb_cocos2d_TransitionZoomFlipX_class, js_cocos2d_TransitionZoomFlipX_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_TransitionSceneOriented_proto;
+
+static bool js_cocos2d_TransitionZoomFlipX_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::TransitionZoomFlipX)", s.nativeThisObject());
+    cocos2d::TransitionZoomFlipX* cobj = (cocos2d::TransitionZoomFlipX*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_TransitionZoomFlipX_finalize)
+
+bool js_register_cocos2dx_TransitionZoomFlipX(se::Object* obj)
+{
+    auto cls = se::Class::create("TransitionZoomFlipX", obj, __jsb_cocos2d_TransitionSceneOriented_proto, _SE(js_cocos2dx_TransitionZoomFlipX_constructor));
+
+    cls->defineFunction("ctor", _SE(js_cocos2dx_TransitionZoomFlipX_ctor));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_TransitionZoomFlipX_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_TransitionZoomFlipX_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::TransitionZoomFlipX>(cls);
+
+    __jsb_cocos2d_TransitionZoomFlipX_proto = cls->getProto();
+    __jsb_cocos2d_TransitionZoomFlipX_class = cls;
+
+    jsb_set_extend_property("cc", "TransitionZoomFlipX");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_TransitionZoomFlipY_proto = nullptr;
+se::Class* __jsb_cocos2d_TransitionZoomFlipY_class = nullptr;
+
+static bool js_cocos2dx_TransitionZoomFlipY_create(se::State& s)
+{
+    CC_UNUSED bool ok = true;
+    const auto& args = s.args();
+    size_t argc = args.size();
+    do {
+        if (argc == 2) {
+            float arg0 = 0;
+            ok &= seval_to_float(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            cocos2d::Scene* arg1 = nullptr;
+            ok &= seval_to_native_ptr(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            cocos2d::TransitionZoomFlipY* result = cocos2d::TransitionZoomFlipY::create(arg0, arg1);
+            ok &= native_ptr_to_seval<cocos2d::TransitionZoomFlipY>((cocos2d::TransitionZoomFlipY*)result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionZoomFlipY_create : Error processing arguments");
+            return true;
+        }
+    } while (false);
+    do {
+        if (argc == 3) {
+            float arg0 = 0;
+            ok &= seval_to_float(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            cocos2d::Scene* arg1 = nullptr;
+            ok &= seval_to_native_ptr(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            cocos2d::TransitionScene::Orientation arg2;
+            ok &= seval_to_int32(args[2], (int32_t*)&arg2);
+            if (!ok) { ok = true; break; }
+            cocos2d::TransitionZoomFlipY* result = cocos2d::TransitionZoomFlipY::create(arg0, arg1, arg2);
+            ok &= native_ptr_to_seval<cocos2d::TransitionZoomFlipY>((cocos2d::TransitionZoomFlipY*)result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionZoomFlipY_create : Error processing arguments");
+            return true;
+        }
+    } while (false);
+    SE_REPORT_ERROR("wrong number of arguments: %d", (int)argc);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionZoomFlipY_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_TransitionZoomFlipY_finalize)
+
+static bool js_cocos2dx_TransitionZoomFlipY_constructor(se::State& s)
+{
+    cocos2d::TransitionZoomFlipY* cobj = new (std::nothrow) cocos2d::TransitionZoomFlipY();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_TransitionZoomFlipY_constructor, __jsb_cocos2d_TransitionZoomFlipY_class, js_cocos2d_TransitionZoomFlipY_finalize)
+
+static bool js_cocos2dx_TransitionZoomFlipY_ctor(se::State& s)
+{
+    cocos2d::TransitionZoomFlipY* cobj = new (std::nothrow) cocos2d::TransitionZoomFlipY();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_TransitionZoomFlipY_ctor, __jsb_cocos2d_TransitionZoomFlipY_class, js_cocos2d_TransitionZoomFlipY_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_TransitionSceneOriented_proto;
+
+static bool js_cocos2d_TransitionZoomFlipY_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::TransitionZoomFlipY)", s.nativeThisObject());
+    cocos2d::TransitionZoomFlipY* cobj = (cocos2d::TransitionZoomFlipY*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_TransitionZoomFlipY_finalize)
+
+bool js_register_cocos2dx_TransitionZoomFlipY(se::Object* obj)
+{
+    auto cls = se::Class::create("TransitionZoomFlipY", obj, __jsb_cocos2d_TransitionSceneOriented_proto, _SE(js_cocos2dx_TransitionZoomFlipY_constructor));
+
+    cls->defineFunction("ctor", _SE(js_cocos2dx_TransitionZoomFlipY_ctor));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_TransitionZoomFlipY_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_TransitionZoomFlipY_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::TransitionZoomFlipY>(cls);
+
+    __jsb_cocos2d_TransitionZoomFlipY_proto = cls->getProto();
+    __jsb_cocos2d_TransitionZoomFlipY_class = cls;
+
+    jsb_set_extend_property("cc", "TransitionZoomFlipY");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_TransitionZoomFlipAngular_proto = nullptr;
+se::Class* __jsb_cocos2d_TransitionZoomFlipAngular_class = nullptr;
+
+static bool js_cocos2dx_TransitionZoomFlipAngular_create(se::State& s)
+{
+    CC_UNUSED bool ok = true;
+    const auto& args = s.args();
+    size_t argc = args.size();
+    do {
+        if (argc == 2) {
+            float arg0 = 0;
+            ok &= seval_to_float(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            cocos2d::Scene* arg1 = nullptr;
+            ok &= seval_to_native_ptr(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            cocos2d::TransitionZoomFlipAngular* result = cocos2d::TransitionZoomFlipAngular::create(arg0, arg1);
+            ok &= native_ptr_to_seval<cocos2d::TransitionZoomFlipAngular>((cocos2d::TransitionZoomFlipAngular*)result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionZoomFlipAngular_create : Error processing arguments");
+            return true;
+        }
+    } while (false);
+    do {
+        if (argc == 3) {
+            float arg0 = 0;
+            ok &= seval_to_float(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            cocos2d::Scene* arg1 = nullptr;
+            ok &= seval_to_native_ptr(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            cocos2d::TransitionScene::Orientation arg2;
+            ok &= seval_to_int32(args[2], (int32_t*)&arg2);
+            if (!ok) { ok = true; break; }
+            cocos2d::TransitionZoomFlipAngular* result = cocos2d::TransitionZoomFlipAngular::create(arg0, arg1, arg2);
+            ok &= native_ptr_to_seval<cocos2d::TransitionZoomFlipAngular>((cocos2d::TransitionZoomFlipAngular*)result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionZoomFlipAngular_create : Error processing arguments");
+            return true;
+        }
+    } while (false);
+    SE_REPORT_ERROR("wrong number of arguments: %d", (int)argc);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionZoomFlipAngular_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_TransitionZoomFlipAngular_finalize)
+
+static bool js_cocos2dx_TransitionZoomFlipAngular_constructor(se::State& s)
+{
+    cocos2d::TransitionZoomFlipAngular* cobj = new (std::nothrow) cocos2d::TransitionZoomFlipAngular();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_TransitionZoomFlipAngular_constructor, __jsb_cocos2d_TransitionZoomFlipAngular_class, js_cocos2d_TransitionZoomFlipAngular_finalize)
+
+static bool js_cocos2dx_TransitionZoomFlipAngular_ctor(se::State& s)
+{
+    cocos2d::TransitionZoomFlipAngular* cobj = new (std::nothrow) cocos2d::TransitionZoomFlipAngular();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_TransitionZoomFlipAngular_ctor, __jsb_cocos2d_TransitionZoomFlipAngular_class, js_cocos2d_TransitionZoomFlipAngular_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_TransitionSceneOriented_proto;
+
+static bool js_cocos2d_TransitionZoomFlipAngular_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::TransitionZoomFlipAngular)", s.nativeThisObject());
+    cocos2d::TransitionZoomFlipAngular* cobj = (cocos2d::TransitionZoomFlipAngular*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_TransitionZoomFlipAngular_finalize)
+
+bool js_register_cocos2dx_TransitionZoomFlipAngular(se::Object* obj)
+{
+    auto cls = se::Class::create("TransitionZoomFlipAngular", obj, __jsb_cocos2d_TransitionSceneOriented_proto, _SE(js_cocos2dx_TransitionZoomFlipAngular_constructor));
+
+    cls->defineFunction("ctor", _SE(js_cocos2dx_TransitionZoomFlipAngular_ctor));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_TransitionZoomFlipAngular_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_TransitionZoomFlipAngular_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::TransitionZoomFlipAngular>(cls);
+
+    __jsb_cocos2d_TransitionZoomFlipAngular_proto = cls->getProto();
+    __jsb_cocos2d_TransitionZoomFlipAngular_class = cls;
+
+    jsb_set_extend_property("cc", "TransitionZoomFlipAngular");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_TransitionFade_proto = nullptr;
+se::Class* __jsb_cocos2d_TransitionFade_class = nullptr;
+
+static bool js_cocos2dx_TransitionFade_initWithDuration(se::State& s)
+{
+    CC_UNUSED bool ok = true;
+    cocos2d::TransitionFade* cobj = (cocos2d::TransitionFade*)s.nativeThisObject();
+    SE_PRECONDITION2( cobj, false, "js_cocos2dx_TransitionFade_initWithDuration : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    do {
+        if (argc == 2) {
+            float arg0 = 0;
+            ok &= seval_to_float(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            cocos2d::Scene* arg1 = nullptr;
+            ok &= seval_to_native_ptr(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            bool result = cobj->initWithDuration(arg0, arg1);
+            ok &= boolean_to_seval(result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionFade_initWithDuration : Error processing arguments");
+            return true;
+        }
+    } while(false);
+
+    do {
+        if (argc == 3) {
+            float arg0 = 0;
+            ok &= seval_to_float(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            cocos2d::Scene* arg1 = nullptr;
+            ok &= seval_to_native_ptr(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            cocos2d::Color3B arg2;
+            ok &= seval_to_Color3B(args[2], &arg2);
+            if (!ok) { ok = true; break; }
+            bool result = cobj->initWithDuration(arg0, arg1, arg2);
+            ok &= boolean_to_seval(result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionFade_initWithDuration : Error processing arguments");
+            return true;
+        }
+    } while(false);
+
+    SE_REPORT_ERROR("wrong number of arguments: %d", (int)argc);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionFade_initWithDuration)
+
+static bool js_cocos2dx_TransitionFade_create(se::State& s)
+{
+    CC_UNUSED bool ok = true;
+    const auto& args = s.args();
+    size_t argc = args.size();
+    do {
+        if (argc == 2) {
+            float arg0 = 0;
+            ok &= seval_to_float(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            cocos2d::Scene* arg1 = nullptr;
+            ok &= seval_to_native_ptr(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            cocos2d::TransitionFade* result = cocos2d::TransitionFade::create(arg0, arg1);
+            ok &= native_ptr_to_seval<cocos2d::TransitionFade>((cocos2d::TransitionFade*)result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionFade_create : Error processing arguments");
+            return true;
+        }
+    } while (false);
+    do {
+        if (argc == 3) {
+            float arg0 = 0;
+            ok &= seval_to_float(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            cocos2d::Scene* arg1 = nullptr;
+            ok &= seval_to_native_ptr(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            cocos2d::Color3B arg2;
+            ok &= seval_to_Color3B(args[2], &arg2);
+            if (!ok) { ok = true; break; }
+            cocos2d::TransitionFade* result = cocos2d::TransitionFade::create(arg0, arg1, arg2);
+            ok &= native_ptr_to_seval<cocos2d::TransitionFade>((cocos2d::TransitionFade*)result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionFade_create : Error processing arguments");
+            return true;
+        }
+    } while (false);
+    SE_REPORT_ERROR("wrong number of arguments: %d", (int)argc);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionFade_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_TransitionFade_finalize)
+
+static bool js_cocos2dx_TransitionFade_constructor(se::State& s)
+{
+    cocos2d::TransitionFade* cobj = new (std::nothrow) cocos2d::TransitionFade();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_TransitionFade_constructor, __jsb_cocos2d_TransitionFade_class, js_cocos2d_TransitionFade_finalize)
+
+static bool js_cocos2dx_TransitionFade_ctor(se::State& s)
+{
+    cocos2d::TransitionFade* cobj = new (std::nothrow) cocos2d::TransitionFade();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_TransitionFade_ctor, __jsb_cocos2d_TransitionFade_class, js_cocos2d_TransitionFade_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_TransitionScene_proto;
+
+static bool js_cocos2d_TransitionFade_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::TransitionFade)", s.nativeThisObject());
+    cocos2d::TransitionFade* cobj = (cocos2d::TransitionFade*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_TransitionFade_finalize)
+
+bool js_register_cocos2dx_TransitionFade(se::Object* obj)
+{
+    auto cls = se::Class::create("TransitionFade", obj, __jsb_cocos2d_TransitionScene_proto, _SE(js_cocos2dx_TransitionFade_constructor));
+
+    cls->defineFunction("initWithDuration", _SE(js_cocos2dx_TransitionFade_initWithDuration));
+    cls->defineFunction("ctor", _SE(js_cocos2dx_TransitionFade_ctor));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_TransitionFade_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_TransitionFade_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::TransitionFade>(cls);
+
+    __jsb_cocos2d_TransitionFade_proto = cls->getProto();
+    __jsb_cocos2d_TransitionFade_class = cls;
+
+    jsb_set_extend_property("cc", "TransitionFade");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_TransitionCrossFade_proto = nullptr;
+se::Class* __jsb_cocos2d_TransitionCrossFade_class = nullptr;
+
+static bool js_cocos2dx_TransitionCrossFade_create(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        float arg0 = 0;
+        cocos2d::Scene* arg1 = nullptr;
+        ok &= seval_to_float(args[0], &arg0);
+        ok &= seval_to_native_ptr(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionCrossFade_create : Error processing arguments");
+        auto result = cocos2d::TransitionCrossFade::create(arg0, arg1);
+        result->retain();
+        auto obj = se::Object::createObjectWithClass(__jsb_cocos2d_TransitionCrossFade_class);
+        obj->setPrivateData(result);
+        s.rval().setObject(obj);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionCrossFade_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_TransitionCrossFade_finalize)
+
+static bool js_cocos2dx_TransitionCrossFade_constructor(se::State& s)
+{
+    cocos2d::TransitionCrossFade* cobj = new (std::nothrow) cocos2d::TransitionCrossFade();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_TransitionCrossFade_constructor, __jsb_cocos2d_TransitionCrossFade_class, js_cocos2d_TransitionCrossFade_finalize)
+
+static bool js_cocos2dx_TransitionCrossFade_ctor(se::State& s)
+{
+    cocos2d::TransitionCrossFade* cobj = new (std::nothrow) cocos2d::TransitionCrossFade();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_TransitionCrossFade_ctor, __jsb_cocos2d_TransitionCrossFade_class, js_cocos2d_TransitionCrossFade_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_TransitionScene_proto;
+
+static bool js_cocos2d_TransitionCrossFade_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::TransitionCrossFade)", s.nativeThisObject());
+    cocos2d::TransitionCrossFade* cobj = (cocos2d::TransitionCrossFade*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_TransitionCrossFade_finalize)
+
+bool js_register_cocos2dx_TransitionCrossFade(se::Object* obj)
+{
+    auto cls = se::Class::create("TransitionCrossFade", obj, __jsb_cocos2d_TransitionScene_proto, _SE(js_cocos2dx_TransitionCrossFade_constructor));
+
+    cls->defineFunction("ctor", _SE(js_cocos2dx_TransitionCrossFade_ctor));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_TransitionCrossFade_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_TransitionCrossFade_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::TransitionCrossFade>(cls);
+
+    __jsb_cocos2d_TransitionCrossFade_proto = cls->getProto();
+    __jsb_cocos2d_TransitionCrossFade_class = cls;
+
+    jsb_set_extend_property("cc", "TransitionCrossFade");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_TransitionTurnOffTiles_proto = nullptr;
+se::Class* __jsb_cocos2d_TransitionTurnOffTiles_class = nullptr;
+
+static bool js_cocos2dx_TransitionTurnOffTiles_easeActionWithAction(se::State& s)
+{
+    cocos2d::TransitionTurnOffTiles* cobj = (cocos2d::TransitionTurnOffTiles*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_TransitionTurnOffTiles_easeActionWithAction : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        cocos2d::ActionInterval* arg0 = nullptr;
+        ok &= seval_to_native_ptr(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionTurnOffTiles_easeActionWithAction : Error processing arguments");
+        cocos2d::ActionInterval* result = cobj->easeActionWithAction(arg0);
+        ok &= native_ptr_to_seval<cocos2d::ActionInterval>((cocos2d::ActionInterval*)result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionTurnOffTiles_easeActionWithAction : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionTurnOffTiles_easeActionWithAction)
+
+static bool js_cocos2dx_TransitionTurnOffTiles_create(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        float arg0 = 0;
+        cocos2d::Scene* arg1 = nullptr;
+        ok &= seval_to_float(args[0], &arg0);
+        ok &= seval_to_native_ptr(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionTurnOffTiles_create : Error processing arguments");
+        auto result = cocos2d::TransitionTurnOffTiles::create(arg0, arg1);
+        result->retain();
+        auto obj = se::Object::createObjectWithClass(__jsb_cocos2d_TransitionTurnOffTiles_class);
+        obj->setPrivateData(result);
+        s.rval().setObject(obj);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionTurnOffTiles_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_TransitionTurnOffTiles_finalize)
+
+static bool js_cocos2dx_TransitionTurnOffTiles_constructor(se::State& s)
+{
+    cocos2d::TransitionTurnOffTiles* cobj = new (std::nothrow) cocos2d::TransitionTurnOffTiles();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_TransitionTurnOffTiles_constructor, __jsb_cocos2d_TransitionTurnOffTiles_class, js_cocos2d_TransitionTurnOffTiles_finalize)
+
+static bool js_cocos2dx_TransitionTurnOffTiles_ctor(se::State& s)
+{
+    cocos2d::TransitionTurnOffTiles* cobj = new (std::nothrow) cocos2d::TransitionTurnOffTiles();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_TransitionTurnOffTiles_ctor, __jsb_cocos2d_TransitionTurnOffTiles_class, js_cocos2d_TransitionTurnOffTiles_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_TransitionScene_proto;
+
+static bool js_cocos2d_TransitionTurnOffTiles_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::TransitionTurnOffTiles)", s.nativeThisObject());
+    cocos2d::TransitionTurnOffTiles* cobj = (cocos2d::TransitionTurnOffTiles*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_TransitionTurnOffTiles_finalize)
+
+bool js_register_cocos2dx_TransitionTurnOffTiles(se::Object* obj)
+{
+    auto cls = se::Class::create("TransitionTurnOffTiles", obj, __jsb_cocos2d_TransitionScene_proto, _SE(js_cocos2dx_TransitionTurnOffTiles_constructor));
+
+    cls->defineFunction("easeActionWithAction", _SE(js_cocos2dx_TransitionTurnOffTiles_easeActionWithAction));
+    cls->defineFunction("ctor", _SE(js_cocos2dx_TransitionTurnOffTiles_ctor));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_TransitionTurnOffTiles_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_TransitionTurnOffTiles_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::TransitionTurnOffTiles>(cls);
+
+    __jsb_cocos2d_TransitionTurnOffTiles_proto = cls->getProto();
+    __jsb_cocos2d_TransitionTurnOffTiles_class = cls;
+
+    jsb_set_extend_property("cc", "TransitionTurnOffTiles");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_TransitionSplitCols_proto = nullptr;
+se::Class* __jsb_cocos2d_TransitionSplitCols_class = nullptr;
+
+static bool js_cocos2dx_TransitionSplitCols_action(se::State& s)
+{
+    cocos2d::TransitionSplitCols* cobj = (cocos2d::TransitionSplitCols*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_TransitionSplitCols_action : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 0) {
+        cocos2d::ActionInterval* result = cobj->action();
+        ok &= native_ptr_to_seval<cocos2d::ActionInterval>((cocos2d::ActionInterval*)result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionSplitCols_action : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionSplitCols_action)
+
+static bool js_cocos2dx_TransitionSplitCols_easeActionWithAction(se::State& s)
+{
+    cocos2d::TransitionSplitCols* cobj = (cocos2d::TransitionSplitCols*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_TransitionSplitCols_easeActionWithAction : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        cocos2d::ActionInterval* arg0 = nullptr;
+        ok &= seval_to_native_ptr(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionSplitCols_easeActionWithAction : Error processing arguments");
+        cocos2d::ActionInterval* result = cobj->easeActionWithAction(arg0);
+        ok &= native_ptr_to_seval<cocos2d::ActionInterval>((cocos2d::ActionInterval*)result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionSplitCols_easeActionWithAction : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionSplitCols_easeActionWithAction)
+
+static bool js_cocos2dx_TransitionSplitCols_create(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        float arg0 = 0;
+        cocos2d::Scene* arg1 = nullptr;
+        ok &= seval_to_float(args[0], &arg0);
+        ok &= seval_to_native_ptr(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionSplitCols_create : Error processing arguments");
+        auto result = cocos2d::TransitionSplitCols::create(arg0, arg1);
+        result->retain();
+        auto obj = se::Object::createObjectWithClass(__jsb_cocos2d_TransitionSplitCols_class);
+        obj->setPrivateData(result);
+        s.rval().setObject(obj);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionSplitCols_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_TransitionSplitCols_finalize)
+
+static bool js_cocos2dx_TransitionSplitCols_constructor(se::State& s)
+{
+    cocos2d::TransitionSplitCols* cobj = new (std::nothrow) cocos2d::TransitionSplitCols();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_TransitionSplitCols_constructor, __jsb_cocos2d_TransitionSplitCols_class, js_cocos2d_TransitionSplitCols_finalize)
+
+static bool js_cocos2dx_TransitionSplitCols_ctor(se::State& s)
+{
+    cocos2d::TransitionSplitCols* cobj = new (std::nothrow) cocos2d::TransitionSplitCols();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_TransitionSplitCols_ctor, __jsb_cocos2d_TransitionSplitCols_class, js_cocos2d_TransitionSplitCols_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_TransitionScene_proto;
+
+static bool js_cocos2d_TransitionSplitCols_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::TransitionSplitCols)", s.nativeThisObject());
+    cocos2d::TransitionSplitCols* cobj = (cocos2d::TransitionSplitCols*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_TransitionSplitCols_finalize)
+
+bool js_register_cocos2dx_TransitionSplitCols(se::Object* obj)
+{
+    auto cls = se::Class::create("TransitionSplitCols", obj, __jsb_cocos2d_TransitionScene_proto, _SE(js_cocos2dx_TransitionSplitCols_constructor));
+
+    cls->defineFunction("action", _SE(js_cocos2dx_TransitionSplitCols_action));
+    cls->defineFunction("easeActionWithAction", _SE(js_cocos2dx_TransitionSplitCols_easeActionWithAction));
+    cls->defineFunction("ctor", _SE(js_cocos2dx_TransitionSplitCols_ctor));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_TransitionSplitCols_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_TransitionSplitCols_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::TransitionSplitCols>(cls);
+
+    __jsb_cocos2d_TransitionSplitCols_proto = cls->getProto();
+    __jsb_cocos2d_TransitionSplitCols_class = cls;
+
+    jsb_set_extend_property("cc", "TransitionSplitCols");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_TransitionSplitRows_proto = nullptr;
+se::Class* __jsb_cocos2d_TransitionSplitRows_class = nullptr;
+
+static bool js_cocos2dx_TransitionSplitRows_create(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        float arg0 = 0;
+        cocos2d::Scene* arg1 = nullptr;
+        ok &= seval_to_float(args[0], &arg0);
+        ok &= seval_to_native_ptr(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionSplitRows_create : Error processing arguments");
+        auto result = cocos2d::TransitionSplitRows::create(arg0, arg1);
+        result->retain();
+        auto obj = se::Object::createObjectWithClass(__jsb_cocos2d_TransitionSplitRows_class);
+        obj->setPrivateData(result);
+        s.rval().setObject(obj);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionSplitRows_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_TransitionSplitRows_finalize)
+
+static bool js_cocos2dx_TransitionSplitRows_constructor(se::State& s)
+{
+    cocos2d::TransitionSplitRows* cobj = new (std::nothrow) cocos2d::TransitionSplitRows();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_TransitionSplitRows_constructor, __jsb_cocos2d_TransitionSplitRows_class, js_cocos2d_TransitionSplitRows_finalize)
+
+static bool js_cocos2dx_TransitionSplitRows_ctor(se::State& s)
+{
+    cocos2d::TransitionSplitRows* cobj = new (std::nothrow) cocos2d::TransitionSplitRows();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_TransitionSplitRows_ctor, __jsb_cocos2d_TransitionSplitRows_class, js_cocos2d_TransitionSplitRows_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_TransitionSplitCols_proto;
+
+static bool js_cocos2d_TransitionSplitRows_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::TransitionSplitRows)", s.nativeThisObject());
+    cocos2d::TransitionSplitRows* cobj = (cocos2d::TransitionSplitRows*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_TransitionSplitRows_finalize)
+
+bool js_register_cocos2dx_TransitionSplitRows(se::Object* obj)
+{
+    auto cls = se::Class::create("TransitionSplitRows", obj, __jsb_cocos2d_TransitionSplitCols_proto, _SE(js_cocos2dx_TransitionSplitRows_constructor));
+
+    cls->defineFunction("ctor", _SE(js_cocos2dx_TransitionSplitRows_ctor));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_TransitionSplitRows_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_TransitionSplitRows_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::TransitionSplitRows>(cls);
+
+    __jsb_cocos2d_TransitionSplitRows_proto = cls->getProto();
+    __jsb_cocos2d_TransitionSplitRows_class = cls;
+
+    jsb_set_extend_property("cc", "TransitionSplitRows");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_TransitionFadeTR_proto = nullptr;
+se::Class* __jsb_cocos2d_TransitionFadeTR_class = nullptr;
+
+static bool js_cocos2dx_TransitionFadeTR_easeActionWithAction(se::State& s)
+{
+    cocos2d::TransitionFadeTR* cobj = (cocos2d::TransitionFadeTR*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_TransitionFadeTR_easeActionWithAction : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        cocos2d::ActionInterval* arg0 = nullptr;
+        ok &= seval_to_native_ptr(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionFadeTR_easeActionWithAction : Error processing arguments");
+        cocos2d::ActionInterval* result = cobj->easeActionWithAction(arg0);
+        ok &= native_ptr_to_seval<cocos2d::ActionInterval>((cocos2d::ActionInterval*)result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionFadeTR_easeActionWithAction : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionFadeTR_easeActionWithAction)
+
+static bool js_cocos2dx_TransitionFadeTR_actionWithSize(se::State& s)
+{
+    cocos2d::TransitionFadeTR* cobj = (cocos2d::TransitionFadeTR*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_TransitionFadeTR_actionWithSize : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        cocos2d::Size arg0;
+        ok &= seval_to_Size(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionFadeTR_actionWithSize : Error processing arguments");
+        cocos2d::ActionInterval* result = cobj->actionWithSize(arg0);
+        ok &= native_ptr_to_seval<cocos2d::ActionInterval>((cocos2d::ActionInterval*)result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionFadeTR_actionWithSize : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionFadeTR_actionWithSize)
+
+static bool js_cocos2dx_TransitionFadeTR_create(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        float arg0 = 0;
+        cocos2d::Scene* arg1 = nullptr;
+        ok &= seval_to_float(args[0], &arg0);
+        ok &= seval_to_native_ptr(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionFadeTR_create : Error processing arguments");
+        auto result = cocos2d::TransitionFadeTR::create(arg0, arg1);
+        result->retain();
+        auto obj = se::Object::createObjectWithClass(__jsb_cocos2d_TransitionFadeTR_class);
+        obj->setPrivateData(result);
+        s.rval().setObject(obj);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionFadeTR_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_TransitionFadeTR_finalize)
+
+static bool js_cocos2dx_TransitionFadeTR_constructor(se::State& s)
+{
+    cocos2d::TransitionFadeTR* cobj = new (std::nothrow) cocos2d::TransitionFadeTR();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_TransitionFadeTR_constructor, __jsb_cocos2d_TransitionFadeTR_class, js_cocos2d_TransitionFadeTR_finalize)
+
+static bool js_cocos2dx_TransitionFadeTR_ctor(se::State& s)
+{
+    cocos2d::TransitionFadeTR* cobj = new (std::nothrow) cocos2d::TransitionFadeTR();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_TransitionFadeTR_ctor, __jsb_cocos2d_TransitionFadeTR_class, js_cocos2d_TransitionFadeTR_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_TransitionScene_proto;
+
+static bool js_cocos2d_TransitionFadeTR_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::TransitionFadeTR)", s.nativeThisObject());
+    cocos2d::TransitionFadeTR* cobj = (cocos2d::TransitionFadeTR*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_TransitionFadeTR_finalize)
+
+bool js_register_cocos2dx_TransitionFadeTR(se::Object* obj)
+{
+    auto cls = se::Class::create("TransitionFadeTR", obj, __jsb_cocos2d_TransitionScene_proto, _SE(js_cocos2dx_TransitionFadeTR_constructor));
+
+    cls->defineFunction("easeActionWithAction", _SE(js_cocos2dx_TransitionFadeTR_easeActionWithAction));
+    cls->defineFunction("actionWithSize", _SE(js_cocos2dx_TransitionFadeTR_actionWithSize));
+    cls->defineFunction("ctor", _SE(js_cocos2dx_TransitionFadeTR_ctor));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_TransitionFadeTR_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_TransitionFadeTR_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::TransitionFadeTR>(cls);
+
+    __jsb_cocos2d_TransitionFadeTR_proto = cls->getProto();
+    __jsb_cocos2d_TransitionFadeTR_class = cls;
+
+    jsb_set_extend_property("cc", "TransitionFadeTR");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_TransitionFadeBL_proto = nullptr;
+se::Class* __jsb_cocos2d_TransitionFadeBL_class = nullptr;
+
+static bool js_cocos2dx_TransitionFadeBL_create(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        float arg0 = 0;
+        cocos2d::Scene* arg1 = nullptr;
+        ok &= seval_to_float(args[0], &arg0);
+        ok &= seval_to_native_ptr(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionFadeBL_create : Error processing arguments");
+        auto result = cocos2d::TransitionFadeBL::create(arg0, arg1);
+        result->retain();
+        auto obj = se::Object::createObjectWithClass(__jsb_cocos2d_TransitionFadeBL_class);
+        obj->setPrivateData(result);
+        s.rval().setObject(obj);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionFadeBL_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_TransitionFadeBL_finalize)
+
+static bool js_cocos2dx_TransitionFadeBL_constructor(se::State& s)
+{
+    cocos2d::TransitionFadeBL* cobj = new (std::nothrow) cocos2d::TransitionFadeBL();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_TransitionFadeBL_constructor, __jsb_cocos2d_TransitionFadeBL_class, js_cocos2d_TransitionFadeBL_finalize)
+
+static bool js_cocos2dx_TransitionFadeBL_ctor(se::State& s)
+{
+    cocos2d::TransitionFadeBL* cobj = new (std::nothrow) cocos2d::TransitionFadeBL();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_TransitionFadeBL_ctor, __jsb_cocos2d_TransitionFadeBL_class, js_cocos2d_TransitionFadeBL_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_TransitionFadeTR_proto;
+
+static bool js_cocos2d_TransitionFadeBL_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::TransitionFadeBL)", s.nativeThisObject());
+    cocos2d::TransitionFadeBL* cobj = (cocos2d::TransitionFadeBL*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_TransitionFadeBL_finalize)
+
+bool js_register_cocos2dx_TransitionFadeBL(se::Object* obj)
+{
+    auto cls = se::Class::create("TransitionFadeBL", obj, __jsb_cocos2d_TransitionFadeTR_proto, _SE(js_cocos2dx_TransitionFadeBL_constructor));
+
+    cls->defineFunction("ctor", _SE(js_cocos2dx_TransitionFadeBL_ctor));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_TransitionFadeBL_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_TransitionFadeBL_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::TransitionFadeBL>(cls);
+
+    __jsb_cocos2d_TransitionFadeBL_proto = cls->getProto();
+    __jsb_cocos2d_TransitionFadeBL_class = cls;
+
+    jsb_set_extend_property("cc", "TransitionFadeBL");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_TransitionFadeUp_proto = nullptr;
+se::Class* __jsb_cocos2d_TransitionFadeUp_class = nullptr;
+
+static bool js_cocos2dx_TransitionFadeUp_create(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        float arg0 = 0;
+        cocos2d::Scene* arg1 = nullptr;
+        ok &= seval_to_float(args[0], &arg0);
+        ok &= seval_to_native_ptr(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionFadeUp_create : Error processing arguments");
+        auto result = cocos2d::TransitionFadeUp::create(arg0, arg1);
+        result->retain();
+        auto obj = se::Object::createObjectWithClass(__jsb_cocos2d_TransitionFadeUp_class);
+        obj->setPrivateData(result);
+        s.rval().setObject(obj);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionFadeUp_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_TransitionFadeUp_finalize)
+
+static bool js_cocos2dx_TransitionFadeUp_constructor(se::State& s)
+{
+    cocos2d::TransitionFadeUp* cobj = new (std::nothrow) cocos2d::TransitionFadeUp();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_TransitionFadeUp_constructor, __jsb_cocos2d_TransitionFadeUp_class, js_cocos2d_TransitionFadeUp_finalize)
+
+static bool js_cocos2dx_TransitionFadeUp_ctor(se::State& s)
+{
+    cocos2d::TransitionFadeUp* cobj = new (std::nothrow) cocos2d::TransitionFadeUp();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_TransitionFadeUp_ctor, __jsb_cocos2d_TransitionFadeUp_class, js_cocos2d_TransitionFadeUp_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_TransitionFadeTR_proto;
+
+static bool js_cocos2d_TransitionFadeUp_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::TransitionFadeUp)", s.nativeThisObject());
+    cocos2d::TransitionFadeUp* cobj = (cocos2d::TransitionFadeUp*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_TransitionFadeUp_finalize)
+
+bool js_register_cocos2dx_TransitionFadeUp(se::Object* obj)
+{
+    auto cls = se::Class::create("TransitionFadeUp", obj, __jsb_cocos2d_TransitionFadeTR_proto, _SE(js_cocos2dx_TransitionFadeUp_constructor));
+
+    cls->defineFunction("ctor", _SE(js_cocos2dx_TransitionFadeUp_ctor));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_TransitionFadeUp_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_TransitionFadeUp_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::TransitionFadeUp>(cls);
+
+    __jsb_cocos2d_TransitionFadeUp_proto = cls->getProto();
+    __jsb_cocos2d_TransitionFadeUp_class = cls;
+
+    jsb_set_extend_property("cc", "TransitionFadeUp");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_TransitionFadeDown_proto = nullptr;
+se::Class* __jsb_cocos2d_TransitionFadeDown_class = nullptr;
+
+static bool js_cocos2dx_TransitionFadeDown_create(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        float arg0 = 0;
+        cocos2d::Scene* arg1 = nullptr;
+        ok &= seval_to_float(args[0], &arg0);
+        ok &= seval_to_native_ptr(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionFadeDown_create : Error processing arguments");
+        auto result = cocos2d::TransitionFadeDown::create(arg0, arg1);
+        result->retain();
+        auto obj = se::Object::createObjectWithClass(__jsb_cocos2d_TransitionFadeDown_class);
+        obj->setPrivateData(result);
+        s.rval().setObject(obj);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionFadeDown_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_TransitionFadeDown_finalize)
+
+static bool js_cocos2dx_TransitionFadeDown_constructor(se::State& s)
+{
+    cocos2d::TransitionFadeDown* cobj = new (std::nothrow) cocos2d::TransitionFadeDown();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_TransitionFadeDown_constructor, __jsb_cocos2d_TransitionFadeDown_class, js_cocos2d_TransitionFadeDown_finalize)
+
+static bool js_cocos2dx_TransitionFadeDown_ctor(se::State& s)
+{
+    cocos2d::TransitionFadeDown* cobj = new (std::nothrow) cocos2d::TransitionFadeDown();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_TransitionFadeDown_ctor, __jsb_cocos2d_TransitionFadeDown_class, js_cocos2d_TransitionFadeDown_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_TransitionFadeTR_proto;
+
+static bool js_cocos2d_TransitionFadeDown_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::TransitionFadeDown)", s.nativeThisObject());
+    cocos2d::TransitionFadeDown* cobj = (cocos2d::TransitionFadeDown*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_TransitionFadeDown_finalize)
+
+bool js_register_cocos2dx_TransitionFadeDown(se::Object* obj)
+{
+    auto cls = se::Class::create("TransitionFadeDown", obj, __jsb_cocos2d_TransitionFadeTR_proto, _SE(js_cocos2dx_TransitionFadeDown_constructor));
+
+    cls->defineFunction("ctor", _SE(js_cocos2dx_TransitionFadeDown_ctor));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_TransitionFadeDown_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_TransitionFadeDown_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::TransitionFadeDown>(cls);
+
+    __jsb_cocos2d_TransitionFadeDown_proto = cls->getProto();
+    __jsb_cocos2d_TransitionFadeDown_class = cls;
+
+    jsb_set_extend_property("cc", "TransitionFadeDown");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_TransitionPageTurn_proto = nullptr;
+se::Class* __jsb_cocos2d_TransitionPageTurn_class = nullptr;
+
+static bool js_cocos2dx_TransitionPageTurn_actionWithSize(se::State& s)
+{
+    cocos2d::TransitionPageTurn* cobj = (cocos2d::TransitionPageTurn*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_TransitionPageTurn_actionWithSize : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        cocos2d::Size arg0;
+        ok &= seval_to_Size(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionPageTurn_actionWithSize : Error processing arguments");
+        cocos2d::ActionInterval* result = cobj->actionWithSize(arg0);
+        ok &= native_ptr_to_seval<cocos2d::ActionInterval>((cocos2d::ActionInterval*)result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionPageTurn_actionWithSize : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionPageTurn_actionWithSize)
+
+static bool js_cocos2dx_TransitionPageTurn_initWithDuration(se::State& s)
+{
+    cocos2d::TransitionPageTurn* cobj = (cocos2d::TransitionPageTurn*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_TransitionPageTurn_initWithDuration : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 3) {
+        float arg0 = 0;
+        cocos2d::Scene* arg1 = nullptr;
+        bool arg2;
+        ok &= seval_to_float(args[0], &arg0);
+        ok &= seval_to_native_ptr(args[1], &arg1);
+        ok &= seval_to_boolean(args[2], &arg2);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionPageTurn_initWithDuration : Error processing arguments");
+        bool result = cobj->initWithDuration(arg0, arg1, arg2);
+        ok &= boolean_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionPageTurn_initWithDuration : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 3);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionPageTurn_initWithDuration)
+
+static bool js_cocos2dx_TransitionPageTurn_create(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 3) {
+        float arg0 = 0;
+        cocos2d::Scene* arg1 = nullptr;
+        bool arg2;
+        ok &= seval_to_float(args[0], &arg0);
+        ok &= seval_to_native_ptr(args[1], &arg1);
+        ok &= seval_to_boolean(args[2], &arg2);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionPageTurn_create : Error processing arguments");
+        auto result = cocos2d::TransitionPageTurn::create(arg0, arg1, arg2);
+        result->retain();
+        auto obj = se::Object::createObjectWithClass(__jsb_cocos2d_TransitionPageTurn_class);
+        obj->setPrivateData(result);
+        s.rval().setObject(obj);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 3);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionPageTurn_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_TransitionPageTurn_finalize)
+
+static bool js_cocos2dx_TransitionPageTurn_constructor(se::State& s)
+{
+    cocos2d::TransitionPageTurn* cobj = new (std::nothrow) cocos2d::TransitionPageTurn();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_TransitionPageTurn_constructor, __jsb_cocos2d_TransitionPageTurn_class, js_cocos2d_TransitionPageTurn_finalize)
+
+static bool js_cocos2dx_TransitionPageTurn_ctor(se::State& s)
+{
+    cocos2d::TransitionPageTurn* cobj = new (std::nothrow) cocos2d::TransitionPageTurn();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_TransitionPageTurn_ctor, __jsb_cocos2d_TransitionPageTurn_class, js_cocos2d_TransitionPageTurn_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_TransitionScene_proto;
+
+static bool js_cocos2d_TransitionPageTurn_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::TransitionPageTurn)", s.nativeThisObject());
+    cocos2d::TransitionPageTurn* cobj = (cocos2d::TransitionPageTurn*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_TransitionPageTurn_finalize)
+
+bool js_register_cocos2dx_TransitionPageTurn(se::Object* obj)
+{
+    auto cls = se::Class::create("TransitionPageTurn", obj, __jsb_cocos2d_TransitionScene_proto, _SE(js_cocos2dx_TransitionPageTurn_constructor));
+
+    cls->defineFunction("actionWithSize", _SE(js_cocos2dx_TransitionPageTurn_actionWithSize));
+    cls->defineFunction("initWithDuration", _SE(js_cocos2dx_TransitionPageTurn_initWithDuration));
+    cls->defineFunction("ctor", _SE(js_cocos2dx_TransitionPageTurn_ctor));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_TransitionPageTurn_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_TransitionPageTurn_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::TransitionPageTurn>(cls);
+
+    __jsb_cocos2d_TransitionPageTurn_proto = cls->getProto();
+    __jsb_cocos2d_TransitionPageTurn_class = cls;
+
+    jsb_set_extend_property("cc", "TransitionPageTurn");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_TransitionProgress_proto = nullptr;
+se::Class* __jsb_cocos2d_TransitionProgress_class = nullptr;
+
+static bool js_cocos2dx_TransitionProgress_create(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        float arg0 = 0;
+        cocos2d::Scene* arg1 = nullptr;
+        ok &= seval_to_float(args[0], &arg0);
+        ok &= seval_to_native_ptr(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionProgress_create : Error processing arguments");
+        auto result = cocos2d::TransitionProgress::create(arg0, arg1);
+        result->retain();
+        auto obj = se::Object::createObjectWithClass(__jsb_cocos2d_TransitionProgress_class);
+        obj->setPrivateData(result);
+        s.rval().setObject(obj);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionProgress_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_TransitionProgress_finalize)
+
+static bool js_cocos2dx_TransitionProgress_constructor(se::State& s)
+{
+    cocos2d::TransitionProgress* cobj = new (std::nothrow) cocos2d::TransitionProgress();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_TransitionProgress_constructor, __jsb_cocos2d_TransitionProgress_class, js_cocos2d_TransitionProgress_finalize)
+
+static bool js_cocos2dx_TransitionProgress_ctor(se::State& s)
+{
+    cocos2d::TransitionProgress* cobj = new (std::nothrow) cocos2d::TransitionProgress();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_TransitionProgress_ctor, __jsb_cocos2d_TransitionProgress_class, js_cocos2d_TransitionProgress_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_TransitionScene_proto;
+
+static bool js_cocos2d_TransitionProgress_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::TransitionProgress)", s.nativeThisObject());
+    cocos2d::TransitionProgress* cobj = (cocos2d::TransitionProgress*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_TransitionProgress_finalize)
+
+bool js_register_cocos2dx_TransitionProgress(se::Object* obj)
+{
+    auto cls = se::Class::create("TransitionProgress", obj, __jsb_cocos2d_TransitionScene_proto, _SE(js_cocos2dx_TransitionProgress_constructor));
+
+    cls->defineFunction("ctor", _SE(js_cocos2dx_TransitionProgress_ctor));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_TransitionProgress_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_TransitionProgress_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::TransitionProgress>(cls);
+
+    __jsb_cocos2d_TransitionProgress_proto = cls->getProto();
+    __jsb_cocos2d_TransitionProgress_class = cls;
+
+    jsb_set_extend_property("cc", "TransitionProgress");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_TransitionProgressRadialCCW_proto = nullptr;
+se::Class* __jsb_cocos2d_TransitionProgressRadialCCW_class = nullptr;
+
+static bool js_cocos2dx_TransitionProgressRadialCCW_create(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        float arg0 = 0;
+        cocos2d::Scene* arg1 = nullptr;
+        ok &= seval_to_float(args[0], &arg0);
+        ok &= seval_to_native_ptr(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionProgressRadialCCW_create : Error processing arguments");
+        auto result = cocos2d::TransitionProgressRadialCCW::create(arg0, arg1);
+        result->retain();
+        auto obj = se::Object::createObjectWithClass(__jsb_cocos2d_TransitionProgressRadialCCW_class);
+        obj->setPrivateData(result);
+        s.rval().setObject(obj);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionProgressRadialCCW_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_TransitionProgressRadialCCW_finalize)
+
+static bool js_cocos2dx_TransitionProgressRadialCCW_constructor(se::State& s)
+{
+    cocos2d::TransitionProgressRadialCCW* cobj = new (std::nothrow) cocos2d::TransitionProgressRadialCCW();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_TransitionProgressRadialCCW_constructor, __jsb_cocos2d_TransitionProgressRadialCCW_class, js_cocos2d_TransitionProgressRadialCCW_finalize)
+
+static bool js_cocos2dx_TransitionProgressRadialCCW_ctor(se::State& s)
+{
+    cocos2d::TransitionProgressRadialCCW* cobj = new (std::nothrow) cocos2d::TransitionProgressRadialCCW();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_TransitionProgressRadialCCW_ctor, __jsb_cocos2d_TransitionProgressRadialCCW_class, js_cocos2d_TransitionProgressRadialCCW_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_TransitionProgress_proto;
+
+static bool js_cocos2d_TransitionProgressRadialCCW_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::TransitionProgressRadialCCW)", s.nativeThisObject());
+    cocos2d::TransitionProgressRadialCCW* cobj = (cocos2d::TransitionProgressRadialCCW*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_TransitionProgressRadialCCW_finalize)
+
+bool js_register_cocos2dx_TransitionProgressRadialCCW(se::Object* obj)
+{
+    auto cls = se::Class::create("TransitionProgressRadialCCW", obj, __jsb_cocos2d_TransitionProgress_proto, _SE(js_cocos2dx_TransitionProgressRadialCCW_constructor));
+
+    cls->defineFunction("ctor", _SE(js_cocos2dx_TransitionProgressRadialCCW_ctor));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_TransitionProgressRadialCCW_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_TransitionProgressRadialCCW_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::TransitionProgressRadialCCW>(cls);
+
+    __jsb_cocos2d_TransitionProgressRadialCCW_proto = cls->getProto();
+    __jsb_cocos2d_TransitionProgressRadialCCW_class = cls;
+
+    jsb_set_extend_property("cc", "TransitionProgressRadialCCW");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_TransitionProgressRadialCW_proto = nullptr;
+se::Class* __jsb_cocos2d_TransitionProgressRadialCW_class = nullptr;
+
+static bool js_cocos2dx_TransitionProgressRadialCW_create(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        float arg0 = 0;
+        cocos2d::Scene* arg1 = nullptr;
+        ok &= seval_to_float(args[0], &arg0);
+        ok &= seval_to_native_ptr(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionProgressRadialCW_create : Error processing arguments");
+        auto result = cocos2d::TransitionProgressRadialCW::create(arg0, arg1);
+        result->retain();
+        auto obj = se::Object::createObjectWithClass(__jsb_cocos2d_TransitionProgressRadialCW_class);
+        obj->setPrivateData(result);
+        s.rval().setObject(obj);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionProgressRadialCW_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_TransitionProgressRadialCW_finalize)
+
+static bool js_cocos2dx_TransitionProgressRadialCW_constructor(se::State& s)
+{
+    cocos2d::TransitionProgressRadialCW* cobj = new (std::nothrow) cocos2d::TransitionProgressRadialCW();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_TransitionProgressRadialCW_constructor, __jsb_cocos2d_TransitionProgressRadialCW_class, js_cocos2d_TransitionProgressRadialCW_finalize)
+
+static bool js_cocos2dx_TransitionProgressRadialCW_ctor(se::State& s)
+{
+    cocos2d::TransitionProgressRadialCW* cobj = new (std::nothrow) cocos2d::TransitionProgressRadialCW();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_TransitionProgressRadialCW_ctor, __jsb_cocos2d_TransitionProgressRadialCW_class, js_cocos2d_TransitionProgressRadialCW_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_TransitionProgress_proto;
+
+static bool js_cocos2d_TransitionProgressRadialCW_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::TransitionProgressRadialCW)", s.nativeThisObject());
+    cocos2d::TransitionProgressRadialCW* cobj = (cocos2d::TransitionProgressRadialCW*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_TransitionProgressRadialCW_finalize)
+
+bool js_register_cocos2dx_TransitionProgressRadialCW(se::Object* obj)
+{
+    auto cls = se::Class::create("TransitionProgressRadialCW", obj, __jsb_cocos2d_TransitionProgress_proto, _SE(js_cocos2dx_TransitionProgressRadialCW_constructor));
+
+    cls->defineFunction("ctor", _SE(js_cocos2dx_TransitionProgressRadialCW_ctor));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_TransitionProgressRadialCW_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_TransitionProgressRadialCW_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::TransitionProgressRadialCW>(cls);
+
+    __jsb_cocos2d_TransitionProgressRadialCW_proto = cls->getProto();
+    __jsb_cocos2d_TransitionProgressRadialCW_class = cls;
+
+    jsb_set_extend_property("cc", "TransitionProgressRadialCW");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_TransitionProgressHorizontal_proto = nullptr;
+se::Class* __jsb_cocos2d_TransitionProgressHorizontal_class = nullptr;
+
+static bool js_cocos2dx_TransitionProgressHorizontal_create(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        float arg0 = 0;
+        cocos2d::Scene* arg1 = nullptr;
+        ok &= seval_to_float(args[0], &arg0);
+        ok &= seval_to_native_ptr(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionProgressHorizontal_create : Error processing arguments");
+        auto result = cocos2d::TransitionProgressHorizontal::create(arg0, arg1);
+        result->retain();
+        auto obj = se::Object::createObjectWithClass(__jsb_cocos2d_TransitionProgressHorizontal_class);
+        obj->setPrivateData(result);
+        s.rval().setObject(obj);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionProgressHorizontal_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_TransitionProgressHorizontal_finalize)
+
+static bool js_cocos2dx_TransitionProgressHorizontal_constructor(se::State& s)
+{
+    cocos2d::TransitionProgressHorizontal* cobj = new (std::nothrow) cocos2d::TransitionProgressHorizontal();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_TransitionProgressHorizontal_constructor, __jsb_cocos2d_TransitionProgressHorizontal_class, js_cocos2d_TransitionProgressHorizontal_finalize)
+
+static bool js_cocos2dx_TransitionProgressHorizontal_ctor(se::State& s)
+{
+    cocos2d::TransitionProgressHorizontal* cobj = new (std::nothrow) cocos2d::TransitionProgressHorizontal();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_TransitionProgressHorizontal_ctor, __jsb_cocos2d_TransitionProgressHorizontal_class, js_cocos2d_TransitionProgressHorizontal_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_TransitionProgress_proto;
+
+static bool js_cocos2d_TransitionProgressHorizontal_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::TransitionProgressHorizontal)", s.nativeThisObject());
+    cocos2d::TransitionProgressHorizontal* cobj = (cocos2d::TransitionProgressHorizontal*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_TransitionProgressHorizontal_finalize)
+
+bool js_register_cocos2dx_TransitionProgressHorizontal(se::Object* obj)
+{
+    auto cls = se::Class::create("TransitionProgressHorizontal", obj, __jsb_cocos2d_TransitionProgress_proto, _SE(js_cocos2dx_TransitionProgressHorizontal_constructor));
+
+    cls->defineFunction("ctor", _SE(js_cocos2dx_TransitionProgressHorizontal_ctor));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_TransitionProgressHorizontal_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_TransitionProgressHorizontal_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::TransitionProgressHorizontal>(cls);
+
+    __jsb_cocos2d_TransitionProgressHorizontal_proto = cls->getProto();
+    __jsb_cocos2d_TransitionProgressHorizontal_class = cls;
+
+    jsb_set_extend_property("cc", "TransitionProgressHorizontal");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_TransitionProgressVertical_proto = nullptr;
+se::Class* __jsb_cocos2d_TransitionProgressVertical_class = nullptr;
+
+static bool js_cocos2dx_TransitionProgressVertical_create(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        float arg0 = 0;
+        cocos2d::Scene* arg1 = nullptr;
+        ok &= seval_to_float(args[0], &arg0);
+        ok &= seval_to_native_ptr(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionProgressVertical_create : Error processing arguments");
+        auto result = cocos2d::TransitionProgressVertical::create(arg0, arg1);
+        result->retain();
+        auto obj = se::Object::createObjectWithClass(__jsb_cocos2d_TransitionProgressVertical_class);
+        obj->setPrivateData(result);
+        s.rval().setObject(obj);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionProgressVertical_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_TransitionProgressVertical_finalize)
+
+static bool js_cocos2dx_TransitionProgressVertical_constructor(se::State& s)
+{
+    cocos2d::TransitionProgressVertical* cobj = new (std::nothrow) cocos2d::TransitionProgressVertical();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_TransitionProgressVertical_constructor, __jsb_cocos2d_TransitionProgressVertical_class, js_cocos2d_TransitionProgressVertical_finalize)
+
+static bool js_cocos2dx_TransitionProgressVertical_ctor(se::State& s)
+{
+    cocos2d::TransitionProgressVertical* cobj = new (std::nothrow) cocos2d::TransitionProgressVertical();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_TransitionProgressVertical_ctor, __jsb_cocos2d_TransitionProgressVertical_class, js_cocos2d_TransitionProgressVertical_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_TransitionProgress_proto;
+
+static bool js_cocos2d_TransitionProgressVertical_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::TransitionProgressVertical)", s.nativeThisObject());
+    cocos2d::TransitionProgressVertical* cobj = (cocos2d::TransitionProgressVertical*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_TransitionProgressVertical_finalize)
+
+bool js_register_cocos2dx_TransitionProgressVertical(se::Object* obj)
+{
+    auto cls = se::Class::create("TransitionProgressVertical", obj, __jsb_cocos2d_TransitionProgress_proto, _SE(js_cocos2dx_TransitionProgressVertical_constructor));
+
+    cls->defineFunction("ctor", _SE(js_cocos2dx_TransitionProgressVertical_ctor));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_TransitionProgressVertical_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_TransitionProgressVertical_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::TransitionProgressVertical>(cls);
+
+    __jsb_cocos2d_TransitionProgressVertical_proto = cls->getProto();
+    __jsb_cocos2d_TransitionProgressVertical_class = cls;
+
+    jsb_set_extend_property("cc", "TransitionProgressVertical");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_TransitionProgressInOut_proto = nullptr;
+se::Class* __jsb_cocos2d_TransitionProgressInOut_class = nullptr;
+
+static bool js_cocos2dx_TransitionProgressInOut_create(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        float arg0 = 0;
+        cocos2d::Scene* arg1 = nullptr;
+        ok &= seval_to_float(args[0], &arg0);
+        ok &= seval_to_native_ptr(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionProgressInOut_create : Error processing arguments");
+        auto result = cocos2d::TransitionProgressInOut::create(arg0, arg1);
+        result->retain();
+        auto obj = se::Object::createObjectWithClass(__jsb_cocos2d_TransitionProgressInOut_class);
+        obj->setPrivateData(result);
+        s.rval().setObject(obj);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionProgressInOut_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_TransitionProgressInOut_finalize)
+
+static bool js_cocos2dx_TransitionProgressInOut_constructor(se::State& s)
+{
+    cocos2d::TransitionProgressInOut* cobj = new (std::nothrow) cocos2d::TransitionProgressInOut();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_TransitionProgressInOut_constructor, __jsb_cocos2d_TransitionProgressInOut_class, js_cocos2d_TransitionProgressInOut_finalize)
+
+static bool js_cocos2dx_TransitionProgressInOut_ctor(se::State& s)
+{
+    cocos2d::TransitionProgressInOut* cobj = new (std::nothrow) cocos2d::TransitionProgressInOut();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_TransitionProgressInOut_ctor, __jsb_cocos2d_TransitionProgressInOut_class, js_cocos2d_TransitionProgressInOut_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_TransitionProgress_proto;
+
+static bool js_cocos2d_TransitionProgressInOut_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::TransitionProgressInOut)", s.nativeThisObject());
+    cocos2d::TransitionProgressInOut* cobj = (cocos2d::TransitionProgressInOut*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_TransitionProgressInOut_finalize)
+
+bool js_register_cocos2dx_TransitionProgressInOut(se::Object* obj)
+{
+    auto cls = se::Class::create("TransitionProgressInOut", obj, __jsb_cocos2d_TransitionProgress_proto, _SE(js_cocos2dx_TransitionProgressInOut_constructor));
+
+    cls->defineFunction("ctor", _SE(js_cocos2dx_TransitionProgressInOut_ctor));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_TransitionProgressInOut_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_TransitionProgressInOut_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::TransitionProgressInOut>(cls);
+
+    __jsb_cocos2d_TransitionProgressInOut_proto = cls->getProto();
+    __jsb_cocos2d_TransitionProgressInOut_class = cls;
+
+    jsb_set_extend_property("cc", "TransitionProgressInOut");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_TransitionProgressOutIn_proto = nullptr;
+se::Class* __jsb_cocos2d_TransitionProgressOutIn_class = nullptr;
+
+static bool js_cocos2dx_TransitionProgressOutIn_create(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        float arg0 = 0;
+        cocos2d::Scene* arg1 = nullptr;
+        ok &= seval_to_float(args[0], &arg0);
+        ok &= seval_to_native_ptr(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_TransitionProgressOutIn_create : Error processing arguments");
+        auto result = cocos2d::TransitionProgressOutIn::create(arg0, arg1);
+        result->retain();
+        auto obj = se::Object::createObjectWithClass(__jsb_cocos2d_TransitionProgressOutIn_class);
+        obj->setPrivateData(result);
+        s.rval().setObject(obj);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_TransitionProgressOutIn_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_TransitionProgressOutIn_finalize)
+
+static bool js_cocos2dx_TransitionProgressOutIn_constructor(se::State& s)
+{
+    cocos2d::TransitionProgressOutIn* cobj = new (std::nothrow) cocos2d::TransitionProgressOutIn();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_TransitionProgressOutIn_constructor, __jsb_cocos2d_TransitionProgressOutIn_class, js_cocos2d_TransitionProgressOutIn_finalize)
+
+static bool js_cocos2dx_TransitionProgressOutIn_ctor(se::State& s)
+{
+    cocos2d::TransitionProgressOutIn* cobj = new (std::nothrow) cocos2d::TransitionProgressOutIn();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_TransitionProgressOutIn_ctor, __jsb_cocos2d_TransitionProgressOutIn_class, js_cocos2d_TransitionProgressOutIn_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_TransitionProgress_proto;
+
+static bool js_cocos2d_TransitionProgressOutIn_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::TransitionProgressOutIn)", s.nativeThisObject());
+    cocos2d::TransitionProgressOutIn* cobj = (cocos2d::TransitionProgressOutIn*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_TransitionProgressOutIn_finalize)
+
+bool js_register_cocos2dx_TransitionProgressOutIn(se::Object* obj)
+{
+    auto cls = se::Class::create("TransitionProgressOutIn", obj, __jsb_cocos2d_TransitionProgress_proto, _SE(js_cocos2dx_TransitionProgressOutIn_constructor));
+
+    cls->defineFunction("ctor", _SE(js_cocos2dx_TransitionProgressOutIn_ctor));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_TransitionProgressOutIn_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_TransitionProgressOutIn_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::TransitionProgressOutIn>(cls);
+
+    __jsb_cocos2d_TransitionProgressOutIn_proto = cls->getProto();
+    __jsb_cocos2d_TransitionProgressOutIn_class = cls;
+
+    jsb_set_extend_property("cc", "TransitionProgressOutIn");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
 se::Object* __jsb_cocos2d_GLProgram_proto = nullptr;
 se::Class* __jsb_cocos2d_GLProgram_class = nullptr;
 
@@ -38178,11 +41617,20 @@ bool register_all_cocos2dx(se::Object* obj)
     js_register_cocos2dx_FiniteTimeAction(ns);
     js_register_cocos2dx_ActionInstant(ns);
     js_register_cocos2dx_Hide(ns);
-    js_register_cocos2dx_TMXObjectGroupInfo(ns);
     js_register_cocos2dx_Node(ns);
+    js_register_cocos2dx_Scene(ns);
+    js_register_cocos2dx_TransitionScene(ns);
+    js_register_cocos2dx_TransitionEaseScene(ns);
+    js_register_cocos2dx_TransitionMoveInL(ns);
+    js_register_cocos2dx_TransitionMoveInB(ns);
+    js_register_cocos2dx_TransitionMoveInT(ns);
+    js_register_cocos2dx_TMXObjectGroupInfo(ns);
+    js_register_cocos2dx_TransitionMoveInR(ns);
     js_register_cocos2dx_ParticleSystem(ns);
     js_register_cocos2dx_ParticleSystemQuad(ns);
     js_register_cocos2dx_ParticleSpiral(ns);
+    js_register_cocos2dx_TransitionProgress(ns);
+    js_register_cocos2dx_TransitionProgressHorizontal(ns);
     js_register_cocos2dx_ActionInterval(ns);
     js_register_cocos2dx_MoveBy(ns);
     js_register_cocos2dx_MoveTo(ns);
@@ -38199,6 +41647,8 @@ bool register_all_cocos2dx(se::Object* obj)
     js_register_cocos2dx_EaseQuadraticActionInOut(ns);
     js_register_cocos2dx_EaseBackOut(ns);
     js_register_cocos2dx_Texture2D(ns);
+    js_register_cocos2dx_TransitionSceneOriented(ns);
+    js_register_cocos2dx_TransitionFlipX(ns);
     js_register_cocos2dx_SkewTo(ns);
     js_register_cocos2dx_SkewBy(ns);
     js_register_cocos2dx_EaseQuadraticActionOut(ns);
@@ -38209,6 +41659,7 @@ bool register_all_cocos2dx(se::Object* obj)
     js_register_cocos2dx_FadeIn(ns);
     js_register_cocos2dx_EventListenerCustom(ns);
     js_register_cocos2dx_EaseSineInOut(ns);
+    js_register_cocos2dx_TransitionFlipAngular(ns);
     js_register_cocos2dx_EaseElasticInOut(ns);
     js_register_cocos2dx_EaseBounce(ns);
     js_register_cocos2dx_Show(ns);
@@ -38224,6 +41675,7 @@ bool register_all_cocos2dx(se::Object* obj)
     js_register_cocos2dx_MenuItemImage(ns);
     js_register_cocos2dx_ParticleFire(ns);
     js_register_cocos2dx_ParticleSmoke(ns);
+    js_register_cocos2dx_TransitionZoomFlipAngular(ns);
     js_register_cocos2dx_EaseRateAction(ns);
     js_register_cocos2dx_EaseIn(ns);
     js_register_cocos2dx_EaseExponentialInOut(ns);
@@ -38235,8 +41687,8 @@ bool register_all_cocos2dx(se::Object* obj)
     js_register_cocos2dx_DelayTime(ns);
     js_register_cocos2dx_AsyncTaskPool(ns);
     js_register_cocos2dx_ParticleSnow(ns);
-    js_register_cocos2dx_DrawNode(ns);
-    js_register_cocos2dx_TMXObjectShape(ns);
+    js_register_cocos2dx_TransitionFadeTR(ns);
+    js_register_cocos2dx_TransitionFadeBL(ns);
     js_register_cocos2dx_EaseElasticIn(ns);
     js_register_cocos2dx_EaseCircleActionInOut(ns);
     js_register_cocos2dx_TMXObject(ns);
@@ -38244,10 +41696,12 @@ bool register_all_cocos2dx(se::Object* obj)
     js_register_cocos2dx_EaseCubicActionIn(ns);
     js_register_cocos2dx_SpriteBatchNode(ns);
     js_register_cocos2dx_Configuration(ns);
+    js_register_cocos2dx_TransitionFadeDown(ns);
     js_register_cocos2dx_ParticleSun(ns);
     js_register_cocos2dx_TMXLayer(ns);
     js_register_cocos2dx_FlipX(ns);
     js_register_cocos2dx_FlipY(ns);
+    js_register_cocos2dx_TransitionSplitCols(ns);
     js_register_cocos2dx_RepeatForever(ns);
     js_register_cocos2dx_Place(ns);
     js_register_cocos2dx_EventListenerAcceleration(ns);
@@ -38255,6 +41709,7 @@ bool register_all_cocos2dx(se::Object* obj)
     js_register_cocos2dx_EaseBounceOut(ns);
     js_register_cocos2dx_RenderTexture(ns);
     js_register_cocos2dx_SpriteFrameCache(ns);
+    js_register_cocos2dx_TransitionShrinkGrow(ns);
     js_register_cocos2dx_ClippingNode(ns);
     js_register_cocos2dx_ParticleFlower(ns);
     js_register_cocos2dx_EaseCircleActionIn(ns);
@@ -38262,6 +41717,7 @@ bool register_all_cocos2dx(se::Object* obj)
     js_register_cocos2dx_Blink(ns);
     js_register_cocos2dx_JumpTo(ns);
     js_register_cocos2dx_AtlasNode(ns);
+    js_register_cocos2dx_TransitionJumpZoom(ns);
     js_register_cocos2dx_Touch(ns);
     js_register_cocos2dx_SAXParser(ns);
     js_register_cocos2dx_CardinalSplineBy(ns);
@@ -38278,46 +41734,60 @@ bool register_all_cocos2dx(se::Object* obj)
     js_register_cocos2dx_EventListenerTouchAllAtOnce(ns);
     js_register_cocos2dx_ToggleVisibility(ns);
     js_register_cocos2dx_Repeat(ns);
+    js_register_cocos2dx_TransitionFlipY(ns);
     js_register_cocos2dx_LayerMultiplex(ns);
     js_register_cocos2dx_TintTo(ns);
     js_register_cocos2dx_EaseBackInOut(ns);
     js_register_cocos2dx_TargetedAction(ns);
+    js_register_cocos2dx_DrawNode(ns);
+    js_register_cocos2dx_TransitionTurnOffTiles(ns);
     js_register_cocos2dx_RotateTo(ns);
+    js_register_cocos2dx_TransitionSplitRows(ns);
     js_register_cocos2dx_Device(ns);
+    js_register_cocos2dx_TransitionProgressRadialCCW(ns);
     js_register_cocos2dx_EventListenerFocus(ns);
+    js_register_cocos2dx_TransitionPageTurn(ns);
     js_register_cocos2dx_BezierBy(ns);
     js_register_cocos2dx_BezierTo(ns);
     js_register_cocos2dx_ParticleMeteor(ns);
     js_register_cocos2dx_SpriteFrame(ns);
     js_register_cocos2dx_ActionManager(ns);
     js_register_cocos2dx_ParticleBatchNode(ns);
+    js_register_cocos2dx_TransitionZoomFlipX(ns);
     js_register_cocos2dx_EventFocus(ns);
     js_register_cocos2dx_EaseQuinticActionInOut(ns);
+    js_register_cocos2dx_TransitionRotoZoom(ns);
+    js_register_cocos2dx_TransitionCrossFade(ns);
     js_register_cocos2dx_TileMapAtlas(ns);
     js_register_cocos2dx_ScaleTo(ns);
     js_register_cocos2dx_Spawn(ns);
     js_register_cocos2dx_EaseQuarticActionInOut(ns);
     js_register_cocos2dx_GLProgramState(ns);
     js_register_cocos2dx_EaseCircleActionOut(ns);
+    js_register_cocos2dx_TransitionProgressInOut(ns);
     js_register_cocos2dx_EaseCubicActionInOut(ns);
     js_register_cocos2dx_EaseQuarticActionOut(ns);
     js_register_cocos2dx_EaseBackIn(ns);
     js_register_cocos2dx_ParticleExplosion(ns);
     js_register_cocos2dx_TintBy(ns);
+    js_register_cocos2dx_TransitionProgressVertical(ns);
     js_register_cocos2dx_ReverseTime(ns);
     js_register_cocos2dx_EaseQuarticActionIn(ns);
     js_register_cocos2dx_Menu(ns);
     js_register_cocos2dx_EaseInOut(ns);
+    js_register_cocos2dx_TransitionZoomFlipY(ns);
     js_register_cocos2dx_ScaleBy(ns);
     js_register_cocos2dx_EventTouch(ns);
     js_register_cocos2dx_TMXMapInfo(ns);
     js_register_cocos2dx_EaseExponentialIn(ns);
+    js_register_cocos2dx_TMXObjectShape(ns);
     js_register_cocos2dx_EaseQuinticActionOut(ns);
     js_register_cocos2dx_EventDispatcher(ns);
     js_register_cocos2dx_MenuItemAtlasFont(ns);
     js_register_cocos2dx_Sprite(ns);
     js_register_cocos2dx_ParallaxNode(ns);
     js_register_cocos2dx_EventCustom(ns);
+    js_register_cocos2dx_TransitionFade(ns);
     js_register_cocos2dx_Component(ns);
     js_register_cocos2dx_EaseCubicActionOut(ns);
     js_register_cocos2dx_EventListenerTouchOneByOne(ns);
@@ -38334,13 +41804,19 @@ bool register_all_cocos2dx(se::Object* obj)
     js_register_cocos2dx_MotionStreak(ns);
     js_register_cocos2dx_RotateBy(ns);
     js_register_cocos2dx_FileUtils(ns);
+    js_register_cocos2dx_TransitionSlideInL(ns);
+    js_register_cocos2dx_TransitionSlideInT(ns);
     js_register_cocos2dx_CallFuncN(ns);
+    js_register_cocos2dx_TransitionProgressOutIn(ns);
     js_register_cocos2dx_BaseJSAction(ns);
     js_register_cocos2dx_Sequence(ns);
+    js_register_cocos2dx_TransitionFadeUp(ns);
+    js_register_cocos2dx_TransitionProgressRadialCW(ns);
     js_register_cocos2dx_EaseBounceInOut(ns);
-    js_register_cocos2dx_Scene(ns);
+    js_register_cocos2dx_TransitionSlideInR(ns);
     js_register_cocos2dx_GLProgramCache(ns);
     js_register_cocos2dx_EaseQuadraticActionIn(ns);
+    js_register_cocos2dx_TransitionSlideInB(ns);
     js_register_cocos2dx_Speed(ns);
     js_register_cocos2dx_TMXObjectImage(ns);
     return true;

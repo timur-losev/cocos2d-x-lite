@@ -494,6 +494,73 @@ void ZipUtils::setPvrEncryptionKey(unsigned int keyPart1, unsigned int keyPart2,
     setPvrEncryptionKeyPart(3, keyPart4);
 }
 
+int ZipUtils::deflateMemory(unsigned char *in, ssize_t inLength, unsigned char **out, ssize_t *outLength)
+{
+    size_t outLenghtHint = 256 * 1024;
+
+    /* ret value */
+    int err = Z_OK;
+
+    ssize_t bufferSize = outLenghtHint;
+    *out = (unsigned char*)malloc(bufferSize);
+
+    z_stream d_stream; /* decompression stream */
+    d_stream.zalloc = (alloc_func)0;
+    d_stream.zfree = (free_func)0;
+    d_stream.opaque = (voidpf)0;
+
+    d_stream.next_in = in;
+    d_stream.avail_in = static_cast<unsigned int>(inLength);
+    d_stream.next_out = *out;
+    d_stream.avail_out = static_cast<unsigned int>(bufferSize);
+
+    /* window size to hold 256k */
+    if ((err = deflateInit2(&d_stream, Z_DEFAULT_COMPRESSION, Z_DEFLATED, 15 + 16, 8, Z_DEFAULT_STRATEGY)) != Z_OK)
+        return err;
+
+    for (;;)
+    {
+        err = deflate(&d_stream, Z_FINISH);
+
+        if (err == Z_STREAM_END)
+        {
+            break;
+        }
+
+        switch (err)
+        {
+        case Z_NEED_DICT:
+            err = Z_DATA_ERROR;
+        case Z_DATA_ERROR:
+        case Z_MEM_ERROR:
+            deflateEnd(&d_stream);
+            return err;
+        }
+
+        // not enough memory ?
+        if (err != Z_STREAM_END)
+        {
+            *out = (unsigned char*)realloc(*out, bufferSize * BUFFER_INC_FACTOR);
+
+            /* not enough memory, ouch */
+            if (!*out)
+            {
+                CCLOG("cocos2d: ZipUtils: realloc failed");
+                deflateEnd(&d_stream);
+                return Z_MEM_ERROR;
+            }
+
+            d_stream.next_out = *out + bufferSize;
+            d_stream.avail_out = static_cast<unsigned int>(bufferSize);
+            bufferSize *= BUFFER_INC_FACTOR;
+        }
+    }
+
+    *outLength = bufferSize - d_stream.avail_out;
+    err = deflateEnd(&d_stream);
+    return err;
+}
+
 // --------------------- ZipFile ---------------------
 // from unzip.cpp
 #define UNZ_MAXFILENAMEINZIP 256

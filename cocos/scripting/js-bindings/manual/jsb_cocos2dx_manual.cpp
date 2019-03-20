@@ -1585,11 +1585,8 @@ static bool js_cocos2dx_CallFunc_create(se::State& s)
         // attachObject will do a function invocation which may mark 'jsobj' into an invalid state but without
         // invoking CallFuncN's finalize callback immediately.
         // AddressSanitizer in Xcode will prompt: heap-use-after-free on address.
-        //se::Value jsVal;
-        //jsVal.setObject(jsobj, true); // Pass true to indicate auto root / unroot by jsVal
-
-        jsobj->root();
-        jsobj->incRef();
+        se::Value jsVal;
+        jsVal.setObject(jsobj, true); // Pass true to indicate auto root / unroot by jsVal
 
         if (js_cocos2dx_CallFunc_init(ret, jsobj, args))
         {
