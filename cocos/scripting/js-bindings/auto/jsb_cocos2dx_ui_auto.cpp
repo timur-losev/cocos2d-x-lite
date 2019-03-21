@@ -1482,7 +1482,8 @@ static bool js_cocos2dx_ui_Widget_addTouchEventListener(se::State& s)
             {
                 se::Value jsThis(s.thisObject());
                 se::Value jsFunc(args[0]);
-                jsThis.toObject()->attachObject(jsFunc.toObject());
+                //jsThis.toObject()->attachObject(jsFunc.toObject());
+                jsThis.toObject()->root();
                 auto lambda = [=](cocos2d::Ref* larg0, cocos2d::ui::Widget::TouchEventType larg1) -> void {
                     se::ScriptEngine::getInstance()->clearException();
                     se::AutoHandleScope hs;
@@ -11628,6 +11629,27 @@ bool js_register_cocos2dx_ui_PageView(se::Object* obj)
 se::Object* __jsb_cocos2d_ui_Helper_proto = nullptr;
 se::Class* __jsb_cocos2d_ui_Helper_class = nullptr;
 
+static bool js_cocos2dx_ui_Helper_seekNodeByName(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        cocos2d::Node* arg0 = nullptr;
+        std::string arg1;
+        ok &= seval_to_native_ptr(args[0], &arg0);
+        ok &= seval_to_std_string(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_Helper_seekNodeByName : Error processing arguments");
+        cocos2d::Node* result = cocos2d::ui::Helper::seekNodeByName(arg0, arg1);
+        ok &= native_ptr_to_seval<cocos2d::Node>((cocos2d::Node*)result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_Helper_seekNodeByName : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_ui_Helper_seekNodeByName)
+
 static bool js_cocos2dx_ui_Helper_getSubStringOfUTF8String(se::State& s)
 {
     const auto& args = s.args();
@@ -11708,26 +11730,26 @@ static bool js_cocos2dx_ui_Helper_seekActionWidgetByActionTag(se::State& s)
 }
 SE_BIND_FUNC(js_cocos2dx_ui_Helper_seekActionWidgetByActionTag)
 
-static bool js_cocos2dx_ui_Helper_seekWidgetByName(se::State& s)
+static bool js_cocos2dx_ui_Helper_seekNodeByMagicPath(se::State& s)
 {
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 2) {
-        cocos2d::ui::Widget* arg0 = nullptr;
+        cocos2d::Node* arg0 = nullptr;
         std::string arg1;
         ok &= seval_to_native_ptr(args[0], &arg0);
         ok &= seval_to_std_string(args[1], &arg1);
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_Helper_seekWidgetByName : Error processing arguments");
-        cocos2d::ui::Widget* result = cocos2d::ui::Helper::seekWidgetByName(arg0, arg1);
-        ok &= native_ptr_to_seval<cocos2d::ui::Widget>((cocos2d::ui::Widget*)result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_Helper_seekWidgetByName : Error processing arguments");
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_Helper_seekNodeByMagicPath : Error processing arguments");
+        cocos2d::Node* result = cocos2d::ui::Helper::seekNodeByMagicPath(arg0, arg1);
+        ok &= native_ptr_to_seval<cocos2d::Node>((cocos2d::Node*)result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_Helper_seekNodeByMagicPath : Error processing arguments");
         return true;
     }
     SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
     return false;
 }
-SE_BIND_FUNC(js_cocos2dx_ui_Helper_seekWidgetByName)
+SE_BIND_FUNC(js_cocos2dx_ui_Helper_seekNodeByMagicPath)
 
 static bool js_cocos2dx_ui_Helper_seekWidgetByTag(se::State& s)
 {
@@ -11749,6 +11771,27 @@ static bool js_cocos2dx_ui_Helper_seekWidgetByTag(se::State& s)
     return false;
 }
 SE_BIND_FUNC(js_cocos2dx_ui_Helper_seekWidgetByTag)
+
+static bool js_cocos2dx_ui_Helper_seekWidgetByName(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        cocos2d::ui::Widget* arg0 = nullptr;
+        std::string arg1;
+        ok &= seval_to_native_ptr(args[0], &arg0);
+        ok &= seval_to_std_string(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_Helper_seekWidgetByName : Error processing arguments");
+        cocos2d::ui::Widget* result = cocos2d::ui::Helper::seekWidgetByName(arg0, arg1);
+        ok &= native_ptr_to_seval<cocos2d::ui::Widget>((cocos2d::ui::Widget*)result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_Helper_seekWidgetByName : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_ui_Helper_seekWidgetByName)
 
 static bool js_cocos2dx_ui_Helper_restrictCapInsetRect(se::State& s)
 {
@@ -11795,12 +11838,14 @@ bool js_register_cocos2dx_ui_Helper(se::Object* obj)
 {
     auto cls = se::Class::create("helper", obj, nullptr, nullptr);
 
+    cls->defineStaticFunction("seekNodeByName", _SE(js_cocos2dx_ui_Helper_seekNodeByName));
     cls->defineStaticFunction("getSubStringOfUTF8String", _SE(js_cocos2dx_ui_Helper_getSubStringOfUTF8String));
     cls->defineStaticFunction("convertBoundingBoxToScreen", _SE(js_cocos2dx_ui_Helper_convertBoundingBoxToScreen));
     cls->defineStaticFunction("changeLayoutSystemActiveState", _SE(js_cocos2dx_ui_Helper_changeLayoutSystemActiveState));
     cls->defineStaticFunction("seekActionWidgetByActionTag", _SE(js_cocos2dx_ui_Helper_seekActionWidgetByActionTag));
-    cls->defineStaticFunction("seekWidgetByName", _SE(js_cocos2dx_ui_Helper_seekWidgetByName));
+    cls->defineStaticFunction("seekNodeByMagicPath", _SE(js_cocos2dx_ui_Helper_seekNodeByMagicPath));
     cls->defineStaticFunction("seekWidgetByTag", _SE(js_cocos2dx_ui_Helper_seekWidgetByTag));
+    cls->defineStaticFunction("seekWidgetByName", _SE(js_cocos2dx_ui_Helper_seekWidgetByName));
     cls->defineStaticFunction("restrictCapInsetRect", _SE(js_cocos2dx_ui_Helper_restrictCapInsetRect));
     cls->defineStaticFunction("doLayout", _SE(js_cocos2dx_ui_Helper_doLayout));
     cls->install();

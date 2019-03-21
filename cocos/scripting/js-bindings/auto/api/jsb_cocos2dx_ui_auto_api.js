@@ -5300,6 +5300,20 @@ PageView : function (
 ccui.helper = {
 
 /**
+ * @method seekNodeByName
+ * @param {cc.Node} arg0
+ * @param {String} arg1
+ * @return {cc.Node}
+ */
+seekNodeByName : function (
+node, 
+str 
+)
+{
+    return cc.Node;
+},
+
+/**
  * @method getSubStringOfUTF8String
  * @param {String} arg0
  * @param {unsigned int} arg1
@@ -5352,17 +5366,17 @@ int
 },
 
 /**
- * @method seekWidgetByName
- * @param {ccui.Widget} arg0
+ * @method seekNodeByMagicPath
+ * @param {cc.Node} arg0
  * @param {String} arg1
- * @return {ccui.Widget}
+ * @return {cc.Node}
  */
-seekWidgetByName : function (
-widget, 
+seekNodeByMagicPath : function (
+node, 
 str 
 )
 {
-    return ccui.Widget;
+    return cc.Node;
 },
 
 /**
@@ -5374,6 +5388,20 @@ str
 seekWidgetByTag : function (
 widget, 
 int 
+)
+{
+    return ccui.Widget;
+},
+
+/**
+ * @method seekWidgetByName
+ * @param {ccui.Widget} arg0
+ * @param {String} arg1
+ * @return {ccui.Widget}
+ */
+seekWidgetByName : function (
+widget, 
+str 
 )
 {
     return ccui.Widget;

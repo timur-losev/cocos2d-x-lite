@@ -629,12 +629,14 @@ extern se::Class* __jsb_cocos2d_ui_Helper_class;
 
 bool js_register_cocos2d_ui_Helper(se::Object* obj);
 bool register_all_cocos2dx_ui(se::Object* obj);
+SE_DECLARE_FUNC(js_cocos2dx_ui_Helper_seekNodeByName);
 SE_DECLARE_FUNC(js_cocos2dx_ui_Helper_getSubStringOfUTF8String);
 SE_DECLARE_FUNC(js_cocos2dx_ui_Helper_convertBoundingBoxToScreen);
 SE_DECLARE_FUNC(js_cocos2dx_ui_Helper_changeLayoutSystemActiveState);
 SE_DECLARE_FUNC(js_cocos2dx_ui_Helper_seekActionWidgetByActionTag);
-SE_DECLARE_FUNC(js_cocos2dx_ui_Helper_seekWidgetByName);
+SE_DECLARE_FUNC(js_cocos2dx_ui_Helper_seekNodeByMagicPath);
 SE_DECLARE_FUNC(js_cocos2dx_ui_Helper_seekWidgetByTag);
+SE_DECLARE_FUNC(js_cocos2dx_ui_Helper_seekWidgetByName);
 SE_DECLARE_FUNC(js_cocos2dx_ui_Helper_restrictCapInsetRect);
 SE_DECLARE_FUNC(js_cocos2dx_ui_Helper_doLayout);
 

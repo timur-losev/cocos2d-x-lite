@@ -65,6 +65,8 @@ public:
      * @return Widget instance pointer.
      */
     static Widget* seekWidgetByName(Widget* root, const std::string& name);
+    static cocos2d::Node* seekNodeByName(cocos2d::Node* root, const std::string& name);
+    static cocos2d::Node* seekNodeByMagicPath(cocos2d::Node* root, const std::string& magicPath);
 
     /**
      * Find a widget with a specific action tag from root widget

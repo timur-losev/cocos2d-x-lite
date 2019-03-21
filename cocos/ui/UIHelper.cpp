@@ -61,6 +61,73 @@ Widget* Helper::seekWidgetByTag(Widget* root, int tag)
     return nullptr;
 }
 
+
+cocos2d::Node* Helper::seekNodeByName(cocos2d::Node* root, const std::string& name) {
+    if (!root)
+    {
+        return nullptr;
+    }
+    if (root->getName() == name)
+    {
+        return root;
+    }
+    const auto& arrayRootChildren = root->getChildren();
+    for (auto& child : arrayRootChildren)
+    {
+        cocos2d::Node* res = seekNodeByName(child, name);
+        if (res != nullptr)
+        {
+            return res;
+        }
+    }
+    return nullptr;
+}
+
+cocos2d::Node* Helper::seekNodeByMagicPath(cocos2d::Node* root, const std::string& magicPath) {
+    if (!root)
+    {
+        return nullptr;
+    }
+    if (magicPath.size() == 0)
+    {
+        return root;
+    }
+
+    std::string first_token, second_token;
+    char first_char = magicPath[0];
+
+    bool found = false;
+    int first_token_length = 1;
+
+    while (first_token_length < magicPath.size()) {
+        if (magicPath[first_token_length] == '.' || magicPath[first_token_length] == '>') {
+            found = true;
+            break;
+        }
+
+        first_token_length++;
+    }
+
+    if (found || first_token_length == magicPath.size()) {
+        int offset = 0;
+        if (first_char == '.' || first_char == '>') {
+            offset = 1;
+            first_token_length--;
+        }
+        first_token = std::string(magicPath.c_str() + offset, first_token_length);
+        second_token = std::string(magicPath.c_str() + offset + first_token_length);
+    }
+
+    if (first_char == '.') {
+        root = root->getChildByName(first_token);
+    }
+    else {
+        root = seekNodeByName(root, first_token);
+    }
+
+    return seekNodeByMagicPath(root, second_token);
+}
+
 Widget* Helper::seekWidgetByName(Widget* root, const std::string& name)
 {
     if (!root)

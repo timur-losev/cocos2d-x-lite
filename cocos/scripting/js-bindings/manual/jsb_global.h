@@ -19,3 +19,4 @@ bool jsb_set_extend_property(const char* ns, const char* clsName);
 bool jsb_run_script(const std::string& filePath);
 
 void jsb_set_xxtea_key(const std::string& key);
+bool getOrCreatePlainObject_r(const char* name, se::Object* parent, se::Object** outObj);

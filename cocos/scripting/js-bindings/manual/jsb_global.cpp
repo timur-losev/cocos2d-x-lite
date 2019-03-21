@@ -789,7 +789,7 @@ static bool JSB_isObjectValid(se::State& s)
 }
 SE_BIND_FUNC(JSB_isObjectValid)
 
-static bool getOrCreatePlainObject_r(const char* name, se::Object* parent, se::Object** outObj)
+bool getOrCreatePlainObject_r(const char* name, se::Object* parent, se::Object** outObj)
 {
     assert(parent != nullptr);
     assert(outObj != nullptr);

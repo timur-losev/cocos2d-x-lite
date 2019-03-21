@@ -309,7 +309,7 @@ cc.Sequence.prototype._ctor = function(tempArray) {
         this.initWithTwoActions(prev, actions[last]);
     }
     else {
-        this.init(actions[0]);
+        this.init([actions[0]]);
     }
 };
 cc.sequence = cc.Sequence.create = function (tempArray) {
@@ -363,6 +363,9 @@ cc.Spawn.prototype._ctor = function (tempArray) {
             }
         }
         this.initWithTwoActions(prev, actions[last]);
+    }
+    else {
+        this.init([actions[0]]);
     }
 };
 cc.spawn = cc.Spawn.create = function (tempArray) {

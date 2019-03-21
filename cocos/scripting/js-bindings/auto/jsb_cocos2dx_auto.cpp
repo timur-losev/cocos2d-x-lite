@@ -3386,9 +3386,6 @@ SE_BIND_FUNC(js_cocos2dx_Node_getAnchorPointInPoints)
 
 static bool js_cocos2dx_Node_runAction(se::State& s)
 {
-    auto st = v8::StackTrace::CurrentStackTrace(v8::Isolate::GetCurrent(), 1000);
-    std::string bt = se::ScriptEngine::stackTraceToString(st);
-
     cocos2d::Node* cobj = (cocos2d::Node*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_cocos2dx_Node_runAction : Invalid Native Object");
     const auto& args = s.args();
@@ -12783,13 +12780,7 @@ static bool js_cocos2dx_Sequence_init(se::State& s)
     CC_UNUSED bool ok = true;
     if (argc == 1) {
         cocos2d::Vector<cocos2d::FiniteTimeAction *> arg0;
-        if (args[0].toObject()->isArray())
-            ok &= seval_to_Vector(args[0], &arg0);
-        else {
-            cocos2d::FiniteTimeAction * action = nullptr;
-            ok &= seval_to_native_ptr(args[0], &action);
-            arg0.pushBack(action);
-        }
+        ok &= seval_to_Vector(args[0], &arg0);
         SE_PRECONDITION2(ok, false, "js_cocos2dx_Sequence_init : Error processing arguments");
         bool result = cobj->init(arg0);
         ok &= boolean_to_seval(result, &s.rval());
@@ -12803,9 +12794,6 @@ SE_BIND_FUNC(js_cocos2dx_Sequence_init)
 
 static bool js_cocos2dx_Sequence_initWithTwoActions(se::State& s)
 {
-    auto st = v8::StackTrace::CurrentStackTrace(v8::Isolate::GetCurrent(), 1000);
-    std::string bt = se::ScriptEngine::stackTraceToString(st);
-
     cocos2d::Sequence* cobj = (cocos2d::Sequence*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_cocos2dx_Sequence_initWithTwoActions : Invalid Native Object");
     const auto& args = s.args();
@@ -13120,9 +13108,6 @@ se::Class* __jsb_cocos2d_Spawn_class = nullptr;
 
 static bool js_cocos2dx_Spawn_init(se::State& s)
 {
-    auto st = v8::StackTrace::CurrentStackTrace(v8::Isolate::GetCurrent(), 1000);
-    std::string bt = se::ScriptEngine::stackTraceToString(st);
-
     cocos2d::Spawn* cobj = (cocos2d::Spawn*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_cocos2dx_Spawn_init : Invalid Native Object");
     const auto& args = s.args();

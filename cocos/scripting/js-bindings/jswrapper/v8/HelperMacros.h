@@ -41,6 +41,13 @@
 #define SE_DECLARE_FUNC(funcName) \
     void funcName##Registry(const v8::FunctionCallbackInfo<v8::Value>& v8args)
 
+#define STACK_TRACE_EVERY_CALL 0
+
+#if STACK_TRACE_EVERY_CALL
+    #define STACK_TRACE std::string bt; {auto st = v8::StackTrace::CurrentStackTrace(v8::Isolate::GetCurrent(), 1000); bt = se::ScriptEngine::stackTraceToString(st);}
+#else
+    #define STACK_TRACE (void)0;
+#endif
 
 #define SE_BIND_FUNC(funcName) \
     void funcName##Registry(const v8::FunctionCallbackInfo<v8::Value>& _v8args) \
@@ -53,6 +60,7 @@
         se::internal::jsToSeArgs(_v8args, &args); \
         void* nativeThisObject = se::internal::getPrivate(_isolate, _v8args.This()); \
         se::State state(nativeThisObject, args); \
+        STACK_TRACE \
         ret = funcName(state); \
         if (!ret) { \
             SE_LOGE("[ERROR] Failed to invoke %s, location: %s:%d\n", #funcName, __FILE__, __LINE__); \
