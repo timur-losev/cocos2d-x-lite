@@ -933,16 +933,10 @@
     <ClCompile Include="..\editor-support\cocostudio\WidgetReader\GameMapReader\GameMapReader.cpp">
       <Filter>cocostudio\WidgetReader</Filter>
     </ClCompile>
-    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\GameNode3DReader\GameNode3DReader.cpp">
-      <Filter>cocostudio\WidgetReader</Filter>
-    </ClCompile>
     <ClCompile Include="..\editor-support\cocostudio\WidgetReader\ImageViewReader\ImageViewReader.cpp">
       <Filter>cocostudio\WidgetReader</Filter>
     </ClCompile>
     <ClCompile Include="..\editor-support\cocostudio\WidgetReader\LayoutReader\LayoutReader.cpp">
-      <Filter>cocostudio\WidgetReader</Filter>
-    </ClCompile>
-    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\Light3DReader\Light3DReader.cpp">
       <Filter>cocostudio\WidgetReader</Filter>
     </ClCompile>
     <ClCompile Include="..\editor-support\cocostudio\WidgetReader\ListViewReader\ListViewReader.cpp">
@@ -951,16 +945,10 @@
     <ClCompile Include="..\editor-support\cocostudio\WidgetReader\LoadingBarReader\LoadingBarReader.cpp">
       <Filter>cocostudio\WidgetReader</Filter>
     </ClCompile>
-    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\Node3DReader\Node3DReader.cpp">
-      <Filter>cocostudio\WidgetReader</Filter>
-    </ClCompile>
     <ClCompile Include="..\editor-support\cocostudio\WidgetReader\NodeReader\NodeReader.cpp">
       <Filter>cocostudio\WidgetReader</Filter>
     </ClCompile>
     <ClCompile Include="..\editor-support\cocostudio\WidgetReader\PageViewReader\PageViewReader.cpp">
-      <Filter>cocostudio\WidgetReader</Filter>
-    </ClCompile>
-    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\Particle3DReader\Particle3DReader.cpp">
       <Filter>cocostudio\WidgetReader</Filter>
     </ClCompile>
     <ClCompile Include="..\editor-support\cocostudio\WidgetReader\ParticleReader\ParticleReader.cpp">
@@ -984,9 +972,6 @@
     <ClCompile Include="..\editor-support\cocostudio\WidgetReader\SliderReader\SliderReader.cpp">
       <Filter>cocostudio\WidgetReader</Filter>
     </ClCompile>
-    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\Sprite3DReader\Sprite3DReader.cpp">
-      <Filter>cocostudio\WidgetReader</Filter>
-    </ClCompile>
     <ClCompile Include="..\editor-support\cocostudio\WidgetReader\SpriteReader\SpriteReader.cpp">
       <Filter>cocostudio\WidgetReader</Filter>
     </ClCompile>
@@ -1000,9 +985,6 @@
       <Filter>cocostudio\WidgetReader</Filter>
     </ClCompile>
     <ClCompile Include="..\editor-support\cocostudio\WidgetReader\TextReader\TextReader.cpp">
-      <Filter>cocostudio\WidgetReader</Filter>
-    </ClCompile>
-    <ClCompile Include="..\editor-support\cocostudio\WidgetReader\UserCameraReader\UserCameraReader.cpp">
       <Filter>cocostudio\WidgetReader</Filter>
     </ClCompile>
     <ClCompile Include="..\ui\UIHBox.cpp">
@@ -2032,16 +2014,10 @@
     <ClInclude Include="..\editor-support\cocostudio\WidgetReader\GameMapReader\GameMapReader.h">
       <Filter>cocostudio\WidgetReader</Filter>
     </ClInclude>
-    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\GameNode3DReader\GameNode3DReader.h">
-      <Filter>cocostudio\WidgetReader</Filter>
-    </ClInclude>
     <ClInclude Include="..\editor-support\cocostudio\WidgetReader\ImageViewReader\ImageViewReader.h">
       <Filter>cocostudio\WidgetReader</Filter>
     </ClInclude>
     <ClInclude Include="..\editor-support\cocostudio\WidgetReader\LayoutReader\LayoutReader.h">
-      <Filter>cocostudio\WidgetReader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\Light3DReader\Light3DReader.h">
       <Filter>cocostudio\WidgetReader</Filter>
     </ClInclude>
     <ClInclude Include="..\editor-support\cocostudio\WidgetReader\ListViewReader\ListViewReader.h">
@@ -2050,16 +2026,10 @@
     <ClInclude Include="..\editor-support\cocostudio\WidgetReader\LoadingBarReader\LoadingBarReader.h">
       <Filter>cocostudio\WidgetReader</Filter>
     </ClInclude>
-    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\Node3DReader\Node3DReader.h">
-      <Filter>cocostudio\WidgetReader</Filter>
-    </ClInclude>
     <ClInclude Include="..\editor-support\cocostudio\WidgetReader\NodeReader\NodeReader.h">
       <Filter>cocostudio\WidgetReader</Filter>
     </ClInclude>
     <ClInclude Include="..\editor-support\cocostudio\WidgetReader\PageViewReader\PageViewReader.h">
-      <Filter>cocostudio\WidgetReader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\Particle3DReader\Particle3DReader.h">
       <Filter>cocostudio\WidgetReader</Filter>
     </ClInclude>
     <ClInclude Include="..\editor-support\cocostudio\WidgetReader\ParticleReader\ParticleReader.h">
@@ -2086,9 +2056,6 @@
     <ClInclude Include="..\editor-support\cocostudio\WidgetReader\SliderReader\SliderReader.h">
       <Filter>cocostudio\WidgetReader</Filter>
     </ClInclude>
-    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\Sprite3DReader\Sprite3DReader.h">
-      <Filter>cocostudio\WidgetReader</Filter>
-    </ClInclude>
     <ClInclude Include="..\editor-support\cocostudio\WidgetReader\SpriteReader\SpriteReader.h">
       <Filter>cocostudio\WidgetReader</Filter>
     </ClInclude>
@@ -2102,9 +2069,6 @@
       <Filter>cocostudio\WidgetReader</Filter>
     </ClInclude>
     <ClInclude Include="..\editor-support\cocostudio\WidgetReader\TextReader\TextReader.h">
-      <Filter>cocostudio\WidgetReader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\editor-support\cocostudio\WidgetReader\UserCameraReader\UserCameraReader.h">
       <Filter>cocostudio\WidgetReader</Filter>
     </ClInclude>
     <ClInclude Include="..\ui\UIHBox.h">
