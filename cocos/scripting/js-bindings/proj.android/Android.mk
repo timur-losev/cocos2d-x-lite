@@ -23,6 +23,7 @@ LOCAL_SRC_FILES := \
 					../jswrapper/v8/ScriptEngine.cpp \
 					../jswrapper/v8/Utils.cpp \
 					../jswrapper/v8/env.cc \
+                    ../jswrapper/v8/http_parser.cpp \
 					../jswrapper/v8/inspector_agent.cc \
 					../jswrapper/v8/inspector_io.cc \
 					../jswrapper/v8/inspector_socket.cc \
@@ -30,7 +31,6 @@ LOCAL_SRC_FILES := \
 					../jswrapper/v8/node.cc \
 					../jswrapper/v8/node_debug_options.cc \
 					../jswrapper/v8/util.cc \
-					../jswrapper/v8/http_parser.c \
 					../jswrapper/v8/SHA1.cpp \
 					../auto/jsb_box2d_auto.cpp \
 					../auto/jsb_cocos2dx_audioengine_auto.cpp \
@@ -46,6 +46,7 @@ LOCAL_SRC_FILES := \
 					../auto/jsb_creator_camera_auto.cpp \
 					../auto/jsb_creator_graphics_auto.cpp \
 					../auto/jsb_creator_physics_auto.cpp \
+                    ../auto/jsb_cocos2dx_studio_auto.cpp \
 					../manual/BaseJSAction.cpp \
 					../manual/JavaScriptJavaBridge.cpp \
 					../manual/ScriptingCore.cpp \
@@ -67,6 +68,8 @@ LOCAL_SRC_FILES := \
 					../manual/jsb_socketio.cpp \
 					../manual/jsb_spine_manual.cpp \
 					../manual/jsb_websocket.cpp \
+                    ../manual/jsb_module_register.cpp \
+                    ../manual/cocostudio/jsb_cocos2dx_studio_conversions.cpp \
 					../manual/jsb_xmlhttprequest.cpp
 
 LOCAL_CFLAGS := -DHAVE_INSPECTOR

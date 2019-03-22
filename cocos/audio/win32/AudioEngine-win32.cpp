@@ -1,5 +1,6 @@
 /****************************************************************************
- Copyright (c) 2014-2017 Chukong Technologies Inc.
+ Copyright (c) 2014-2016 Chukong Technologies Inc.
+ Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
  http://www.cocos2d-x.org
 
@@ -33,8 +34,8 @@
 #include "alc.h"
 #include "alext.h"
 #else
-#include "OpenalSoft/alc.h"
-#include "OpenalSoft/alext.h"
+#include "AL/alc.h"
+#include "AL/alext.h"
 #endif
 #include "audio/include/AudioEngine.h"
 #include "base/CCDirector.h"

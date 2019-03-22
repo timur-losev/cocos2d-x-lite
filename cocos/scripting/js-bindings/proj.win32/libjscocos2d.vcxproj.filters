@@ -152,9 +152,6 @@
     <ClCompile Include="..\jswrapper\v8\env.cc">
       <Filter>jswrapper\v8</Filter>
     </ClCompile>
-    <ClCompile Include="..\jswrapper\v8\http_parser.c">
-      <Filter>jswrapper\v8</Filter>
-    </ClCompile>
     <ClCompile Include="..\jswrapper\v8\SHA1.cpp">
       <Filter>jswrapper\v8</Filter>
     </ClCompile>
@@ -199,6 +196,9 @@
     </ClCompile>
     <ClCompile Include="..\manual\jsb_cocos2dx_extension_manual.cpp">
       <Filter>manual\ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\jswrapper\v8\http_parser.cpp">
+      <Filter>jswrapper\v8</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -405,6 +405,42 @@
     </ClInclude>
     <ClInclude Include="..\manual\jsb_cocos2dx_extension_manual.hpp">
       <Filter>manual\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\external\win32\include\v8\v8.h">
+      <Filter>jswrapper\v8</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\external\win32\include\v8\v8config.h">
+      <Filter>jswrapper\v8</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\external\win32\include\v8\v8-debug.h">
+      <Filter>jswrapper\v8</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\external\win32\include\v8\v8-inspector.h">
+      <Filter>jswrapper\v8</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\external\win32\include\v8\v8-inspector-protocol.h">
+      <Filter>jswrapper\v8</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\external\win32\include\v8\v8-platform.h">
+      <Filter>jswrapper\v8</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\external\win32\include\v8\v8-profiler.h">
+      <Filter>jswrapper\v8</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\external\win32\include\v8\v8-testing.h">
+      <Filter>jswrapper\v8</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\external\win32\include\v8\v8-util.h">
+      <Filter>jswrapper\v8</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\external\win32\include\v8\v8-value-serializer-version.h">
+      <Filter>jswrapper\v8</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\external\win32\include\v8\v8-version.h">
+      <Filter>jswrapper\v8</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\external\win32\include\v8\v8-version-string.h">
+      <Filter>jswrapper\v8</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

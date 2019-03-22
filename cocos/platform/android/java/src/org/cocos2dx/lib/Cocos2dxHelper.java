@@ -42,6 +42,7 @@ import android.os.Environment;
 import android.os.IBinder;
 import android.os.ParcelFileDescriptor;
 import android.os.Vibrator;
+import android.provider.Settings.Secure;
 import android.preference.PreferenceManager.OnActivityResultListener;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -84,6 +85,7 @@ public class Cocos2dxHelper {
     private static boolean sActivityVisible;
     private static String sPackageName;
     private static String sFileDirectory;
+    private static String sCacheDirectory;
     private static Activity sActivity = null;
     private static Cocos2dxHelperListener sCocos2dxHelperListener;
     private static Set<OnActivityResultListener> onActivityResultListeners = new LinkedHashSet<OnActivityResultListener>();
@@ -145,7 +147,7 @@ public class Cocos2dxHelper {
             Cocos2dxHelper.sPackageName = applicationInfo.packageName;
             Cocos2dxHelper.sFileDirectory = activity.getFilesDir().getAbsolutePath();
             
-            Cocos2dxHelper.nativeSetApkPath(Cocos2dxHelper.getAssetsPath());
+			Cocos2dxHelper.sCacheDirectory = activity.getCacheDir().getAbsolutePath();
     
             Cocos2dxHelper.sCocos2dxAccelerometer = new Cocos2dxAccelerometer(activity);
             Cocos2dxHelper.sCocos2dMusic = new Cocos2dxMusic(activity);
@@ -242,6 +244,10 @@ public class Cocos2dxHelper {
     public static String getCocos2dxWritablePath() {
         return Cocos2dxHelper.sFileDirectory;
     }
+    public static String getCocos2dxCachePath() {
+        return Cocos2dxHelper.sCacheDirectory;
+    }
+
 
     public static String getCurrentLanguage() {
         return Locale.getDefault().getLanguage();
@@ -291,6 +297,33 @@ public class Cocos2dxHelper {
  		}
  	}
 
+ 	public static String getPackageIdentifier() {
+ 		try {
+ 			String packageIdentifier = Cocos2dxActivity.getContext().getApplicationContext().getPackageName();
+ 			return packageIdentifier;
+ 		} catch(Exception e) {
+ 			return "";
+ 		}
+ 	}
+
+ 	public static String getIdentifier() {
+ 		try {
+ 			String identifier = Secure.getString(Cocos2dxActivity.getContext().getApplicationContext().getContentResolver(), Secure.ANDROID_ID);
+ 			return identifier;
+ 		} catch(Exception e) {
+ 			return "";
+ 		}
+ 	}
+	
+ 	public static String getOSVersion() {
+ 		try {
+ 			String version = String.valueOf(Build.VERSION.SDK_INT);
+ 			return version;
+ 		} catch(Exception e) {
+ 			return "";
+ 		}
+ 	}
+	
     public static boolean openURL(String url) { 
         boolean ret = false;
         try {

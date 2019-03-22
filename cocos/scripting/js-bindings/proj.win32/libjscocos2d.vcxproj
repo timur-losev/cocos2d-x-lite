@@ -44,7 +44,7 @@
     <ClCompile Include="..\jswrapper\State.cpp" />
     <ClCompile Include="..\jswrapper\v8\Class.cpp" />
     <ClCompile Include="..\jswrapper\v8\env.cc" />
-    <ClCompile Include="..\jswrapper\v8\http_parser.c" />
+    <ClCompile Include="..\jswrapper\v8\http_parser.cpp" />
     <ClCompile Include="..\jswrapper\v8\inspector_agent.cc" />
     <ClCompile Include="..\jswrapper\v8\inspector_io.cc" />
     <ClCompile Include="..\jswrapper\v8\inspector_socket.cc" />
@@ -83,6 +83,18 @@
     <ClCompile Include="..\manual\ScriptingCore.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\external\win32\include\v8\v8-debug.h" />
+    <ClInclude Include="..\..\..\..\external\win32\include\v8\v8-inspector-protocol.h" />
+    <ClInclude Include="..\..\..\..\external\win32\include\v8\v8-inspector.h" />
+    <ClInclude Include="..\..\..\..\external\win32\include\v8\v8-platform.h" />
+    <ClInclude Include="..\..\..\..\external\win32\include\v8\v8-profiler.h" />
+    <ClInclude Include="..\..\..\..\external\win32\include\v8\v8-testing.h" />
+    <ClInclude Include="..\..\..\..\external\win32\include\v8\v8-util.h" />
+    <ClInclude Include="..\..\..\..\external\win32\include\v8\v8-value-serializer-version.h" />
+    <ClInclude Include="..\..\..\..\external\win32\include\v8\v8-version-string.h" />
+    <ClInclude Include="..\..\..\..\external\win32\include\v8\v8-version.h" />
+    <ClInclude Include="..\..\..\..\external\win32\include\v8\v8.h" />
+    <ClInclude Include="..\..\..\..\external\win32\include\v8\v8config.h" />
     <ClInclude Include="..\auto\jsb_box2d_auto.hpp" />
     <ClInclude Include="..\auto\jsb_cocos2dx_audioengine_auto.hpp" />
     <ClInclude Include="..\auto\jsb_cocos2dx_auto.hpp" />

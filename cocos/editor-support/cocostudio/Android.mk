@@ -51,8 +51,7 @@ ActionTimeline/CCSkeletonNode.cpp \
 ActionTimeline/CCSkinNode.cpp \
 WidgetCallBackHandlerProtocol.cpp \
 CCComExtensionData.cpp \
-CocoStudio.cpp
-#WidgetReader/NodeReader/NodeReader.cpp \
+CocoStudio.cpp \
 WidgetReader/SingleNodeReader/SingleNodeReader.cpp \
 WidgetReader/SpriteReader/SpriteReader.cpp \
 WidgetReader/ParticleReader/ParticleReader.cpp \
@@ -76,13 +75,7 @@ WidgetReader/TextReader/TextReader.cpp \
 WidgetReader/SkeletonReader/BoneNodeReader.cpp \
 WidgetReader/SkeletonReader/SkeletonNodeReader.cpp \
 WidgetReader/ArmatureNodeReader/ArmatureNodeReader.cpp \
-FlatBuffersSerialize.cpp \
-# WidgetReader/Sprite3DReader/Sprite3DReader.cpp \
-# WidgetReader/Node3DReader/Node3DReader.cpp \
-# WidgetReader/Particle3DReader/Particle3DReader.cpp \
-# WidgetReader/GameNode3DReader/GameNode3DReader.cpp \
-# WidgetReader/Light3DReader/Light3DReader.cpp \
-# WidgetReader/UserCameraReader/UserCameraReader.cpp \
+FlatBuffersSerialize.cpp 
 
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/..
 

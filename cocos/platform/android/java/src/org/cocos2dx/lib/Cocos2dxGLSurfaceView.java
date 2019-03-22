@@ -26,13 +26,14 @@ package org.cocos2dx.lib;
 
 import android.app.Activity;
 import android.content.Context;
-import android.opengl.GLSurfaceView;
+// import android.opengl.GLSurfaceView;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
+import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import com.cocos.analytics.CAAgent;
@@ -60,6 +61,9 @@ public class Cocos2dxGLSurfaceView extends GLSurfaceView {
     private Cocos2dxRenderer mCocos2dxRenderer;
     private Cocos2dxEditBox mCocos2dxEditText;
 
+    public static Runnable mBeforeSyncGLThread = null;
+    public static Runnable mAfterSyncGLThread = null;
+
     public boolean isSoftKeyboardShown() {
         return mSoftKeyboardShown;
     }
@@ -85,6 +89,16 @@ public class Cocos2dxGLSurfaceView extends GLSurfaceView {
         super(context, attrs);
         
         this.initView();
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.HACK_super_onAttachedToWindow();
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.HACK_super_onDetachedFromWindow();
     }
 
     protected void initView() {
@@ -146,6 +160,10 @@ public class Cocos2dxGLSurfaceView extends GLSurfaceView {
         });
     }
 
+    public boolean hasRenderer() {
+        return mCocos2dxRenderer != null;
+    }
+
     public void setCocos2dxRenderer(final Cocos2dxRenderer renderer) {
         this.mCocos2dxRenderer = renderer;
         this.setRenderer(this.mCocos2dxRenderer);
@@ -199,6 +217,39 @@ public class Cocos2dxGLSurfaceView extends GLSurfaceView {
         });
         this.setRenderMode(RENDERMODE_WHEN_DIRTY);
         //super.onPause();
+    }
+
+    @Override
+    public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
+        if (mBeforeSyncGLThread != null) {
+            mBeforeSyncGLThread.run();
+        }
+        super.surfaceChanged(holder, format, w, h);
+        if (mAfterSyncGLThread != null) {
+            mAfterSyncGLThread.run();
+        }
+    }
+
+    @Override
+    public void surfaceCreated(SurfaceHolder holder) {
+        if (mBeforeSyncGLThread != null) {
+            mBeforeSyncGLThread.run();
+        }
+        super.surfaceCreated(holder);
+        if (mAfterSyncGLThread != null) {
+            mAfterSyncGLThread.run();
+        }
+    }
+
+    @Override
+    public void surfaceDestroyed(SurfaceHolder holder) {
+        if (mBeforeSyncGLThread != null) {
+            mBeforeSyncGLThread.run();
+        }
+        super.surfaceDestroyed(holder);
+        if (mAfterSyncGLThread != null) {
+            mAfterSyncGLThread.run();
+        }
     }
 
     @Override

@@ -25,17 +25,19 @@ THE SOFTWARE.
 package org.cocos2dx.lib;
 
 import android.app.Activity;
+import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.PixelFormat;
 import android.media.AudioManager;
-import android.opengl.GLSurfaceView;
+//import android.opengl.GLSurfaceView;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.PowerManager;
 import android.preference.PreferenceManager.OnActivityResultListener;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -64,7 +66,7 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
     // Fields
     // ===========================================================
     
-    private Cocos2dxGLSurfaceView mGLSurfaceView = null;
+    private static Cocos2dxGLSurfaceView sGLSurfaceView = null;
     private int[] mGLContextAttrs = null;
     private Cocos2dxHandler mHandler = null;   
     private static Cocos2dxActivity sContext = null;
@@ -74,7 +76,7 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
     private boolean hasFocus = false;
 
     public Cocos2dxGLSurfaceView getGLSurfaceView(){
-        return  mGLSurfaceView;
+        return  sGLSurfaceView;
     }
 
     public class Cocos2dxEGLConfigChooser implements GLSurfaceView.EGLConfigChooser
@@ -238,7 +240,7 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mGLSurfaceView.setKeepScreenOn(newValue);
+                sGLSurfaceView.setKeepScreenOn(newValue);
             }
         });
     }
@@ -334,10 +336,13 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
     }
 
     private void resumeIfHasFocus() {
-        if(hasFocus) {
-            this.hideVirtualButton();
-            Cocos2dxHelper.onResume();
-            mGLSurfaceView.onResume();
+        //It is possible for the app to receive the onWindowsFocusChanged(true) event
+        //even though it is locked or asleep
+        boolean readyToPlay = !isDeviceLocked() && !isDeviceAsleep();
+
+        if(hasFocus && readyToPlay) {
+        	Cocos2dxHelper.onResume();
+         	sGLSurfaceView.onResume();
         }
     }
 
@@ -347,7 +352,7 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
         super.onPause();
         Cocos2dxAudioFocusManager.unregisterAudioFocusListener(this);
         Cocos2dxHelper.onPause();
-        mGLSurfaceView.onPause();
+        sGLSurfaceView.onPause();
     }
 
     @Override
@@ -356,8 +361,8 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
         CAAgent.onDestroy();
         super.onDestroy();
 
-        Log.d(TAG, "Cocos2dxActivity onDestroy: " + this + ", mGLSurfaceView" + mGLSurfaceView);
-        if (mGLSurfaceView != null) {
+        Log.d(TAG, "Cocos2dxActivity onDestroy: " + this + ", sGLSurfaceView" + sGLSurfaceView);
+        if (sGLSurfaceView != null) {
             Cocos2dxHelper.terminateProcess();
         }
     }
@@ -372,7 +377,7 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
     
     @Override
     public void runOnGLThread(final Runnable pRunnable) {
-        this.mGLSurfaceView.queueEvent(pRunnable);
+        sGLSurfaceView.queueEvent(pRunnable);
     }
 
     @Override
@@ -412,17 +417,24 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
         mFrameLayout.addView(edittext);
 
         // Cocos2dxGLSurfaceView
-        this.mGLSurfaceView = this.onCreateView();
+        if (sGLSurfaceView == null)
+            sGLSurfaceView = this.onCreateView();
+
+        if (sGLSurfaceView.getParent() != null) {
+            ((ViewGroup)sGLSurfaceView.getParent()).removeView(sGLSurfaceView);
+        }
 
         // ...add to FrameLayout
-        mFrameLayout.addView(this.mGLSurfaceView);
+        mFrameLayout.addView(sGLSurfaceView);
 
         // Switch to supported OpenGL (ARGB888) mode on emulator
         if (isAndroidEmulator())
-           this.mGLSurfaceView.setEGLConfigChooser(8, 8, 8, 8, 16, 0);
+           sGLSurfaceView.setEGLConfigChooser(8, 8, 8, 8, 16, 0);
 
-        this.mGLSurfaceView.setCocos2dxRenderer(new Cocos2dxRenderer());
-        this.mGLSurfaceView.setCocos2dxEditText(edittext);
+        if (!sGLSurfaceView.hasRenderer())
+            sGLSurfaceView.setCocos2dxRenderer(new Cocos2dxRenderer());
+
+        sGLSurfaceView.setCocos2dxEditText(edittext);
 
         // Set framelayout as the content view
         setContentView(mFrameLayout);
@@ -479,6 +491,24 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
       return isEmulator;
    }
 
+    private static boolean isDeviceLocked() {
+        KeyguardManager keyguardManager = (KeyguardManager)getContext().getSystemService(Context.KEYGUARD_SERVICE);
+        boolean locked = keyguardManager.inKeyguardRestrictedInputMode();
+        return locked;
+    }
+
+    private static boolean isDeviceAsleep() {
+        PowerManager powerManager = (PowerManager)getContext().getSystemService(Context.POWER_SERVICE);
+        if(powerManager == null) {
+            return false;
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
+            return !powerManager.isInteractive();
+        } else {
+            return !powerManager.isScreenOn();
+        }
+    }
+    
     // ===========================================================
     // Inner and Anonymous Classes
     // ===========================================================

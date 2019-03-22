@@ -34,6 +34,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import org.cocos2dx.lib.Cocos2dxVideoView.OnVideoEventListener;
+import org.cocos2dx.lib.Cocos2dxVideoView.OnVideoNaturalSizeEventListener;
 
 import java.lang.ref.WeakReference;
 import java.util.concurrent.Callable;
@@ -176,8 +177,28 @@ public class Cocos2dxVideoHelper {
         public void run() {
             nativeExecuteVideoCallback(mVideoTag, mVideoEvent);
         }
+        
+    }
+    
+    private class VideoNaturalSizeEventRunnable implements Runnable
+    {
+        private int mVideoTag;
+        private int mVideoWidth;
+        private int mVideoHeight;
+
+        public VideoNaturalSizeEventRunnable(int tag,int width,int height) {
+            mVideoTag = tag;
+            mVideoWidth = width;
+            mVideoHeight = height;
+        }
+        @Override
+        public void run() {
+            nativeUpdateNaturalVideoSize(mVideoTag, mVideoWidth, mVideoHeight);
+        }
 
     }
+
+    public static native void nativeUpdateNaturalVideoSize(int index,int width,int height);
 
     public static native void nativeExecuteVideoCallback(int index,int event);
 
@@ -188,6 +209,15 @@ public class Cocos2dxVideoHelper {
             mActivity.runOnGLThread(new VideoEventRunnable(tag, event));
         }
     };
+    
+    OnVideoNaturalSizeEventListener videoNaturalSizeEventListener = new OnVideoNaturalSizeEventListener() {
+
+        @Override
+        public void onVideoNatuarlSizeEvent(int tag, int width, int height) {
+            mActivity.runOnGLThread(new VideoNaturalSizeEventRunnable(tag, width, height));
+        }
+    };
+
 
     public static int createVideoWidget() {
         Message msg = new Message();
@@ -207,6 +237,7 @@ public class Cocos2dxVideoHelper {
         mLayout.addView(videoView, lParams);
         videoView.setZOrderOnTop(true);
         videoView.setOnCompletionListener(videoEventListener);
+        videoView.setOnVideoNaturalSizeEventListener(videoNaturalSizeEventListener);
     }
 
     public static void removeVideoWidget(int index){

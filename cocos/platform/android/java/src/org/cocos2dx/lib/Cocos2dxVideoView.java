@@ -34,6 +34,7 @@ import android.view.SurfaceView;
 import android.widget.FrameLayout;
 import android.widget.MediaController.MediaPlayerControl;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Map;
 
@@ -69,6 +70,7 @@ public class Cocos2dxVideoView extends SurfaceView implements MediaPlayerControl
     private int         mVideoHeight = 0;
 
     private OnVideoEventListener mOnVideoEventListener;
+    private OnVideoNaturalSizeEventListener mOnVideoNaturalSizeEventListener;
     private MediaPlayer.OnPreparedListener mOnPreparedListener;
     private int         mCurrentBufferPercentage;
     private OnErrorListener mOnErrorListener;
@@ -184,31 +186,43 @@ public class Cocos2dxVideoView extends SurfaceView implements MediaPlayerControl
         getHolder().addCallback(mSHCallback);
         //Fix issue#11516:Can't play video on Android 2.3.x
         getHolder().setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-        setFocusable(true);
-        setFocusableInTouchMode(true);
+        setFocusable(false);
+        setFocusableInTouchMode(false);
         mCurrentState = STATE_IDLE;
         mTargetState  = STATE_IDLE;
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP) {
-            if (mOnVideoEventListener != null) {
-                mOnVideoEventListener.onVideoEvent(mViewTag,EVENT_CLICKED);
+        /*if((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP)
+        {
+            if (isPlaying()) {
+                pause();
+            } else if(mCurrentState == STATE_PAUSED){
+                resume();
             }
-        }
-        return true;
+        }*/
+
+        return false;
     }
 
+    private boolean mLooping = false;
     private boolean mIsAssetRouse = false;
     private String mVideoFilePath = null;
     private static final String AssetResourceRoot = "assets/";
+
+    private static String LOOPING_STR = "?looping=true";
 
     public void setVideoFileName(String path) {
         if (path.startsWith(AssetResourceRoot)) {
             path = path.substring(AssetResourceRoot.length());
         }
+        if (path.endsWith(LOOPING_STR)) {
+            mLooping = true;
+            path = path.substring(0, path.length() - LOOPING_STR.length());
+        }
         if (path.startsWith("/")) {
+            mVideoFilePath = path;
             mIsAssetRouse = false;
             setVideoURI(Uri.parse(path),null);
         }
@@ -282,6 +296,7 @@ public class Cocos2dxVideoView extends SurfaceView implements MediaPlayerControl
                 mMediaPlayer.setDisplay(mSurfaceHolder);
                 mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
                 mMediaPlayer.setScreenOnWhilePlaying(true);
+                mMediaPlayer.setLooping(mLooping);
             //}
 
             mDuration = -1;
@@ -290,7 +305,13 @@ public class Cocos2dxVideoView extends SurfaceView implements MediaPlayerControl
                 AssetFileDescriptor afd = mCocos2dxActivity.getAssets().openFd(mVideoFilePath);
                 mMediaPlayer.setDataSource(afd.getFileDescriptor(),afd.getStartOffset(),afd.getLength());
             } else {
-                mMediaPlayer.setDataSource(mCocos2dxActivity, mVideoUri);
+                if (mVideoFilePath != null) {
+                    // see issue: https://stackoverflow.com/questions/3995600/android-simple-mediaplayer-problem
+                    FileInputStream fis = new FileInputStream(mVideoFilePath);
+                    mMediaPlayer.setDataSource(fis.getFD());
+                } else {
+                    mMediaPlayer.setDataSource(mCocos2dxActivity, mVideoUri);
+                }
             }
 
             mMediaPlayer.prepareAsync();
@@ -306,6 +327,12 @@ public class Cocos2dxVideoView extends SurfaceView implements MediaPlayerControl
             mErrorListener.onError(mMediaPlayer, MediaPlayer.MEDIA_ERROR_UNKNOWN, 0);
             return;
         } catch (IllegalArgumentException ex) {
+            Log.w(TAG, "Unable to open content: " + mVideoUri, ex);
+            mCurrentState = STATE_ERROR;
+            mTargetState = STATE_ERROR;
+            mErrorListener.onError(mMediaPlayer, MediaPlayer.MEDIA_ERROR_UNKNOWN, 0);
+            return;
+        } catch (Exception ex) {
             Log.w(TAG, "Unable to open content: " + mVideoUri, ex);
             mCurrentState = STATE_ERROR;
             mTargetState = STATE_ERROR;
@@ -380,6 +407,14 @@ public class Cocos2dxVideoView extends SurfaceView implements MediaPlayerControl
                 if (mVideoWidth != 0 && mVideoHeight != 0) {
                     getHolder().setFixedSize(mVideoWidth, mVideoHeight);
                 }
+
+                if (mOnVideoNaturalSizeEventListener != null) {
+                    mOnVideoNaturalSizeEventListener.onVideoNatuarlSizeEvent(mViewTag,mVideoWidth,mVideoHeight);
+                }
+
+                if (mOnVideoEventListener != null) {
+                    mOnVideoEventListener.onVideoEvent(mViewTag,EVENT_SIZE_UPDATED);
+                }
             }
     };
 
@@ -429,6 +464,7 @@ public class Cocos2dxVideoView extends SurfaceView implements MediaPlayerControl
     };
 
 
+    private static final int EVENT_ERROR = -1;
     private static final int EVENT_PLAYING = 0;
     private static final int EVENT_PAUSED = 1;
     private static final int EVENT_STOPPED = 2;
@@ -436,10 +472,16 @@ public class Cocos2dxVideoView extends SurfaceView implements MediaPlayerControl
     private static final int EVENT_META_LOADED = 4;
     private static final int EVENT_CLICKED = 5;
     private static final int EVENT_READY_TO_PLAY = 6;
+	private static final int EVENT_SIZE_UPDATED = 7;
 
     public interface OnVideoEventListener
     {
         void onVideoEvent(int tag,int event);
+    }
+
+    public interface OnVideoNaturalSizeEventListener
+    {
+        void onVideoNatuarlSizeEvent(int tag,int width,int height);
     }
 
     private MediaPlayer.OnErrorListener mErrorListener =
@@ -456,43 +498,47 @@ public class Cocos2dxVideoView extends SurfaceView implements MediaPlayerControl
                 }
             }
 
+            if (mOnVideoEventListener != null) {
+                mOnVideoEventListener.onVideoEvent(mViewTag, EVENT_ERROR);
+            }
+
             /* Otherwise, pop up an error dialog so the user knows that
              * something bad has happened. Only try and pop up the dialog
              * if we're attached to a window. When we're going away and no
              * longer have a window, don't bother showing the user an error.
              */
-            if (getWindowToken() != null) {
-                Resources r = mCocos2dxActivity.getResources();
-                int messageId;
-
-                if (framework_err == MediaPlayer.MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK) {
-                    // messageId = com.android.internal.R.string.VideoView_error_text_invalid_progressive_playback;
-                    messageId = r.getIdentifier("VideoView_error_text_invalid_progressive_playback", "string", "android");
-                } else {
-                    // messageId = com.android.internal.R.string.VideoView_error_text_unknown;
-                    messageId = r.getIdentifier("VideoView_error_text_unknown", "string", "android");
-                }
-
-                int titleId = r.getIdentifier("VideoView_error_title", "string", "android");
-                int buttonStringId = r.getIdentifier("VideoView_error_button", "string", "android");
-
-                new AlertDialog.Builder(mCocos2dxActivity)
-                        .setTitle(r.getString(titleId))
-                        .setMessage(messageId)
-                        .setPositiveButton(r.getString(buttonStringId),
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int whichButton) {
-                                        /* If we get here, there is no onError listener, so
-                                         * at least inform them that the video is over.
-                                         */
-                                        if (mOnVideoEventListener != null) {
-                                            mOnVideoEventListener.onVideoEvent(mViewTag,EVENT_COMPLETED);
-                                        }
-                                    }
-                                })
-                        .setCancelable(false)
-                        .show();
-            }
+//            if (getWindowToken() != null) {
+//                Resources r = mCocos2dxActivity.getResources();
+//                int messageId;
+//
+//                if (framework_err == MediaPlayer.MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK) {
+//                    // messageId = com.android.internal.R.string.VideoView_error_text_invalid_progressive_playback;
+//                    messageId = r.getIdentifier("VideoView_error_text_invalid_progressive_playback", "string", "android");
+//                } else {
+//                    // messageId = com.android.internal.R.string.VideoView_error_text_unknown;
+//                    messageId = r.getIdentifier("VideoView_error_text_unknown", "string", "android");
+//                }
+//
+//                int titleId = r.getIdentifier("VideoView_error_title", "string", "android");
+//                int buttonStringId = r.getIdentifier("VideoView_error_button", "string", "android");
+//
+//                new AlertDialog.Builder(mCocos2dxActivity)
+//                        .setTitle(r.getString(titleId))
+//                        .setMessage(messageId)
+//                        .setPositiveButton(r.getString(buttonStringId),
+//                                new DialogInterface.OnClickListener() {
+//                                    public void onClick(DialogInterface dialog, int whichButton) {
+//                                        /* If we get here, there is no onError listener, so
+//                                         * at least inform them that the video is over.
+//                                         */
+//                                        if (mOnVideoEventListener != null) {
+//                                            mOnVideoEventListener.onVideoEvent(mViewTag,EVENT_COMPLETED);
+//                                        }
+//                                    }
+//                                })
+//                        .setCancelable(false)
+//                        .show();
+//            }
             return true;
         }
     };
@@ -524,6 +570,11 @@ public class Cocos2dxVideoView extends SurfaceView implements MediaPlayerControl
     public void setOnCompletionListener(OnVideoEventListener l)
     {
         mOnVideoEventListener = l;
+    }
+
+    public void setOnVideoNaturalSizeEventListener(OnVideoNaturalSizeEventListener l)
+    {
+        mOnVideoNaturalSizeEventListener = l;
     }
 
     /**
@@ -569,7 +620,7 @@ public class Cocos2dxVideoView extends SurfaceView implements MediaPlayerControl
                 mOnVideoEventListener.onVideoEvent(mViewTag, EVENT_PAUSED);
             }
 
-            release(true);
+            release(false);
         }
     };
 
@@ -578,12 +629,14 @@ public class Cocos2dxVideoView extends SurfaceView implements MediaPlayerControl
      */
     private void release(boolean cleartargetstate) {
         if (mMediaPlayer != null) {
+            mSeekWhenPrepared = mMediaPlayer.getCurrentPosition();
             mMediaPlayer.reset();
             mMediaPlayer.release();
             mMediaPlayer = null;
             mCurrentState = STATE_IDLE;
             if (cleartargetstate) {
                 mTargetState  = STATE_IDLE;
+                mSeekWhenPrepared = 0;
             }
         }
     }

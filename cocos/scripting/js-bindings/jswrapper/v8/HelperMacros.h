@@ -41,7 +41,7 @@
 #define SE_DECLARE_FUNC(funcName) \
     void funcName##Registry(const v8::FunctionCallbackInfo<v8::Value>& v8args)
 
-#define STACK_TRACE_EVERY_CALL 0
+#define STACK_TRACE_EVERY_CALL 1
 
 #if STACK_TRACE_EVERY_CALL
     #define STACK_TRACE std::string bt; {auto st = v8::StackTrace::CurrentStackTrace(v8::Isolate::GetCurrent(), 1000); bt = se::ScriptEngine::stackTraceToString(st);}

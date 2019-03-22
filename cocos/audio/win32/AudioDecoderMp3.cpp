@@ -1,5 +1,6 @@
 /****************************************************************************
- Copyright (c) 2016-2017 Chukong Technologies Inc.
+ Copyright (c) 2016 Chukong Technologies Inc.
+ Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
  http://www.cocos2d-x.org
 
@@ -27,7 +28,7 @@
 #include "platform/CCFileUtils.h"
 
 #include "base/CCConsole.h"
-#include "mpg123/mpg123.h"
+#include "mpg123.h"
 
 #define LOG_TAG "AudioDecoderMp3"
 

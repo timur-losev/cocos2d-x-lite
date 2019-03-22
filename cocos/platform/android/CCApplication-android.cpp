@@ -27,6 +27,7 @@ THE SOFTWARE.
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 
 #include "platform/android/jni/JniHelper.h"
+#include "jni/Java_org_cocos2dx_lib_Cocos2dxHelper.h"
 #include "platform/CCApplication.h"
 #include "base/CCDirector.h"
 #include <android/log.h>
@@ -198,6 +199,11 @@ Application::Platform Application::getTargetPlatform()
 std::string Application::getVersion()
 {
     return JniHelper::callStaticStringMethod(helperClassName, "getVersion");
+}
+
+std::string Application::getPackageIdentifier()
+{
+    return getPackageIdentifierJNI();
 }
 
 bool Application::openURL(const std::string &url)

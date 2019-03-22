@@ -32,6 +32,7 @@ THE SOFTWARE.
 #include <jni.h>
 #include "base/ccTypes.h"
 #include "platform/android/jni/JniHelper.h"
+#include "jni/Java_org_cocos2dx_lib_Cocos2dxHelper.h"
 #include "platform/CCFileUtils.h"
 #include "base/ccUTF8.h"
 
@@ -179,6 +180,16 @@ void Device::setKeepScreenOn(bool value)
 void Device::vibrate(float duration)
 {
     JniHelper::callStaticVoidMethod(helperClassName, "vibrate", duration);
+}
+
+std::string Device::getIdentifier()
+{
+	return getIdentifierJNI();
+}
+
+std::string Device::getOSVersion()
+{
+	return getOSVersionJNI();
 }
 
 NS_CC_END

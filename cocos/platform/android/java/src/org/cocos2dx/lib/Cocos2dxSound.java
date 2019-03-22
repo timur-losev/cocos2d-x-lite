@@ -57,7 +57,7 @@ public class Cocos2dxSound {
     // sound path and stream ids map
     // a file may be played many times at the same time
     // so there is an array map to a file path
-    private final HashMap<String, ArrayList<Integer>> mPathStreamIDsMap = new HashMap<String, ArrayList<Integer>>();
+    private final ConcurrentHashMap<String, ArrayList<Integer>> mPathStreamIDsMap = new ConcurrentHashMap<String, ArrayList<Integer>>();
     // A lock for mPathStreamIDsMap operation to keep mPathStreamIDsMap being visited in only one thread at a time.
     private final Object mLockPathStreamIDsMap = new Object();
 
