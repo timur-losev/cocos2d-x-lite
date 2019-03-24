@@ -41,13 +41,21 @@
 #define SE_DECLARE_FUNC(funcName) \
     void funcName##Registry(const v8::FunctionCallbackInfo<v8::Value>& v8args)
 
-#define STACK_TRACE_EVERY_CALL 1
+#define STACK_TRACE_EVERY_CALL 0
+#define LOG_FUNC_NAME_EVERY_CALL 0
 
 #if STACK_TRACE_EVERY_CALL
     #define STACK_TRACE std::string bt; {auto st = v8::StackTrace::CurrentStackTrace(v8::Isolate::GetCurrent(), 1000); bt = se::ScriptEngine::stackTraceToString(st);}
 #else
     #define STACK_TRACE (void)0;
 #endif
+
+#if LOG_FUNC_NAME_EVERY_CALL
+#define LOG_FUNC_NAME(x) SE_LOGD("%s", #x)
+#else
+#define LOG_FUNC_NAME(x) (void)0;
+#endif
+
 
 #define SE_BIND_FUNC(funcName) \
     void funcName##Registry(const v8::FunctionCallbackInfo<v8::Value>& _v8args) \
@@ -61,6 +69,7 @@
         void* nativeThisObject = se::internal::getPrivate(_isolate, _v8args.This()); \
         se::State state(nativeThisObject, args); \
         STACK_TRACE \
+        LOG_FUNC_NAME(#funcName); \
         ret = funcName(state); \
         if (!ret) { \
             SE_LOGE("[ERROR] Failed to invoke %s, location: %s:%d\n", #funcName, __FILE__, __LINE__); \
@@ -76,6 +85,7 @@
         auto se = se::ScriptEngine::getInstance(); \
         se->_setGarbageCollecting(true); \
         se::State state(nativeThisObject); \
+        LOG_FUNC_NAME(#funcName); \
         bool ret = funcName(state); \
         if (!ret) { \
             SE_LOGE("[ERROR] Failed to invoke %s, location: %s:%d\n", #funcName, __FILE__, __LINE__); \
@@ -98,6 +108,7 @@
         se::Object* thisObject = se::Object::_createJSObject(cls, _v8args.This()); \
         thisObject->_setFinalizeCallback(_SE(finalizeCb)); \
         se::State state(thisObject, args); \
+        LOG_FUNC_NAME(#funcName); \
         ret = funcName(state); \
         if (!ret) { \
             SE_LOGE("[ERROR] Failed to invoke %s, location: %s:%d\n", #funcName, __FILE__, __LINE__); \
@@ -119,6 +130,7 @@
         bool ret = true; \
         void* nativeThisObject = se::internal::getPrivate(_isolate, _v8args.This()); \
         se::State state(nativeThisObject); \
+        LOG_FUNC_NAME(#funcName); \
         ret = funcName(state); \
         if (!ret) { \
             SE_LOGE("[ERROR] Failed to invoke %s, location: %s:%d\n", #funcName, __FILE__, __LINE__); \
@@ -139,6 +151,7 @@
         se::ValueArray args; \
         args.push_back(std::move(data)); \
         se::State state(nativeThisObject, args); \
+        LOG_FUNC_NAME(#funcName); \
         ret = funcName(state); \
         if (!ret) { \
             SE_LOGE("[ERROR] Failed to invoke %s, location: %s:%d\n", #funcName, __FILE__, __LINE__); \
