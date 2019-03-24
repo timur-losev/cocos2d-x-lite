@@ -66,8 +66,8 @@
 void seLog(const char * format, ...);
 
 #define LOG_TAG    "jswrapper"
-#define SE_LOGD(fmt, ...) seLog("D/" LOG_TAG " (" QUOTEME(__LINE__) "): " fmt "", ##__VA_ARGS__)
-#define SE_LOGE(fmt, ...) seLog("E/" LOG_TAG " (" QUOTEME(__LINE__) "): " fmt "", ##__VA_ARGS__)
+#define SE_LOGD(fmt, ...) seLog("D/" LOG_TAG " (" QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
+#define SE_LOGE(fmt, ...) seLog("E/" LOG_TAG " (" QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
 
 #else
 

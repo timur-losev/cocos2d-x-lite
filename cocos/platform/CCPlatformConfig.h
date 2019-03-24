@@ -53,6 +53,9 @@ THE SOFTWARE.
 #define CC_PLATFORM_QT5               12
 #define CC_PLATFORM_WINRT             13
 
+
+#define OPENAL_PLAIN_INCLUDES
+
 // Determine target platform by compile environment macro.
 #define CC_TARGET_PLATFORM             CC_PLATFORM_UNKNOWN
 

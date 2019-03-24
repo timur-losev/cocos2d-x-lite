@@ -74,6 +74,17 @@ cc.view.getTargetDensityDPI = function() {return cc.macro.DENSITYDPI_DEVICE;};
 
 cc.eventManager = cc.director.getEventDispatcher();
 
+cc.audioEngine = cc.AudioEngine.getInstance();
+cc.audioEngine.end = function(){
+    this.stopMusic();
+    this.stopAllEffects();
+};
+cc.audioEngine.features = {
+    MULTI_CHANNEL: true, 
+    AUTOPLAY: true
+};
+
+
 cc.EventDispatcher.prototype._addCustomListener = cc.EventDispatcher.prototype.addCustomListener;
 cc.EventDispatcher.prototype.addCustomListener = function(eventName, callback) {
     var ret = this._addCustomListener(eventName, callback);

@@ -569,7 +569,7 @@ static bool Scheduler_scheduleCommon(Scheduler* scheduler, const se::Value& jsTh
             CCLOGERROR("Invoking schedule callback failed, where: %s", callFromDebug.c_str());
         }
         
-    }, reinterpret_cast<void*>(targetId), interval, repeat, delay, isPaused, key);
+    }, reinterpret_cast<void*>(targetId), interval, repeat, delay, /*isPaused*/ false, key);
 
     return true;
 }
