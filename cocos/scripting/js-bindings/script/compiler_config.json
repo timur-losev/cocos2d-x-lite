@@ -1,0 +1,16 @@
+{
+    "pre_order":
+    [
+
+    ],
+    "post_order":
+    [
+
+    ],
+    "skip":
+    [
+        "script/jsb_debugger.js",
+        "script/debugger/"
+    ],
+    "closure_params": ""
+}
