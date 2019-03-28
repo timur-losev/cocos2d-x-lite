@@ -108,7 +108,7 @@ void PrintDebuggerReadyMessage(const std::string& host,
     return;
   }
   for (const std::string& id : ids) {
-    SE_LOGD("Debugger listening..., visit [ chrome-devtools://devtools/bundled/inspector.html?v8only=true&ws=%s ] in chrome browser to debug!\n",
+      SE_LOGI("Debugger listening..., visit [ chrome-devtools://devtools/bundled/inspector.html?v8only=true&ws=%s ] in chrome browser to debug!\n",
             FormatWsAddress(host, port, id, false).c_str());
   }
   SE_LOGD("For help see %s\n",

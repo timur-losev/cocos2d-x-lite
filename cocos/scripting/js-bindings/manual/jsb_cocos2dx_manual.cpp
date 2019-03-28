@@ -427,7 +427,7 @@ static bool invokeJSTouchOneByOneCallback(EventListenerTouchOneByOne* listener, 
     ok = listenerObj->getProperty(funcName, &funcVal);
     if (!ok)
     {
-        CCLOGERROR("Can't find property: %s", funcName);
+        SE_LOGD("Can't find property: %s", funcName);
         return false;
     }
 
