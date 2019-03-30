@@ -569,7 +569,7 @@ static bool Scheduler_scheduleCommon(Scheduler* scheduler, const se::Value& jsTh
             CCLOGERROR("Invoking schedule callback failed, where: %s", callFromDebug.c_str());
         }
         
-    }, reinterpret_cast<void*>(targetId), interval, repeat, delay, /*isPaused*/ false, key);
+    }, reinterpret_cast<void*>(targetId), interval, repeat, delay, isPaused, key);
 
     return true;
 }
@@ -1520,18 +1520,42 @@ SE_BIND_FUNC(js_cocos2dx_Scheduler_pauseAllTargetsWithMinPriority)
 
 static void resumeAllSchedulesForTarget(Node* node, se::Object* jsThis)
 {
-    node->getScheduler()->resumeTarget(jsThis);
+    se::Value targetIdVal;
+    uint32_t targetId = 0;
+    if (jsThis->getProperty(SCHEDULE_TARGET_ID_KEY, &targetIdVal) && targetIdVal.isNumber()) {
+        targetId = targetIdVal.toUint32();
+        node->getScheduler()->resumeTarget(reinterpret_cast<void*>(targetId));
+    }
+    else {
+        node->getScheduler()->resumeTarget(jsThis);
+    }
 }
 
 static void pauseAllSchedulesForTarget(Node* node, se::Object* jsThis)
 {
-    node->getScheduler()->pauseTarget(jsThis);
+    se::Value targetIdVal;
+    uint32_t targetId = 0;
+    if (jsThis->getProperty(SCHEDULE_TARGET_ID_KEY, &targetIdVal) && targetIdVal.isNumber()) {
+        targetId = targetIdVal.toUint32();
+        node->getScheduler()->pauseTarget(reinterpret_cast<void*>(targetId));
+    }
+    else {
+        node->getScheduler()->pauseTarget(jsThis);
+    }
 }
 
 static void cleanupAllSchedulesForTarget(Node* node, se::Object* jsThis)
 {
     //FIXME: ?? Do we need this since we have already had a 'UnscheduleNotifier' and 'UnscheduleUpdateWrapper'.
-    node->getScheduler()->unscheduleAllForTarget(jsThis);
+    se::Value targetIdVal;
+    uint32_t targetId = 0;
+    if (jsThis->getProperty(SCHEDULE_TARGET_ID_KEY, &targetIdVal) && targetIdVal.isNumber()) {
+        targetId = targetIdVal.toUint32();
+        node->getScheduler()->unscheduleAllForTarget(reinterpret_cast<void*>(targetId));
+    }
+    else {
+        node->getScheduler()->unscheduleAllForTarget(jsThis);
+    }
 }
 
 static bool onReceiveNodeEvent(void* node, ScriptingCore::NodeEventType type)
@@ -1544,6 +1568,8 @@ static bool onReceiveNodeEvent(void* node, ScriptingCore::NodeEventType type)
     se::AutoHandleScope hs;
 
     se::Object* target = iter->second;
+    target->incRef();
+
     const char* funcName = nullptr;
     bool ret = false;
 
@@ -1616,6 +1642,7 @@ static bool onReceiveNodeEvent(void* node, ScriptingCore::NodeEventType type)
     {
         cleanupAllSchedulesForTarget((Node*)node, target);
     }
+    target->decRef();
 
     return ret;
 }

@@ -1334,6 +1334,10 @@ void Node::onEnter()
 
     _running = true;
 
+    auto cpy = _enterCallbacks;
+    for (auto it : cpy)
+        it();
+    
 #if CC_ENABLE_SCRIPT_BINDING
     if (_scriptType == kScriptTypeLua)
     {
@@ -1403,6 +1407,10 @@ void Node::onExit()
 
     if (_onExitCallback)
         _onExitCallback();
+    
+    auto cpy = _exitCallbacks;
+    for (auto it : cpy)
+        it();
 
     if (_componentContainer && !_componentContainer->isEmpty())
     {

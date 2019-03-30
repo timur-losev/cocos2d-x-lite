@@ -1676,6 +1676,10 @@ public:
      */
     virtual bool isOpacityModifyRGB() const { return false; };
 
+
+    void addOnEnterCallback(const std::function<void()>& callback) { _enterCallbacks.push_back(callback); }
+    void addOnExitCallback(const std::function<void()>& callback) { _exitCallbacks.push_back(callback); }
+
     /**
      * Set the callback of event onEnter.
      * @param callback A std::function<void()> callback.
@@ -1836,6 +1840,8 @@ private:
 protected:
     static unsigned int s_globalOrderOfArrival;
 
+    std::vector<std::function<void()> > _enterCallbacks;
+    std::vector<std::function<void()> > _exitCallbacks;
     std::function<void()> _onEnterCallback;
     std::function<void()> _onExitCallback;
     std::function<void()> _onEnterTransitionDidFinishCallback;
