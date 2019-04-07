@@ -204,7 +204,14 @@ namespace se {
     Object* Object::createArrayBufferObject(void* data, size_t byteLength)
     {
         v8::Local<v8::ArrayBuffer> jsobj = v8::ArrayBuffer::New(__isolate, byteLength);
-        memcpy(jsobj->GetContents().Data(), data, byteLength);
+        if (data)
+        {
+            memcpy(jsobj->GetContents().Data(), data, byteLength);
+        }
+        else
+        {
+            memset(jsobj->GetContents().Data(), 0, byteLength);
+        }
         Object* obj = Object::_createJSObject(nullptr, jsobj);
         return obj;
     }
@@ -224,7 +231,13 @@ namespace se {
         }
 
         v8::Local<v8::ArrayBuffer> jsobj = v8::ArrayBuffer::New(__isolate, byteLength);
-        memcpy(jsobj->GetContents().Data(), data, byteLength);
+        //If data has content,then will copy data into buffer,or will only clear buffer.
+        if (data) {
+            memcpy(jsobj->GetContents().Data(), data, byteLength);
+        }else{
+            memset(jsobj->GetContents().Data(), 0, byteLength);
+        }
+        
         v8::Local<v8::Object> arr;
         switch (type) {
             case TypedArrayType::INT8:
@@ -480,6 +493,7 @@ namespace se {
         }
         size_t argc = 0;
         std::vector<v8::Local<v8::Value>> argv;
+        argv.reserve(10);
         argc = args.size();
         internal::seToJsArgs(__isolate, args, &argv);
 

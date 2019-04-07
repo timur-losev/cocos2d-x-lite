@@ -164,6 +164,43 @@
     <ClInclude Include="..\manual\jsb_xmlhttprequest.hpp" />
     <ClInclude Include="..\manual\ScriptingCore.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\script\ccui\jsb_ccui_create_apis.js" />
+    <None Include="..\script\ccui\jsb_ccui_deprecated.js" />
+    <None Include="..\script\ccui\jsb_ccui_property_apis.js" />
+    <None Include="..\script\ccui\jsb_ccui_property_impls.js" />
+    <None Include="..\script\ccui\jsb_cocos2d_ui.js" />
+    <None Include="..\script\extension\jsb_cocos2d_extension.js" />
+    <None Include="..\script\extension\jsb_ext_create_apis.js" />
+    <None Include="..\script\extension\jsb_ext_property_apis.js" />
+    <None Include="..\script\jsb.js" />
+    <None Include="..\script\jsb_audioengine.js" />
+    <None Include="..\script\jsb_boot.js" />
+    <None Include="..\script\jsb_cocos2d.js" />
+    <None Include="..\script\jsb_cocosanalytics.js" />
+    <None Include="..\script\jsb_common.js" />
+    <None Include="..\script\jsb_create_apis.js" />
+    <None Include="..\script\jsb_dragonbones.js" />
+    <None Include="..\script\jsb_loaders.js" />
+    <None Include="..\script\jsb_opengl.js" />
+    <None Include="..\script\jsb_opengl_constants.js" />
+    <None Include="..\script\jsb_prepare.js" />
+    <None Include="..\script\jsb_property_apis.js" />
+    <None Include="..\script\jsb_property_impls.js" />
+    <None Include="..\script\jsb_spine.js" />
+    <None Include="..\script\studio\jsb_cocos2d_studio.js" />
+    <None Include="..\script\studio\jsb_studio_boot.js" />
+    <None Include="..\script\studio\jsb_studio_create_apis.js" />
+    <None Include="..\script\studio\jsb_studio_load.js" />
+    <None Include="..\script\studio\jsb_studio_property_apis.js" />
+    <None Include="..\script\studio\parsers\action-1.x.js" />
+    <None Include="..\script\studio\parsers\action-2.x.js" />
+    <None Include="..\script\studio\parsers\compatible.js" />
+    <None Include="..\script\studio\parsers\scene-1.x.js" />
+    <None Include="..\script\studio\parsers\timelineParser-1.x.js" />
+    <None Include="..\script\studio\parsers\timelineParser-2.x.js" />
+    <None Include="..\script\studio\parsers\uiParser-1.x.js" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{39379840-825A-45A0-B363-C09FFEF864BD}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -223,7 +260,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;HAVE_INSPECTOR;_DEBUG;_LIB;COCOS2D_DEBUG=1;XP_WIN;JS_HAVE___INTN;JS_INTPTR_TYPE=int;COCOS2D_JAVASCRIPT=1;CC_ENABLE_CHIPMUNK_INTEGRATION=1;_CRT_SECURE_NO_WARNINGS;_USRJSSTATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;HAVE_INSPECTOR;_DEBUG;_LIB;COCOS2D_DEBUG=2;XP_WIN;JS_HAVE___INTN;JS_INTPTR_TYPE=int;COCOS2D_JAVASCRIPT=1;CC_ENABLE_CHIPMUNK_INTEGRATION=1;_CRT_SECURE_NO_WARNINGS;_USRJSSTATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir)..;$(EngineRoot);$(EngineRoot)cocos\editor-support;$(ProjectDir)..\auto;$(ProjectDir)..\manual;$(EngineRoot)external\win32\include\v8;$(EngineRoot)external\win32\include\uv;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4068;4101;4800;4251;4244;4099;4083;4700;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
