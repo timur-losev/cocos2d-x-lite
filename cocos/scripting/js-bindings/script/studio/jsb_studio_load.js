@@ -204,8 +204,6 @@ ccs.load = function(file, path){
                 break;
             }
         }
-        
-        console.log("TIMURRRR")
         console.log(file)
 
         // fallback json

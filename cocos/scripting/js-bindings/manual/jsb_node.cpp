@@ -1568,7 +1568,7 @@ static bool onReceiveNodeEvent(void* node, ScriptingCore::NodeEventType type)
     se::AutoHandleScope hs;
 
     se::Object* target = iter->second;
-    target->incRef();
+    target->root();
 
     const char* funcName = nullptr;
     bool ret = false;
@@ -1642,7 +1642,7 @@ static bool onReceiveNodeEvent(void* node, ScriptingCore::NodeEventType type)
     {
         cleanupAllSchedulesForTarget((Node*)node, target);
     }
-    target->decRef();
+    target->unroot();
 
     return ret;
 }
