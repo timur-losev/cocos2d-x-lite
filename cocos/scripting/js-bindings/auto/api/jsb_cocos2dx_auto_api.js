@@ -9988,13 +9988,313 @@ Label : function (
 cc.LabelTTF = {
 
 /**
- * @method getRenderLabel
- * @return {cc.Label}
+ * @method enableShadow
+ * @param {size_object} arg0
+ * @param {float} arg1
+ * @param {float} arg2
+ * @param {bool} arg3
  */
-getRenderLabel : function (
+enableShadow : function (
+size, 
+float, 
+float, 
+bool 
 )
 {
-    return cc.Label;
+},
+
+/**
+ * @method setDimensions
+ * @param {size_object} arg0
+ */
+setDimensions : function (
+size 
+)
+{
+},
+
+/**
+ * @method getFontSize
+ * @return {float}
+ */
+getFontSize : function (
+)
+{
+    return 0;
+},
+
+/**
+ * @method getString
+ * @return {String}
+ */
+getString : function (
+)
+{
+    return ;
+},
+
+/**
+ * @method setFlippedY
+ * @param {bool} arg0
+ */
+setFlippedY : function (
+bool 
+)
+{
+},
+
+/**
+ * @method setFlippedX
+ * @param {bool} arg0
+ */
+setFlippedX : function (
+bool 
+)
+{
+},
+
+/**
+ * @method setTextDefinition
+ * @param {cc.FontDefinition} arg0
+ */
+setTextDefinition : function (
+fontdefinition 
+)
+{
+},
+
+/**
+ * @method setFontName
+ * @param {String} arg0
+ */
+setFontName : function (
+str 
+)
+{
+},
+
+/**
+ * @method getHorizontalAlignment
+ * @return {cc.TextHAlignment}
+ */
+getHorizontalAlignment : function (
+)
+{
+    return 0;
+},
+
+/**
+ * @method initWithStringAndTextDefinition
+ * @param {String} arg0
+ * @param {cc.FontDefinition} arg1
+ * @return {bool}
+ */
+initWithStringAndTextDefinition : function (
+str, 
+fontdefinition 
+)
+{
+    return false;
+},
+
+/**
+ * @method setString
+ * @param {String} arg0
+ */
+setString : function (
+str 
+)
+{
+},
+
+/**
+ * @method initWithString
+ * @param {String} arg0
+ * @param {String} arg1
+ * @param {float} arg2
+ * @param {size_object} arg3
+ * @param {cc.TextHAlignment} arg4
+ * @param {cc.TextVAlignment} arg5
+ * @return {bool}
+ */
+initWithString : function (
+str, 
+str, 
+float, 
+size, 
+texthalignment, 
+textvalignment 
+)
+{
+    return false;
+},
+
+/**
+ * @method setFontFillColor
+ * @param {color3b_object} arg0
+ * @param {bool} arg1
+ */
+setFontFillColor : function (
+color3b, 
+bool 
+)
+{
+},
+
+/**
+ * @method getBlendFunc
+ * @return {cc.BlendFunc}
+ */
+getBlendFunc : function (
+)
+{
+    return cc.BlendFunc;
+},
+
+/**
+ * @method enableStroke
+ * @param {color3b_object} arg0
+ * @param {float} arg1
+ * @param {bool} arg2
+ */
+enableStroke : function (
+color3b, 
+float, 
+bool 
+)
+{
+},
+
+/**
+ * @method getDimensions
+ * @return {size_object}
+ */
+getDimensions : function (
+)
+{
+    return cc.Size;
+},
+
+/**
+ * @method setVerticalAlignment
+ * @param {cc.TextVAlignment} arg0
+ */
+setVerticalAlignment : function (
+textvalignment 
+)
+{
+},
+
+/**
+ * @method setFontSize
+ * @param {float} arg0
+ */
+setFontSize : function (
+float 
+)
+{
+},
+
+/**
+ * @method getVerticalAlignment
+ * @return {cc.TextVAlignment}
+ */
+getVerticalAlignment : function (
+)
+{
+    return 0;
+},
+
+/**
+ * @method getTextDefinition
+ * @return {cc.FontDefinition}
+ */
+getTextDefinition : function (
+)
+{
+    return cc.FontDefinition;
+},
+
+/**
+ * @method setBlendFunc
+ * @param {cc.BlendFunc} arg0
+ */
+setBlendFunc : function (
+blendfunc 
+)
+{
+},
+
+/**
+ * @method getFontName
+ * @return {String}
+ */
+getFontName : function (
+)
+{
+    return ;
+},
+
+/**
+ * @method setHorizontalAlignment
+ * @param {cc.TextHAlignment} arg0
+ */
+setHorizontalAlignment : function (
+texthalignment 
+)
+{
+},
+
+/**
+ * @method disableShadow
+ */
+disableShadow : function (
+)
+{
+},
+
+/**
+ * @method disableStroke
+ */
+disableStroke : function (
+)
+{
+},
+
+/**
+ * @method create
+* @param {String} str
+* @param {String} str
+* @param {float} float
+* @param {size_object} size
+* @param {cc.TextHAlignment} texthalignment
+* @param {cc.TextVAlignment} textvalignment
+* @return {cc.LabelTTF|cc.LabelTTF}
+*/
+create : function(
+str,
+str,
+float,
+size,
+texthalignment,
+textvalignment 
+)
+{
+    return cc.LabelTTF;
+},
+
+/**
+ * @method createWithFontDefinition
+ * @param {String} arg0
+ * @param {cc.FontDefinition} arg1
+ * @return {cc.LabelTTF}
+ */
+createWithFontDefinition : function (
+str, 
+fontdefinition 
+)
+{
+    return cc.LabelTTF;
 },
 
 /**

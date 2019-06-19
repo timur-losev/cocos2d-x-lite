@@ -485,19 +485,12 @@ cc.DrawNode.prototype._ctor = function() {
 };
 
 cc.LabelTTF.prototype._ctor = function (text, fontName, fontSize, dimensions, hAlignment, vAlignment) {
-    this._flippedX = false;
-    this._flippedY = false;
-    this._renderLabel = this.getRenderLabel();
-    if (text === undefined) {
-        return;
-    }
-    
-    text = text || '';
+    text = text || "";
     if (fontName && fontName instanceof cc.FontDefinition) {
         this.initWithStringAndTextDefinition(text, fontName);
     }
     else {
-        fontName = fontName || '';
+        fontName = fontName || "";
         fontSize = fontSize || 16;
         dimensions = dimensions || cc.size(0,0);
         hAlignment = hAlignment === undefined ? cc.TEXT_ALIGNMENT_LEFT : hAlignment;
