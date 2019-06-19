@@ -3238,10 +3238,10 @@ static bool js_cocos2dx_ui_Button_setTitleAlignment(se::State& s)
     do {
         if (argc == 2) {
             cocos2d::TextHAlignment arg0;
-            ok &= seval_to_int8(args[0], (int8_t*)&arg0);
+            ok &= seval_to_int32(args[0], (int32_t*)&arg0);
             if (!ok) { ok = true; break; }
             cocos2d::TextVAlignment arg1;
-            ok &= seval_to_int8(args[1], (int8_t*)&arg1);
+            ok &= seval_to_int32(args[1], (int32_t*)&arg1);
             if (!ok) { ok = true; break; }
             cobj->setTitleAlignment(arg0, arg1);
             return true;
@@ -3251,7 +3251,7 @@ static bool js_cocos2dx_ui_Button_setTitleAlignment(se::State& s)
     do {
         if (argc == 1) {
             cocos2d::TextHAlignment arg0;
-            ok &= seval_to_int8(args[0], (int8_t*)&arg0);
+            ok &= seval_to_int32(args[0], (int32_t*)&arg0);
             if (!ok) { ok = true; break; }
             cobj->setTitleAlignment(arg0);
             return true;
@@ -5365,7 +5365,7 @@ static bool js_cocos2dx_ui_Text_disableEffect(se::State& s)
     do {
         if (argc == 1) {
             cocos2d::LabelEffect arg0;
-            ok &= seval_to_int8(args[0], (int8_t*)&arg0);
+            ok &= seval_to_int32(args[0], (int32_t*)&arg0);
             if (!ok) { ok = true; break; }
             cobj->disableEffect(arg0);
             return true;
@@ -5392,8 +5392,8 @@ static bool js_cocos2dx_ui_Text_getLabelEffectType(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        char result = (char)cobj->getLabelEffectType();
-        ok &= int8_to_seval(result, &s.rval());
+        int result = (int)cobj->getLabelEffectType();
+        ok &= int32_to_seval(result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_Text_getLabelEffectType : Error processing arguments");
         return true;
     }
@@ -5429,7 +5429,7 @@ static bool js_cocos2dx_ui_Text_setTextVerticalAlignment(se::State& s)
     CC_UNUSED bool ok = true;
     if (argc == 1) {
         cocos2d::TextVAlignment arg0;
-        ok &= seval_to_int8(args[0], (int8_t*)&arg0);
+        ok &= seval_to_int32(args[0], (int32_t*)&arg0);
         SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_Text_setTextVerticalAlignment : Error processing arguments");
         cobj->setTextVerticalAlignment(arg0);
         return true;
@@ -5752,8 +5752,8 @@ static bool js_cocos2dx_ui_Text_getTextHorizontalAlignment(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        char result = (char)cobj->getTextHorizontalAlignment();
-        ok &= int8_to_seval(result, &s.rval());
+        int result = (int)cobj->getTextHorizontalAlignment();
+        ok &= int32_to_seval(result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_Text_getTextHorizontalAlignment : Error processing arguments");
         return true;
     }
@@ -5863,8 +5863,8 @@ static bool js_cocos2dx_ui_Text_getTextVerticalAlignment(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        char result = (char)cobj->getTextVerticalAlignment();
-        ok &= int8_to_seval(result, &s.rval());
+        int result = (int)cobj->getTextVerticalAlignment();
+        ok &= int32_to_seval(result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_Text_getTextVerticalAlignment : Error processing arguments");
         return true;
     }
@@ -5900,7 +5900,7 @@ static bool js_cocos2dx_ui_Text_setTextHorizontalAlignment(se::State& s)
     CC_UNUSED bool ok = true;
     if (argc == 1) {
         cocos2d::TextHAlignment arg0;
-        ok &= seval_to_int8(args[0], (int8_t*)&arg0);
+        ok &= seval_to_int32(args[0], (int32_t*)&arg0);
         SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_Text_setTextHorizontalAlignment : Error processing arguments");
         cobj->setTextHorizontalAlignment(arg0);
         return true;
@@ -10046,7 +10046,7 @@ static bool js_cocos2dx_ui_TextField_setTextVerticalAlignment(se::State& s)
     CC_UNUSED bool ok = true;
     if (argc == 1) {
         cocos2d::TextVAlignment arg0;
-        ok &= seval_to_int8(args[0], (int8_t*)&arg0);
+        ok &= seval_to_int32(args[0], (int32_t*)&arg0);
         SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_TextField_setTextVerticalAlignment : Error processing arguments");
         cobj->setTextVerticalAlignment(arg0);
         return true;
@@ -10346,8 +10346,8 @@ static bool js_cocos2dx_ui_TextField_getTextHorizontalAlignment(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        char result = (char)cobj->getTextHorizontalAlignment();
-        ok &= int8_to_seval(result, &s.rval());
+        int result = (int)cobj->getTextHorizontalAlignment();
+        ok &= int32_to_seval(result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_TextField_getTextHorizontalAlignment : Error processing arguments");
         return true;
     }
@@ -10454,7 +10454,7 @@ static bool js_cocos2dx_ui_TextField_setTextHorizontalAlignment(se::State& s)
     CC_UNUSED bool ok = true;
     if (argc == 1) {
         cocos2d::TextHAlignment arg0;
-        ok &= seval_to_int8(args[0], (int8_t*)&arg0);
+        ok &= seval_to_int32(args[0], (int32_t*)&arg0);
         SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_TextField_setTextHorizontalAlignment : Error processing arguments");
         cobj->setTextHorizontalAlignment(arg0);
         return true;
@@ -10565,8 +10565,8 @@ static bool js_cocos2dx_ui_TextField_getTextVerticalAlignment(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        char result = (char)cobj->getTextVerticalAlignment();
-        ok &= int8_to_seval(result, &s.rval());
+        int result = (int)cobj->getTextVerticalAlignment();
+        ok &= int32_to_seval(result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_TextField_getTextVerticalAlignment : Error processing arguments");
         return true;
     }

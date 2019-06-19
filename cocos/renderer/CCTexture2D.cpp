@@ -2,6 +2,7 @@
 Copyright (c) 2008      Apple Inc. All Rights Reserved.
 Copyright (c) 2010-2012 cocos2d-x.org
 Copyright (c) 2013-2016 Chukong Technologies Inc.
+Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
 http://www.cocos2d-x.org
 
@@ -52,9 +53,9 @@ THE SOFTWARE.
     #include "renderer/CCTextureCache.h"
 #endif
 
-#include <unordered_set>
-
 NS_CC_BEGIN
+
+
 
 namespace {
     typedef Texture2D::PixelFormatInfoMap::value_type PixelFormatInfoMapValue;
@@ -69,40 +70,40 @@ namespace {
         PixelFormatInfoMapValue(Texture2D::PixelFormat::A8, Texture2D::PixelFormatInfo(GL_ALPHA, GL_ALPHA, GL_UNSIGNED_BYTE, 8, false, false)),
         PixelFormatInfoMapValue(Texture2D::PixelFormat::I8, Texture2D::PixelFormatInfo(GL_LUMINANCE, GL_LUMINANCE, GL_UNSIGNED_BYTE, 8, false, false)),
         PixelFormatInfoMapValue(Texture2D::PixelFormat::AI88, Texture2D::PixelFormatInfo(GL_LUMINANCE_ALPHA, GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE, 16, false, true)),
-
+        
 #ifdef GL_COMPRESSED_RGB_PVRTC_2BPPV1_IMG
         PixelFormatInfoMapValue(Texture2D::PixelFormat::PVRTC2, Texture2D::PixelFormatInfo(GL_COMPRESSED_RGB_PVRTC_2BPPV1_IMG, 0xFFFFFFFF, 0xFFFFFFFF, 2, true, false)),
         PixelFormatInfoMapValue(Texture2D::PixelFormat::PVRTC2A, Texture2D::PixelFormatInfo(GL_COMPRESSED_RGBA_PVRTC_2BPPV1_IMG, 0xFFFFFFFF, 0xFFFFFFFF, 2, true, true)),
         PixelFormatInfoMapValue(Texture2D::PixelFormat::PVRTC4, Texture2D::PixelFormatInfo(GL_COMPRESSED_RGB_PVRTC_4BPPV1_IMG, 0xFFFFFFFF, 0xFFFFFFFF, 4, true, false)),
         PixelFormatInfoMapValue(Texture2D::PixelFormat::PVRTC4A, Texture2D::PixelFormatInfo(GL_COMPRESSED_RGBA_PVRTC_4BPPV1_IMG, 0xFFFFFFFF, 0xFFFFFFFF, 4, true, true)),
 #endif
-
+        
 #ifdef GL_ETC1_RGB8_OES
         PixelFormatInfoMapValue(Texture2D::PixelFormat::ETC, Texture2D::PixelFormatInfo(GL_ETC1_RGB8_OES, 0xFFFFFFFF, 0xFFFFFFFF, 4, true, false)),
 #endif
-
+        
 #ifdef GL_COMPRESSED_RGBA_S3TC_DXT1_EXT
         PixelFormatInfoMapValue(Texture2D::PixelFormat::S3TC_DXT1, Texture2D::PixelFormatInfo(GL_COMPRESSED_RGBA_S3TC_DXT1_EXT, 0xFFFFFFFF, 0xFFFFFFFF, 4, true, false)),
 #endif
-
+        
 #ifdef GL_COMPRESSED_RGBA_S3TC_DXT3_EXT
         PixelFormatInfoMapValue(Texture2D::PixelFormat::S3TC_DXT3, Texture2D::PixelFormatInfo(GL_COMPRESSED_RGBA_S3TC_DXT3_EXT, 0xFFFFFFFF, 0xFFFFFFFF, 8, true, false)),
 #endif
-
+        
 #ifdef GL_COMPRESSED_RGBA_S3TC_DXT5_EXT
         PixelFormatInfoMapValue(Texture2D::PixelFormat::S3TC_DXT5, Texture2D::PixelFormatInfo(GL_COMPRESSED_RGBA_S3TC_DXT5_EXT, 0xFFFFFFFF, 0xFFFFFFFF, 8, true, false)),
 #endif
-
+        
 #ifdef GL_ATC_RGB_AMD
         PixelFormatInfoMapValue(Texture2D::PixelFormat::ATC_RGB, Texture2D::PixelFormatInfo(GL_ATC_RGB_AMD,
             0xFFFFFFFF, 0xFFFFFFFF, 4, true, false)),
 #endif
-
+        
 #ifdef GL_ATC_RGBA_EXPLICIT_ALPHA_AMD
         PixelFormatInfoMapValue(Texture2D::PixelFormat::ATC_EXPLICIT_ALPHA, Texture2D::PixelFormatInfo(GL_ATC_RGBA_EXPLICIT_ALPHA_AMD,
             0xFFFFFFFF, 0xFFFFFFFF, 8, true, false)),
 #endif
-
+        
 #ifdef GL_ATC_RGBA_INTERPOLATED_ALPHA_AMD
         PixelFormatInfoMapValue(Texture2D::PixelFormat::ATC_INTERPOLATED_ALPHA, Texture2D::PixelFormatInfo(GL_ATC_RGBA_INTERPOLATED_ALPHA_AMD,
             0xFFFFFFFF, 0xFFFFFFFF, 8, true, false)),
@@ -447,7 +448,6 @@ Texture2D::Texture2D()
 , _valid(true)
 , _alphaTexture(nullptr)
 {
-    _antialiasEnabled = Director::getInstance()->getOpenGLView()->isAntiAliasEnabled();
 }
 
 Texture2D::~Texture2D()
@@ -455,6 +455,7 @@ Texture2D::~Texture2D()
 #if CC_ENABLE_CACHE_TEXTURE_DATA
     VolatileTextureMgr::removeTexture(this);
 #endif
+    CC_SAFE_RELEASE_NULL(_alphaTexture); // ETC1 ALPHA support.
 
     CCLOGINFO("deallocing Texture2D: %p - id=%u", this, _name);
     CC_SAFE_RELEASE(_shaderProgram);
@@ -475,6 +476,7 @@ void Texture2D::releaseGLTexture()
     }
     _name = 0;
 }
+
 
 Texture2D::PixelFormat Texture2D::getPixelFormat() const
 {
@@ -506,7 +508,7 @@ Size Texture2D::getContentSize() const
     Size ret;
     ret.width = _contentSize.width / CC_CONTENT_SCALE_FACTOR();
     ret.height = _contentSize.height / CC_CONTENT_SCALE_FACTOR();
-
+    
     return ret;
 }
 
@@ -552,7 +554,7 @@ bool Texture2D::hasPremultipliedAlpha() const
     return _hasPremultipliedAlpha;
 }
 
-bool Texture2D::initWithData(const void *data, ssize_t dataLen, Texture2D::PixelFormat pixelFormat, int pixelsWide, int pixelsHigh, const Size& contentSize)
+bool Texture2D::initWithData(const void *data, ssize_t dataLen, Texture2D::PixelFormat pixelFormat, int pixelsWide, int pixelsHigh, const Size& /*contentSize*/)
 {
     CCASSERT(dataLen>0 && pixelsWide>0 && pixelsHigh>0, "Invalid size");
 
@@ -565,7 +567,9 @@ bool Texture2D::initWithData(const void *data, ssize_t dataLen, Texture2D::Pixel
 
 bool Texture2D::initWithMipmaps(MipmapInfo* mipmaps, int mipmapsNum, PixelFormat pixelFormat, int pixelsWide, int pixelsHigh)
 {
-    //the pixelFormat must be a certain value
+
+
+    //the pixelFormat must be a certain value 
     CCASSERT(pixelFormat != PixelFormat::NONE && pixelFormat != PixelFormat::AUTO, "the \"pixelFormat\" param must be a certain value!");
     CCASSERT(pixelsWide>0 && pixelsHigh>0, "Invalid size");
 
@@ -574,7 +578,7 @@ bool Texture2D::initWithMipmaps(MipmapInfo* mipmaps, int mipmapsNum, PixelFormat
         CCLOG("cocos2d: WARNING: mipmap number is less than 1");
         return false;
     }
-
+    
 
     if(_pixelFormatInfoTables.find(pixelFormat) == _pixelFormatInfoTables.end())
     {
@@ -586,8 +590,6 @@ bool Texture2D::initWithMipmaps(MipmapInfo* mipmaps, int mipmapsNum, PixelFormat
 
     if (info.compressed && !Configuration::getInstance()->supportsPVRTC()
                         && !Configuration::getInstance()->supportsETC())
-//                        && !Configuration::getInstance()->supportsS3TC()
-//                        && !Configuration::getInstance()->supportsATITC())
     {
         CCLOG("cocos2d: WARNING: PVRTC/ETC images are not supported");
         return false;
@@ -635,7 +637,7 @@ bool Texture2D::initWithMipmaps(MipmapInfo* mipmaps, int mipmapsNum, PixelFormat
     {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, _antialiasEnabled ? GL_LINEAR_MIPMAP_NEAREST : GL_NEAREST_MIPMAP_NEAREST);
     }
-
+    
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, _antialiasEnabled ? GL_LINEAR : GL_NEAREST );
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE );
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE );
@@ -645,7 +647,7 @@ bool Texture2D::initWithMipmaps(MipmapInfo* mipmaps, int mipmapsNum, PixelFormat
     {
         TexParams texParams = {(GLuint)(_hasMipmaps?GL_LINEAR_MIPMAP_NEAREST:GL_LINEAR),GL_LINEAR,GL_NONE,GL_NONE};
         VolatileTextureMgr::setTexParameters(this, texParams);
-    }
+    } 
     else
     {
         TexParams texParams = {(GLuint)(_hasMipmaps?GL_NEAREST_MIPMAP_NEAREST:GL_NEAREST),GL_NEAREST,GL_NONE,GL_NONE};
@@ -659,11 +661,11 @@ bool Texture2D::initWithMipmaps(MipmapInfo* mipmaps, int mipmapsNum, PixelFormat
     {
         cocos2d::log("OpenGL error 0x%04X in %s %s %d\n", err, __FILE__, __FUNCTION__, __LINE__);
     }
-
+    
     // Specify OpenGL texture image
     int width = pixelsWide;
     int height = pixelsHigh;
-
+    
     for (int i = 0; i < mipmapsNum; ++i)
     {
         unsigned char *data = mipmaps[i].address;
@@ -747,7 +749,7 @@ bool Texture2D::initWithImage(Image *image, PixelFormat format)
     Configuration *conf = Configuration::getInstance();
 
     int maxTextureSize = conf->getMaxTextureSize();
-    if (imageWidth > maxTextureSize || imageHeight > maxTextureSize)
+    if (imageWidth > maxTextureSize || imageHeight > maxTextureSize) 
     {
         CCLOG("cocos2d: WARNING: Image (%u x %u) is bigger than the supported %u x %u", imageWidth, imageHeight, maxTextureSize, maxTextureSize);
         return false;
@@ -757,7 +759,7 @@ bool Texture2D::initWithImage(Image *image, PixelFormat format)
     Size             imageSize = Size((float)imageWidth, (float)imageHeight);
     PixelFormat      pixelFormat = ((PixelFormat::NONE == format) || (PixelFormat::AUTO == format)) ? image->getRenderFormat() : format;
     PixelFormat      renderFormat = image->getRenderFormat();
-    size_t             tempDataLen = image->getDataLen();
+    size_t           tempDataLen = image->getDataLen();
 
 
     if (image->getNumberOfMipmaps() > 1)
@@ -768,8 +770,10 @@ bool Texture2D::initWithImage(Image *image, PixelFormat format)
         }
 
         initWithMipmaps(image->getMipmaps(), image->getNumberOfMipmaps(), image->getRenderFormat(), imageWidth, imageHeight);
+        
+        // set the premultiplied tag
         _hasPremultipliedAlpha = image->hasPremultipliedAlpha();
-
+        
         return true;
     }
     else if (image->isCompressed())
@@ -780,10 +784,10 @@ bool Texture2D::initWithImage(Image *image, PixelFormat format)
         }
 
         initWithData(tempData, tempDataLen, image->getRenderFormat(), imageWidth, imageHeight, imageSize);
-
+        
         // set the premultiplied tag
         _hasPremultipliedAlpha = image->hasPremultipliedAlpha();
-
+        
         return true;
     }
     else
@@ -795,14 +799,16 @@ bool Texture2D::initWithImage(Image *image, PixelFormat format)
 
         initWithData(outTempData, outTempDataLen, pixelFormat, imageWidth, imageHeight, imageSize);
 
+
         if (outTempData != nullptr && outTempData != tempData)
         {
+
             free(outTempData);
         }
 
         // set the premultiplied tag
         _hasPremultipliedAlpha = image->hasPremultipliedAlpha();
-
+        
         return true;
     }
 }
@@ -1045,7 +1051,7 @@ Texture2D::PixelFormat Texture2D::convertDataToFormat(const unsigned char* data,
         *outDataLen = dataLen;
         return originFormat;
     }
-
+    
     switch (originFormat)
     {
     case PixelFormat::I8:
@@ -1068,11 +1074,11 @@ Texture2D::PixelFormat Texture2D::convertDataToFormat(const unsigned char* data,
 bool Texture2D::initWithString(const std::string& text, const std::string& fontName, float fontSize, const Size& dimensions/* = Size(0, 0)*/, TextHAlignment hAlignment/* =  TextHAlignment::CENTER */, TextVAlignment vAlignment/* =  TextVAlignment::TOP */, bool enableWrap /* = false */, int overflow /* = 0 */)
 {
     FontDefinition tempDef;
-
+    
     tempDef._shadow._shadowEnabled = false;
     tempDef._stroke._strokeEnabled = false;
-
-
+   
+    
     tempDef._fontName      = fontName;
     tempDef._fontSize      = fontSize;
     tempDef._dimensions    = dimensions;
@@ -1099,7 +1105,7 @@ bool Texture2D::initWithString(const std::string& text, const FontDefinition& te
 
     bool ret = false;
     Device::TextAlign align;
-
+    
     if (TextVAlignment::TOP == textDefinition._vertAlignment)
     {
         align = (TextHAlignment::CENTER == textDefinition._alignment) ? Device::TextAlign::TOP
@@ -1120,7 +1126,7 @@ bool Texture2D::initWithString(const std::string& text, const FontDefinition& te
         CCASSERT(false, "Not supported alignment format!");
         return false;
     }
-
+    
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
     CCASSERT(textDefinition._stroke._strokeEnabled == false, "Currently stroke doesn't support win32!");
 #endif
@@ -1138,7 +1144,7 @@ bool Texture2D::initWithString(const std::string& text, const FontDefinition& te
     textDef._dimensions.height *= contentScaleFactor;
     textDef._stroke._strokeSize *= contentScaleFactor;
     textDef._shadow._shadowEnabled = false;
-
+    
     bool hasPremultipliedAlpha;
     Data outData = Device::getTextureDataForText(text.c_str(), textDef, align, imageWidth, imageHeight, hasPremultipliedAlpha);
     if(outData.isNull())
@@ -1174,7 +1180,7 @@ void Texture2D::drawAtPoint(const Vec2& point)
     GLfloat    width = (GLfloat)_pixelsWide * _maxS,
         height = (GLfloat)_pixelsHigh * _maxT;
 
-    GLfloat        vertices[] = {
+    GLfloat        vertices[] = {    
         point.x,            point.y,
         width + point.x,    point.y,
         point.x,            height  + point.y,
@@ -1186,6 +1192,7 @@ void Texture2D::drawAtPoint(const Vec2& point)
 
     GL::bindTexture2D( _name );
 
+
     glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, vertices);
     glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_TEX_COORD, 2, GL_FLOAT, GL_FALSE, 0, coordinates);
 
@@ -1194,7 +1201,7 @@ void Texture2D::drawAtPoint(const Vec2& point)
 
 void Texture2D::drawInRect(const Rect& rect)
 {
-    GLfloat    coordinates[] = {
+    GLfloat    coordinates[] = {    
         0.0f,    _maxT,
         _maxS,_maxT,
         0.0f,    0.0f,
@@ -1215,6 +1222,12 @@ void Texture2D::drawInRect(const Rect& rect)
     glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_TEX_COORD, 2, GL_FLOAT, GL_FALSE, 0, coordinates);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 }
+
+void Texture2D::PVRImagesHavePremultipliedAlpha(bool haveAlphaPremultiplied)
+{
+    Image::setPVRImagesHavePremultipliedAlpha(haveAlphaPremultiplied);
+}
+
 
 //
 // Use to apply MIN/MAG filter
@@ -1320,7 +1333,7 @@ void Texture2D::setAntiAliasTexParameters()
 
 const char* Texture2D::getStringForFormat() const
 {
-    switch (_pixelFormat)
+    switch (_pixelFormat) 
     {
         case Texture2D::PixelFormat::RGBA8888:
             return  "RGBA8888";
@@ -1352,6 +1365,33 @@ const char* Texture2D::getStringForFormat() const
         case Texture2D::PixelFormat::PVRTC2:
             return  "PVRTC2";
 
+        case Texture2D::PixelFormat::PVRTC2A:
+            return "PVRTC2A";
+        
+        case Texture2D::PixelFormat::PVRTC4A:
+            return "PVRTC4A";
+            
+        case Texture2D::PixelFormat::ETC:
+            return "ETC";
+
+        case Texture2D::PixelFormat::S3TC_DXT1:
+            return "S3TC_DXT1";
+            
+        case Texture2D::PixelFormat::S3TC_DXT3:
+            return "S3TC_DXT3";
+
+        case Texture2D::PixelFormat::S3TC_DXT5:
+            return "S3TC_DXT5";
+            
+        case Texture2D::PixelFormat::ATC_RGB:
+            return "ATC_RGB";
+
+        case Texture2D::PixelFormat::ATC_EXPLICIT_ALPHA:
+            return "ATC_EXPLICIT_ALPHA";
+
+        case Texture2D::PixelFormat::ATC_INTERPOLATED_ALPHA:
+            return "ATC_INTERPOLATED_ALPHA";
+            
         default:
             CCASSERT(false , "unrecognized pixel format");
             CCLOG("stringForFormat: %ld, cannot give useful result", (long)_pixelFormat);
@@ -1382,7 +1422,7 @@ unsigned int Texture2D::getBitsPerPixelForFormat(Texture2D::PixelFormat format) 
     {
         return 0;
     }
-
+    
     return _pixelFormatInfoTables.at(format).bpp;
 }
 
@@ -1458,7 +1498,12 @@ void Texture2D::setAlphaTexture(Texture2D* alphaTexture)
     if (alphaTexture != nullptr) {
         this->_alphaTexture = alphaTexture;
         this->_alphaTexture->retain();
-        this->_hasPremultipliedAlpha = true; // PremultipliedAlpha shoud be true.
+        this->_hasPremultipliedAlpha = true; // PremultipliedAlpha should be true.
     }
+}
+
+Texture2D* Texture2D::getAlphaTexture() const
+{
+    return _alphaTexture;
 }
 NS_CC_END

@@ -1,7 +1,8 @@
 /****************************************************************************
  Copyright (c) 2013      Zynga Inc.
  Copyright (c) 2013-2016 Chukong Technologies Inc.
-
+ Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ 
  http://www.cocos2d-x.org
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -33,12 +34,7 @@ NS_CC_BEGIN
 
 FontCharMap * FontCharMap::create(const std::string& plistFile)
 {
-    auto fileUtils = FileUtils::getInstance();
-    std::string pathStr = fileUtils->fullPathForFilename(plistFile);
-    if (pathStr.empty()) {
-        return nullptr;
-    }
-
+    std::string pathStr = FileUtils::getInstance()->fullPathForFilename(plistFile);
     std::string relPathStr = pathStr.substr(0, pathStr.find_last_of("/"))+"/";
 
     ValueMap dict = FileUtils::getInstance()->getValueMapFromFile(pathStr);
@@ -64,7 +60,6 @@ FontCharMap * FontCharMap::create(const std::string& plistFile)
         return nullptr;
     }
     tempFont->autorelease();
-
     return tempFont;
 }
 
@@ -89,7 +84,7 @@ FontCharMap* FontCharMap::create(const std::string& charMapFile, int itemWidth, 
 
 FontCharMap* FontCharMap::create(Texture2D* texture, int itemWidth, int itemHeight, int startCharMap)
 {
-    FontCharMap *tempFont = new FontCharMap(texture, itemWidth, itemHeight, startCharMap);
+    FontCharMap *tempFont =  new FontCharMap(texture,itemWidth,itemHeight,startCharMap);
 
     if (!tempFont)
     {
@@ -104,7 +99,7 @@ FontCharMap::~FontCharMap()
 
 }
 
-int* FontCharMap::getHorizontalKerningForTextUTF16(const std::u16string& text, int &outNumLetters) const
+int* FontCharMap::getHorizontalKerningForTextUTF32(const std::u32string& /*text*/, int & /*outNumLetters*/) const
 {
     return nullptr;
 }
@@ -114,7 +109,7 @@ FontAtlas * FontCharMap::createFontAtlas()
     FontAtlas *tempAtlas = new (std::nothrow) FontAtlas(*this);
     if (!tempAtlas)
         return nullptr;
-
+    
     Size s = _texture->getContentSizeInPixels();
     int itemsPerColumn = (int)(s.height / _itemHeight);
     int itemsPerRow = (int)(s.width / _itemWidth);
@@ -144,11 +139,10 @@ FontAtlas * FontCharMap::createFontAtlas()
             charId++;
         }
     }
-
+    
     tempAtlas->addTexture(_texture,0);
 
     return tempAtlas;
 }
 
 NS_CC_END
-

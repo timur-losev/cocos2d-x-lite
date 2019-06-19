@@ -222,6 +222,10 @@ public:
      */
     SpriteBatchNode * addSpriteWithoutQuad(Sprite *child, int z, int aTag);
 
+    /** reserves capacity for the batch node.
+     If the current capacity is bigger, nothing happens.
+     otherwise, a new capacity is allocated */
+    void reserveCapacity(ssize_t newCapacity);
 CC_CONSTRUCTOR_ACCESS:
     /**
      * @js ctor

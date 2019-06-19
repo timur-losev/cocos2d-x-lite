@@ -219,6 +219,16 @@ generateMipmap : function (
 },
 
 /**
+ * @method getAlphaTexture
+ * @return {cc.Texture2D}
+ */
+getAlphaTexture : function (
+)
+{
+    return cc.Texture2D;
+},
+
+/**
  * @method getDescription
  * @return {String}
  */
@@ -1300,6 +1310,16 @@ int
 },
 
 /**
+ * @method addOnExitCallback
+ * @param {function} arg0
+ */
+addOnExitCallback : function (
+func 
+)
+{
+},
+
+/**
  * @method setSkewY
  * @param {float} arg0
  */
@@ -1736,6 +1756,16 @@ getPositionX : function (
 removeChildByTag : function (
 int, 
 bool 
+)
+{
+},
+
+/**
+ * @method addOnEnterCallback
+ * @param {function} arg0
+ */
+addOnEnterCallback : function (
+func 
 )
 {
 },
@@ -5368,12 +5398,12 @@ getGLProgram : function (
 
 /**
  * @method setUniformTexture
-* @param {String|String|int|int} str
-* @param {unsigned int|cc.Texture2D|cc.Texture2D|unsigned int} int
+* @param {int|String} int
+* @param {cc.Texture2D|cc.Texture2D} texture2d
 */
 setUniformTexture : function(
-int,
-int 
+str,
+texture2d 
 )
 {
 },
@@ -5448,11 +5478,13 @@ glprogram
 
 /**
  * @method getOrCreateWithGLProgramName
- * @param {String} arg0
- * @return {cc.GLProgramState}
- */
-getOrCreateWithGLProgramName : function (
-str 
+* @param {String|String} str
+* @param {cc.Texture2D} texture2d
+* @return {cc.GLProgramState|cc.GLProgramState}
+*/
+getOrCreateWithGLProgramName : function(
+str,
+texture2d 
 )
 {
     return cc.GLProgramState;
@@ -9389,7 +9421,7 @@ isWrapEnabled : function (
 
 /**
  * @method getOutlineSize
- * @return {int}
+ * @return {float}
  */
 getOutlineSize : function (
 )
@@ -9400,14 +9432,12 @@ getOutlineSize : function (
 /**
  * @method setBMFontFilePath
  * @param {String} arg0
- * @param {cc.SpriteFrame} arg1
- * @param {vec2_object} arg2
- * @param {float} arg3
+ * @param {vec2_object} arg1
+ * @param {float} arg2
  * @return {bool}
  */
 setBMFontFilePath : function (
 str, 
-spriteframe, 
 vec2, 
 float 
 )
@@ -9571,16 +9601,6 @@ int
 )
 {
     return false;
-},
-
-/**
- * @method getFontDefinition
- * @return {cc.FontDefinition}
- */
-getFontDefinition : function (
-)
-{
-    return cc.FontDefinition;
 },
 
 /**
@@ -9830,16 +9850,6 @@ getLabelEffectType : function (
 },
 
 /**
- * @method setFontDefinition
- * @param {cc.FontDefinition} arg0
- */
-setFontDefinition : function (
-fontdefinition 
-)
-{
-},
-
-/**
  * @method setAlignment
 * @param {cc.TextHAlignment|cc.TextHAlignment} texthalignment
 * @param {cc.TextVAlignment} textvalignment
@@ -9873,16 +9883,14 @@ float
  * @method createWithBMFont
  * @param {String} arg0
  * @param {String} arg1
- * @param {cc.SpriteFrame} arg2
- * @param {cc.TextHAlignment} arg3
- * @param {int} arg4
- * @param {vec2_object} arg5
+ * @param {cc.TextHAlignment} arg2
+ * @param {int} arg3
+ * @param {vec2_object} arg4
  * @return {cc.Label}
  */
 createWithBMFont : function (
 str, 
 str, 
-spriteframe, 
 texthalignment, 
 int, 
 vec2 
@@ -15454,14 +15462,16 @@ str
 
 /**
  * @method initWithByteArrays
-* @param {char|char} char
-* @param {char|char} char
+* @param {char|char|char} char
+* @param {char|char|char} char
+* @param {String|String} str
 * @param {String} str
-* @return {bool|bool}
+* @return {bool|bool|bool}
 */
 initWithByteArrays : function(
 char,
 char,
+str,
 str 
 )
 {
@@ -15498,12 +15508,14 @@ float
 
 /**
  * @method initWithFilenames
-* @param {String|String} str
+* @param {String|String|String} str
+* @param {String|String|String} str
 * @param {String|String} str
 * @param {String} str
-* @return {bool|bool}
+* @return {bool|bool|bool}
 */
 initWithFilenames : function(
+str,
 str,
 str,
 str 
@@ -15602,14 +15614,16 @@ int
 
 /**
  * @method createWithByteArrays
-* @param {char|char} char
-* @param {char|char} char
+* @param {char|char|char} char
+* @param {char|char|char} char
+* @param {String|String} str
 * @param {String} str
-* @return {cc.GLProgram|cc.GLProgram}
+* @return {cc.GLProgram|cc.GLProgram|cc.GLProgram}
 */
 createWithByteArrays : function(
 char,
 char,
+str,
 str 
 )
 {
@@ -15618,12 +15632,14 @@ str
 
 /**
  * @method createWithFilenames
-* @param {String|String} str
+* @param {String|String|String} str
+* @param {String|String|String} str
 * @param {String|String} str
 * @param {String} str
-* @return {cc.GLProgram|cc.GLProgram}
+* @return {cc.GLProgram|cc.GLProgram|cc.GLProgram}
 */
 createWithFilenames : function(
+str,
 str,
 str,
 str 
@@ -16104,6 +16120,58 @@ sprite
 },
 
 /**
+ * @method reorderBatch
+ * @param {bool} arg0
+ */
+reorderBatch : function (
+bool 
+)
+{
+},
+
+/**
+ * @method getTexture
+ * @return {cc.Texture2D}
+ */
+getTexture : function (
+)
+{
+    return cc.Texture2D;
+},
+
+/**
+ * @method setTexture
+ * @param {cc.Texture2D} arg0
+ */
+setTexture : function (
+texture2d 
+)
+{
+},
+
+/**
+ * @method removeChildAtIndex
+ * @param {int} arg0
+ * @param {bool} arg1
+ */
+removeChildAtIndex : function (
+int, 
+bool 
+)
+{
+},
+
+/**
+ * @method removeSpriteFromAtlas
+ * @param {cc.Sprite} arg0
+ */
+removeSpriteFromAtlas : function (
+sprite 
+)
+{
+},
+
+/**
  * @method addSpriteWithoutQuad
  * @param {cc.Sprite} arg0
  * @param {int} arg1
@@ -16117,52 +16185,6 @@ int
 )
 {
     return cc.SpriteBatchNode;
-},
-
-/**
- * @method reorderBatch
- * @param {bool} arg0
- */
-reorderBatch : function (
-bool 
-)
-{
-},
-
-/**
- * @method initWithTexture
- * @param {cc.Texture2D} arg0
- * @param {int} arg1
- * @return {bool}
- */
-initWithTexture : function (
-texture2d, 
-int 
-)
-{
-    return false;
-},
-
-/**
- * @method getBlendFunc
- * @return {cc.BlendFunc}
- */
-getBlendFunc : function (
-)
-{
-    return cc.BlendFunc;
-},
-
-/**
- * @method lowestAtlasIndexInChild
- * @param {cc.Sprite} arg0
- * @return {int}
- */
-lowestAtlasIndexInChild : function (
-sprite 
-)
-{
-    return 0;
 },
 
 /**
@@ -16180,11 +16202,77 @@ int
 },
 
 /**
+ * @method increaseAtlasCapacity
+ */
+increaseAtlasCapacity : function (
+)
+{
+},
+
+/**
+ * @method lowestAtlasIndexInChild
+ * @param {cc.Sprite} arg0
+ * @return {int}
+ */
+lowestAtlasIndexInChild : function (
+sprite 
+)
+{
+    return 0;
+},
+
+/**
+ * @method getBlendFunc
+ * @return {cc.BlendFunc}
+ */
+getBlendFunc : function (
+)
+{
+    return cc.BlendFunc;
+},
+
+/**
+ * @method initWithTexture
+ * @param {cc.Texture2D} arg0
+ * @param {int} arg1
+ * @return {bool}
+ */
+initWithTexture : function (
+texture2d, 
+int 
+)
+{
+    return false;
+},
+
+/**
  * @method setTextureAtlas
  * @param {cc.TextureAtlas} arg0
  */
 setTextureAtlas : function (
 textureatlas 
+)
+{
+},
+
+/**
+ * @method reserveCapacity
+ * @param {int} arg0
+ */
+reserveCapacity : function (
+int 
+)
+{
+},
+
+/**
+ * @method insertQuadFromSprite
+ * @param {cc.Sprite} arg0
+ * @param {int} arg1
+ */
+insertQuadFromSprite : function (
+sprite, 
+int 
 )
 {
 },
@@ -16204,41 +16292,11 @@ int
 },
 
 /**
- * @method getTexture
- * @return {cc.Texture2D}
+ * @method setBlendFunc
+ * @param {cc.BlendFunc} arg0
  */
-getTexture : function (
-)
-{
-    return cc.Texture2D;
-},
-
-/**
- * @method increaseAtlasCapacity
- */
-increaseAtlasCapacity : function (
-)
-{
-},
-
-/**
- * @method insertQuadFromSprite
- * @param {cc.Sprite} arg0
- * @param {int} arg1
- */
-insertQuadFromSprite : function (
-sprite, 
-int 
-)
-{
-},
-
-/**
- * @method setTexture
- * @param {cc.Texture2D} arg0
- */
-setTexture : function (
-texture2d 
+setBlendFunc : function (
+blendfunc 
 )
 {
 },
@@ -16267,38 +16325,6 @@ sprite
 )
 {
     return 0;
-},
-
-/**
- * @method removeChildAtIndex
- * @param {int} arg0
- * @param {bool} arg1
- */
-removeChildAtIndex : function (
-int, 
-bool 
-)
-{
-},
-
-/**
- * @method removeSpriteFromAtlas
- * @param {cc.Sprite} arg0
- */
-removeSpriteFromAtlas : function (
-sprite 
-)
-{
-},
-
-/**
- * @method setBlendFunc
- * @param {cc.BlendFunc} arg0
- */
-setBlendFunc : function (
-blendfunc 
-)
-{
 },
 
 /**

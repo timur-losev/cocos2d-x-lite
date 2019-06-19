@@ -1,8 +1,9 @@
 /****************************************************************************
-Copyright 2014-2016 Chukong Technologies Inc.
-
+Copyright (c) 2014-2016 Chukong Technologies Inc.
+Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ 
 http://www.cocos2d-x.org
-
+ 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -20,7 +21,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-
+ 
  Autobinding Interface from GamePlay3D: http://www.gameplay3d.org/
 ****************************************************************************/
 
@@ -71,6 +72,8 @@ public:
      */
     UniformValue(Uniform *uniform, GLProgram* glprogram);
 
+    UniformValue(const UniformValue& o);
+
     /**Destructor.*/
     ~UniformValue();
     /**@{
@@ -91,7 +94,7 @@ public:
     /**
      @}
      */
-
+    
     /**
      Set call back to uniform value, which could be used for array and struct.
      @param callback Callback function to send data to OpenGL pipeline.
@@ -101,11 +104,22 @@ public:
      Set texture to uniform value.
      @param textureId The texture handle.
      @param textureUnit The binding texture unit to be used in shader.
+     @deprecated please use setTexture(Texture2D* texture, GLuint textureUnit) instead,
+                 Passing a `textureId` may trigger texture lost issue (https://github.com/cocos2d/cocos2d-x/issues/16871).
     */
-    void setTexture(GLuint textureId, GLuint textureUnit);
+    CC_DEPRECATED_ATTRIBUTE void setTexture(GLuint textureId, GLuint textureUnit);
 
+    /**
+     Set texture to uniform value.
+     @param texture The texture.
+     @param textureUnit The binding texture unit to be used in shader.
+     */
+    void setTexture(Texture2D* texture, GLuint textureUnit);
+    
     /**Apply the uniform value to openGL pipeline.*/
     void apply();
+
+    UniformValue& operator=(const UniformValue& o);
 
 protected:
 
@@ -116,7 +130,7 @@ protected:
     };
 
     /**Weak reference to Uniform.*/
-    Uniform* _uniform;
+	Uniform* _uniform;
     /**Weak reference to GLprogram.*/
     GLProgram* _glprogram;
     /** What kind of type is the Uniform */
@@ -134,8 +148,9 @@ protected:
         float v4Value[4];
         float matrixValue[16];
         struct {
-            GLuint textureId;
+            GLuint textureId; // textureId will be deprecated since we use 'texture->getName()' to get textureId.
             GLuint textureUnit;
+            Texture2D* texture;
         } tex;
         struct {
             const float* pointer;
@@ -176,6 +191,7 @@ class CC_DLL VertexAttribValue
 {
     friend class GLProgram;
     friend class GLProgramState;
+    friend class VertexAttribBinding;
 
 public:
     /**
@@ -191,7 +207,7 @@ public:
      Destructor.
      */
     ~VertexAttribValue();
-
+    
     /**
      Set the data pointer, which is similar as glVertexAttribPointer.
      @param size The number of type in the vertex attribute.
@@ -200,14 +216,14 @@ public:
      @param stride The number of bytes if an interleaved vertex array is used. 0 means array is not interleaved.
      @param pointer The pointer to the vertex data.
      */
-    void setPointer(GLint size, GLenum type, GLboolean normalized, GLsizei stride, GLvoid *pointer);
+	void setPointer(GLint size, GLenum type, GLboolean normalized, GLsizei stride, GLvoid *pointer);
     /**Set a user call back for set VertexAttrib array.*/
     void setCallback(const std::function<void(VertexAttrib*)> &callback);
     /**Apply the vertex attribute to the openGL pipeline.*/
     void apply();
 
 protected:
-    VertexAttrib* _vertexAttrib;  // weak ref
+	VertexAttrib* _vertexAttrib;  // weak ref
     bool _useCallback;
     bool _enabled;
 
@@ -233,14 +249,13 @@ protected:
 
 /**
  GLProgramState holds the 'state' (uniforms and attributes) of the GLProgram.
- A GLProgram can be used by thousands of Nodes, but if different uniform values
+ A GLProgram can be used by thousands of Nodes, but if different uniform values 
  are going to be used, then each node will need its own GLProgramState
  */
 class CC_DLL GLProgramState : public Ref
 {
     friend class GLProgramStateCache;
 public:
-
     /** returns a new instance of GLProgramState for a given GLProgram */
     static GLProgramState* create(GLProgram* glprogram);
 
@@ -249,6 +264,9 @@ public:
 
     /** gets-or-creates an instance of GLProgramState for a given GLProgramName */
     static GLProgramState* getOrCreateWithGLProgramName(const std::string& glProgramName );
+
+    /** gets-or-creates an instance of GLProgramState for the given GLProgramName & texture */
+    static GLProgramState* getOrCreateWithGLProgramName(const std::string& glProgramName, Texture2D* texture);
 
     /** gets-or-creates an instance of GLProgramState for given shaders */
     static GLProgramState* getOrCreateWithShaders(const std::string& vertexShader, const std::string& fragShader, const std::string& compileTimeDefines);
@@ -261,6 +279,7 @@ public:
      @param modelView The applied modelView matrix to shader.
      */
     void apply(const Mat4& modelView);
+
     /**
      Apply GLProgram, and built in uniforms.
      @param modelView The applied modelView matrix to shader.
@@ -275,15 +294,15 @@ public:
      Apply user defined uniforms.
      */
     void applyUniforms();
-
-    /**@{
+    
+    /**@{ 
      Setter and Getter of the owner GLProgram binded in this program state.
      */
     void setGLProgram(GLProgram* glprogram);
     GLProgram* getGLProgram() const { return _glprogram; }
-
+    
     /**@}*/
-
+    
     /** Get the flag of vertex attribs used by OR operation.*/
     uint32_t getVertexAttribsFlags() const;
     /**Get the number of vertex attributes.*/
@@ -294,10 +313,10 @@ public:
     void setVertexAttribCallback(const std::string& name, const std::function<void(VertexAttrib*)> &callback);
     void setVertexAttribPointer(const std::string& name, GLint size, GLenum type, GLboolean normalized, GLsizei stride, GLvoid *pointer);
     /**@}*/
-
+    
     /**Get the number of user defined uniform count.*/
     ssize_t getUniformCount() const { return _uniforms.size(); }
-
+    
     /** @{
      Setting user defined uniforms by uniform string name in the shader.
      */
@@ -313,9 +332,13 @@ public:
     void setUniformMat4(const std::string& uniformName, const Mat4& value);
     void setUniformCallback(const std::string& uniformName, const std::function<void(GLProgram*, Uniform*)> &callback);
     void setUniformTexture(const std::string& uniformName, Texture2D *texture);
-    void setUniformTexture(const std::string& uniformName, GLuint textureId);
+    /**
+     * @deprecated, please use setUniformTexture(const std::string& uniformName, Texture2D *texture) instead,
+     * Passing a `textureId` may trigger texture lost issue (https://github.com/cocos2d/cocos2d-x/issues/16871).
+     */
+    CC_DEPRECATED_ATTRIBUTE void setUniformTexture(const std::string& uniformName, GLuint textureId);
     /**@}*/
-
+    
     /** @{
      Setting user defined uniforms by uniform location in the shader.
      */
@@ -331,10 +354,14 @@ public:
     void setUniformMat4(GLint uniformLocation, const Mat4& value);
     void setUniformCallback(GLint uniformLocation, const std::function<void(GLProgram*, Uniform*)> &callback);
     void setUniformTexture(GLint uniformLocation, Texture2D *texture);
-    void setUniformTexture(GLint uniformLocation, GLuint textureId);
+    /**
+     * @deprecated, please use setUniformTexture(GLint uniformLocation, Texture2D *texture) instead,
+     * Passing a `textureId` may trigger texture lost issue (https://github.com/cocos2d/cocos2d-x/issues/16871).
+     */
+    CC_DEPRECATED_ATTRIBUTE void setUniformTexture(GLint uniformLocation, GLuint textureId);
     /**@}*/
 
-    /**
+    /** 
      * Returns the Node bound to the GLProgramState
      */
     Node* getNodeBinding() const;
@@ -365,7 +392,7 @@ public:
      * to an enumeration value. If it matches to one of the predefined strings, it will create a
      * callback to get the correct value at runtime.
      *
-     * @param name The name of the material parameter to store an auto-binding for.
+     * @param uniformName The name of the material parameter to store an auto-binding for.
      * @param autoBinding A string matching one of the built-in AutoBinding enum constants.
      */
     void setParameterAutoBinding(const std::string& uniformName, const std::string& autoBinding);

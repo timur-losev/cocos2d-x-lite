@@ -753,9 +753,6 @@
     <ClCompile Include="..\ui\UIEditBox\UIEditBoxImpl-common.cpp">
       <Filter>ui\UIWidgets\EditBox</Filter>
     </ClCompile>
-    <ClCompile Include="..\network\WebSocket-libwebsockets.cpp">
-      <Filter>network\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\base\CCThreadPool.cpp">
       <Filter>base</Filter>
     </ClCompile>
@@ -1109,6 +1106,9 @@
     </ClCompile>
     <ClCompile Include="..\..\extensions\GUI\CCControlExtension\CCInvocation.cpp">
       <Filter>extension\GUI\CCControl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\network\WebSocket-libwebsockets.cpp">
+      <Filter>network\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

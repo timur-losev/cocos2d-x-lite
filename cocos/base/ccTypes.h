@@ -3,6 +3,7 @@ Copyright (c) 2008-2010 Ricardo Quesada
 Copyright (c) 2010-2012 cocos2d-x.org
 Copyright (c) 2011      Zynga Inc.
 Copyright (c) 2013-2016 Chukong Technologies Inc.
+Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
 http://www.cocos2d-x.org
 
@@ -93,7 +94,7 @@ struct CC_DLL Color4B
     Color4B(GLubyte _r, GLubyte _g, GLubyte _b, GLubyte _a);
     explicit Color4B(const Color3B& color, GLubyte _a = 255);
     explicit Color4B(const Color4F& color);
-
+    
     inline void set(GLubyte _r, GLubyte _g, GLubyte _b, GLubyte _a)
     {
         r = _r;
@@ -164,6 +165,23 @@ struct CC_DLL Color4F
     static const Color4F ORANGE;
     static const Color4F GRAY;
 };
+
+Color4F& operator+=(Color4F& lhs, const Color4F& rhs);
+Color4F operator+(Color4F lhs, const Color4F& rhs);
+
+Color4F& operator-=(Color4F& lhs, const Color4F& rhs);
+Color4F operator-(Color4F lhs, const Color4F& rhs);
+
+Color4F& operator*=(Color4F& lhs, const Color4F& rhs);
+Color4F operator*(Color4F lhs, const Color4F& rhs);
+Color4F& operator*=(Color4F& lhs, float rhs);
+Color4F operator*(Color4F lhs, float rhs);
+
+Color4F& operator/=(Color4F& lhs, const Color4F& rhs);
+Color4F operator/(Color4F lhs, const Color4F& rhs);
+Color4F& operator/=(Color4F& lhs, float rhs);
+Color4F operator/(Color4F lhs, float rhs);
+
 
 /** A vertex composed of 2 floats: x, y
  @since v3.0
@@ -411,24 +429,24 @@ struct CC_DLL BlendFunc
     }
 };
 
-/** @struct TextVAlignment
+/** @enum TextVAlignment
  * Vertical text alignment type.
  *
  * @note If any of these enums are edited and/or reordered, update Texture2D.m.
  */
-enum class CC_DLL TextVAlignment : char
+enum class CC_DLL TextVAlignment
 {
     TOP,
     CENTER,
     BOTTOM
 };
 
-/** @struct TextHAlignment
+/** @enum TextHAlignment
  * Horizontal text alignment type.
  *
  * @note If any of these enums are edited and/or reordered, update Texture2D.m.
  */
-enum class CC_DLL TextHAlignment : char
+enum class CC_DLL TextHAlignment
 {
     LEFT,
     CENTER,
@@ -441,7 +459,7 @@ enum class CC_DLL TextHAlignment : char
 * Specify a collections of characters to be load when Label created.
 * Consider using DYNAMIC.
 */
-enum class GlyphCollection : char {
+enum class GlyphCollection {
     DYNAMIC,
     NEHE,
     ASCII,
@@ -497,7 +515,7 @@ public:
     bool   _shadowEnabled;
     /// shadow x and y offset
     Size   _shadowOffset;
-    /// shadow blurrines
+    /// shadow blurriness
     float  _shadowBlur;
     /// shadow opacity
     float  _shadowOpacity;
@@ -512,20 +530,21 @@ public:
 
     // stroke is disabled by default
     FontStroke()
-        : _strokeSize(0.0f)
+        : _strokeEnabled(false)
         , _strokeColor(Color3B::BLACK)
         , _strokeAlpha(255)
-        , _strokeEnabled(false)
+        , _strokeSize(0)
     {}
 
-    /// stroke size
-    float     _strokeSize;
+    /// true if stroke enabled
+    bool      _strokeEnabled;
     /// stroke color
     Color3B   _strokeColor;
     /// stroke alpha
     GLubyte   _strokeAlpha;
-    /// true if stroke enabled
-    bool      _strokeEnabled;
+    /// stroke size
+    float     _strokeSize;
+
 };
 
 /** @struct FontDefinition
@@ -553,8 +572,10 @@ public:
     std::string           _fontName;
     /// font size
     int                   _fontSize;
-    /// enable shrink font size
-    int                  _overflow;
+    /// horizontal alignment
+    TextHAlignment        _alignment;
+    /// vertical alignment
+    TextVAlignment _vertAlignment;
     /// rendering box
     Size                  _dimensions;
     /// font color
@@ -565,20 +586,22 @@ public:
     FontShadow            _shadow;
     /// font stroke
     FontStroke            _stroke;
-    /// horizontal alignment
-    TextHAlignment        _alignment;
-    /// vertical alignment
-    TextVAlignment _vertAlignment;
     /// enable text wrap
     bool                  _enableWrap;
-    bool                 _enableBold;
+    /** There are 4 overflows: none, clamp, shrink and resize_height.
+     *  The corresponding integer values are 0, 1, 2, 3 respectively
+     * For more information, please refer to Label::Overflow enum class.
+     */
+    int                  _overflow;
+
+    bool                _enableBold;
 };
 
 /**
  * @brief Effects used by `Label`
  *
  */
-enum class LabelEffect : char {
+enum class LabelEffect {
     // FIXME: Covert them to bitwise. More than one effect should be supported
     NORMAL,
     OUTLINE,
@@ -610,8 +633,16 @@ public:
 extern const std::string CC_DLL STD_STRING_EMPTY;
 extern const ssize_t CC_DLL CC_INVALID_INDEX;
 
+enum class SetIntervalReason : char
+{
+    BY_GAME = 0,
+    BY_ENGINE,
+    BY_SYSTEM,
+    BY_SCENE_CHANGE,
+    BY_DIRECTOR_PAUSE
+};
+
 NS_CC_END
 // end group
 /// @}
 #endif //__BASE_CCTYPES_H__
-

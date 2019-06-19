@@ -446,7 +446,7 @@ static bool js_cocos2dx_Texture2D_initWithString(se::State& s)
             ok &= seval_to_Size(args[3], &arg3);
             if (!ok) { ok = true; break; }
             cocos2d::TextHAlignment arg4;
-            ok &= seval_to_int8(args[4], (int8_t*)&arg4);
+            ok &= seval_to_int32(args[4], (int32_t*)&arg4);
             if (!ok) { ok = true; break; }
             bool result = cobj->initWithString(arg0, arg1, arg2, arg3, arg4);
             ok &= boolean_to_seval(result, &s.rval());
@@ -470,10 +470,10 @@ static bool js_cocos2dx_Texture2D_initWithString(se::State& s)
             ok &= seval_to_Size(args[3], &arg3);
             if (!ok) { ok = true; break; }
             cocos2d::TextHAlignment arg4;
-            ok &= seval_to_int8(args[4], (int8_t*)&arg4);
+            ok &= seval_to_int32(args[4], (int32_t*)&arg4);
             if (!ok) { ok = true; break; }
             cocos2d::TextVAlignment arg5;
-            ok &= seval_to_int8(args[5], (int8_t*)&arg5);
+            ok &= seval_to_int32(args[5], (int32_t*)&arg5);
             if (!ok) { ok = true; break; }
             bool result = cobj->initWithString(arg0, arg1, arg2, arg3, arg4, arg5);
             ok &= boolean_to_seval(result, &s.rval());
@@ -497,10 +497,10 @@ static bool js_cocos2dx_Texture2D_initWithString(se::State& s)
             ok &= seval_to_Size(args[3], &arg3);
             if (!ok) { ok = true; break; }
             cocos2d::TextHAlignment arg4;
-            ok &= seval_to_int8(args[4], (int8_t*)&arg4);
+            ok &= seval_to_int32(args[4], (int32_t*)&arg4);
             if (!ok) { ok = true; break; }
             cocos2d::TextVAlignment arg5;
-            ok &= seval_to_int8(args[5], (int8_t*)&arg5);
+            ok &= seval_to_int32(args[5], (int32_t*)&arg5);
             if (!ok) { ok = true; break; }
             bool arg6;
             ok &= seval_to_boolean(args[6], &arg6);
@@ -526,10 +526,10 @@ static bool js_cocos2dx_Texture2D_initWithString(se::State& s)
             ok &= seval_to_Size(args[3], &arg3);
             if (!ok) { ok = true; break; }
             cocos2d::TextHAlignment arg4;
-            ok &= seval_to_int8(args[4], (int8_t*)&arg4);
+            ok &= seval_to_int32(args[4], (int32_t*)&arg4);
             if (!ok) { ok = true; break; }
             cocos2d::TextVAlignment arg5;
-            ok &= seval_to_int8(args[5], (int8_t*)&arg5);
+            ok &= seval_to_int32(args[5], (int32_t*)&arg5);
             if (!ok) { ok = true; break; }
             bool arg6;
             ok &= seval_to_boolean(args[6], &arg6);
@@ -666,6 +666,24 @@ static bool js_cocos2dx_Texture2D_generateMipmap(se::State& s)
     return false;
 }
 SE_BIND_FUNC(js_cocos2dx_Texture2D_generateMipmap)
+
+static bool js_cocos2dx_Texture2D_getAlphaTexture(se::State& s)
+{
+    cocos2d::Texture2D* cobj = (cocos2d::Texture2D*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_Texture2D_getAlphaTexture : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 0) {
+        cocos2d::Texture2D* result = cobj->getAlphaTexture();
+        ok &= native_ptr_to_seval<cocos2d::Texture2D>((cocos2d::Texture2D*)result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_Texture2D_getAlphaTexture : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_Texture2D_getAlphaTexture)
 
 static bool js_cocos2dx_Texture2D_getDescription(se::State& s)
 {
@@ -890,6 +908,7 @@ bool js_register_cocos2dx_Texture2D(se::Object* obj)
     cls->defineFunction("setAliasTexParameters", _SE(js_cocos2dx_Texture2D_setAliasTexParameters));
     cls->defineFunction("setAntiAliasTexParameters", _SE(js_cocos2dx_Texture2D_setAntiAliasTexParameters));
     cls->defineFunction("generateMipmap", _SE(js_cocos2dx_Texture2D_generateMipmap));
+    cls->defineFunction("getAlphaTexture", _SE(js_cocos2dx_Texture2D_getAlphaTexture));
     cls->defineFunction("getDescription", _SE(js_cocos2dx_Texture2D_getDescription));
     cls->defineFunction("getPixelFormat", _SE(js_cocos2dx_Texture2D_getPixelFormat));
     cls->defineFunction("getContentSizeInPixels", _SE(js_cocos2dx_Texture2D_getContentSizeInPixels));
@@ -3053,6 +3072,50 @@ static bool js_cocos2dx_Node_reorderChild(se::State& s)
 }
 SE_BIND_FUNC(js_cocos2dx_Node_reorderChild)
 
+static bool js_cocos2dx_Node_addOnExitCallback(se::State& s)
+{
+    cocos2d::Node* cobj = (cocos2d::Node*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_Node_addOnExitCallback : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        std::function<void ()> arg0;
+        do {
+            if (args[0].isObject() && args[0].toObject()->isFunction())
+            {
+                se::Value jsThis(s.thisObject());
+                se::Value jsFunc(args[0]);
+                jsThis.toObject()->attachObject(jsFunc.toObject());
+                auto lambda = [=]() -> void {
+                    se::ScriptEngine::getInstance()->clearException();
+                    se::AutoHandleScope hs;
+        
+                    se::Value rval;
+                    se::Object* thisObj = jsThis.isObject() ? jsThis.toObject() : nullptr;
+                    se::Object* funcObj = jsFunc.toObject();
+                    bool succeed = funcObj->call(se::EmptyValueArray, thisObj, &rval);
+                    if (!succeed) {
+                        se::ScriptEngine::getInstance()->clearException();
+                    }
+                };
+                arg0 = lambda;
+            }
+            else
+            {
+                arg0 = nullptr;
+            }
+        } while(false)
+        ;
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_Node_addOnExitCallback : Error processing arguments");
+        cobj->addOnExitCallback(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_Node_addOnExitCallback)
+
 static bool js_cocos2dx_Node_setSkewY(se::State& s)
 {
     cocos2d::Node* cobj = (cocos2d::Node*)s.nativeThisObject();
@@ -3957,6 +4020,50 @@ static bool js_cocos2dx_Node_removeChildByTag(se::State& s)
 }
 SE_BIND_FUNC(js_cocos2dx_Node_removeChildByTag)
 
+static bool js_cocos2dx_Node_addOnEnterCallback(se::State& s)
+{
+    cocos2d::Node* cobj = (cocos2d::Node*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_Node_addOnEnterCallback : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        std::function<void ()> arg0;
+        do {
+            if (args[0].isObject() && args[0].toObject()->isFunction())
+            {
+                se::Value jsThis(s.thisObject());
+                se::Value jsFunc(args[0]);
+                jsThis.toObject()->attachObject(jsFunc.toObject());
+                auto lambda = [=]() -> void {
+                    se::ScriptEngine::getInstance()->clearException();
+                    se::AutoHandleScope hs;
+        
+                    se::Value rval;
+                    se::Object* thisObj = jsThis.isObject() ? jsThis.toObject() : nullptr;
+                    se::Object* funcObj = jsFunc.toObject();
+                    bool succeed = funcObj->call(se::EmptyValueArray, thisObj, &rval);
+                    if (!succeed) {
+                        se::ScriptEngine::getInstance()->clearException();
+                    }
+                };
+                arg0 = lambda;
+            }
+            else
+            {
+                arg0 = nullptr;
+            }
+        } while(false)
+        ;
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_Node_addOnEnterCallback : Error processing arguments");
+        cobj->addOnEnterCallback(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_Node_addOnEnterCallback)
+
 static bool js_cocos2dx_Node_setVisible(se::State& s)
 {
     cocos2d::Node* cobj = (cocos2d::Node*)s.nativeThisObject();
@@ -4859,6 +4966,7 @@ bool js_register_cocos2dx_Node(se::Object* obj)
     cls->defineFunction("isOpacityModifyRGB", _SE(js_cocos2dx_Node_isOpacityModifyRGB));
     cls->defineFunction("stopActionByTag", _SE(js_cocos2dx_Node_stopActionByTag));
     cls->defineFunction("reorderChild", _SE(js_cocos2dx_Node_reorderChild));
+    cls->defineFunction("addOnExitCallback", _SE(js_cocos2dx_Node_addOnExitCallback));
     cls->defineFunction("setSkewY", _SE(js_cocos2dx_Node_setSkewY));
     cls->defineFunction("setColor", _SE(js_cocos2dx_Node_setColor));
     cls->defineFunction("setPositionY", _SE(js_cocos2dx_Node_setPositionY));
@@ -4901,6 +5009,7 @@ bool js_register_cocos2dx_Node(se::Object* obj)
     cls->defineFunction("getPositionY", _SE(js_cocos2dx_Node_getPositionY));
     cls->defineFunction("getPositionX", _SE(js_cocos2dx_Node_getPositionX));
     cls->defineFunction("removeChildByTag", _SE(js_cocos2dx_Node_removeChildByTag));
+    cls->defineFunction("addOnEnterCallback", _SE(js_cocos2dx_Node_addOnEnterCallback));
     cls->defineFunction("setVisible", _SE(js_cocos2dx_Node_setVisible));
     cls->defineFunction("getParentToNodeTransform", _SE(js_cocos2dx_Node_getParentToNodeAffineTransform));
     cls->defineFunction("getVertexZ", _SE(js_cocos2dx_Node_getPositionZ));
@@ -11679,32 +11788,6 @@ static bool js_cocos2dx_GLProgramState_setUniformTexture(se::State& s)
     size_t argc = args.size();
     do {
         if (argc == 2) {
-            std::string arg0;
-            ok &= seval_to_std_string(args[0], &arg0);
-            if (!ok) { ok = true; break; }
-            unsigned int arg1 = 0;
-            ok &= seval_to_uint32(args[1], (uint32_t*)&arg1);
-            if (!ok) { ok = true; break; }
-            cobj->setUniformTexture(arg0, arg1);
-            return true;
-        }
-    } while(false);
-
-    do {
-        if (argc == 2) {
-            std::string arg0;
-            ok &= seval_to_std_string(args[0], &arg0);
-            if (!ok) { ok = true; break; }
-            cocos2d::Texture2D* arg1 = nullptr;
-            ok &= seval_to_native_ptr(args[1], &arg1);
-            if (!ok) { ok = true; break; }
-            cobj->setUniformTexture(arg0, arg1);
-            return true;
-        }
-    } while(false);
-
-    do {
-        if (argc == 2) {
             int arg0 = 0;
             ok &= seval_to_int32(args[0], (int32_t*)&arg0);
             if (!ok) { ok = true; break; }
@@ -11718,11 +11801,11 @@ static bool js_cocos2dx_GLProgramState_setUniformTexture(se::State& s)
 
     do {
         if (argc == 2) {
-            int arg0 = 0;
-            ok &= seval_to_int32(args[0], (int32_t*)&arg0);
+            std::string arg0;
+            ok &= seval_to_std_string(args[0], &arg0);
             if (!ok) { ok = true; break; }
-            unsigned int arg1 = 0;
-            ok &= seval_to_uint32(args[1], (uint32_t*)&arg1);
+            cocos2d::Texture2D* arg1 = nullptr;
+            ok &= seval_to_native_ptr(args[1], &arg1);
             if (!ok) { ok = true; break; }
             cobj->setUniformTexture(arg0, arg1);
             return true;
@@ -11910,19 +11993,35 @@ SE_BIND_FUNC(js_cocos2dx_GLProgramState_create)
 
 static bool js_cocos2dx_GLProgramState_getOrCreateWithGLProgramName(se::State& s)
 {
+    CC_UNUSED bool ok = true;
     const auto& args = s.args();
     size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 1) {
-        std::string arg0;
-        ok &= seval_to_std_string(args[0], &arg0);
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_GLProgramState_getOrCreateWithGLProgramName : Error processing arguments");
-        cocos2d::GLProgramState* result = cocos2d::GLProgramState::getOrCreateWithGLProgramName(arg0);
-        ok &= native_ptr_to_seval<cocos2d::GLProgramState>((cocos2d::GLProgramState*)result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_GLProgramState_getOrCreateWithGLProgramName : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    do {
+        if (argc == 2) {
+            std::string arg0;
+            ok &= seval_to_std_string(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            cocos2d::Texture2D* arg1 = nullptr;
+            ok &= seval_to_native_ptr(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            cocos2d::GLProgramState* result = cocos2d::GLProgramState::getOrCreateWithGLProgramName(arg0, arg1);
+            ok &= native_ptr_to_seval<cocos2d::GLProgramState>((cocos2d::GLProgramState*)result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_GLProgramState_getOrCreateWithGLProgramName : Error processing arguments");
+            return true;
+        }
+    } while (false);
+    do {
+        if (argc == 1) {
+            std::string arg0;
+            ok &= seval_to_std_string(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            cocos2d::GLProgramState* result = cocos2d::GLProgramState::getOrCreateWithGLProgramName(arg0);
+            ok &= native_ptr_to_seval<cocos2d::GLProgramState>((cocos2d::GLProgramState*)result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_GLProgramState_getOrCreateWithGLProgramName : Error processing arguments");
+            return true;
+        }
+    } while (false);
+    SE_REPORT_ERROR("wrong number of arguments: %d", (int)argc);
     return false;
 }
 SE_BIND_FUNC(js_cocos2dx_GLProgramState_getOrCreateWithGLProgramName)
@@ -21171,7 +21270,7 @@ static bool js_cocos2dx_Label_disableEffect(se::State& s)
     do {
         if (argc == 1) {
             cocos2d::LabelEffect arg0;
-            ok &= seval_to_int8(args[0], (int8_t*)&arg0);
+            ok &= seval_to_int32(args[0], (int32_t*)&arg0);
             if (!ok) { ok = true; break; }
             cobj->disableEffect(arg0);
             return true;
@@ -21347,8 +21446,8 @@ static bool js_cocos2dx_Label_getHorizontalAlignment(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        char result = (char)cobj->getHorizontalAlignment();
-        ok &= int8_to_seval(result, &s.rval());
+        int result = (int)cobj->getHorizontalAlignment();
+        ok &= int32_to_seval(result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_cocos2dx_Label_getHorizontalAlignment : Error processing arguments");
         return true;
     }
@@ -21476,8 +21575,8 @@ static bool js_cocos2dx_Label_getOutlineSize(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        int result = cobj->getOutlineSize();
-        ok &= int32_to_seval(result, &s.rval());
+        float result = cobj->getOutlineSize();
+        ok &= float_to_seval(result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_cocos2dx_Label_getOutlineSize : Error processing arguments");
         return true;
     }
@@ -21493,11 +21592,20 @@ static bool js_cocos2dx_Label_setBMFontFilePath(se::State& s)
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        std::string arg0;
+        ok &= seval_to_std_string(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_Label_setBMFontFilePath : Error processing arguments");
+        bool result = cobj->setBMFontFilePath(arg0);
+        ok &= boolean_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_Label_setBMFontFilePath : Error processing arguments");
+        return true;
+    }
     if (argc == 2) {
         std::string arg0;
-        cocos2d::SpriteFrame* arg1 = nullptr;
+        cocos2d::Vec2 arg1;
         ok &= seval_to_std_string(args[0], &arg0);
-        ok &= seval_to_native_ptr(args[1], &arg1);
+        ok &= seval_to_Vec2(args[1], &arg1);
         SE_PRECONDITION2(ok, false, "js_cocos2dx_Label_setBMFontFilePath : Error processing arguments");
         bool result = cobj->setBMFontFilePath(arg0, arg1);
         ok &= boolean_to_seval(result, &s.rval());
@@ -21506,33 +21614,18 @@ static bool js_cocos2dx_Label_setBMFontFilePath(se::State& s)
     }
     if (argc == 3) {
         std::string arg0;
-        cocos2d::SpriteFrame* arg1 = nullptr;
-        cocos2d::Vec2 arg2;
+        cocos2d::Vec2 arg1;
+        float arg2 = 0;
         ok &= seval_to_std_string(args[0], &arg0);
-        ok &= seval_to_native_ptr(args[1], &arg1);
-        ok &= seval_to_Vec2(args[2], &arg2);
+        ok &= seval_to_Vec2(args[1], &arg1);
+        ok &= seval_to_float(args[2], &arg2);
         SE_PRECONDITION2(ok, false, "js_cocos2dx_Label_setBMFontFilePath : Error processing arguments");
         bool result = cobj->setBMFontFilePath(arg0, arg1, arg2);
         ok &= boolean_to_seval(result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_cocos2dx_Label_setBMFontFilePath : Error processing arguments");
         return true;
     }
-    if (argc == 4) {
-        std::string arg0;
-        cocos2d::SpriteFrame* arg1 = nullptr;
-        cocos2d::Vec2 arg2;
-        float arg3 = 0;
-        ok &= seval_to_std_string(args[0], &arg0);
-        ok &= seval_to_native_ptr(args[1], &arg1);
-        ok &= seval_to_Vec2(args[2], &arg2);
-        ok &= seval_to_float(args[3], &arg3);
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_Label_setBMFontFilePath : Error processing arguments");
-        bool result = cobj->setBMFontFilePath(arg0, arg1, arg2, arg3);
-        ok &= boolean_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_Label_setBMFontFilePath : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 4);
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 3);
     return false;
 }
 SE_BIND_FUNC(js_cocos2dx_Label_setBMFontFilePath)
@@ -21568,7 +21661,7 @@ static bool js_cocos2dx_Label_initWithTTF(se::State& s)
             ok &= seval_to_std_string(args[1], &arg1);
             if (!ok) { ok = true; break; }
             cocos2d::TextHAlignment arg2;
-            ok &= seval_to_int8(args[2], (int8_t*)&arg2);
+            ok &= seval_to_int32(args[2], (int32_t*)&arg2);
             if (!ok) { ok = true; break; }
             bool result = cobj->initWithTTF(arg0, arg1, arg2);
             ok &= boolean_to_seval(result, &s.rval());
@@ -21586,7 +21679,7 @@ static bool js_cocos2dx_Label_initWithTTF(se::State& s)
             ok &= seval_to_std_string(args[1], &arg1);
             if (!ok) { ok = true; break; }
             cocos2d::TextHAlignment arg2;
-            ok &= seval_to_int8(args[2], (int8_t*)&arg2);
+            ok &= seval_to_int32(args[2], (int32_t*)&arg2);
             if (!ok) { ok = true; break; }
             int arg3 = 0;
             ok &= seval_to_int32(args[3], (int32_t*)&arg3);
@@ -21652,7 +21745,7 @@ static bool js_cocos2dx_Label_initWithTTF(se::State& s)
             ok &= seval_to_Size(args[3], &arg3);
             if (!ok) { ok = true; break; }
             cocos2d::TextHAlignment arg4;
-            ok &= seval_to_int8(args[4], (int8_t*)&arg4);
+            ok &= seval_to_int32(args[4], (int32_t*)&arg4);
             if (!ok) { ok = true; break; }
             bool result = cobj->initWithTTF(arg0, arg1, arg2, arg3, arg4);
             ok &= boolean_to_seval(result, &s.rval());
@@ -21676,10 +21769,10 @@ static bool js_cocos2dx_Label_initWithTTF(se::State& s)
             ok &= seval_to_Size(args[3], &arg3);
             if (!ok) { ok = true; break; }
             cocos2d::TextHAlignment arg4;
-            ok &= seval_to_int8(args[4], (int8_t*)&arg4);
+            ok &= seval_to_int32(args[4], (int32_t*)&arg4);
             if (!ok) { ok = true; break; }
             cocos2d::TextVAlignment arg5;
-            ok &= seval_to_int8(args[5], (int8_t*)&arg5);
+            ok &= seval_to_int32(args[5], (int32_t*)&arg5);
             if (!ok) { ok = true; break; }
             bool result = cobj->initWithTTF(arg0, arg1, arg2, arg3, arg4, arg5);
             ok &= boolean_to_seval(result, &s.rval());
@@ -21740,7 +21833,7 @@ static bool js_cocos2dx_Label_setOverflow(se::State& s)
     CC_UNUSED bool ok = true;
     if (argc == 1) {
         cocos2d::Label::Overflow arg0;
-        ok &= seval_to_int8(args[0], (int8_t*)&arg0);
+        ok &= seval_to_int32(args[0], (int32_t*)&arg0);
         SE_PRECONDITION2(ok, false, "js_cocos2dx_Label_setOverflow : Error processing arguments");
         cobj->setOverflow(arg0);
         return true;
@@ -21984,24 +22077,6 @@ static bool js_cocos2dx_Label_setCharMap(se::State& s)
 }
 SE_BIND_FUNC(js_cocos2dx_Label_setCharMap)
 
-static bool js_cocos2dx_Label_getFontDefinition(se::State& s)
-{
-    cocos2d::Label* cobj = (cocos2d::Label*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_Label_getFontDefinition : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 0) {
-        cocos2d::FontDefinition result = cobj->getFontDefinition();
-        ok &= FontDefinition_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_Label_getFontDefinition : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_Label_getFontDefinition)
-
 static bool js_cocos2dx_Label_getDimensions(se::State& s)
 {
     cocos2d::Label* cobj = (cocos2d::Label*)s.nativeThisObject();
@@ -22066,7 +22141,7 @@ static bool js_cocos2dx_Label_setVerticalAlignment(se::State& s)
     CC_UNUSED bool ok = true;
     if (argc == 1) {
         cocos2d::TextVAlignment arg0;
-        ok &= seval_to_int8(args[0], (int8_t*)&arg0);
+        ok &= seval_to_int32(args[0], (int32_t*)&arg0);
         SE_PRECONDITION2(ok, false, "js_cocos2dx_Label_setVerticalAlignment : Error processing arguments");
         cobj->setVerticalAlignment(arg0);
         return true;
@@ -22268,8 +22343,8 @@ static bool js_cocos2dx_Label_getOverflow(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        char result = (char)cobj->getOverflow();
-        ok &= int8_to_seval(result, &s.rval());
+        int result = (int)cobj->getOverflow();
+        ok &= int32_to_seval(result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_cocos2dx_Label_getOverflow : Error processing arguments");
         return true;
     }
@@ -22286,8 +22361,8 @@ static bool js_cocos2dx_Label_getVerticalAlignment(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        char result = (char)cobj->getVerticalAlignment();
-        ok &= int8_to_seval(result, &s.rval());
+        int result = (int)cobj->getVerticalAlignment();
+        ok &= int32_to_seval(result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_cocos2dx_Label_getVerticalAlignment : Error processing arguments");
         return true;
     }
@@ -22360,8 +22435,8 @@ static bool js_cocos2dx_Label_getTextAlignment(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        char result = (char)cobj->getTextAlignment();
-        ok &= int8_to_seval(result, &s.rval());
+        int result = (int)cobj->getTextAlignment();
+        ok &= int32_to_seval(result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_cocos2dx_Label_getTextAlignment : Error processing arguments");
         return true;
     }
@@ -22397,7 +22472,7 @@ static bool js_cocos2dx_Label_setHorizontalAlignment(se::State& s)
     CC_UNUSED bool ok = true;
     if (argc == 1) {
         cocos2d::TextHAlignment arg0;
-        ok &= seval_to_int8(args[0], (int8_t*)&arg0);
+        ok &= seval_to_int32(args[0], (int32_t*)&arg0);
         SE_PRECONDITION2(ok, false, "js_cocos2dx_Label_setHorizontalAlignment : Error processing arguments");
         cobj->setHorizontalAlignment(arg0);
         return true;
@@ -22445,8 +22520,8 @@ static bool js_cocos2dx_Label_getLabelEffectType(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        char result = (char)cobj->getLabelEffectType();
-        ok &= int8_to_seval(result, &s.rval());
+        int result = (int)cobj->getLabelEffectType();
+        ok &= int32_to_seval(result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_cocos2dx_Label_getLabelEffectType : Error processing arguments");
         return true;
     }
@@ -22454,25 +22529,6 @@ static bool js_cocos2dx_Label_getLabelEffectType(se::State& s)
     return false;
 }
 SE_BIND_FUNC(js_cocos2dx_Label_getLabelEffectType)
-
-static bool js_cocos2dx_Label_setFontDefinition(se::State& s)
-{
-    cocos2d::Label* cobj = (cocos2d::Label*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_Label_setFontDefinition : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 1) {
-        cocos2d::FontDefinition arg0;
-        ok &= seval_to_FontDefinition(args[0], &arg0);
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_Label_setFontDefinition : Error processing arguments");
-        cobj->setFontDefinition(arg0);
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_Label_setFontDefinition)
 
 static bool js_cocos2dx_Label_setAlignment(se::State& s)
 {
@@ -22484,10 +22540,10 @@ static bool js_cocos2dx_Label_setAlignment(se::State& s)
     do {
         if (argc == 2) {
             cocos2d::TextHAlignment arg0;
-            ok &= seval_to_int8(args[0], (int8_t*)&arg0);
+            ok &= seval_to_int32(args[0], (int32_t*)&arg0);
             if (!ok) { ok = true; break; }
             cocos2d::TextVAlignment arg1;
-            ok &= seval_to_int8(args[1], (int8_t*)&arg1);
+            ok &= seval_to_int32(args[1], (int32_t*)&arg1);
             if (!ok) { ok = true; break; }
             cobj->setAlignment(arg0, arg1);
             return true;
@@ -22497,7 +22553,7 @@ static bool js_cocos2dx_Label_setAlignment(se::State& s)
     do {
         if (argc == 1) {
             cocos2d::TextHAlignment arg0;
-            ok &= seval_to_int8(args[0], (int8_t*)&arg0);
+            ok &= seval_to_int32(args[0], (int32_t*)&arg0);
             if (!ok) { ok = true; break; }
             cobj->setAlignment(arg0);
             return true;
@@ -22548,13 +22604,26 @@ static bool js_cocos2dx_Label_createWithBMFont(se::State& s)
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        std::string arg0;
+        std::string arg1;
+        ok &= seval_to_std_string(args[0], &arg0);
+        ok &= seval_to_std_string(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_Label_createWithBMFont : Error processing arguments");
+        auto result = cocos2d::Label::createWithBMFont(arg0, arg1);
+        result->retain();
+        auto obj = se::Object::createObjectWithClass(__jsb_cocos2d_Label_class);
+        obj->setPrivateData(result);
+        s.rval().setObject(obj);
+        return true;
+    }
     if (argc == 3) {
         std::string arg0;
         std::string arg1;
-        cocos2d::SpriteFrame* arg2 = nullptr;
+        cocos2d::TextHAlignment arg2;
         ok &= seval_to_std_string(args[0], &arg0);
         ok &= seval_to_std_string(args[1], &arg1);
-        ok &= seval_to_native_ptr(args[2], &arg2);
+        ok &= seval_to_int32(args[2], (int32_t*)&arg2);
         SE_PRECONDITION2(ok, false, "js_cocos2dx_Label_createWithBMFont : Error processing arguments");
         auto result = cocos2d::Label::createWithBMFont(arg0, arg1, arg2);
         result->retain();
@@ -22566,12 +22635,12 @@ static bool js_cocos2dx_Label_createWithBMFont(se::State& s)
     if (argc == 4) {
         std::string arg0;
         std::string arg1;
-        cocos2d::SpriteFrame* arg2 = nullptr;
-        cocos2d::TextHAlignment arg3;
+        cocos2d::TextHAlignment arg2;
+        int arg3 = 0;
         ok &= seval_to_std_string(args[0], &arg0);
         ok &= seval_to_std_string(args[1], &arg1);
-        ok &= seval_to_native_ptr(args[2], &arg2);
-        ok &= seval_to_int8(args[3], (int8_t*)&arg3);
+        ok &= seval_to_int32(args[2], (int32_t*)&arg2);
+        ok &= seval_to_int32(args[3], (int32_t*)&arg3);
         SE_PRECONDITION2(ok, false, "js_cocos2dx_Label_createWithBMFont : Error processing arguments");
         auto result = cocos2d::Label::createWithBMFont(arg0, arg1, arg2, arg3);
         result->retain();
@@ -22583,14 +22652,14 @@ static bool js_cocos2dx_Label_createWithBMFont(se::State& s)
     if (argc == 5) {
         std::string arg0;
         std::string arg1;
-        cocos2d::SpriteFrame* arg2 = nullptr;
-        cocos2d::TextHAlignment arg3;
-        int arg4 = 0;
+        cocos2d::TextHAlignment arg2;
+        int arg3 = 0;
+        cocos2d::Vec2 arg4;
         ok &= seval_to_std_string(args[0], &arg0);
         ok &= seval_to_std_string(args[1], &arg1);
-        ok &= seval_to_native_ptr(args[2], &arg2);
-        ok &= seval_to_int8(args[3], (int8_t*)&arg3);
-        ok &= seval_to_int32(args[4], (int32_t*)&arg4);
+        ok &= seval_to_int32(args[2], (int32_t*)&arg2);
+        ok &= seval_to_int32(args[3], (int32_t*)&arg3);
+        ok &= seval_to_Vec2(args[4], &arg4);
         SE_PRECONDITION2(ok, false, "js_cocos2dx_Label_createWithBMFont : Error processing arguments");
         auto result = cocos2d::Label::createWithBMFont(arg0, arg1, arg2, arg3, arg4);
         result->retain();
@@ -22599,28 +22668,7 @@ static bool js_cocos2dx_Label_createWithBMFont(se::State& s)
         s.rval().setObject(obj);
         return true;
     }
-    if (argc == 6) {
-        std::string arg0;
-        std::string arg1;
-        cocos2d::SpriteFrame* arg2 = nullptr;
-        cocos2d::TextHAlignment arg3;
-        int arg4 = 0;
-        cocos2d::Vec2 arg5;
-        ok &= seval_to_std_string(args[0], &arg0);
-        ok &= seval_to_std_string(args[1], &arg1);
-        ok &= seval_to_native_ptr(args[2], &arg2);
-        ok &= seval_to_int8(args[3], (int8_t*)&arg3);
-        ok &= seval_to_int32(args[4], (int32_t*)&arg4);
-        ok &= seval_to_Vec2(args[5], &arg5);
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_Label_createWithBMFont : Error processing arguments");
-        auto result = cocos2d::Label::createWithBMFont(arg0, arg1, arg2, arg3, arg4, arg5);
-        result->retain();
-        auto obj = se::Object::createObjectWithClass(__jsb_cocos2d_Label_class);
-        obj->setPrivateData(result);
-        s.rval().setObject(obj);
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 6);
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 5);
     return false;
 }
 SE_BIND_FUNC(js_cocos2dx_Label_createWithBMFont)
@@ -22751,7 +22799,7 @@ static bool js_cocos2dx_Label_createWithSystemFont(se::State& s)
         ok &= seval_to_std_string(args[1], &arg1);
         ok &= seval_to_float(args[2], &arg2);
         ok &= seval_to_Size(args[3], &arg3);
-        ok &= seval_to_int8(args[4], (int8_t*)&arg4);
+        ok &= seval_to_int32(args[4], (int32_t*)&arg4);
         SE_PRECONDITION2(ok, false, "js_cocos2dx_Label_createWithSystemFont : Error processing arguments");
         auto result = cocos2d::Label::createWithSystemFont(arg0, arg1, arg2, arg3, arg4);
         result->retain();
@@ -22771,8 +22819,8 @@ static bool js_cocos2dx_Label_createWithSystemFont(se::State& s)
         ok &= seval_to_std_string(args[1], &arg1);
         ok &= seval_to_float(args[2], &arg2);
         ok &= seval_to_Size(args[3], &arg3);
-        ok &= seval_to_int8(args[4], (int8_t*)&arg4);
-        ok &= seval_to_int8(args[5], (int8_t*)&arg5);
+        ok &= seval_to_int32(args[4], (int32_t*)&arg4);
+        ok &= seval_to_int32(args[5], (int32_t*)&arg5);
         SE_PRECONDITION2(ok, false, "js_cocos2dx_Label_createWithSystemFont : Error processing arguments");
         auto result = cocos2d::Label::createWithSystemFont(arg0, arg1, arg2, arg3, arg4, arg5);
         result->retain();
@@ -22814,7 +22862,7 @@ static bool js_cocos2dx_Label_createWithTTF(se::State& s)
             ok &= seval_to_std_string(args[1], &arg1);
             if (!ok) { ok = true; break; }
             cocos2d::TextHAlignment arg2;
-            ok &= seval_to_int8(args[2], (int8_t*)&arg2);
+            ok &= seval_to_int32(args[2], (int32_t*)&arg2);
             if (!ok) { ok = true; break; }
             cocos2d::Label* result = cocos2d::Label::createWithTTF(arg0, arg1, arg2);
             ok &= native_ptr_to_seval<cocos2d::Label>((cocos2d::Label*)result, &s.rval());
@@ -22831,7 +22879,7 @@ static bool js_cocos2dx_Label_createWithTTF(se::State& s)
             ok &= seval_to_std_string(args[1], &arg1);
             if (!ok) { ok = true; break; }
             cocos2d::TextHAlignment arg2;
-            ok &= seval_to_int8(args[2], (int8_t*)&arg2);
+            ok &= seval_to_int32(args[2], (int32_t*)&arg2);
             if (!ok) { ok = true; break; }
             int arg3 = 0;
             ok &= seval_to_int32(args[3], (int32_t*)&arg3);
@@ -22894,7 +22942,7 @@ static bool js_cocos2dx_Label_createWithTTF(se::State& s)
             ok &= seval_to_Size(args[3], &arg3);
             if (!ok) { ok = true; break; }
             cocos2d::TextHAlignment arg4;
-            ok &= seval_to_int8(args[4], (int8_t*)&arg4);
+            ok &= seval_to_int32(args[4], (int32_t*)&arg4);
             if (!ok) { ok = true; break; }
             cocos2d::Label* result = cocos2d::Label::createWithTTF(arg0, arg1, arg2, arg3, arg4);
             ok &= native_ptr_to_seval<cocos2d::Label>((cocos2d::Label*)result, &s.rval());
@@ -22917,10 +22965,10 @@ static bool js_cocos2dx_Label_createWithTTF(se::State& s)
             ok &= seval_to_Size(args[3], &arg3);
             if (!ok) { ok = true; break; }
             cocos2d::TextHAlignment arg4;
-            ok &= seval_to_int8(args[4], (int8_t*)&arg4);
+            ok &= seval_to_int32(args[4], (int32_t*)&arg4);
             if (!ok) { ok = true; break; }
             cocos2d::TextVAlignment arg5;
-            ok &= seval_to_int8(args[5], (int8_t*)&arg5);
+            ok &= seval_to_int32(args[5], (int32_t*)&arg5);
             if (!ok) { ok = true; break; }
             cocos2d::Label* result = cocos2d::Label::createWithTTF(arg0, arg1, arg2, arg3, arg4, arg5);
             ok &= native_ptr_to_seval<cocos2d::Label>((cocos2d::Label*)result, &s.rval());
@@ -23010,7 +23058,6 @@ bool js_register_cocos2dx_Label(se::Object* obj)
     cls->defineFunction("getEffectColor", _SE(js_cocos2dx_Label_getEffectColor));
     cls->defineFunction("removeAllChildrenWithCleanup", _SE(js_cocos2dx_Label_removeAllChildrenWithCleanup));
     cls->defineFunction("setCharMap", _SE(js_cocos2dx_Label_setCharMap));
-    cls->defineFunction("getFontDefinition", _SE(js_cocos2dx_Label_getFontDefinition));
     cls->defineFunction("getDimensions", _SE(js_cocos2dx_Label_getDimensions));
     cls->defineFunction("setMaxLineWidth", _SE(js_cocos2dx_Label_setMaxLineWidth));
     cls->defineFunction("getSystemFontName", _SE(js_cocos2dx_Label_getSystemFontName));
@@ -23036,7 +23083,6 @@ bool js_register_cocos2dx_Label(se::Object* obj)
     cls->defineFunction("enableBold", _SE(js_cocos2dx_Label_enableBold));
     cls->defineFunction("enableUnderline", _SE(js_cocos2dx_Label_enableUnderline));
     cls->defineFunction("getLabelEffectType", _SE(js_cocos2dx_Label_getLabelEffectType));
-    cls->defineFunction("setFontDefinition", _SE(js_cocos2dx_Label_setFontDefinition));
     cls->defineFunction("setAlignment", _SE(js_cocos2dx_Label_setAlignment));
     cls->defineFunction("requestSystemFontRefresh", _SE(js_cocos2dx_Label_requestSystemFontRefresh));
     cls->defineFunction("setBMFontSize", _SE(js_cocos2dx_Label_setBMFontSize));
@@ -35785,6 +35831,27 @@ static bool js_cocos2dx_GLProgram_initWithByteArrays(se::State& s)
         }
     } while(false);
 
+    do {
+        if (argc == 4) {
+            const char* arg0 = nullptr;
+            std::string arg0_tmp; ok &= seval_to_std_string(args[0], &arg0_tmp); arg0 = arg0_tmp.c_str();
+            if (!ok) { ok = true; break; }
+            const char* arg1 = nullptr;
+            std::string arg1_tmp; ok &= seval_to_std_string(args[1], &arg1_tmp); arg1 = arg1_tmp.c_str();
+            if (!ok) { ok = true; break; }
+            std::string arg2;
+            ok &= seval_to_std_string(args[2], &arg2);
+            if (!ok) { ok = true; break; }
+            std::string arg3;
+            ok &= seval_to_std_string(args[3], &arg3);
+            if (!ok) { ok = true; break; }
+            bool result = cobj->initWithByteArrays(arg0, arg1, arg2, arg3);
+            ok &= boolean_to_seval(result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_GLProgram_initWithByteArrays : Error processing arguments");
+            return true;
+        }
+    } while(false);
+
     SE_REPORT_ERROR("wrong number of arguments: %d", (int)argc);
     return false;
 }
@@ -35924,6 +35991,27 @@ static bool js_cocos2dx_GLProgram_initWithFilenames(se::State& s)
             ok &= seval_to_std_string(args[1], &arg1);
             if (!ok) { ok = true; break; }
             bool result = cobj->initWithFilenames(arg0, arg1);
+            ok &= boolean_to_seval(result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_GLProgram_initWithFilenames : Error processing arguments");
+            return true;
+        }
+    } while(false);
+
+    do {
+        if (argc == 4) {
+            std::string arg0;
+            ok &= seval_to_std_string(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            std::string arg1;
+            ok &= seval_to_std_string(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            std::string arg2;
+            ok &= seval_to_std_string(args[2], &arg2);
+            if (!ok) { ok = true; break; }
+            std::string arg3;
+            ok &= seval_to_std_string(args[3], &arg3);
+            if (!ok) { ok = true; break; }
+            bool result = cobj->initWithFilenames(arg0, arg1, arg2, arg3);
             ok &= boolean_to_seval(result, &s.rval());
             SE_PRECONDITION2(ok, false, "js_cocos2dx_GLProgram_initWithFilenames : Error processing arguments");
             return true;
@@ -36190,6 +36278,26 @@ static bool js_cocos2dx_GLProgram_createWithByteArrays(se::State& s)
             return true;
         }
     } while (false);
+    do {
+        if (argc == 4) {
+            const char* arg0 = nullptr;
+            std::string arg0_tmp; ok &= seval_to_std_string(args[0], &arg0_tmp); arg0 = arg0_tmp.c_str();
+            if (!ok) { ok = true; break; }
+            const char* arg1 = nullptr;
+            std::string arg1_tmp; ok &= seval_to_std_string(args[1], &arg1_tmp); arg1 = arg1_tmp.c_str();
+            if (!ok) { ok = true; break; }
+            std::string arg2;
+            ok &= seval_to_std_string(args[2], &arg2);
+            if (!ok) { ok = true; break; }
+            std::string arg3;
+            ok &= seval_to_std_string(args[3], &arg3);
+            if (!ok) { ok = true; break; }
+            cocos2d::GLProgram* result = cocos2d::GLProgram::createWithByteArrays(arg0, arg1, arg2, arg3);
+            ok &= native_ptr_to_seval<cocos2d::GLProgram>((cocos2d::GLProgram*)result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_GLProgram_createWithByteArrays : Error processing arguments");
+            return true;
+        }
+    } while (false);
     SE_REPORT_ERROR("wrong number of arguments: %d", (int)argc);
     return false;
 }
@@ -36226,6 +36334,26 @@ static bool js_cocos2dx_GLProgram_createWithFilenames(se::State& s)
             ok &= seval_to_std_string(args[1], &arg1);
             if (!ok) { ok = true; break; }
             cocos2d::GLProgram* result = cocos2d::GLProgram::createWithFilenames(arg0, arg1);
+            ok &= native_ptr_to_seval<cocos2d::GLProgram>((cocos2d::GLProgram*)result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_GLProgram_createWithFilenames : Error processing arguments");
+            return true;
+        }
+    } while (false);
+    do {
+        if (argc == 4) {
+            std::string arg0;
+            ok &= seval_to_std_string(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            std::string arg1;
+            ok &= seval_to_std_string(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            std::string arg2;
+            ok &= seval_to_std_string(args[2], &arg2);
+            if (!ok) { ok = true; break; }
+            std::string arg3;
+            ok &= seval_to_std_string(args[3], &arg3);
+            if (!ok) { ok = true; break; }
+            cocos2d::GLProgram* result = cocos2d::GLProgram::createWithFilenames(arg0, arg1, arg2, arg3);
             ok &= native_ptr_to_seval<cocos2d::GLProgram>((cocos2d::GLProgram*)result, &s.rval());
             SE_PRECONDITION2(ok, false, "js_cocos2dx_GLProgram_createWithFilenames : Error processing arguments");
             return true;
@@ -37250,6 +37378,102 @@ static bool js_cocos2dx_SpriteBatchNode_appendChild(se::State& s)
 }
 SE_BIND_FUNC(js_cocos2dx_SpriteBatchNode_appendChild)
 
+static bool js_cocos2dx_SpriteBatchNode_reorderBatch(se::State& s)
+{
+    cocos2d::SpriteBatchNode* cobj = (cocos2d::SpriteBatchNode*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_SpriteBatchNode_reorderBatch : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        bool arg0;
+        ok &= seval_to_boolean(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_SpriteBatchNode_reorderBatch : Error processing arguments");
+        cobj->reorderBatch(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_SpriteBatchNode_reorderBatch)
+
+static bool js_cocos2dx_SpriteBatchNode_getTexture(se::State& s)
+{
+    cocos2d::SpriteBatchNode* cobj = (cocos2d::SpriteBatchNode*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_SpriteBatchNode_getTexture : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 0) {
+        cocos2d::Texture2D* result = cobj->getTexture();
+        ok &= native_ptr_to_seval<cocos2d::Texture2D>((cocos2d::Texture2D*)result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_SpriteBatchNode_getTexture : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_SpriteBatchNode_getTexture)
+
+static bool js_cocos2dx_SpriteBatchNode_setTexture(se::State& s)
+{
+    cocos2d::SpriteBatchNode* cobj = (cocos2d::SpriteBatchNode*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_SpriteBatchNode_setTexture : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        cocos2d::Texture2D* arg0 = nullptr;
+        ok &= seval_to_native_ptr(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_SpriteBatchNode_setTexture : Error processing arguments");
+        cobj->setTexture(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_SpriteBatchNode_setTexture)
+
+static bool js_cocos2dx_SpriteBatchNode_removeChildAtIndex(se::State& s)
+{
+    cocos2d::SpriteBatchNode* cobj = (cocos2d::SpriteBatchNode*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_SpriteBatchNode_removeChildAtIndex : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        ssize_t arg0 = 0;
+        bool arg1;
+        ok &= seval_to_ssize(args[0], &arg0);
+        ok &= seval_to_boolean(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_SpriteBatchNode_removeChildAtIndex : Error processing arguments");
+        cobj->removeChildAtIndex(arg0, arg1);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_SpriteBatchNode_removeChildAtIndex)
+
+static bool js_cocos2dx_SpriteBatchNode_removeSpriteFromAtlas(se::State& s)
+{
+    cocos2d::SpriteBatchNode* cobj = (cocos2d::SpriteBatchNode*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_SpriteBatchNode_removeSpriteFromAtlas : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        cocos2d::Sprite* arg0 = nullptr;
+        ok &= seval_to_native_ptr(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_SpriteBatchNode_removeSpriteFromAtlas : Error processing arguments");
+        cobj->removeSpriteFromAtlas(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_SpriteBatchNode_removeSpriteFromAtlas)
+
 static bool js_cocos2dx_SpriteBatchNode_addSpriteWithoutQuad(se::State& s)
 {
     cocos2d::SpriteBatchNode* cobj = (cocos2d::SpriteBatchNode*)s.nativeThisObject();
@@ -37275,24 +37499,82 @@ static bool js_cocos2dx_SpriteBatchNode_addSpriteWithoutQuad(se::State& s)
 }
 SE_BIND_FUNC(js_cocos2dx_SpriteBatchNode_addSpriteWithoutQuad)
 
-static bool js_cocos2dx_SpriteBatchNode_reorderBatch(se::State& s)
+static bool js_cocos2dx_SpriteBatchNode_atlasIndexForChild(se::State& s)
 {
     cocos2d::SpriteBatchNode* cobj = (cocos2d::SpriteBatchNode*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_SpriteBatchNode_reorderBatch : Invalid Native Object");
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_SpriteBatchNode_atlasIndexForChild : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        cocos2d::Sprite* arg0 = nullptr;
+        int arg1 = 0;
+        ok &= seval_to_native_ptr(args[0], &arg0);
+        ok &= seval_to_int32(args[1], (int32_t*)&arg1);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_SpriteBatchNode_atlasIndexForChild : Error processing arguments");
+        ssize_t result = cobj->atlasIndexForChild(arg0, arg1);
+        ok &= ssize_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_SpriteBatchNode_atlasIndexForChild : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_SpriteBatchNode_atlasIndexForChild)
+
+static bool js_cocos2dx_SpriteBatchNode_increaseAtlasCapacity(se::State& s)
+{
+    cocos2d::SpriteBatchNode* cobj = (cocos2d::SpriteBatchNode*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_SpriteBatchNode_increaseAtlasCapacity : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    if (argc == 0) {
+        cobj->increaseAtlasCapacity();
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_SpriteBatchNode_increaseAtlasCapacity)
+
+static bool js_cocos2dx_SpriteBatchNode_lowestAtlasIndexInChild(se::State& s)
+{
+    cocos2d::SpriteBatchNode* cobj = (cocos2d::SpriteBatchNode*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_SpriteBatchNode_lowestAtlasIndexInChild : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 1) {
-        bool arg0;
-        ok &= seval_to_boolean(args[0], &arg0);
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_SpriteBatchNode_reorderBatch : Error processing arguments");
-        cobj->reorderBatch(arg0);
+        cocos2d::Sprite* arg0 = nullptr;
+        ok &= seval_to_native_ptr(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_SpriteBatchNode_lowestAtlasIndexInChild : Error processing arguments");
+        ssize_t result = cobj->lowestAtlasIndexInChild(arg0);
+        ok &= ssize_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_SpriteBatchNode_lowestAtlasIndexInChild : Error processing arguments");
         return true;
     }
     SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
     return false;
 }
-SE_BIND_FUNC(js_cocos2dx_SpriteBatchNode_reorderBatch)
+SE_BIND_FUNC(js_cocos2dx_SpriteBatchNode_lowestAtlasIndexInChild)
+
+static bool js_cocos2dx_SpriteBatchNode_getBlendFunc(se::State& s)
+{
+    cocos2d::SpriteBatchNode* cobj = (cocos2d::SpriteBatchNode*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_SpriteBatchNode_getBlendFunc : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 0) {
+        const cocos2d::BlendFunc& result = cobj->getBlendFunc();
+        ok &= blendfunc_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_SpriteBatchNode_getBlendFunc : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_SpriteBatchNode_getBlendFunc)
 
 static bool js_cocos2dx_SpriteBatchNode_initWithTexture(se::State& s)
 {
@@ -37326,68 +37608,6 @@ static bool js_cocos2dx_SpriteBatchNode_initWithTexture(se::State& s)
 }
 SE_BIND_FUNC(js_cocos2dx_SpriteBatchNode_initWithTexture)
 
-static bool js_cocos2dx_SpriteBatchNode_getBlendFunc(se::State& s)
-{
-    cocos2d::SpriteBatchNode* cobj = (cocos2d::SpriteBatchNode*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_SpriteBatchNode_getBlendFunc : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 0) {
-        const cocos2d::BlendFunc& result = cobj->getBlendFunc();
-        ok &= blendfunc_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_SpriteBatchNode_getBlendFunc : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_SpriteBatchNode_getBlendFunc)
-
-static bool js_cocos2dx_SpriteBatchNode_lowestAtlasIndexInChild(se::State& s)
-{
-    cocos2d::SpriteBatchNode* cobj = (cocos2d::SpriteBatchNode*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_SpriteBatchNode_lowestAtlasIndexInChild : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 1) {
-        cocos2d::Sprite* arg0 = nullptr;
-        ok &= seval_to_native_ptr(args[0], &arg0);
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_SpriteBatchNode_lowestAtlasIndexInChild : Error processing arguments");
-        ssize_t result = cobj->lowestAtlasIndexInChild(arg0);
-        ok &= ssize_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_SpriteBatchNode_lowestAtlasIndexInChild : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_SpriteBatchNode_lowestAtlasIndexInChild)
-
-static bool js_cocos2dx_SpriteBatchNode_atlasIndexForChild(se::State& s)
-{
-    cocos2d::SpriteBatchNode* cobj = (cocos2d::SpriteBatchNode*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_SpriteBatchNode_atlasIndexForChild : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 2) {
-        cocos2d::Sprite* arg0 = nullptr;
-        int arg1 = 0;
-        ok &= seval_to_native_ptr(args[0], &arg0);
-        ok &= seval_to_int32(args[1], (int32_t*)&arg1);
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_SpriteBatchNode_atlasIndexForChild : Error processing arguments");
-        ssize_t result = cobj->atlasIndexForChild(arg0, arg1);
-        ok &= ssize_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_SpriteBatchNode_atlasIndexForChild : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_SpriteBatchNode_atlasIndexForChild)
-
 static bool js_cocos2dx_SpriteBatchNode_setTextureAtlas(se::State& s)
 {
     cocos2d::SpriteBatchNode* cobj = (cocos2d::SpriteBatchNode*)s.nativeThisObject();
@@ -37406,6 +37626,46 @@ static bool js_cocos2dx_SpriteBatchNode_setTextureAtlas(se::State& s)
     return false;
 }
 SE_BIND_FUNC(js_cocos2dx_SpriteBatchNode_setTextureAtlas)
+
+static bool js_cocos2dx_SpriteBatchNode_reserveCapacity(se::State& s)
+{
+    cocos2d::SpriteBatchNode* cobj = (cocos2d::SpriteBatchNode*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_SpriteBatchNode_reserveCapacity : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        ssize_t arg0 = 0;
+        ok &= seval_to_ssize(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_SpriteBatchNode_reserveCapacity : Error processing arguments");
+        cobj->reserveCapacity(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_SpriteBatchNode_reserveCapacity)
+
+static bool js_cocos2dx_SpriteBatchNode_insertQuadFromSprite(se::State& s)
+{
+    cocos2d::SpriteBatchNode* cobj = (cocos2d::SpriteBatchNode*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_SpriteBatchNode_insertQuadFromSprite : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        cocos2d::Sprite* arg0 = nullptr;
+        ssize_t arg1 = 0;
+        ok &= seval_to_native_ptr(args[0], &arg0);
+        ok &= seval_to_ssize(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_SpriteBatchNode_insertQuadFromSprite : Error processing arguments");
+        cobj->insertQuadFromSprite(arg0, arg1);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_SpriteBatchNode_insertQuadFromSprite)
 
 static bool js_cocos2dx_SpriteBatchNode_initWithFile(se::State& s)
 {
@@ -37439,78 +37699,24 @@ static bool js_cocos2dx_SpriteBatchNode_initWithFile(se::State& s)
 }
 SE_BIND_FUNC(js_cocos2dx_SpriteBatchNode_initWithFile)
 
-static bool js_cocos2dx_SpriteBatchNode_getTexture(se::State& s)
+static bool js_cocos2dx_SpriteBatchNode_setBlendFunc(se::State& s)
 {
     cocos2d::SpriteBatchNode* cobj = (cocos2d::SpriteBatchNode*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_SpriteBatchNode_getTexture : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 0) {
-        cocos2d::Texture2D* result = cobj->getTexture();
-        ok &= native_ptr_to_seval<cocos2d::Texture2D>((cocos2d::Texture2D*)result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_SpriteBatchNode_getTexture : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_SpriteBatchNode_getTexture)
-
-static bool js_cocos2dx_SpriteBatchNode_increaseAtlasCapacity(se::State& s)
-{
-    cocos2d::SpriteBatchNode* cobj = (cocos2d::SpriteBatchNode*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_SpriteBatchNode_increaseAtlasCapacity : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    if (argc == 0) {
-        cobj->increaseAtlasCapacity();
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_SpriteBatchNode_increaseAtlasCapacity)
-
-static bool js_cocos2dx_SpriteBatchNode_insertQuadFromSprite(se::State& s)
-{
-    cocos2d::SpriteBatchNode* cobj = (cocos2d::SpriteBatchNode*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_SpriteBatchNode_insertQuadFromSprite : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 2) {
-        cocos2d::Sprite* arg0 = nullptr;
-        ssize_t arg1 = 0;
-        ok &= seval_to_native_ptr(args[0], &arg0);
-        ok &= seval_to_ssize(args[1], &arg1);
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_SpriteBatchNode_insertQuadFromSprite : Error processing arguments");
-        cobj->insertQuadFromSprite(arg0, arg1);
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_SpriteBatchNode_insertQuadFromSprite)
-
-static bool js_cocos2dx_SpriteBatchNode_setTexture(se::State& s)
-{
-    cocos2d::SpriteBatchNode* cobj = (cocos2d::SpriteBatchNode*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_SpriteBatchNode_setTexture : Invalid Native Object");
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_SpriteBatchNode_setBlendFunc : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 1) {
-        cocos2d::Texture2D* arg0 = nullptr;
-        ok &= seval_to_native_ptr(args[0], &arg0);
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_SpriteBatchNode_setTexture : Error processing arguments");
-        cobj->setTexture(arg0);
+        cocos2d::BlendFunc arg0;
+        ok &= seval_to_blendfunc(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_SpriteBatchNode_setBlendFunc : Error processing arguments");
+        cobj->setBlendFunc(arg0);
         return true;
     }
     SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
     return false;
 }
-SE_BIND_FUNC(js_cocos2dx_SpriteBatchNode_setTexture)
+SE_BIND_FUNC(js_cocos2dx_SpriteBatchNode_setBlendFunc)
 
 static bool js_cocos2dx_SpriteBatchNode_rebuildIndexInOrder(se::State& s)
 {
@@ -37555,65 +37761,6 @@ static bool js_cocos2dx_SpriteBatchNode_highestAtlasIndexInChild(se::State& s)
     return false;
 }
 SE_BIND_FUNC(js_cocos2dx_SpriteBatchNode_highestAtlasIndexInChild)
-
-static bool js_cocos2dx_SpriteBatchNode_removeChildAtIndex(se::State& s)
-{
-    cocos2d::SpriteBatchNode* cobj = (cocos2d::SpriteBatchNode*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_SpriteBatchNode_removeChildAtIndex : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 2) {
-        ssize_t arg0 = 0;
-        bool arg1;
-        ok &= seval_to_ssize(args[0], &arg0);
-        ok &= seval_to_boolean(args[1], &arg1);
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_SpriteBatchNode_removeChildAtIndex : Error processing arguments");
-        cobj->removeChildAtIndex(arg0, arg1);
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_SpriteBatchNode_removeChildAtIndex)
-
-static bool js_cocos2dx_SpriteBatchNode_removeSpriteFromAtlas(se::State& s)
-{
-    cocos2d::SpriteBatchNode* cobj = (cocos2d::SpriteBatchNode*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_SpriteBatchNode_removeSpriteFromAtlas : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 1) {
-        cocos2d::Sprite* arg0 = nullptr;
-        ok &= seval_to_native_ptr(args[0], &arg0);
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_SpriteBatchNode_removeSpriteFromAtlas : Error processing arguments");
-        cobj->removeSpriteFromAtlas(arg0);
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_SpriteBatchNode_removeSpriteFromAtlas)
-
-static bool js_cocos2dx_SpriteBatchNode_setBlendFunc(se::State& s)
-{
-    cocos2d::SpriteBatchNode* cobj = (cocos2d::SpriteBatchNode*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_SpriteBatchNode_setBlendFunc : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 1) {
-        cocos2d::BlendFunc arg0;
-        ok &= seval_to_blendfunc(args[0], &arg0);
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_SpriteBatchNode_setBlendFunc : Error processing arguments");
-        cobj->setBlendFunc(arg0);
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_SpriteBatchNode_setBlendFunc)
 
 static bool js_cocos2dx_SpriteBatchNode_create(se::State& s)
 {
@@ -37723,23 +37870,24 @@ bool js_register_cocos2dx_SpriteBatchNode(se::Object* obj)
     auto cls = se::Class::create("SpriteBatchNode", obj, __jsb_cocos2d_Node_proto, _SE(js_cocos2dx_SpriteBatchNode_constructor));
 
     cls->defineFunction("appendChild", _SE(js_cocos2dx_SpriteBatchNode_appendChild));
-    cls->defineFunction("addSpriteWithoutQuad", _SE(js_cocos2dx_SpriteBatchNode_addSpriteWithoutQuad));
     cls->defineFunction("reorderBatch", _SE(js_cocos2dx_SpriteBatchNode_reorderBatch));
-    cls->defineFunction("initWithTexture", _SE(js_cocos2dx_SpriteBatchNode_initWithTexture));
-    cls->defineFunction("getBlendFunc", _SE(js_cocos2dx_SpriteBatchNode_getBlendFunc));
-    cls->defineFunction("lowestAtlasIndexInChild", _SE(js_cocos2dx_SpriteBatchNode_lowestAtlasIndexInChild));
-    cls->defineFunction("atlasIndexForChild", _SE(js_cocos2dx_SpriteBatchNode_atlasIndexForChild));
-    cls->defineFunction("setTextureAtlas", _SE(js_cocos2dx_SpriteBatchNode_setTextureAtlas));
-    cls->defineFunction("initWithFile", _SE(js_cocos2dx_SpriteBatchNode_initWithFile));
     cls->defineFunction("getTexture", _SE(js_cocos2dx_SpriteBatchNode_getTexture));
-    cls->defineFunction("increaseAtlasCapacity", _SE(js_cocos2dx_SpriteBatchNode_increaseAtlasCapacity));
-    cls->defineFunction("insertQuadFromSprite", _SE(js_cocos2dx_SpriteBatchNode_insertQuadFromSprite));
     cls->defineFunction("setTexture", _SE(js_cocos2dx_SpriteBatchNode_setTexture));
-    cls->defineFunction("rebuildIndexInOrder", _SE(js_cocos2dx_SpriteBatchNode_rebuildIndexInOrder));
-    cls->defineFunction("highestAtlasIndexInChild", _SE(js_cocos2dx_SpriteBatchNode_highestAtlasIndexInChild));
     cls->defineFunction("removeChildAtIndex", _SE(js_cocos2dx_SpriteBatchNode_removeChildAtIndex));
     cls->defineFunction("removeSpriteFromAtlas", _SE(js_cocos2dx_SpriteBatchNode_removeSpriteFromAtlas));
+    cls->defineFunction("addSpriteWithoutQuad", _SE(js_cocos2dx_SpriteBatchNode_addSpriteWithoutQuad));
+    cls->defineFunction("atlasIndexForChild", _SE(js_cocos2dx_SpriteBatchNode_atlasIndexForChild));
+    cls->defineFunction("increaseAtlasCapacity", _SE(js_cocos2dx_SpriteBatchNode_increaseAtlasCapacity));
+    cls->defineFunction("lowestAtlasIndexInChild", _SE(js_cocos2dx_SpriteBatchNode_lowestAtlasIndexInChild));
+    cls->defineFunction("getBlendFunc", _SE(js_cocos2dx_SpriteBatchNode_getBlendFunc));
+    cls->defineFunction("initWithTexture", _SE(js_cocos2dx_SpriteBatchNode_initWithTexture));
+    cls->defineFunction("setTextureAtlas", _SE(js_cocos2dx_SpriteBatchNode_setTextureAtlas));
+    cls->defineFunction("reserveCapacity", _SE(js_cocos2dx_SpriteBatchNode_reserveCapacity));
+    cls->defineFunction("insertQuadFromSprite", _SE(js_cocos2dx_SpriteBatchNode_insertQuadFromSprite));
+    cls->defineFunction("initWithFile", _SE(js_cocos2dx_SpriteBatchNode_initWithFile));
     cls->defineFunction("setBlendFunc", _SE(js_cocos2dx_SpriteBatchNode_setBlendFunc));
+    cls->defineFunction("rebuildIndexInOrder", _SE(js_cocos2dx_SpriteBatchNode_rebuildIndexInOrder));
+    cls->defineFunction("highestAtlasIndexInChild", _SE(js_cocos2dx_SpriteBatchNode_highestAtlasIndexInChild));
     cls->defineFunction("ctor", _SE(js_cocos2dx_SpriteBatchNode_ctor));
     cls->defineStaticFunction("create", _SE(js_cocos2dx_SpriteBatchNode_create));
     cls->defineStaticFunction("createWithTexture", _SE(js_cocos2dx_SpriteBatchNode_createWithTexture));
@@ -38228,7 +38376,7 @@ static bool js_cocos2dx_TextFieldTTF_initWithPlaceHolder(se::State& s)
             ok &= seval_to_Size(args[1], &arg1);
             if (!ok) { ok = true; break; }
             cocos2d::TextHAlignment arg2;
-            ok &= seval_to_int8(args[2], (int8_t*)&arg2);
+            ok &= seval_to_int32(args[2], (int32_t*)&arg2);
             if (!ok) { ok = true; break; }
             std::string arg3;
             ok &= seval_to_std_string(args[3], &arg3);
@@ -38496,7 +38644,7 @@ static bool js_cocos2dx_TextFieldTTF_textFieldWithPlaceHolder(se::State& s)
             ok &= seval_to_Size(args[1], &arg1);
             if (!ok) { ok = true; break; }
             cocos2d::TextHAlignment arg2;
-            ok &= seval_to_int8(args[2], (int8_t*)&arg2);
+            ok &= seval_to_int32(args[2], (int32_t*)&arg2);
             if (!ok) { ok = true; break; }
             std::string arg3;
             ok &= seval_to_std_string(args[3], &arg3);

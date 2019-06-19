@@ -425,7 +425,7 @@ float ControlButton::getTitleTTFSizeForState(State state)
 void ControlButton::setTitleBMFontForState(const std::string& fntFile, State state)
 {
     std::string title = this->getTitleForState(state);
-    this->setTitleLabelForState(Label::createWithBMFont(fntFile, title, nullptr), state);
+    this->setTitleLabelForState(Label::createWithBMFont(fntFile, title), state);
 }
 
 const std::string& ControlButton::getTitleBMFontForState(State state)

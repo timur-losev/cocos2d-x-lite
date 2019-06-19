@@ -3,7 +3,8 @@ Copyright 2011 Jeff Lamarche
 Copyright 2012 Goffredo Marocchi
 Copyright 2012 Ricardo Quesada
 Copyright 2012 cocos2d-x.org
-Copyright 2013-2016 Chukong Technologies Inc.
+Copyright (c) 2013-2016 Chukong Technologies Inc.
+Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
 
 http://www.cocos2d-x.org
@@ -86,6 +87,7 @@ struct Uniform
 class CC_DLL GLProgram : public Ref
 {
     friend class GLProgramState;
+    friend class VertexAttribBinding;
 
 public:
     /**Enum the preallocated vertex attribute. */
@@ -109,6 +111,10 @@ public:
         VERTEX_ATTRIB_BLEND_WEIGHT,
         /**Index 8 will be used as Blend index.*/
         VERTEX_ATTRIB_BLEND_INDEX,
+        /**Index 9 will be used as tangent.*/
+        VERTEX_ATTRIB_TANGENT,
+        /**Index 10 will be used as Binormal.*/
+        VERTEX_ATTRIB_BINORMAL,
         VERTEX_ATTRIB_MAX,
 
         // backward compatibility
@@ -122,10 +128,14 @@ public:
         UNIFORM_AMBIENT_COLOR,
         /**Projection matrix.*/
         UNIFORM_P_MATRIX,
+        /**MultiView Projection matrix.*/
+        UNIFORM_MULTIVIEW_P_MATRIX,
         /**Model view matrix.*/
         UNIFORM_MV_MATRIX,
         /**Model view projection matrix.*/
         UNIFORM_MVP_MATRIX,
+        /**MultiView Model view projection matrix.*/
+        UNIFORM_MULTIVIEW_MVP_MATRIX,
         /**Normal matrix.*/
         UNIFORM_NORMAL_MATRIX,
         /**Time.*/
@@ -152,8 +162,10 @@ public:
         unsigned int usesTime:1;
         unsigned int usesNormal:1;
         unsigned int usesMVP:1;
+        unsigned int usesMultiViewMVP:1;
         unsigned int usesMV:1;
         unsigned int usesP:1;
+        unsigned int usesMultiViewP:1;
         unsigned int usesRandom:1;
         // handy way to initialize the bitfield
         UniformFlags() { memset(this, 0, sizeof(*this)); }
@@ -163,6 +175,12 @@ public:
     @name Built Shader types
     @{
     */
+    /** ETC1 ALPHA supports for 2d */
+    static const char* SHADER_NAME_ETC1AS_POSITION_TEXTURE_COLOR;
+    static const char* SHADER_NAME_ETC1AS_POSITION_TEXTURE_COLOR_NO_MVP;
+
+    static const char* SHADER_NAME_ETC1AS_POSITION_TEXTURE_GRAY;
+    static const char* SHADER_NAME_ETC1AS_POSITION_TEXTURE_GRAY_NO_MVP;
 
     /**Built in shader for 2d. Support Position, Texture and Color vertex attribute.*/
     static const char* SHADER_NAME_POSITION_TEXTURE_COLOR;
@@ -191,8 +209,7 @@ public:
 
     /**Built in shader for ui effects */
     static const char* SHADER_NAME_POSITION_GRAYSCALE;
-    static const char* SHADER_NAME_SPRITE_DISTORTION;
-    /** @{
+    static const char* SHADER_NAME_SPRITE_DISTORTION;    /** @{
         Built in shader for label and label with effects.
     */
     static const char* SHADER_NAME_LABEL_NORMAL;
@@ -200,6 +217,61 @@ public:
     static const char* SHADER_NAME_LABEL_DISTANCEFIELD_NORMAL;
     static const char* SHADER_NAME_LABEL_DISTANCEFIELD_GLOW;
 
+    /**Built in shader used for 3D, support Position vertex attribute, with color specified by a uniform.*/
+    static const char* SHADER_3D_POSITION;
+    /**Built in shader used for 3D, support Position and Texture vertex attribute, with color specified by a uniform.*/
+    static const char* SHADER_3D_POSITION_TEXTURE;
+    /**
+    Built in shader used for 3D, support Position (Skeletal animation by hardware skin) and Texture vertex attribute,
+    with color specified by a uniform.
+    */
+    static const char* SHADER_3D_SKINPOSITION_TEXTURE;
+    /**
+    Built in shader used for 3D, support Position and Normal vertex attribute, used in lighting. with color specified by a uniform.
+    */
+    static const char* SHADER_3D_POSITION_NORMAL;
+    /**
+    Built in shader used for 3D, support Position, Normal, Texture vertex attribute, used in lighting. with color specified by a uniform.
+    */
+    static const char* SHADER_3D_POSITION_NORMAL_TEXTURE;
+    /**
+    Built in shader used for 3D, support Position(skeletal animation by hardware skin), Normal, Texture vertex attribute,
+    used in lighting. with color specified by a uniform.
+    */
+    static const char* SHADER_3D_SKINPOSITION_NORMAL_TEXTURE;
+    /**
+    Built in shader used for 3D, support Position, Bumped Normal, Texture vertex attribute, used in lighting. with color specified by a uniform.
+    */
+    static const char* SHADER_3D_POSITION_BUMPEDNORMAL_TEXTURE;
+    /**
+    Built in shader used for 3D, support Position(skeletal animation by hardware skin), Bumped Normal, Texture vertex attribute,
+    used in lighting. with color specified by a uniform.
+    */
+    static const char* SHADER_3D_SKINPOSITION_BUMPEDNORMAL_TEXTURE;
+    /**
+    Built in shader for particles, support Position and Texture, with a color specified by a uniform.
+    */
+    static const char* SHADER_3D_PARTICLE_TEXTURE;
+    /**
+    Built in shader for particles, support Position, with a color specified by a uniform.
+    */
+    static const char* SHADER_3D_PARTICLE_COLOR;
+
+    /**
+     Built in shader for skybox
+     */
+    static const char* SHADER_3D_SKYBOX;
+
+    /**
+     Built in shader for terrain
+     */
+    static const char* SHADER_3D_TERRAIN;
+    
+    /**
+     Built in shader for LayerRadialGradient
+     */
+    static const char* SHADER_LAYER_RADIAL_GRADIENT;
+    
     /**
      Built in shader for camera clear
      */
@@ -217,10 +289,14 @@ public:
     static const char* UNIFORM_NAME_AMBIENT_COLOR;
     /**Projection Matrix uniform.*/
     static const char* UNIFORM_NAME_P_MATRIX;
+    /**MultiView Projection Matrix uniform.*/
+    static const char* UNIFORM_NAME_MULTIVIEW_P_MATRIX;
     /**Model view matrix uniform.*/
     static const char* UNIFORM_NAME_MV_MATRIX;
     /**Model view projection uniform.*/
     static const char* UNIFORM_NAME_MVP_MATRIX;
+    /**MultiView Model view projection uniform.*/
+    static const char* UNIFORM_NAME_MULTIVIEW_MVP_MATRIX;
     /**Normal matrix uniform.*/
     static const char* UNIFORM_NAME_NORMAL_MATRIX;
     /**Time uniform.*/
@@ -268,6 +344,10 @@ public:
     static const char* ATTRIBUTE_NAME_BLEND_WEIGHT;
     /**Attribute blend index.*/
     static const char* ATTRIBUTE_NAME_BLEND_INDEX;
+    /**Attribute blend tangent.*/
+    static const char* ATTRIBUTE_NAME_TANGENT;
+    /**Attribute blend binormal.*/
+    static const char* ATTRIBUTE_NAME_BINORMAL;
     /**
     end of Built Attribute names
     @}
@@ -287,10 +367,21 @@ public:
     bool initWithByteArrays(const GLchar* vShaderByteArray, const GLchar* fShaderByteArray);
     static GLProgram* createWithByteArrays(const GLchar* vShaderByteArray, const GLchar* fShaderByteArray, const std::string& compileTimeDefines);
     bool initWithByteArrays(const GLchar* vShaderByteArray, const GLchar* fShaderByteArray, const std::string& compileTimeDefines);
-
     /**
     @}
     */
+    
+    /** @{
+     Create or Initializes the GLProgram with a vertex and fragment with bytes array, with shader headers definition(eg. #version ... or #extension ...), with compileTimeDefines(eg. #define ...).
+     * @js initWithString.
+     * @lua initWithString.
+     */
+    static GLProgram* createWithByteArrays(const GLchar* vShaderByteArray, const GLchar* fShaderByteArray, const std::string& compileTimeHeaders, const std::string& compileTimeDefines);
+    bool initWithByteArrays(const GLchar* vShaderByteArray, const GLchar* fShaderByteArray, const std::string& compileTimeHeaders, const std::string& compileTimeDefines);
+    /**
+     @}
+     */
+
     /** @{
     Create or Initializes the GLProgram with a vertex and fragment with contents of filenames.
      * @js init
@@ -304,6 +395,17 @@ public:
     /**
     @}
     */
+
+    /** @{
+     Create or Initializes the GLProgram with a vertex and fragment with contents of filenames, with shader headers definition(eg. #version ... or #extension ...), with compileTimeDefines(eg. #define ...).
+     * @js init
+     * @lua init
+     */
+    static GLProgram* createWithFilenames(const std::string& vShaderFilename, const std::string& fShaderFilename, const std::string& compileTimeHeaders, const std::string& compileTimeDefines);
+    bool initWithFilenames(const std::string& vShaderFilename, const std::string& fShaderFilename, const std::string& compileTimeHeaders, const std::string& compileTimeDefines);
+    /**
+     @}
+     */
 
     /**@{ Get the uniform or vertex attribute by string name in shader, return null if it does not exist.*/
     Uniform* getUniform(const std::string& name);
@@ -431,10 +533,18 @@ public:
     */
     void reset();
     /** returns the OpenGL Program object */
-    inline GLuint getProgram() const { return _program; }
+    GLuint getProgram() const { return _program; }
 
     /** returns the Uniform flags */
-    inline const UniformFlags& getUniformFlags() const { return _flags; }
+    const UniformFlags& getUniformFlags() const { return _flags; }
+
+    //DEPRECATED
+    CC_DEPRECATED_ATTRIBUTE bool initWithVertexShaderByteArray(const GLchar* vertexByteArray, const GLchar* fragByteArray)
+    { return initWithByteArrays(vertexByteArray, fragByteArray); }
+    CC_DEPRECATED_ATTRIBUTE bool initWithVertexShaderFilename(const std::string &vertexFilename, const std::string& fragFilename)
+    { return initWithFilenames(vertexFilename, fragFilename); }
+    CC_DEPRECATED_ATTRIBUTE void addAttribute(const std::string &attributeName, GLuint index) const { return bindAttribLocation(attributeName, index); }
+
 
 protected:
     /**
@@ -454,9 +564,12 @@ protected:
     /**Parse user defined uniform automatically.*/
     void parseUniforms();
     /**Compile the shader sources.*/
+    bool compileShader(GLuint * shader, GLenum type, const GLchar* source, const std::string& compileTimeHeaders, const std::string& convertedDefines);
     bool compileShader(GLuint * shader, GLenum type, const GLchar* source, const std::string& convertedDefines);
     bool compileShader(GLuint * shader, GLenum type, const GLchar* source);
     void clearShader();
+
+    void clearHashUniforms();
 
     /**OpenGL handle for program.*/
     GLuint            _program;

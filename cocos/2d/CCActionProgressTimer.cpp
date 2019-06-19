@@ -25,6 +25,7 @@ THE SOFTWARE.
 ****************************************************************************/
 #include "2d/CCActionProgressTimer.h"
 #include "2d/CCProgressTimer.h"
+#include "ui/UILoadingBar.h"
 
 NS_CC_BEGIN
 
@@ -72,12 +73,23 @@ ProgressTo* ProgressTo::reverse() const
 void ProgressTo::startWithTarget(Node *target)
 {
     ActionInterval::startWithTarget(target);
-    _from = ((kProgressTimerCast)(target))->getPercentage();
+
+    ui::LoadingBar* loading_bar = dynamic_cast<ui::LoadingBar*>(target);
+    if (loading_bar){
+        _from = loading_bar->getPercent();
+    } else {
+        _from = static_cast<ProgressTimer*>(target)->getPercentage();
+    };
 }
 
 void ProgressTo::update(float time)
 {
-    ((kProgressTimerCast)(_target))->setPercentage(_from + (_to - _from) * time);
+    ui::LoadingBar* loading_bar = dynamic_cast<ui::LoadingBar*>(_target);
+    if (loading_bar){
+        loading_bar->setPercent(_from + (_to - _from) * time);
+    } else {
+        static_cast<ProgressTimer*>(_target)->setPercentage(_from + (_to - _from) * time);
+    };
 }
 
 // implementation of ProgressFromTo
@@ -85,8 +97,7 @@ void ProgressTo::update(float time)
 ProgressFromTo* ProgressFromTo::create(float duration, float fromPercentage, float toPercentage)
 {
     ProgressFromTo *progressFromTo = new (std::nothrow) ProgressFromTo();
-    if (progressFromTo && progressFromTo->initWithDuration(duration, fromPercentage, toPercentage))
-    {
+    if (progressFromTo && progressFromTo->initWithDuration(duration, fromPercentage, toPercentage)) {
         progressFromTo->autorelease();
         return progressFromTo;
     }
@@ -127,7 +138,12 @@ void ProgressFromTo::startWithTarget(Node *target)
 
 void ProgressFromTo::update(float time)
 {
-    ((kProgressTimerCast)(_target))->setPercentage(_from + (_to - _from) * time);
+    ui::LoadingBar* loading_bar = dynamic_cast<ui::LoadingBar*>(_target);
+    if (loading_bar){
+        loading_bar->setPercent(_from + (_to - _from) * time);
+    } else {
+        static_cast<ProgressTimer*>(_target)->setPercentage(_from + (_to - _from) * time);
+    };
 }
 
 NS_CC_END

@@ -1,19 +1,19 @@
 /****************************************************************************
  Copyright (c) 2013      Zynga Inc.
- Copyright (c) 2013-2016 Chukong Technologies Inc.
-
+ Copyright (c) 2013-2015 Chukong Technologies Inc.
+ 
  http://www.cocos2d-x.org
-
+ 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
  in the Software without restriction, including without limitation the rights
  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  copies of the Software, and to permit persons to whom the Software is
  furnished to do so, subject to the following conditions:
-
+ 
  The above copyright notice and this permission notice shall be included in
  all copies or substantial portions of the Software.
-
+ 
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -24,18 +24,19 @@
  ****************************************************************************/
 #include "2d/CCFontAtlasCache.h"
 
+#include <algorithm>
+#include <iostream>
+#include <sstream>
 #include "base/CCDirector.h"
 #include "2d/CCFontFNT.h"
 #include "2d/CCFontFreeType.h"
 #include "2d/CCFontAtlas.h"
 #include "2d/CCFontCharMap.h"
 #include "2d/CCLabel.h"
-#include "2d/CCSpriteFrame.h"
 
 NS_CC_BEGIN
 
 std::unordered_map<std::string, FontAtlas *> FontAtlasCache::_atlasMap;
-#define ATLAS_MAP_KEY_BUFFER 255
 
 void FontAtlasCache::purgeCachedData()
 {
@@ -44,26 +45,21 @@ void FontAtlasCache::purgeCachedData()
     {
         atlas.second->purgeTexturesAtlas();
     }
-    _atlasMap.clear();
 }
 
 FontAtlas* FontAtlasCache::getFontAtlasTTF(const _ttfConfig* config)
-{
+{  
     bool useDistanceField = config->distanceFieldEnabled;
     if(config->outlineSize > 0)
     {
         useDistanceField = false;
     }
 
-    char tmp[ATLAS_MAP_KEY_BUFFER];
-    if (useDistanceField) {
-        snprintf(tmp, ATLAS_MAP_KEY_BUFFER, "df %.2f %d %s", config->fontSize, config->outlineSize,
-                 config->fontFilePath.c_str());
-    } else {
-        snprintf(tmp, ATLAS_MAP_KEY_BUFFER, "%.2f %d %s", config->fontSize, config->outlineSize,
-                 config->fontFilePath.c_str());
-    }
-    std::string atlasName = tmp;
+    auto atlasName = generateFontName(config->fontFilePath, config->fontSize, useDistanceField);
+    atlasName.append("_outline_");
+    std::stringstream ss;
+    ss << config->outlineSize;
+    atlasName.append(ss.str());
 
     auto it = _atlasMap.find(atlasName);
 
@@ -90,18 +86,14 @@ FontAtlas* FontAtlasCache::getFontAtlasTTF(const _ttfConfig* config)
     return nullptr;
 }
 
-FontAtlas* FontAtlasCache::getFontAtlasFNT(const std::string& fntDataString,
-                                           SpriteFrame* spriteFrame,
-                                           const Vec2& imageOffset /* = Vec2::ZERO */)
+FontAtlas* FontAtlasCache::getFontAtlasFNT(const std::string& fontFileName, const Vec2& imageOffset /* = Vec2::ZERO */)
 {
-    char tmp[ATLAS_MAP_KEY_BUFFER];
-    snprintf(tmp, ATLAS_MAP_KEY_BUFFER, "%.2f %.2f %p", imageOffset.x, imageOffset.y, spriteFrame);
-    std::string atlasName = tmp;
-
+    std::string atlasName = generateFontName(fontFileName, 0,false);
     auto it = _atlasMap.find(atlasName);
+
     if ( it == _atlasMap.end() )
     {
-        auto font = FontFNT::create(fntDataString, spriteFrame, imageOffset);
+        auto font = FontFNT::create(fontFileName,imageOffset);
 
         if(font)
         {
@@ -118,15 +110,15 @@ FontAtlas* FontAtlasCache::getFontAtlasFNT(const std::string& fntDataString,
         _atlasMap[atlasName]->retain();
         return _atlasMap[atlasName];
     }
-
+    
     return nullptr;
 }
 
 FontAtlas* FontAtlasCache::getFontAtlasCharMap(const std::string& plistFile)
 {
-    std::string atlasName = plistFile;
-
+    std::string atlasName = generateFontName(plistFile, 0,false);
     auto it = _atlasMap.find(atlasName);
+
     if ( it == _atlasMap.end() )
     {
         auto font = FontCharMap::create(plistFile);
@@ -154,7 +146,7 @@ FontAtlas* FontAtlasCache::getFontAtlasCharMap(Texture2D* texture, int itemWidth
 {
     char tmp[30];
     sprintf(tmp,"name:%u_%d_%d_%d",texture->getName(),itemWidth,itemHeight,startCharMap);
-    std::string atlasName = tmp;
+    std::string atlasName = generateFontName(tmp, 0,false);
 
     auto it = _atlasMap.find(atlasName);
     if ( it == _atlasMap.end() )
@@ -182,9 +174,10 @@ FontAtlas* FontAtlasCache::getFontAtlasCharMap(Texture2D* texture, int itemWidth
 
 FontAtlas* FontAtlasCache::getFontAtlasCharMap(const std::string& charMapFile, int itemWidth, int itemHeight, int startCharMap)
 {
-    char tmp[ATLAS_MAP_KEY_BUFFER];
-    snprintf(tmp, ATLAS_MAP_KEY_BUFFER, "%d %d %d %s", itemWidth, itemHeight, startCharMap, charMapFile.c_str());
-    std::string atlasName = tmp;
+    char tmp[255];
+    snprintf(tmp,250,"name:%s_%d_%d_%d",charMapFile.c_str(),itemWidth,itemHeight,startCharMap);
+
+    std::string atlasName = generateFontName(tmp, 0,false);
 
     auto it = _atlasMap.find(atlasName);
     if ( it == _atlasMap.end() )
@@ -210,6 +203,21 @@ FontAtlas* FontAtlasCache::getFontAtlasCharMap(const std::string& charMapFile, i
     return nullptr;
 }
 
+std::string FontAtlasCache::generateFontName(const std::string& fontFileName, float size, bool useDistanceField)
+{
+    std::string tempName(fontFileName);
+    
+    if(useDistanceField)
+        tempName.append("df");
+    // std::to_string is not supported on android, using std::stringstream instead.
+    std::stringstream ss;
+    ss.precision(2);
+    ss << std::fixed << size;
+    auto atlasName = tempName.append(ss.str());
+    std::transform(atlasName.begin(), atlasName.end(), atlasName.begin(), ::tolower);
+    return atlasName;
+}
+
 bool FontAtlasCache::releaseFontAtlas(FontAtlas *atlas)
 {
     if (nullptr != atlas)
@@ -222,35 +230,29 @@ bool FontAtlasCache::releaseFontAtlas(FontAtlas *atlas)
                 {
                   _atlasMap.erase(item.first);
                 }
-
+                
                 atlas->release();
-
+                
                 return true;
             }
         }
     }
-
+    
     return false;
 }
 
-void FontAtlasCache::reloadFontAtlasFNT(const std::string& fntDataString,
-                                        SpriteFrame* spriteFrame,
-                                        const Vec2& imageOffset/* = Vec2::ZERO*/)
+void FontAtlasCache::reloadFontAtlasFNT(const std::string& fontFileName, const Vec2& imageOffset/* = Vec2::ZERO*/)
 {
-    char tmp[ATLAS_MAP_KEY_BUFFER];
-    snprintf(tmp, ATLAS_MAP_KEY_BUFFER, "%.2f %.2f %p", imageOffset.x, imageOffset.y, spriteFrame);
-    std::string atlasName = tmp;
-
+    std::string atlasName = generateFontName(fontFileName, 0, false);
     auto it = _atlasMap.find(atlasName);
+
     if (it != _atlasMap.end())
     {
         CC_SAFE_RELEASE_NULL(it->second);
         _atlasMap.erase(it);
     }
-
-    auto font = FontFNT::create(fntDataString,
-                                spriteFrame,
-                                imageOffset);
+    FontFNT::reloadBMFontResource(fontFileName);
+    auto font = FontFNT::create(fontFileName, imageOffset);
     if (font)
     {
         auto tempAtlas = font->createFontAtlas();
@@ -267,7 +269,7 @@ void FontAtlasCache::unloadFontAtlasTTF(const std::string& fontFileName)
     auto item = _atlasMap.begin();
     while (item != _atlasMap.end())
     {
-        if (item->first.find(fontFileName) != std::string::npos)
+        if (item->first.find(fontFileName) >= 0)
         {
             CC_SAFE_RELEASE_NULL(item->second);
             item = _atlasMap.erase(item);
