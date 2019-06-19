@@ -51,7 +51,7 @@ namespace se {
         {
             if (info[0]->IsString())
             {
-                v8::String::Utf8Value utf8(info[0]);
+                v8::String::Utf8Value utf8(v8::Isolate::GetCurrent(), info[0]);
                 SE_LOGD("JS: %s\n", *utf8);
             }
         }
@@ -202,19 +202,19 @@ namespace se {
         char tmp[100] = { 0 };
         for (int i = 0, e = stack->GetFrameCount(); i < e; ++i)
         {
-            v8::Local<v8::StackFrame> frame = stack->GetFrame(i);
+            v8::Local<v8::StackFrame> frame = stack->GetFrame(v8::Isolate::GetCurrent(), i);
             v8::Local<v8::String> script = frame->GetScriptName();
             std::string scriptName;
             if (!script.IsEmpty())
             {
-                scriptName = *v8::String::Utf8Value(script);
+                scriptName = *v8::String::Utf8Value(v8::Isolate::GetCurrent(), script);
             }
 
             v8::Local<v8::String> func = frame->GetFunctionName();
             std::string funcName;
             if (!func.IsEmpty())
             {
-                funcName = *v8::String::Utf8Value(func);
+                funcName = *v8::String::Utf8Value(v8::Isolate::GetCurrent(), func);
             }
 
             stackStr += "[";
@@ -343,8 +343,8 @@ namespace se {
     {
         //        RETRUN_VAL_IF_FAIL(v8::V8::InitializeICUDefaultLocation(nullptr, "/Users/james/Project/v8/out.gn/x64.debug/icudtl.dat"), false);
         //        v8::V8::InitializeExternalStartupData("/Users/james/Project/v8/out.gn/x64.debug/natives_blob.bin", "/Users/james/Project/v8/out.gn/x64.debug/snapshot_blob.bin"); //TODO
-        _platform = v8::platform::CreateDefaultPlatform();
-        v8::V8::InitializePlatform(_platform);
+        _platform = v8::platform::NewDefaultPlatform();
+        v8::V8::InitializePlatform(_platform.get());
         bool ok = v8::V8::Initialize();
         assert(ok);
     }
@@ -354,8 +354,6 @@ namespace se {
         cleanup();
         v8::V8::Dispose();
         v8::V8::ShutdownPlatform();
-        delete _platform;
-        _platform = nullptr;
     }
 
     bool ScriptEngine::init()
@@ -561,7 +559,7 @@ namespace se {
             options.set_inspector_enabled(true);
             options.set_port((int)_debuggerServerPort);
             options.set_host_name(_debuggerServerAddr.c_str());
-            bool ok = _env->inspector_agent()->Start(_platform, "", options);
+            bool ok = _env->inspector_agent()->Start(_platform.get(), "", options);
             assert(ok);
 #endif
         }

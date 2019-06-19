@@ -747,7 +747,7 @@ namespace se {
         std::string ret;
         if (isFunction() || isArray() || isTypedArray())
         {
-            v8::String::Utf8Value utf8(const_cast<Object*>(this)->_obj.handle(__isolate));
+            v8::String::Utf8Value utf8(v8::Isolate::GetCurrent(), const_cast<Object*>(this)->_obj.handle(__isolate));
             ret = *utf8;
         }
         else if (isArrayBuffer())

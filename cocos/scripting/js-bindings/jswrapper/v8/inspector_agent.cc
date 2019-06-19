@@ -563,15 +563,16 @@ class NodeInspectorClient : public V8InspectorClient {
 
     Local<v8::StackTrace> stack_trace = message->GetStackTrace();
 
+    Isolate* isolate = context->GetIsolate();
+
     if (!stack_trace.IsEmpty() &&
         stack_trace->GetFrameCount() > 0 &&
-        script_id == stack_trace->GetFrame(0)->GetScriptId()) {
+        script_id == stack_trace->GetFrame(isolate, 0)->GetScriptId()) {
       script_id = 0;
     }
 
     const uint8_t DETAILS[] = "Uncaught";
 
-    Isolate* isolate = context->GetIsolate();
 
     client_->exceptionThrown(
         context,
@@ -750,7 +751,7 @@ void Open(const FunctionCallbackInfo<Value>& args) {
   bool wait_for_connect = false;
 
   if (args.Length() > 0 && args[0]->IsUint32()) {
-    uint32_t port = args[0]->Uint32Value();
+    uint32_t port = args[0]->Uint32Value(v8::Isolate::GetCurrent()->GetCurrentContext()).FromJust();
     agent->options().set_port(static_cast<int>(port));
   }
 
@@ -760,7 +761,7 @@ void Open(const FunctionCallbackInfo<Value>& args) {
   }
 
   if (args.Length() > 2 && args[2]->IsBoolean()) {
-    wait_for_connect =  args[2]->BooleanValue();
+    wait_for_connect =  args[2]->BooleanValue(v8::Isolate::GetCurrent());
   }
 
   agent->StartIoThread(wait_for_connect);
