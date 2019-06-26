@@ -150,6 +150,14 @@ std::string Application::getVersion() {
     return "";
 }
 
+std::string Application::getPackageIdentifier() {
+    NSString* bundleId = [[NSBundle mainBundle] bundleIdentifier];
+    if (bundleId) {
+        return [bundleId UTF8String];
+    }
+    return "";
+}
+
 bool Application::openURL(const std::string &url)
 {
     NSString* msg = [NSString stringWithCString:url.c_str() encoding:NSUTF8StringEncoding];

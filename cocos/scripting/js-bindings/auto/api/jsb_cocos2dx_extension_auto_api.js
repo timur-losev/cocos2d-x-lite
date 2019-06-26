@@ -19,26 +19,6 @@ getAssetsManagerEx : function (
 },
 
 /**
- * @method getDownloadedFiles
- * @return {int}
- */
-getDownloadedFiles : function (
-)
-{
-    return 0;
-},
-
-/**
- * @method getTotalFiles
- * @return {int}
- */
-getTotalFiles : function (
-)
-{
-    return 0;
-},
-
-/**
  * @method getAssetId
  * @return {String}
  */
@@ -46,16 +26,6 @@ getAssetId : function (
 )
 {
     return ;
-},
-
-/**
- * @method getTotalBytes
- * @return {double}
- */
-getTotalBytes : function (
-)
-{
-    return 0;
 },
 
 /**
@@ -83,16 +53,6 @@ getMessage : function (
  * @return {int}
  */
 getCURLMCode : function (
-)
-{
-    return 0;
-},
-
-/**
- * @method getDownloadedBytes
- * @return {double}
- */
-getDownloadedBytes : function (
 )
 {
     return 0;
@@ -129,30 +89,24 @@ getPercent : function (
 },
 
 /**
- * @method isResuming
- * @return {bool}
- */
-isResuming : function (
-)
-{
-    return false;
-},
-
-/**
  * @method EventAssetsManagerEx
  * @constructor
  * @param {String} arg0
  * @param {cc.AssetsManagerEx} arg1
  * @param {cc.EventAssetsManagerEx::EventCode} arg2
- * @param {String} arg3
- * @param {String} arg4
- * @param {int} arg5
- * @param {int} arg6
+ * @param {float} arg3
+ * @param {float} arg4
+ * @param {String} arg5
+ * @param {String} arg6
+ * @param {int} arg7
+ * @param {int} arg8
  */
 EventAssetsManagerEx : function (
 str, 
 assetsmanagerex, 
 eventcode, 
+float, 
+float, 
 str, 
 str, 
 int, 
@@ -167,26 +121,6 @@ int
  * @class Manifest
  */
 cc.Manifest = {
-
-/**
- * @method getManifestRoot
- * @return {String}
- */
-getManifestRoot : function (
-)
-{
-    return ;
-},
-
-/**
- * @method setUpdating
- * @param {bool} arg0
- */
-setUpdating : function (
-bool 
-)
-{
-},
 
 /**
  * @method getManifestFileUrl
@@ -206,16 +140,6 @@ isVersionLoaded : function (
 )
 {
     return false;
-},
-
-/**
- * @method parseFile
- * @param {String} arg0
- */
-parseFile : function (
-str 
-)
-{
 },
 
 /**
@@ -239,16 +163,6 @@ getPackageUrl : function (
 },
 
 /**
- * @method isUpdating
- * @return {bool}
- */
-isUpdating : function (
-)
-{
-    return false;
-},
-
-/**
  * @method getVersion
  * @return {String}
  */
@@ -256,18 +170,6 @@ getVersion : function (
 )
 {
     return ;
-},
-
-/**
- * @method parseJSONString
- * @param {String} arg0
- * @param {String} arg1
- */
-parseJSONString : function (
-str, 
-str 
-)
-{
 },
 
 /**
@@ -298,16 +200,6 @@ getSearchPaths : function (
 cc.AssetsManager = {
 
 /**
- * @method getDownloadedFiles
- * @return {int}
- */
-getDownloadedFiles : function (
-)
-{
-    return 0;
-},
-
-/**
  * @method getState
  * @return {cc.AssetsManagerEx::State}
  */
@@ -318,61 +210,9 @@ getState : function (
 },
 
 /**
- * @method getMaxConcurrentTask
- * @return {int}
- */
-getMaxConcurrentTask : function (
-)
-{
-    return 0;
-},
-
-/**
- * @method getTotalFiles
- * @return {int}
- */
-getTotalFiles : function (
-)
-{
-    return 0;
-},
-
-/**
- * @method loadRemoteManifest
- * @param {cc.Manifest} arg0
- * @return {bool}
- */
-loadRemoteManifest : function (
-manifest 
-)
-{
-    return false;
-},
-
-/**
  * @method checkUpdate
  */
 checkUpdate : function (
-)
-{
-},
-
-/**
- * @method getTotalBytes
- * @return {double}
- */
-getTotalBytes : function (
-)
-{
-    return 0;
-},
-
-/**
- * @method setVerifyCallback
- * @param {function} arg0
- */
-setVerifyCallback : function (
-func 
 )
 {
 },
@@ -396,36 +236,6 @@ update : function (
 },
 
 /**
- * @method setVersionCompareHandle
- * @param {function} arg0
- */
-setVersionCompareHandle : function (
-func 
-)
-{
-},
-
-/**
- * @method setMaxConcurrentTask
- * @param {int} arg0
- */
-setMaxConcurrentTask : function (
-int 
-)
-{
-},
-
-/**
- * @method getDownloadedBytes
- * @return {double}
- */
-getDownloadedBytes : function (
-)
-{
-    return 0;
-},
-
-/**
  * @method getLocalManifest
  * @return {cc.Manifest}
  */
@@ -433,20 +243,6 @@ getLocalManifest : function (
 )
 {
     return cc.Manifest;
-},
-
-/**
- * @method loadLocalManifest
-* @param {String|cc.Manifest} str
-* @param {String} str
-* @return {bool|bool}
-*/
-loadLocalManifest : function(
-manifest,
-str 
-)
-{
-    return false;
 },
 
 /**
@@ -460,29 +256,11 @@ getRemoteManifest : function (
 },
 
 /**
- * @method prepareUpdate
- */
-prepareUpdate : function (
-)
-{
-},
-
-/**
  * @method downloadFailedAssets
  */
 downloadFailedAssets : function (
 )
 {
-},
-
-/**
- * @method isResuming
- * @return {bool}
- */
-isResuming : function (
-)
-{
-    return false;
 },
 
 /**
@@ -502,14 +280,12 @@ str
 /**
  * @method AssetsManagerEx
  * @constructor
-* @param {String|String} str
-* @param {String|String} str
-* @param {function} func
-*/
-AssetsManagerEx : function(
-str,
-str,
-func 
+ * @param {String} arg0
+ * @param {String} arg1
+ */
+AssetsManagerEx : function (
+str, 
+str 
 )
 {
 },

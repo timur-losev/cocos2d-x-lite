@@ -24,42 +24,6 @@ static bool js_cocos2dx_extension_EventAssetsManagerEx_getAssetsManagerEx(se::St
 }
 SE_BIND_FUNC(js_cocos2dx_extension_EventAssetsManagerEx_getAssetsManagerEx)
 
-static bool js_cocos2dx_extension_EventAssetsManagerEx_getDownloadedFiles(se::State& s)
-{
-    cocos2d::extension::EventAssetsManagerEx* cobj = (cocos2d::extension::EventAssetsManagerEx*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_extension_EventAssetsManagerEx_getDownloadedFiles : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 0) {
-        int result = cobj->getDownloadedFiles();
-        ok &= int32_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_EventAssetsManagerEx_getDownloadedFiles : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_extension_EventAssetsManagerEx_getDownloadedFiles)
-
-static bool js_cocos2dx_extension_EventAssetsManagerEx_getTotalFiles(se::State& s)
-{
-    cocos2d::extension::EventAssetsManagerEx* cobj = (cocos2d::extension::EventAssetsManagerEx*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_extension_EventAssetsManagerEx_getTotalFiles : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 0) {
-        int result = cobj->getTotalFiles();
-        ok &= int32_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_EventAssetsManagerEx_getTotalFiles : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_extension_EventAssetsManagerEx_getTotalFiles)
-
 static bool js_cocos2dx_extension_EventAssetsManagerEx_getAssetId(se::State& s)
 {
     cocos2d::extension::EventAssetsManagerEx* cobj = (cocos2d::extension::EventAssetsManagerEx*)s.nativeThisObject();
@@ -77,24 +41,6 @@ static bool js_cocos2dx_extension_EventAssetsManagerEx_getAssetId(se::State& s)
     return false;
 }
 SE_BIND_FUNC(js_cocos2dx_extension_EventAssetsManagerEx_getAssetId)
-
-static bool js_cocos2dx_extension_EventAssetsManagerEx_getTotalBytes(se::State& s)
-{
-    cocos2d::extension::EventAssetsManagerEx* cobj = (cocos2d::extension::EventAssetsManagerEx*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_extension_EventAssetsManagerEx_getTotalBytes : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 0) {
-        double result = cobj->getTotalBytes();
-        ok &= double_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_EventAssetsManagerEx_getTotalBytes : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_extension_EventAssetsManagerEx_getTotalBytes)
 
 static bool js_cocos2dx_extension_EventAssetsManagerEx_getCURLECode(se::State& s)
 {
@@ -150,24 +96,6 @@ static bool js_cocos2dx_extension_EventAssetsManagerEx_getCURLMCode(se::State& s
 }
 SE_BIND_FUNC(js_cocos2dx_extension_EventAssetsManagerEx_getCURLMCode)
 
-static bool js_cocos2dx_extension_EventAssetsManagerEx_getDownloadedBytes(se::State& s)
-{
-    cocos2d::extension::EventAssetsManagerEx* cobj = (cocos2d::extension::EventAssetsManagerEx*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_extension_EventAssetsManagerEx_getDownloadedBytes : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 0) {
-        double result = cobj->getDownloadedBytes();
-        ok &= double_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_EventAssetsManagerEx_getDownloadedBytes : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_extension_EventAssetsManagerEx_getDownloadedBytes)
-
 static bool js_cocos2dx_extension_EventAssetsManagerEx_getPercentByFile(se::State& s)
 {
     cocos2d::extension::EventAssetsManagerEx* cobj = (cocos2d::extension::EventAssetsManagerEx*)s.nativeThisObject();
@@ -222,24 +150,6 @@ static bool js_cocos2dx_extension_EventAssetsManagerEx_getPercent(se::State& s)
 }
 SE_BIND_FUNC(js_cocos2dx_extension_EventAssetsManagerEx_getPercent)
 
-static bool js_cocos2dx_extension_EventAssetsManagerEx_isResuming(se::State& s)
-{
-    cocos2d::extension::EventAssetsManagerEx* cobj = (cocos2d::extension::EventAssetsManagerEx*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_extension_EventAssetsManagerEx_isResuming : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 0) {
-        bool result = cobj->isResuming();
-        ok &= boolean_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_EventAssetsManagerEx_isResuming : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_extension_EventAssetsManagerEx_isResuming)
-
 SE_DECLARE_FINALIZE_FUNC(js_cocos2d_extension_EventAssetsManagerEx_finalize)
 
 static bool js_cocos2dx_extension_EventAssetsManagerEx_constructor(se::State& s)
@@ -280,18 +190,13 @@ bool js_register_cocos2dx_extension_EventAssetsManagerEx(se::Object* obj)
     auto cls = se::Class::create("EventAssetsManager", obj, __jsb_cocos2d_EventCustom_proto, _SE(js_cocos2dx_extension_EventAssetsManagerEx_constructor));
 
     cls->defineFunction("getAssetsManagerEx", _SE(js_cocos2dx_extension_EventAssetsManagerEx_getAssetsManagerEx));
-    cls->defineFunction("getDownloadedFiles", _SE(js_cocos2dx_extension_EventAssetsManagerEx_getDownloadedFiles));
-    cls->defineFunction("getTotalFiles", _SE(js_cocos2dx_extension_EventAssetsManagerEx_getTotalFiles));
     cls->defineFunction("getAssetId", _SE(js_cocos2dx_extension_EventAssetsManagerEx_getAssetId));
-    cls->defineFunction("getTotalBytes", _SE(js_cocos2dx_extension_EventAssetsManagerEx_getTotalBytes));
     cls->defineFunction("getCURLECode", _SE(js_cocos2dx_extension_EventAssetsManagerEx_getCURLECode));
     cls->defineFunction("getMessage", _SE(js_cocos2dx_extension_EventAssetsManagerEx_getMessage));
     cls->defineFunction("getCURLMCode", _SE(js_cocos2dx_extension_EventAssetsManagerEx_getCURLMCode));
-    cls->defineFunction("getDownloadedBytes", _SE(js_cocos2dx_extension_EventAssetsManagerEx_getDownloadedBytes));
     cls->defineFunction("getPercentByFile", _SE(js_cocos2dx_extension_EventAssetsManagerEx_getPercentByFile));
     cls->defineFunction("getEventCode", _SE(js_cocos2dx_extension_EventAssetsManagerEx_getEventCode));
     cls->defineFunction("getPercent", _SE(js_cocos2dx_extension_EventAssetsManagerEx_getPercent));
-    cls->defineFunction("isResuming", _SE(js_cocos2dx_extension_EventAssetsManagerEx_isResuming));
     cls->defineFinalizeFunction(_SE(js_cocos2d_extension_EventAssetsManagerEx_finalize));
     cls->install();
     JSBClassType::registerClass<cocos2d::extension::EventAssetsManagerEx>(cls);
@@ -305,43 +210,6 @@ bool js_register_cocos2dx_extension_EventAssetsManagerEx(se::Object* obj)
 
 se::Object* __jsb_cocos2d_extension_Manifest_proto = nullptr;
 se::Class* __jsb_cocos2d_extension_Manifest_class = nullptr;
-
-static bool js_cocos2dx_extension_Manifest_getManifestRoot(se::State& s)
-{
-    cocos2d::extension::Manifest* cobj = (cocos2d::extension::Manifest*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_extension_Manifest_getManifestRoot : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 0) {
-        const std::string& result = cobj->getManifestRoot();
-        ok &= std_string_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_Manifest_getManifestRoot : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_extension_Manifest_getManifestRoot)
-
-static bool js_cocos2dx_extension_Manifest_setUpdating(se::State& s)
-{
-    cocos2d::extension::Manifest* cobj = (cocos2d::extension::Manifest*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_extension_Manifest_setUpdating : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 1) {
-        bool arg0;
-        ok &= seval_to_boolean(args[0], &arg0);
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_Manifest_setUpdating : Error processing arguments");
-        cobj->setUpdating(arg0);
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_extension_Manifest_setUpdating)
 
 static bool js_cocos2dx_extension_Manifest_getManifestFileUrl(se::State& s)
 {
@@ -379,25 +247,6 @@ static bool js_cocos2dx_extension_Manifest_isVersionLoaded(se::State& s)
 }
 SE_BIND_FUNC(js_cocos2dx_extension_Manifest_isVersionLoaded)
 
-static bool js_cocos2dx_extension_Manifest_parseFile(se::State& s)
-{
-    cocos2d::extension::Manifest* cobj = (cocos2d::extension::Manifest*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_extension_Manifest_parseFile : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 1) {
-        std::string arg0;
-        ok &= seval_to_std_string(args[0], &arg0);
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_Manifest_parseFile : Error processing arguments");
-        cobj->parseFile(arg0);
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_extension_Manifest_parseFile)
-
 static bool js_cocos2dx_extension_Manifest_isLoaded(se::State& s)
 {
     cocos2d::extension::Manifest* cobj = (cocos2d::extension::Manifest*)s.nativeThisObject();
@@ -434,24 +283,6 @@ static bool js_cocos2dx_extension_Manifest_getPackageUrl(se::State& s)
 }
 SE_BIND_FUNC(js_cocos2dx_extension_Manifest_getPackageUrl)
 
-static bool js_cocos2dx_extension_Manifest_isUpdating(se::State& s)
-{
-    cocos2d::extension::Manifest* cobj = (cocos2d::extension::Manifest*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_extension_Manifest_isUpdating : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 0) {
-        bool result = cobj->isUpdating();
-        ok &= boolean_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_Manifest_isUpdating : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_extension_Manifest_isUpdating)
-
 static bool js_cocos2dx_extension_Manifest_getVersion(se::State& s)
 {
     cocos2d::extension::Manifest* cobj = (cocos2d::extension::Manifest*)s.nativeThisObject();
@@ -469,27 +300,6 @@ static bool js_cocos2dx_extension_Manifest_getVersion(se::State& s)
     return false;
 }
 SE_BIND_FUNC(js_cocos2dx_extension_Manifest_getVersion)
-
-static bool js_cocos2dx_extension_Manifest_parseJSONString(se::State& s)
-{
-    cocos2d::extension::Manifest* cobj = (cocos2d::extension::Manifest*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_extension_Manifest_parseJSONString : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 2) {
-        std::string arg0;
-        std::string arg1;
-        ok &= seval_to_std_string(args[0], &arg0);
-        ok &= seval_to_std_string(args[1], &arg1);
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_Manifest_parseJSONString : Error processing arguments");
-        cobj->parseJSONString(arg0, arg1);
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_extension_Manifest_parseJSONString)
 
 static bool js_cocos2dx_extension_Manifest_getVersionFileUrl(se::State& s)
 {
@@ -534,16 +344,11 @@ bool js_register_cocos2dx_extension_Manifest(se::Object* obj)
 {
     auto cls = se::Class::create("Manifest", obj, nullptr, nullptr);
 
-    cls->defineFunction("getManifestRoot", _SE(js_cocos2dx_extension_Manifest_getManifestRoot));
-    cls->defineFunction("setUpdating", _SE(js_cocos2dx_extension_Manifest_setUpdating));
     cls->defineFunction("getManifestFileUrl", _SE(js_cocos2dx_extension_Manifest_getManifestFileUrl));
     cls->defineFunction("isVersionLoaded", _SE(js_cocos2dx_extension_Manifest_isVersionLoaded));
-    cls->defineFunction("parseFile", _SE(js_cocos2dx_extension_Manifest_parseFile));
     cls->defineFunction("isLoaded", _SE(js_cocos2dx_extension_Manifest_isLoaded));
     cls->defineFunction("getPackageUrl", _SE(js_cocos2dx_extension_Manifest_getPackageUrl));
-    cls->defineFunction("isUpdating", _SE(js_cocos2dx_extension_Manifest_isUpdating));
     cls->defineFunction("getVersion", _SE(js_cocos2dx_extension_Manifest_getVersion));
-    cls->defineFunction("parseJSONString", _SE(js_cocos2dx_extension_Manifest_parseJSONString));
     cls->defineFunction("getVersionFileUrl", _SE(js_cocos2dx_extension_Manifest_getVersionFileUrl));
     cls->defineFunction("getSearchPaths", _SE(js_cocos2dx_extension_Manifest_getSearchPaths));
     cls->install();
@@ -558,24 +363,6 @@ bool js_register_cocos2dx_extension_Manifest(se::Object* obj)
 
 se::Object* __jsb_cocos2d_extension_AssetsManagerEx_proto = nullptr;
 se::Class* __jsb_cocos2d_extension_AssetsManagerEx_class = nullptr;
-
-static bool js_cocos2dx_extension_AssetsManagerEx_getDownloadedFiles(se::State& s)
-{
-    cocos2d::extension::AssetsManagerEx* cobj = (cocos2d::extension::AssetsManagerEx*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_extension_AssetsManagerEx_getDownloadedFiles : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 0) {
-        int result = cobj->getDownloadedFiles();
-        ok &= int32_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_AssetsManagerEx_getDownloadedFiles : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_extension_AssetsManagerEx_getDownloadedFiles)
 
 static bool js_cocos2dx_extension_AssetsManagerEx_getState(se::State& s)
 {
@@ -595,63 +382,6 @@ static bool js_cocos2dx_extension_AssetsManagerEx_getState(se::State& s)
 }
 SE_BIND_FUNC(js_cocos2dx_extension_AssetsManagerEx_getState)
 
-static bool js_cocos2dx_extension_AssetsManagerEx_getMaxConcurrentTask(se::State& s)
-{
-    cocos2d::extension::AssetsManagerEx* cobj = (cocos2d::extension::AssetsManagerEx*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_extension_AssetsManagerEx_getMaxConcurrentTask : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 0) {
-        const int result = cobj->getMaxConcurrentTask();
-        ok &= int32_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_AssetsManagerEx_getMaxConcurrentTask : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_extension_AssetsManagerEx_getMaxConcurrentTask)
-
-static bool js_cocos2dx_extension_AssetsManagerEx_getTotalFiles(se::State& s)
-{
-    cocos2d::extension::AssetsManagerEx* cobj = (cocos2d::extension::AssetsManagerEx*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_extension_AssetsManagerEx_getTotalFiles : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 0) {
-        int result = cobj->getTotalFiles();
-        ok &= int32_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_AssetsManagerEx_getTotalFiles : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_extension_AssetsManagerEx_getTotalFiles)
-
-static bool js_cocos2dx_extension_AssetsManagerEx_loadRemoteManifest(se::State& s)
-{
-    cocos2d::extension::AssetsManagerEx* cobj = (cocos2d::extension::AssetsManagerEx*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_extension_AssetsManagerEx_loadRemoteManifest : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 1) {
-        cocos2d::extension::Manifest* arg0 = nullptr;
-        ok &= seval_to_native_ptr(args[0], &arg0);
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_AssetsManagerEx_loadRemoteManifest : Error processing arguments");
-        bool result = cobj->loadRemoteManifest(arg0);
-        ok &= boolean_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_AssetsManagerEx_loadRemoteManifest : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_extension_AssetsManagerEx_loadRemoteManifest)
-
 static bool js_cocos2dx_extension_AssetsManagerEx_checkUpdate(se::State& s)
 {
     cocos2d::extension::AssetsManagerEx* cobj = (cocos2d::extension::AssetsManagerEx*)s.nativeThisObject();
@@ -666,77 +396,6 @@ static bool js_cocos2dx_extension_AssetsManagerEx_checkUpdate(se::State& s)
     return false;
 }
 SE_BIND_FUNC(js_cocos2dx_extension_AssetsManagerEx_checkUpdate)
-
-static bool js_cocos2dx_extension_AssetsManagerEx_getTotalBytes(se::State& s)
-{
-    cocos2d::extension::AssetsManagerEx* cobj = (cocos2d::extension::AssetsManagerEx*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_extension_AssetsManagerEx_getTotalBytes : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 0) {
-        double result = cobj->getTotalBytes();
-        ok &= double_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_AssetsManagerEx_getTotalBytes : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_extension_AssetsManagerEx_getTotalBytes)
-
-static bool js_cocos2dx_extension_AssetsManagerEx_setVerifyCallback(se::State& s)
-{
-    cocos2d::extension::AssetsManagerEx* cobj = (cocos2d::extension::AssetsManagerEx*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_extension_AssetsManagerEx_setVerifyCallback : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 1) {
-        std::function<bool (const std::basic_string<char> &, cocos2d::extension::ManifestAsset)> arg0;
-        do {
-            if (args[0].isObject() && args[0].toObject()->isFunction())
-            {
-                se::Value jsThis(s.thisObject());
-                se::Value jsFunc(args[0]);
-                jsThis.toObject()->attachObject(jsFunc.toObject());
-                auto lambda = [=](const std::basic_string<char> & larg0, cocos2d::extension::ManifestAsset larg1) -> bool {
-                    se::ScriptEngine::getInstance()->clearException();
-                    se::AutoHandleScope hs;
-        
-                    CC_UNUSED bool ok = true;
-                    se::ValueArray args;
-                    args.resize(2);
-                    ok &= std_string_to_seval(larg0, &args[0]);
-                    ok &= ManifestAsset_to_seval(larg1, &args[1]);
-                    se::Value rval;
-                    se::Object* thisObj = jsThis.isObject() ? jsThis.toObject() : nullptr;
-                    se::Object* funcObj = jsFunc.toObject();
-                    bool succeed = funcObj->call(args, thisObj, &rval);
-                    if (!succeed) {
-                        se::ScriptEngine::getInstance()->clearException();
-                    }
-                    bool result;
-                    ok &= seval_to_boolean(rval, &result);
-                    SE_PRECONDITION2(ok, result, "lambda function : Error processing return value with type bool");
-                    return result;
-                };
-                arg0 = lambda;
-            }
-            else
-            {
-                arg0 = nullptr;
-            }
-        } while(false)
-        ;
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_AssetsManagerEx_setVerifyCallback : Error processing arguments");
-        cobj->setVerifyCallback(arg0);
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_extension_AssetsManagerEx_setVerifyCallback)
 
 static bool js_cocos2dx_extension_AssetsManagerEx_getStoragePath(se::State& s)
 {
@@ -771,96 +430,6 @@ static bool js_cocos2dx_extension_AssetsManagerEx_update(se::State& s)
 }
 SE_BIND_FUNC(js_cocos2dx_extension_AssetsManagerEx_update)
 
-static bool js_cocos2dx_extension_AssetsManagerEx_setVersionCompareHandle(se::State& s)
-{
-    cocos2d::extension::AssetsManagerEx* cobj = (cocos2d::extension::AssetsManagerEx*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_extension_AssetsManagerEx_setVersionCompareHandle : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 1) {
-        std::function<int (const std::basic_string<char> &, const std::basic_string<char> &)> arg0;
-        do {
-            if (args[0].isObject() && args[0].toObject()->isFunction())
-            {
-                se::Value jsThis(s.thisObject());
-                se::Value jsFunc(args[0]);
-                jsThis.toObject()->attachObject(jsFunc.toObject());
-                auto lambda = [=](const std::basic_string<char> & larg0, const std::basic_string<char> & larg1) -> int {
-                    se::ScriptEngine::getInstance()->clearException();
-                    se::AutoHandleScope hs;
-        
-                    CC_UNUSED bool ok = true;
-                    se::ValueArray args;
-                    args.resize(2);
-                    ok &= std_string_to_seval(larg0, &args[0]);
-                    ok &= std_string_to_seval(larg1, &args[1]);
-                    se::Value rval;
-                    se::Object* thisObj = jsThis.isObject() ? jsThis.toObject() : nullptr;
-                    se::Object* funcObj = jsFunc.toObject();
-                    bool succeed = funcObj->call(args, thisObj, &rval);
-                    if (!succeed) {
-                        se::ScriptEngine::getInstance()->clearException();
-                    }
-                    int result;
-                    ok &= seval_to_int32(rval, (int32_t*)&result);
-                    SE_PRECONDITION2(ok, result, "lambda function : Error processing return value with type int");
-                    return result;
-                };
-                arg0 = lambda;
-            }
-            else
-            {
-                arg0 = nullptr;
-            }
-        } while(false)
-        ;
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_AssetsManagerEx_setVersionCompareHandle : Error processing arguments");
-        cobj->setVersionCompareHandle(arg0);
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_extension_AssetsManagerEx_setVersionCompareHandle)
-
-static bool js_cocos2dx_extension_AssetsManagerEx_setMaxConcurrentTask(se::State& s)
-{
-    cocos2d::extension::AssetsManagerEx* cobj = (cocos2d::extension::AssetsManagerEx*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_extension_AssetsManagerEx_setMaxConcurrentTask : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 1) {
-        int arg0 = 0;
-        ok &= seval_to_int32(args[0], (int32_t*)&arg0);
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_AssetsManagerEx_setMaxConcurrentTask : Error processing arguments");
-        cobj->setMaxConcurrentTask(arg0);
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_extension_AssetsManagerEx_setMaxConcurrentTask)
-
-static bool js_cocos2dx_extension_AssetsManagerEx_getDownloadedBytes(se::State& s)
-{
-    cocos2d::extension::AssetsManagerEx* cobj = (cocos2d::extension::AssetsManagerEx*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_extension_AssetsManagerEx_getDownloadedBytes : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 0) {
-        double result = cobj->getDownloadedBytes();
-        ok &= double_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_AssetsManagerEx_getDownloadedBytes : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_extension_AssetsManagerEx_getDownloadedBytes)
-
 static bool js_cocos2dx_extension_AssetsManagerEx_getLocalManifest(se::State& s)
 {
     cocos2d::extension::AssetsManagerEx* cobj = (cocos2d::extension::AssetsManagerEx*)s.nativeThisObject();
@@ -878,45 +447,6 @@ static bool js_cocos2dx_extension_AssetsManagerEx_getLocalManifest(se::State& s)
     return false;
 }
 SE_BIND_FUNC(js_cocos2dx_extension_AssetsManagerEx_getLocalManifest)
-
-static bool js_cocos2dx_extension_AssetsManagerEx_loadLocalManifest(se::State& s)
-{
-    CC_UNUSED bool ok = true;
-    cocos2d::extension::AssetsManagerEx* cobj = (cocos2d::extension::AssetsManagerEx*)s.nativeThisObject();
-    SE_PRECONDITION2( cobj, false, "js_cocos2dx_extension_AssetsManagerEx_loadLocalManifest : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    do {
-        if (argc == 1) {
-            std::string arg0;
-            ok &= seval_to_std_string(args[0], &arg0);
-            if (!ok) { ok = true; break; }
-            bool result = cobj->loadLocalManifest(arg0);
-            ok &= boolean_to_seval(result, &s.rval());
-            SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_AssetsManagerEx_loadLocalManifest : Error processing arguments");
-            return true;
-        }
-    } while(false);
-
-    do {
-        if (argc == 2) {
-            cocos2d::extension::Manifest* arg0 = nullptr;
-            ok &= seval_to_native_ptr(args[0], &arg0);
-            if (!ok) { ok = true; break; }
-            std::string arg1;
-            ok &= seval_to_std_string(args[1], &arg1);
-            if (!ok) { ok = true; break; }
-            bool result = cobj->loadLocalManifest(arg0, arg1);
-            ok &= boolean_to_seval(result, &s.rval());
-            SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_AssetsManagerEx_loadLocalManifest : Error processing arguments");
-            return true;
-        }
-    } while(false);
-
-    SE_REPORT_ERROR("wrong number of arguments: %d", (int)argc);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_extension_AssetsManagerEx_loadLocalManifest)
 
 static bool js_cocos2dx_extension_AssetsManagerEx_getRemoteManifest(se::State& s)
 {
@@ -936,21 +466,6 @@ static bool js_cocos2dx_extension_AssetsManagerEx_getRemoteManifest(se::State& s
 }
 SE_BIND_FUNC(js_cocos2dx_extension_AssetsManagerEx_getRemoteManifest)
 
-static bool js_cocos2dx_extension_AssetsManagerEx_prepareUpdate(se::State& s)
-{
-    cocos2d::extension::AssetsManagerEx* cobj = (cocos2d::extension::AssetsManagerEx*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_extension_AssetsManagerEx_prepareUpdate : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    if (argc == 0) {
-        cobj->prepareUpdate();
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_extension_AssetsManagerEx_prepareUpdate)
-
 static bool js_cocos2dx_extension_AssetsManagerEx_downloadFailedAssets(se::State& s)
 {
     cocos2d::extension::AssetsManagerEx* cobj = (cocos2d::extension::AssetsManagerEx*)s.nativeThisObject();
@@ -965,24 +480,6 @@ static bool js_cocos2dx_extension_AssetsManagerEx_downloadFailedAssets(se::State
     return false;
 }
 SE_BIND_FUNC(js_cocos2dx_extension_AssetsManagerEx_downloadFailedAssets)
-
-static bool js_cocos2dx_extension_AssetsManagerEx_isResuming(se::State& s)
-{
-    cocos2d::extension::AssetsManagerEx* cobj = (cocos2d::extension::AssetsManagerEx*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_cocos2dx_extension_AssetsManagerEx_isResuming : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 0) {
-        bool result = cobj->isResuming();
-        ok &= boolean_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_AssetsManagerEx_isResuming : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
-    return false;
-}
-SE_BIND_FUNC(js_cocos2dx_extension_AssetsManagerEx_isResuming)
 
 static bool js_cocos2dx_extension_AssetsManagerEx_create(se::State& s)
 {
@@ -1013,72 +510,14 @@ static bool js_cocos2dx_extension_AssetsManagerEx_constructor(se::State& s)
 {
     CC_UNUSED bool ok = true;
     const auto& args = s.args();
-    size_t argc = args.size();
-    do {
-        if (argc == 3) {
-            std::string arg0;
-            ok &= seval_to_std_string(args[0], &arg0);
-            if (!ok) { ok = true; break; }
-            std::string arg1;
-            ok &= seval_to_std_string(args[1], &arg1);
-            if (!ok) { ok = true; break; }
-            std::function<int (const std::basic_string<char> &, const std::basic_string<char> &)> arg2;
-            do {
-                if (args[2].isObject() && args[2].toObject()->isFunction())
-                {
-                    se::Value jsThis(s.thisObject());
-                    se::Value jsFunc(args[2]);
-                    jsThis.toObject()->attachObject(jsFunc.toObject());
-                    auto lambda = [=](const std::basic_string<char> & larg0, const std::basic_string<char> & larg1) -> int {
-                        se::ScriptEngine::getInstance()->clearException();
-                        se::AutoHandleScope hs;
-            
-                        CC_UNUSED bool ok = true;
-                        se::ValueArray args;
-                        args.resize(2);
-                        ok &= std_string_to_seval(larg0, &args[0]);
-                        ok &= std_string_to_seval(larg1, &args[1]);
-                        se::Value rval;
-                        se::Object* thisObj = jsThis.isObject() ? jsThis.toObject() : nullptr;
-                        se::Object* funcObj = jsFunc.toObject();
-                        bool succeed = funcObj->call(args, thisObj, &rval);
-                        if (!succeed) {
-                            se::ScriptEngine::getInstance()->clearException();
-                        }
-                        int result;
-                        ok &= seval_to_int32(rval, (int32_t*)&result);
-                        SE_PRECONDITION2(ok, result, "lambda function : Error processing return value with type int");
-                        return result;
-                    };
-                    arg2 = lambda;
-                }
-                else
-                {
-                    arg2 = nullptr;
-                }
-            } while(false)
-            ;
-            if (!ok) { ok = true; break; }
-            cocos2d::extension::AssetsManagerEx* cobj = new (std::nothrow) cocos2d::extension::AssetsManagerEx(arg0, arg1, arg2);
-            s.thisObject()->setPrivateData(cobj);
-            return true;
-        }
-    } while(false);
-    do {
-        if (argc == 2) {
-            std::string arg0;
-            ok &= seval_to_std_string(args[0], &arg0);
-            if (!ok) { ok = true; break; }
-            std::string arg1;
-            ok &= seval_to_std_string(args[1], &arg1);
-            if (!ok) { ok = true; break; }
-            cocos2d::extension::AssetsManagerEx* cobj = new (std::nothrow) cocos2d::extension::AssetsManagerEx(arg0, arg1);
-            s.thisObject()->setPrivateData(cobj);
-            return true;
-        }
-    } while(false);
-    SE_REPORT_ERROR("wrong number of arguments: %d", (int)argc);
-    return false;
+    std::string arg0;
+    std::string arg1;
+    ok &= seval_to_std_string(args[0], &arg0);
+    ok &= seval_to_std_string(args[1], &arg1);
+    SE_PRECONDITION2(ok, false, "js_cocos2dx_extension_AssetsManagerEx_constructor : Error processing arguments");
+    cocos2d::extension::AssetsManagerEx* cobj = new (std::nothrow) cocos2d::extension::AssetsManagerEx(arg0, arg1);
+    s.thisObject()->setPrivateData(cobj);
+    return true;
 }
 SE_BIND_CTOR(js_cocos2dx_extension_AssetsManagerEx_constructor, __jsb_cocos2d_extension_AssetsManagerEx_class, js_cocos2d_extension_AssetsManagerEx_finalize)
 
@@ -1101,25 +540,13 @@ bool js_register_cocos2dx_extension_AssetsManagerEx(se::Object* obj)
 {
     auto cls = se::Class::create("AssetsManager", obj, nullptr, _SE(js_cocos2dx_extension_AssetsManagerEx_constructor));
 
-    cls->defineFunction("getDownloadedFiles", _SE(js_cocos2dx_extension_AssetsManagerEx_getDownloadedFiles));
     cls->defineFunction("getState", _SE(js_cocos2dx_extension_AssetsManagerEx_getState));
-    cls->defineFunction("getMaxConcurrentTask", _SE(js_cocos2dx_extension_AssetsManagerEx_getMaxConcurrentTask));
-    cls->defineFunction("getTotalFiles", _SE(js_cocos2dx_extension_AssetsManagerEx_getTotalFiles));
-    cls->defineFunction("loadRemoteManifest", _SE(js_cocos2dx_extension_AssetsManagerEx_loadRemoteManifest));
     cls->defineFunction("checkUpdate", _SE(js_cocos2dx_extension_AssetsManagerEx_checkUpdate));
-    cls->defineFunction("getTotalBytes", _SE(js_cocos2dx_extension_AssetsManagerEx_getTotalBytes));
-    cls->defineFunction("setVerifyCallback", _SE(js_cocos2dx_extension_AssetsManagerEx_setVerifyCallback));
     cls->defineFunction("getStoragePath", _SE(js_cocos2dx_extension_AssetsManagerEx_getStoragePath));
     cls->defineFunction("update", _SE(js_cocos2dx_extension_AssetsManagerEx_update));
-    cls->defineFunction("setVersionCompareHandle", _SE(js_cocos2dx_extension_AssetsManagerEx_setVersionCompareHandle));
-    cls->defineFunction("setMaxConcurrentTask", _SE(js_cocos2dx_extension_AssetsManagerEx_setMaxConcurrentTask));
-    cls->defineFunction("getDownloadedBytes", _SE(js_cocos2dx_extension_AssetsManagerEx_getDownloadedBytes));
     cls->defineFunction("getLocalManifest", _SE(js_cocos2dx_extension_AssetsManagerEx_getLocalManifest));
-    cls->defineFunction("loadLocalManifest", _SE(js_cocos2dx_extension_AssetsManagerEx_loadLocalManifest));
     cls->defineFunction("getRemoteManifest", _SE(js_cocos2dx_extension_AssetsManagerEx_getRemoteManifest));
-    cls->defineFunction("prepareUpdate", _SE(js_cocos2dx_extension_AssetsManagerEx_prepareUpdate));
     cls->defineFunction("downloadFailedAssets", _SE(js_cocos2dx_extension_AssetsManagerEx_downloadFailedAssets));
-    cls->defineFunction("isResuming", _SE(js_cocos2dx_extension_AssetsManagerEx_isResuming));
     cls->defineStaticFunction("create", _SE(js_cocos2dx_extension_AssetsManagerEx_create));
     cls->defineFinalizeFunction(_SE(js_cocos2d_extension_AssetsManagerEx_finalize));
     cls->install();

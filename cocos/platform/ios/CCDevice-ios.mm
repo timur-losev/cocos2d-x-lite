@@ -34,6 +34,7 @@
 #include "base/CCEventAcceleration.h"
 #include "base/CCDirector.h"
 #import <UIKit/UIKit.h>
+#import <AdSupport/ASIdentifierManager.h>
 
 // Accelerometer
 #if !defined(CC_TARGET_OS_TVOS)
@@ -604,6 +605,26 @@ void Device::vibrate(float duration)
 
     // automatically vibrates for approximately 0.4 seconds
     AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
+}
+
+/**
+ *  Get device 'unique' identifier.
+ */
+std::string Device::getIdentifier()
+{
+    if ([[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled])
+    {
+        NSString* uuid = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+        return [uuid UTF8String];
+    }
+    
+    return "";
+}
+
+std::string Device::getOSVersion()
+{
+    NSString* version = [[UIDevice currentDevice] systemVersion];
+    return [version UTF8String];
 }
 
 NS_CC_END

@@ -442,6 +442,16 @@ void Device::vibrate(float duration)
     CC_UNUSED_PARAM(duration);
 }
 
+std::string Device::getIdentifier()
+{
+    return "";
+}
+
+std::string Device::getOSVersion()
+{
+    return "";
+}
+
 NS_CC_END
 
 #endif // CC_TARGET_PLATFORM == CC_PLATFORM_MAC

@@ -1753,19 +1753,19 @@ bool Quaternion_to_seval(const cocos2d::Quaternion& v, se::Value* ret)
     return true;
 }
 
-bool ManifestAsset_to_seval(const cocos2d::extension::ManifestAsset& v, se::Value* ret)
-{
-    assert(ret != nullptr);
-    se::HandleObject obj(se::Object::createPlainObject());
-    obj->setProperty("md5", se::Value(v.md5));
-    obj->setProperty("path", se::Value(v.path));
-    obj->setProperty("compressed", se::Value(v.compressed));
-    obj->setProperty("size", se::Value(v.size));
-    obj->setProperty("downloadState", se::Value(v.downloadState));
-    ret->setObject(obj);
-
-    return true;
-}
+//bool ManifestAsset_to_seval(const cocos2d::extension::ManifestAsset& v, se::Value* ret)
+//{
+//    assert(ret != nullptr);
+//    se::HandleObject obj(se::Object::createPlainObject());
+//    obj->setProperty("md5", se::Value(v.md5));
+//    obj->setProperty("path", se::Value(v.path));
+//    obj->setProperty("compressed", se::Value(v.compressed));
+//    obj->setProperty("size", se::Value(v.size));
+//    obj->setProperty("downloadState", se::Value(v.downloadState));
+//    ret->setObject(obj);
+//
+//    return true;
+//}
 
 bool AffineTransform_to_seval(const cocos2d::AffineTransform& v, se::Value* ret)
 {

@@ -34,7 +34,7 @@
 #include "network/CCDownloader.h"
 #include "platform/CCFileUtils.h"
 
-#include "json/document-wrapper.h"
+#include "json/document.h"
 
 NS_CC_EXT_BEGIN
 
@@ -43,15 +43,6 @@ struct DownloadUnit
     std::string srcUrl;
     std::string storagePath;
     std::string customId;
-    float       size;
-};
-
-struct ManifestAsset {
-    std::string md5;
-    std::string path;
-    bool compressed;
-    float size;
-    int downloadState;
 };
 
 typedef std::unordered_map<std::string, DownloadUnit> DownloadUnits;
@@ -69,15 +60,21 @@ public:
         MODIFIED
     };
     
-    enum DownloadState {
+    enum class DownloadState {
         UNSTARTED,
         DOWNLOADING,
-        SUCCESSED,
-        UNMARKED
+        SUCCESSED
     };
     
     //! Asset object
-    typedef ManifestAsset Asset;
+    struct Asset {
+        unsigned xxhash32;
+        std::string md5;
+        std::string path;
+        bool compressed;
+        bool check_xxhash32;
+        DownloadState downloadState;
+    };
     
     //! Object indicate the difference between two Assets
     struct AssetDiff {
@@ -113,71 +110,32 @@ public:
      */
     std::vector<std::string> getSearchPaths() const;
     
-    /** @brief Get the manifest root path, normally it should also be the local storage path.
-     */
-    const std::string& getManifestRoot() const { return _manifestRoot; };
+protected:
     
-    /** @brief Constructor for Manifest class, create manifest by parsing a json file
+    /** @brief Constructor for Manifest class
      * @param manifestUrl Url of the local manifest
      */
     Manifest(const std::string& manifestUrl = "");
-    
-    /** @brief Constructor for Manifest class, create manifest by parsing a json string
-     * @param content Json string content
-     * @param manifestRoot The root path of the manifest file (It should be local path, so that we can find assets path relative to the root path)
-     */
-    Manifest(const std::string& content, const std::string& manifestRoot);
-    
-    /** @brief Parse the manifest file information into this manifest
-     * @param manifestUrl Url of the local manifest
-     */
-    void parseFile(const std::string& manifestUrl);
-    
-    /** @brief Parse the manifest from json string into this manifest
-     * @param content Json string content
-     * @param manifestRoot The root path of the manifest file (It should be local path, so that we can find assets path relative to the root path)
-     */
-    void parseJSONString(const std::string& content, const std::string& manifestRoot);
-    
-    /** @brief Get whether the manifest is being updating
-     * @return Updating or not
-     */
-    bool isUpdating() const { return _updating; };
-    
-    /** @brief Set whether the manifest is being updating
-     * @param updating Updating or not
-     */
-    void setUpdating(bool updating);
-    
-protected:
     
     /** @brief Load the json file into local json object
      * @param url Url of the json file
      */
     void loadJson(const std::string& url);
     
-    /** @brief Load the json from a string into local json object
-     * @param content The json content string
-     */
-    void loadJsonFromString(const std::string& content);
-    
     /** @brief Parse the version file information into this manifest
      * @param versionUrl Url of the local version file
      */
     void parseVersion(const std::string& versionUrl);
     
+    /** @brief Parse the manifest file information into this manifest
+     * @param manifestUrl Url of the local manifest
+     */
+    void parse(const std::string& manifestUrl, const char* manifestRoot = nullptr);
+    
     /** @brief Check whether the version of this manifest equals to another.
      * @param b   The other manifest
-     * @return Equal or not
      */
     bool versionEquals(const Manifest *b) const;
-    
-    /** @brief Check whether the version of this manifest is greater than another.
-     * @param b         The other manifest
-     * @param [handle]  Customized comparasion handle function
-     * @return Greater or not
-     */
-    bool versionGreater(const Manifest *b, const std::function<int(const std::string& versionA, const std::string& versionB)>& handle) const;
     
     /** @brief Generate difference between this Manifest and another.
      * @param b   The other manifest
@@ -228,8 +186,6 @@ protected:
      */
     void setAssetDownloadState(const std::string &key, const DownloadState &state);
     
-    void setManifestRoot(const std::string &root) {_manifestRoot = root;};
-    
 private:
     
     //! Indicate whether the version informations have been fully loaded
@@ -238,12 +194,11 @@ private:
     //! Indicate whether the manifest have been fully loaded
     bool _loaded;
     
-    //! Indicate whether the manifest is updating and can be resumed in the future
-    bool _updating;
-    
     //! Reference to the global file utils
     FileUtils *_fileUtils;
     
+    bool _ram_manifest;
+
     //! The local manifest root
     std::string _manifestRoot;
     
