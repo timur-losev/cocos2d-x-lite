@@ -10330,6 +10330,242 @@ LabelTTF : function (
 };
 
 /**
+ * @class LabelAtlas
+ */
+cc.LabelAtlas = {
+
+/**
+ * @method setString
+ * @param {String} arg0
+ */
+setString : function (
+str 
+)
+{
+},
+
+/**
+ * @method initWithString
+* @param {String|String|String} str
+* @param {String|String|cc.Texture2D} str
+* @param {int|int} int
+* @param {int|int} int
+* @param {int|int} int
+* @return {bool|bool|bool}
+*/
+initWithString : function(
+str,
+texture2d,
+int,
+int,
+int 
+)
+{
+    return false;
+},
+
+/**
+ * @method getString
+ * @return {String}
+ */
+getString : function (
+)
+{
+    return ;
+},
+
+/**
+ * @method create
+* @param {String|String} str
+* @param {String|String} str
+* @param {int} int
+* @param {int} int
+* @param {int} int
+* @return {cc.LabelAtlas|cc.LabelAtlas|cc.LabelAtlas}
+*/
+create : function(
+str,
+str,
+int,
+int,
+int 
+)
+{
+    return cc.LabelAtlas;
+},
+
+/**
+ * @method LabelAtlas
+ * @constructor
+ */
+LabelAtlas : function (
+)
+{
+},
+
+};
+
+/**
+ * @class LabelBMFont
+ */
+cc.LabelBMFont = {
+
+/**
+ * @method setLineBreakWithoutSpace
+ * @param {bool} arg0
+ */
+setLineBreakWithoutSpace : function (
+bool 
+)
+{
+},
+
+/**
+ * @method getBlendFunc
+ * @return {cc.BlendFunc}
+ */
+getBlendFunc : function (
+)
+{
+    return cc.BlendFunc;
+},
+
+/**
+ * @method getLetter
+ * @param {int} arg0
+ * @return {cc.Sprite}
+ */
+getLetter : function (
+int 
+)
+{
+    return cc.Sprite;
+},
+
+/**
+ * @method getString
+ * @return {String}
+ */
+getString : function (
+)
+{
+    return ;
+},
+
+/**
+ * @method setBlendFunc
+ * @param {cc.BlendFunc} arg0
+ */
+setBlendFunc : function (
+blendfunc 
+)
+{
+},
+
+/**
+ * @method setString
+ * @param {String} arg0
+ */
+setString : function (
+str 
+)
+{
+},
+
+/**
+ * @method initWithString
+ * @param {String} arg0
+ * @param {String} arg1
+ * @param {float} arg2
+ * @param {cc.TextHAlignment} arg3
+ * @param {vec2_object} arg4
+ * @return {bool}
+ */
+initWithString : function (
+str, 
+str, 
+float, 
+texthalignment, 
+vec2 
+)
+{
+    return false;
+},
+
+/**
+ * @method getFntFile
+ * @return {String}
+ */
+getFntFile : function (
+)
+{
+    return ;
+},
+
+/**
+ * @method setFntFile
+ * @param {String} arg0
+ * @param {vec2_object} arg1
+ */
+setFntFile : function (
+str, 
+vec2 
+)
+{
+},
+
+/**
+ * @method setAlignment
+ * @param {cc.TextHAlignment} arg0
+ */
+setAlignment : function (
+texthalignment 
+)
+{
+},
+
+/**
+ * @method setWidth
+ * @param {float} arg0
+ */
+setWidth : function (
+float 
+)
+{
+},
+
+/**
+ * @method create
+* @param {String} str
+* @param {String} str
+* @param {float} float
+* @param {cc.TextHAlignment} texthalignment
+* @param {vec2_object} vec2
+* @return {cc.LabelBMFont|cc.LabelBMFont}
+*/
+create : function(
+str,
+str,
+float,
+texthalignment,
+vec2 
+)
+{
+    return cc.LabelBMFont;
+},
+
+/**
+ * @method LabelBMFont
+ * @constructor
+ */
+LabelBMFont : function (
+)
+{
+},
+
+};
+
+/**
  * @class Layer
  */
 cc.Layer = {

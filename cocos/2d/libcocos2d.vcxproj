@@ -451,6 +451,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\external\win32\libs\*.*" "$(OutDir)"
     <ClCompile Include="CCGrid.cpp" />
     <ClCompile Include="CCLabel.cpp" />
     <ClCompile Include="CCLabelAtlas.cpp" />
+    <ClCompile Include="CCLabelBMFont.cpp" />
     <ClCompile Include="CCLabelTextFormatter.cpp" />
     <ClCompile Include="CCLabelTTF.cpp" />
     <ClCompile Include="CCLayer.cpp" />
@@ -831,6 +832,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\external\win32\libs\*.*" "$(OutDir)"
     <ClInclude Include="CCGrid.h" />
     <ClInclude Include="CCLabel.h" />
     <ClInclude Include="CCLabelAtlas.h" />
+    <ClInclude Include="CCLabelBMFont.h" />
     <ClInclude Include="CCLayer.h" />
     <ClInclude Include="CCMenu.h" />
     <ClInclude Include="CCMenuItem.h" />

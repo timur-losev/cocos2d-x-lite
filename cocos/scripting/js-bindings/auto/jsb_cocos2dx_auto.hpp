@@ -1586,6 +1586,36 @@ SE_DECLARE_FUNC(js_cocos2dx_LabelTTF_create);
 SE_DECLARE_FUNC(js_cocos2dx_LabelTTF_createWithFontDefinition);
 SE_DECLARE_FUNC(js_cocos2dx_LabelTTF_LabelTTF);
 
+extern se::Object* __jsb_cocos2d_LabelAtlas_proto;
+extern se::Class* __jsb_cocos2d_LabelAtlas_class;
+
+bool js_register_cocos2d_LabelAtlas(se::Object* obj);
+bool register_all_cocos2dx(se::Object* obj);
+SE_DECLARE_FUNC(js_cocos2dx_LabelAtlas_setString);
+SE_DECLARE_FUNC(js_cocos2dx_LabelAtlas_initWithString);
+SE_DECLARE_FUNC(js_cocos2dx_LabelAtlas_getString);
+SE_DECLARE_FUNC(js_cocos2dx_LabelAtlas_create);
+SE_DECLARE_FUNC(js_cocos2dx_LabelAtlas_LabelAtlas);
+
+extern se::Object* __jsb_cocos2d_LabelBMFont_proto;
+extern se::Class* __jsb_cocos2d_LabelBMFont_class;
+
+bool js_register_cocos2d_LabelBMFont(se::Object* obj);
+bool register_all_cocos2dx(se::Object* obj);
+SE_DECLARE_FUNC(js_cocos2dx_LabelBMFont_setLineBreakWithoutSpace);
+SE_DECLARE_FUNC(js_cocos2dx_LabelBMFont_getBlendFunc);
+SE_DECLARE_FUNC(js_cocos2dx_LabelBMFont_getLetter);
+SE_DECLARE_FUNC(js_cocos2dx_LabelBMFont_getString);
+SE_DECLARE_FUNC(js_cocos2dx_LabelBMFont_setBlendFunc);
+SE_DECLARE_FUNC(js_cocos2dx_LabelBMFont_setString);
+SE_DECLARE_FUNC(js_cocos2dx_LabelBMFont_initWithString);
+SE_DECLARE_FUNC(js_cocos2dx_LabelBMFont_getFntFile);
+SE_DECLARE_FUNC(js_cocos2dx_LabelBMFont_setFntFile);
+SE_DECLARE_FUNC(js_cocos2dx_LabelBMFont_setAlignment);
+SE_DECLARE_FUNC(js_cocos2dx_LabelBMFont_setWidth);
+SE_DECLARE_FUNC(js_cocos2dx_LabelBMFont_create);
+SE_DECLARE_FUNC(js_cocos2dx_LabelBMFont_LabelBMFont);
+
 extern se::Object* __jsb_cocos2d_Layer_proto;
 extern se::Class* __jsb_cocos2d_Layer_class;
 

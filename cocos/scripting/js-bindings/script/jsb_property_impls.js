@@ -136,6 +136,14 @@ _safeExtend(cc.Sprite.prototype, {
     }
 });
 
+_safeExtend(cc.LabelBMFont.prototype, {
+    _getAlignment: _undefined._jsbUndefined,
+    _getBoundingWidth: _undefined._jsbUndefined,
+    setBoundingWidth: function (width) {
+        this.setWidth(width);
+    }
+});
+
 _safeExtend(cc.TMXLayer.prototype, {
     _getLayerWidth: function() {
         return this.getLayerSize().width;

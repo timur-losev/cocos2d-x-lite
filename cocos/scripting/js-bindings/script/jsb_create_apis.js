@@ -472,6 +472,18 @@ cc.targetedAction = cc.TargetedAction.create = function (target, action) {
 };
 
 /************************  Nodes  *************************/
+cc.AtlasNode.prototype._ctor = function (tile, tileWidth, tileHeight, itemsToRender) {
+    itemsToRender !== undefined && this.initWithTileFile(tile, tileWidth, tileHeight, itemsToRender);
+};
+
+cc.LabelAtlas.prototype._ctor = function (strText, charMapFile, itemWidth, itemHeight, startCharMap) {
+    if (startCharMap != undefined) {
+        startCharMap = startCharMap.charCodeAt(0);
+        cc.LabelAtlas.prototype.initWithString.call(this, strText, charMapFile, itemWidth, itemHeight, startCharMap);
+    } else if (charMapFile != undefined) {
+        this.initWithString(strText, charMapFile);
+    }
+};
 
 cc.ClippingNode.prototype._ctor = function(stencil) {
     if(stencil != undefined)
@@ -482,6 +494,16 @@ cc.ClippingNode.prototype._ctor = function(stencil) {
 
 cc.DrawNode.prototype._ctor = function() {
     cc.DrawNode.prototype.init.call(this);
+};
+
+cc.LabelBMFont.prototype._ctor = function (str, fntFile, width, alignment, imageOffset) {
+    str = str || "";
+    if (fntFile) {
+        width = width || 0;
+        alignment = alignment === undefined ? cc.TEXT_ALIGNMENT_LEFT : alignment;
+        imageOffset = imageOffset || cc.p(0, 0);
+        cc.LabelBMFont.prototype.initWithString.call(this, str, fntFile, width, alignment, imageOffset);
+    }
 };
 
 cc.LabelTTF.prototype._ctor = function (text, fontName, fontSize, dimensions, hAlignment, vAlignment) {
@@ -515,3 +537,16 @@ cc.GLProgram.prototype._ctor = function(vShaderFileName, fShaderFileName) {
         cc.GLProgram.prototype.updateUniforms.call(this);
     }
 };
+
+// LabelAtlas
+cc.LabelAtlas.create = function (a, b, c, d, e) {
+
+    var n = arguments.length;
+
+    if (n == 5) {
+        return cc.LabelAtlas._create(a, b, c, d, e.charCodeAt(0));
+    } else {
+        return cc.LabelAtlas._create.apply(this, arguments);
+    }
+};
+

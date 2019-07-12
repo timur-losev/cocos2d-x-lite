@@ -1110,6 +1110,9 @@
     <ClCompile Include="..\network\WebSocket-libwebsockets.cpp">
       <Filter>network\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CCLabelBMFont.cpp">
+      <Filter>2d</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\cocos2d.h" />
@@ -2196,6 +2199,9 @@
     </ClInclude>
     <ClInclude Include="..\..\extensions\GUI\CCControlExtension\CCInvocation.h">
       <Filter>extension\GUI\CCControl</Filter>
+    </ClInclude>
+    <ClInclude Include="CCLabelBMFont.h">
+      <Filter>2d</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

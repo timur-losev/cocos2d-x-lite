@@ -24553,6 +24553,657 @@ bool js_register_cocos2dx_LabelTTF(se::Object* obj)
     return true;
 }
 
+se::Object* __jsb_cocos2d_LabelAtlas_proto = nullptr;
+se::Class* __jsb_cocos2d_LabelAtlas_class = nullptr;
+
+static bool js_cocos2dx_LabelAtlas_setString(se::State& s)
+{
+    cocos2d::LabelAtlas* cobj = (cocos2d::LabelAtlas*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_LabelAtlas_setString : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        std::string arg0;
+        ok &= seval_to_std_string(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_LabelAtlas_setString : Error processing arguments");
+        cobj->setString(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_LabelAtlas_setString)
+
+static bool js_cocos2dx_LabelAtlas_initWithString(se::State& s)
+{
+    CC_UNUSED bool ok = true;
+    cocos2d::LabelAtlas* cobj = (cocos2d::LabelAtlas*)s.nativeThisObject();
+    SE_PRECONDITION2( cobj, false, "js_cocos2dx_LabelAtlas_initWithString : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    do {
+        if (argc == 2) {
+            std::string arg0;
+            ok &= seval_to_std_string(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            std::string arg1;
+            ok &= seval_to_std_string(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            bool result = cobj->initWithString(arg0, arg1);
+            ok &= boolean_to_seval(result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_LabelAtlas_initWithString : Error processing arguments");
+            return true;
+        }
+    } while(false);
+
+    do {
+        if (argc == 5) {
+            std::string arg0;
+            ok &= seval_to_std_string(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            std::string arg1;
+            ok &= seval_to_std_string(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            int arg2 = 0;
+            ok &= seval_to_int32(args[2], (int32_t*)&arg2);
+            if (!ok) { ok = true; break; }
+            int arg3 = 0;
+            ok &= seval_to_int32(args[3], (int32_t*)&arg3);
+            if (!ok) { ok = true; break; }
+            int arg4 = 0;
+            ok &= seval_to_int32(args[4], (int32_t*)&arg4);
+            if (!ok) { ok = true; break; }
+            bool result = cobj->initWithString(arg0, arg1, arg2, arg3, arg4);
+            ok &= boolean_to_seval(result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_LabelAtlas_initWithString : Error processing arguments");
+            return true;
+        }
+    } while(false);
+
+    do {
+        if (argc == 5) {
+            std::string arg0;
+            ok &= seval_to_std_string(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            cocos2d::Texture2D* arg1 = nullptr;
+            ok &= seval_to_native_ptr(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            int arg2 = 0;
+            ok &= seval_to_int32(args[2], (int32_t*)&arg2);
+            if (!ok) { ok = true; break; }
+            int arg3 = 0;
+            ok &= seval_to_int32(args[3], (int32_t*)&arg3);
+            if (!ok) { ok = true; break; }
+            int arg4 = 0;
+            ok &= seval_to_int32(args[4], (int32_t*)&arg4);
+            if (!ok) { ok = true; break; }
+            bool result = cobj->initWithString(arg0, arg1, arg2, arg3, arg4);
+            ok &= boolean_to_seval(result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_LabelAtlas_initWithString : Error processing arguments");
+            return true;
+        }
+    } while(false);
+
+    SE_REPORT_ERROR("wrong number of arguments: %d", (int)argc);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_LabelAtlas_initWithString)
+
+static bool js_cocos2dx_LabelAtlas_getString(se::State& s)
+{
+    cocos2d::LabelAtlas* cobj = (cocos2d::LabelAtlas*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_LabelAtlas_getString : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 0) {
+        const std::string& result = cobj->getString();
+        ok &= std_string_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_LabelAtlas_getString : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_LabelAtlas_getString)
+
+static bool js_cocos2dx_LabelAtlas_create(se::State& s)
+{
+    CC_UNUSED bool ok = true;
+    const auto& args = s.args();
+    size_t argc = args.size();
+    do {
+        if (argc == 5) {
+            std::string arg0;
+            ok &= seval_to_std_string(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            std::string arg1;
+            ok &= seval_to_std_string(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            int arg2 = 0;
+            ok &= seval_to_int32(args[2], (int32_t*)&arg2);
+            if (!ok) { ok = true; break; }
+            int arg3 = 0;
+            ok &= seval_to_int32(args[3], (int32_t*)&arg3);
+            if (!ok) { ok = true; break; }
+            int arg4 = 0;
+            ok &= seval_to_int32(args[4], (int32_t*)&arg4);
+            if (!ok) { ok = true; break; }
+            cocos2d::LabelAtlas* result = cocos2d::LabelAtlas::create(arg0, arg1, arg2, arg3, arg4);
+            ok &= native_ptr_to_seval<cocos2d::LabelAtlas>((cocos2d::LabelAtlas*)result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_LabelAtlas_create : Error processing arguments");
+            return true;
+        }
+    } while (false);
+    do {
+        if (argc == 0) {
+            cocos2d::LabelAtlas* result = cocos2d::LabelAtlas::create();
+            ok &= native_ptr_to_seval<cocos2d::LabelAtlas>((cocos2d::LabelAtlas*)result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_LabelAtlas_create : Error processing arguments");
+            return true;
+        }
+    } while (false);
+    do {
+        if (argc == 2) {
+            std::string arg0;
+            ok &= seval_to_std_string(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            std::string arg1;
+            ok &= seval_to_std_string(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            cocos2d::LabelAtlas* result = cocos2d::LabelAtlas::create(arg0, arg1);
+            ok &= native_ptr_to_seval<cocos2d::LabelAtlas>((cocos2d::LabelAtlas*)result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_LabelAtlas_create : Error processing arguments");
+            return true;
+        }
+    } while (false);
+    SE_REPORT_ERROR("wrong number of arguments: %d", (int)argc);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_LabelAtlas_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_LabelAtlas_finalize)
+
+static bool js_cocos2dx_LabelAtlas_constructor(se::State& s)
+{
+    cocos2d::LabelAtlas* cobj = new (std::nothrow) cocos2d::LabelAtlas();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_LabelAtlas_constructor, __jsb_cocos2d_LabelAtlas_class, js_cocos2d_LabelAtlas_finalize)
+
+static bool js_cocos2dx_LabelAtlas_ctor(se::State& s)
+{
+    cocos2d::LabelAtlas* cobj = new (std::nothrow) cocos2d::LabelAtlas();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_LabelAtlas_ctor, __jsb_cocos2d_LabelAtlas_class, js_cocos2d_LabelAtlas_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_AtlasNode_proto;
+
+static bool js_cocos2d_LabelAtlas_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::LabelAtlas)", s.nativeThisObject());
+    cocos2d::LabelAtlas* cobj = (cocos2d::LabelAtlas*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_LabelAtlas_finalize)
+
+bool js_register_cocos2dx_LabelAtlas(se::Object* obj)
+{
+    auto cls = se::Class::create("LabelAtlas", obj, __jsb_cocos2d_AtlasNode_proto, _SE(js_cocos2dx_LabelAtlas_constructor));
+
+    cls->defineFunction("setString", _SE(js_cocos2dx_LabelAtlas_setString));
+    cls->defineFunction("initWithString", _SE(js_cocos2dx_LabelAtlas_initWithString));
+    cls->defineFunction("getString", _SE(js_cocos2dx_LabelAtlas_getString));
+    cls->defineFunction("ctor", _SE(js_cocos2dx_LabelAtlas_ctor));
+    cls->defineStaticFunction("_create", _SE(js_cocos2dx_LabelAtlas_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_LabelAtlas_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::LabelAtlas>(cls);
+
+    __jsb_cocos2d_LabelAtlas_proto = cls->getProto();
+    __jsb_cocos2d_LabelAtlas_class = cls;
+
+    jsb_set_extend_property("cc", "LabelAtlas");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_LabelBMFont_proto = nullptr;
+se::Class* __jsb_cocos2d_LabelBMFont_class = nullptr;
+
+static bool js_cocos2dx_LabelBMFont_setLineBreakWithoutSpace(se::State& s)
+{
+    cocos2d::LabelBMFont* cobj = (cocos2d::LabelBMFont*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_LabelBMFont_setLineBreakWithoutSpace : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        bool arg0;
+        ok &= seval_to_boolean(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_LabelBMFont_setLineBreakWithoutSpace : Error processing arguments");
+        cobj->setLineBreakWithoutSpace(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_LabelBMFont_setLineBreakWithoutSpace)
+
+static bool js_cocos2dx_LabelBMFont_getBlendFunc(se::State& s)
+{
+    cocos2d::LabelBMFont* cobj = (cocos2d::LabelBMFont*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_LabelBMFont_getBlendFunc : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 0) {
+        const cocos2d::BlendFunc& result = cobj->getBlendFunc();
+        ok &= blendfunc_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_LabelBMFont_getBlendFunc : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_LabelBMFont_getBlendFunc)
+
+static bool js_cocos2dx_LabelBMFont_getLetter(se::State& s)
+{
+    cocos2d::LabelBMFont* cobj = (cocos2d::LabelBMFont*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_LabelBMFont_getLetter : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        int arg0 = 0;
+        ok &= seval_to_int32(args[0], (int32_t*)&arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_LabelBMFont_getLetter : Error processing arguments");
+        cocos2d::Sprite* result = cobj->getLetter(arg0);
+        ok &= native_ptr_to_seval<cocos2d::Sprite>((cocos2d::Sprite*)result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_LabelBMFont_getLetter : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_LabelBMFont_getLetter)
+
+static bool js_cocos2dx_LabelBMFont_getString(se::State& s)
+{
+    cocos2d::LabelBMFont* cobj = (cocos2d::LabelBMFont*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_LabelBMFont_getString : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 0) {
+        const std::string& result = cobj->getString();
+        ok &= std_string_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_LabelBMFont_getString : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_LabelBMFont_getString)
+
+static bool js_cocos2dx_LabelBMFont_setBlendFunc(se::State& s)
+{
+    cocos2d::LabelBMFont* cobj = (cocos2d::LabelBMFont*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_LabelBMFont_setBlendFunc : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        cocos2d::BlendFunc arg0;
+        ok &= seval_to_blendfunc(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_LabelBMFont_setBlendFunc : Error processing arguments");
+        cobj->setBlendFunc(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_LabelBMFont_setBlendFunc)
+
+static bool js_cocos2dx_LabelBMFont_setString(se::State& s)
+{
+    cocos2d::LabelBMFont* cobj = (cocos2d::LabelBMFont*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_LabelBMFont_setString : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        std::string arg0;
+        ok &= seval_to_std_string(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_LabelBMFont_setString : Error processing arguments");
+        cobj->setString(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_LabelBMFont_setString)
+
+static bool js_cocos2dx_LabelBMFont_initWithString(se::State& s)
+{
+    cocos2d::LabelBMFont* cobj = (cocos2d::LabelBMFont*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_LabelBMFont_initWithString : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        std::string arg0;
+        std::string arg1;
+        ok &= seval_to_std_string(args[0], &arg0);
+        ok &= seval_to_std_string(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_LabelBMFont_initWithString : Error processing arguments");
+        bool result = cobj->initWithString(arg0, arg1);
+        ok &= boolean_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_LabelBMFont_initWithString : Error processing arguments");
+        return true;
+    }
+    if (argc == 3) {
+        std::string arg0;
+        std::string arg1;
+        float arg2 = 0;
+        ok &= seval_to_std_string(args[0], &arg0);
+        ok &= seval_to_std_string(args[1], &arg1);
+        ok &= seval_to_float(args[2], &arg2);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_LabelBMFont_initWithString : Error processing arguments");
+        bool result = cobj->initWithString(arg0, arg1, arg2);
+        ok &= boolean_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_LabelBMFont_initWithString : Error processing arguments");
+        return true;
+    }
+    if (argc == 4) {
+        std::string arg0;
+        std::string arg1;
+        float arg2 = 0;
+        cocos2d::TextHAlignment arg3;
+        ok &= seval_to_std_string(args[0], &arg0);
+        ok &= seval_to_std_string(args[1], &arg1);
+        ok &= seval_to_float(args[2], &arg2);
+        ok &= seval_to_int32(args[3], (int32_t*)&arg3);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_LabelBMFont_initWithString : Error processing arguments");
+        bool result = cobj->initWithString(arg0, arg1, arg2, arg3);
+        ok &= boolean_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_LabelBMFont_initWithString : Error processing arguments");
+        return true;
+    }
+    if (argc == 5) {
+        std::string arg0;
+        std::string arg1;
+        float arg2 = 0;
+        cocos2d::TextHAlignment arg3;
+        cocos2d::Vec2 arg4;
+        ok &= seval_to_std_string(args[0], &arg0);
+        ok &= seval_to_std_string(args[1], &arg1);
+        ok &= seval_to_float(args[2], &arg2);
+        ok &= seval_to_int32(args[3], (int32_t*)&arg3);
+        ok &= seval_to_Vec2(args[4], &arg4);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_LabelBMFont_initWithString : Error processing arguments");
+        bool result = cobj->initWithString(arg0, arg1, arg2, arg3, arg4);
+        ok &= boolean_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_LabelBMFont_initWithString : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 5);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_LabelBMFont_initWithString)
+
+static bool js_cocos2dx_LabelBMFont_getFntFile(se::State& s)
+{
+    cocos2d::LabelBMFont* cobj = (cocos2d::LabelBMFont*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_LabelBMFont_getFntFile : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 0) {
+        const std::string& result = cobj->getFntFile();
+        ok &= std_string_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_LabelBMFont_getFntFile : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_LabelBMFont_getFntFile)
+
+static bool js_cocos2dx_LabelBMFont_setFntFile(se::State& s)
+{
+    cocos2d::LabelBMFont* cobj = (cocos2d::LabelBMFont*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_LabelBMFont_setFntFile : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        std::string arg0;
+        ok &= seval_to_std_string(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_LabelBMFont_setFntFile : Error processing arguments");
+        cobj->setFntFile(arg0);
+        return true;
+    }
+    if (argc == 2) {
+        std::string arg0;
+        cocos2d::Vec2 arg1;
+        ok &= seval_to_std_string(args[0], &arg0);
+        ok &= seval_to_Vec2(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_LabelBMFont_setFntFile : Error processing arguments");
+        cobj->setFntFile(arg0, arg1);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_LabelBMFont_setFntFile)
+
+static bool js_cocos2dx_LabelBMFont_setAlignment(se::State& s)
+{
+    cocos2d::LabelBMFont* cobj = (cocos2d::LabelBMFont*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_LabelBMFont_setAlignment : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        cocos2d::TextHAlignment arg0;
+        ok &= seval_to_int32(args[0], (int32_t*)&arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_LabelBMFont_setAlignment : Error processing arguments");
+        cobj->setAlignment(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_LabelBMFont_setAlignment)
+
+static bool js_cocos2dx_LabelBMFont_setWidth(se::State& s)
+{
+    cocos2d::LabelBMFont* cobj = (cocos2d::LabelBMFont*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_cocos2dx_LabelBMFont_setWidth : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        float arg0 = 0;
+        ok &= seval_to_float(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_LabelBMFont_setWidth : Error processing arguments");
+        cobj->setWidth(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_LabelBMFont_setWidth)
+
+static bool js_cocos2dx_LabelBMFont_create(se::State& s)
+{
+    CC_UNUSED bool ok = true;
+    const auto& args = s.args();
+    size_t argc = args.size();
+    do {
+        if (argc == 0) {
+            cocos2d::LabelBMFont* result = cocos2d::LabelBMFont::create();
+            ok &= native_ptr_to_seval<cocos2d::LabelBMFont>((cocos2d::LabelBMFont*)result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_LabelBMFont_create : Error processing arguments");
+            return true;
+        }
+    } while (false);
+    do {
+        if (argc == 2) {
+            std::string arg0;
+            ok &= seval_to_std_string(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            std::string arg1;
+            ok &= seval_to_std_string(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            cocos2d::LabelBMFont* result = cocos2d::LabelBMFont::create(arg0, arg1);
+            ok &= native_ptr_to_seval<cocos2d::LabelBMFont>((cocos2d::LabelBMFont*)result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_LabelBMFont_create : Error processing arguments");
+            return true;
+        }
+    } while (false);
+    do {
+        if (argc == 3) {
+            std::string arg0;
+            ok &= seval_to_std_string(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            std::string arg1;
+            ok &= seval_to_std_string(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            float arg2 = 0;
+            ok &= seval_to_float(args[2], &arg2);
+            if (!ok) { ok = true; break; }
+            cocos2d::LabelBMFont* result = cocos2d::LabelBMFont::create(arg0, arg1, arg2);
+            ok &= native_ptr_to_seval<cocos2d::LabelBMFont>((cocos2d::LabelBMFont*)result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_LabelBMFont_create : Error processing arguments");
+            return true;
+        }
+    } while (false);
+    do {
+        if (argc == 4) {
+            std::string arg0;
+            ok &= seval_to_std_string(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            std::string arg1;
+            ok &= seval_to_std_string(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            float arg2 = 0;
+            ok &= seval_to_float(args[2], &arg2);
+            if (!ok) { ok = true; break; }
+            cocos2d::TextHAlignment arg3;
+            ok &= seval_to_int32(args[3], (int32_t*)&arg3);
+            if (!ok) { ok = true; break; }
+            cocos2d::LabelBMFont* result = cocos2d::LabelBMFont::create(arg0, arg1, arg2, arg3);
+            ok &= native_ptr_to_seval<cocos2d::LabelBMFont>((cocos2d::LabelBMFont*)result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_LabelBMFont_create : Error processing arguments");
+            return true;
+        }
+    } while (false);
+    do {
+        if (argc == 5) {
+            std::string arg0;
+            ok &= seval_to_std_string(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            std::string arg1;
+            ok &= seval_to_std_string(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            float arg2 = 0;
+            ok &= seval_to_float(args[2], &arg2);
+            if (!ok) { ok = true; break; }
+            cocos2d::TextHAlignment arg3;
+            ok &= seval_to_int32(args[3], (int32_t*)&arg3);
+            if (!ok) { ok = true; break; }
+            cocos2d::Vec2 arg4;
+            ok &= seval_to_Vec2(args[4], &arg4);
+            if (!ok) { ok = true; break; }
+            cocos2d::LabelBMFont* result = cocos2d::LabelBMFont::create(arg0, arg1, arg2, arg3, arg4);
+            ok &= native_ptr_to_seval<cocos2d::LabelBMFont>((cocos2d::LabelBMFont*)result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_cocos2dx_LabelBMFont_create : Error processing arguments");
+            return true;
+        }
+    } while (false);
+    SE_REPORT_ERROR("wrong number of arguments: %d", (int)argc);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_LabelBMFont_create)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_LabelBMFont_finalize)
+
+static bool js_cocos2dx_LabelBMFont_constructor(se::State& s)
+{
+    cocos2d::LabelBMFont* cobj = new (std::nothrow) cocos2d::LabelBMFont();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_cocos2dx_LabelBMFont_constructor, __jsb_cocos2d_LabelBMFont_class, js_cocos2d_LabelBMFont_finalize)
+
+static bool js_cocos2dx_LabelBMFont_ctor(se::State& s)
+{
+    cocos2d::LabelBMFont* cobj = new (std::nothrow) cocos2d::LabelBMFont();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_SUB_CLS_CTOR(js_cocos2dx_LabelBMFont_ctor, __jsb_cocos2d_LabelBMFont_class, js_cocos2d_LabelBMFont_finalize)
+
+
+    
+
+extern se::Object* __jsb_cocos2d_Node_proto;
+
+static bool js_cocos2d_LabelBMFont_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::LabelBMFont)", s.nativeThisObject());
+    cocos2d::LabelBMFont* cobj = (cocos2d::LabelBMFont*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_LabelBMFont_finalize)
+
+bool js_register_cocos2dx_LabelBMFont(se::Object* obj)
+{
+    auto cls = se::Class::create("LabelBMFont", obj, __jsb_cocos2d_Node_proto, _SE(js_cocos2dx_LabelBMFont_constructor));
+
+    cls->defineFunction("setLineBreakWithoutSpace", _SE(js_cocos2dx_LabelBMFont_setLineBreakWithoutSpace));
+    cls->defineFunction("getBlendFunc", _SE(js_cocos2dx_LabelBMFont_getBlendFunc));
+    cls->defineFunction("getLetter", _SE(js_cocos2dx_LabelBMFont_getLetter));
+    cls->defineFunction("getString", _SE(js_cocos2dx_LabelBMFont_getString));
+    cls->defineFunction("setBlendFunc", _SE(js_cocos2dx_LabelBMFont_setBlendFunc));
+    cls->defineFunction("setString", _SE(js_cocos2dx_LabelBMFont_setString));
+    cls->defineFunction("initWithString", _SE(js_cocos2dx_LabelBMFont_initWithString));
+    cls->defineFunction("getFntFile", _SE(js_cocos2dx_LabelBMFont_getFntFile));
+    cls->defineFunction("setFntFile", _SE(js_cocos2dx_LabelBMFont_setFntFile));
+    cls->defineFunction("setAlignment", _SE(js_cocos2dx_LabelBMFont_setAlignment));
+    cls->defineFunction("setWidth", _SE(js_cocos2dx_LabelBMFont_setWidth));
+    cls->defineFunction("ctor", _SE(js_cocos2dx_LabelBMFont_ctor));
+    cls->defineStaticFunction("create", _SE(js_cocos2dx_LabelBMFont_create));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_LabelBMFont_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::LabelBMFont>(cls);
+
+    __jsb_cocos2d_LabelBMFont_proto = cls->getProto();
+    __jsb_cocos2d_LabelBMFont_class = cls;
+
+    jsb_set_extend_property("cc", "LabelBMFont");
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
 se::Object* __jsb_cocos2d_Layer_proto = nullptr;
 se::Class* __jsb_cocos2d_Layer_class = nullptr;
 
@@ -43977,6 +44628,9 @@ bool register_all_cocos2dx(se::Object* obj)
     js_register_cocos2dx_Label(ns);
     js_register_cocos2dx_Application(ns);
     js_register_cocos2dx_DelayTime(ns);
+    js_register_cocos2dx_AtlasNode(ns);
+    js_register_cocos2dx_LabelAtlas(ns);
+    js_register_cocos2dx_LabelBMFont(ns);
     js_register_cocos2dx_AsyncTaskPool(ns);
     js_register_cocos2dx_ParticleSnow(ns);
     js_register_cocos2dx_TransitionFadeTR(ns);
@@ -44008,7 +44662,6 @@ bool register_all_cocos2dx(se::Object* obj)
     js_register_cocos2dx_Image(ns);
     js_register_cocos2dx_Blink(ns);
     js_register_cocos2dx_JumpTo(ns);
-    js_register_cocos2dx_AtlasNode(ns);
     js_register_cocos2dx_TransitionJumpZoom(ns);
     js_register_cocos2dx_Touch(ns);
     js_register_cocos2dx_SAXParser(ns);

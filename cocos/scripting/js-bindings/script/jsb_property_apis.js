@@ -65,6 +65,21 @@ cc.defineGetterSetter(_proto, "height", _proto._getHeight, _proto._setHeight);
 _proto = cc.Sprite.prototype;
 cc.defineGetterSetter(_proto, "ignoreAnchor", _proto.isIgnoreAnchorPointForPosition, _proto.ignoreAnchorPointForPosition);
 
+_proto = cc.LabelAtlas.prototype;
+cc.defineGetterSetter(_proto, "color", _proto.getColor, _proto.setColor);
+
+_proto = cc.LabelBMFont.prototype;
+cc.defineGetterSetter(_proto, "anchorX", _proto._getAnchorX, _proto._setAnchorX);
+cc.defineGetterSetter(_proto, "anchorY", _proto._getAnchorY, _proto._setAnchorY);
+cc.defineGetterSetter(_proto, "scale", _proto.getScale, _proto.setScale);
+cc.defineGetterSetter(_proto, "scaleX", _proto.getScaleX, _proto.setScaleX);
+cc.defineGetterSetter(_proto, "scaleY", _proto.getScaleY, _proto.setScaleY);
+cc.defineGetterSetter(_proto, "opacityModifyRGB", _proto.isOpacityModifyRGB, _proto.setOpacityModifyRGB);
+cc.defineGetterSetter(_proto, "opacity", _proto.getOpacity, _proto.setOpacity);
+cc.defineGetterSetter(_proto, "cascadeOpacity", _proto.isCascadeOpacityEnabled, _proto.setCascadeOpacityEnabled);
+cc.defineGetterSetter(_proto, "color", _proto.getColor, _proto.setColor);
+cc.defineGetterSetter(_proto, "cascadeColor", _proto.isCascadeColorEnabled, _proto.setCascadeColorEnabled);
+
 _proto = cc.MotionStreak.prototype;
 cc.defineGetterSetter(_proto, "x", _proto.getPositionX, _proto.setPositionX);
 cc.defineGetterSetter(_proto, "y", _proto.getPositionY, _proto.setPositionY);
@@ -195,6 +210,17 @@ cc.defineGetterSetter(_proto, "shaderProgram", _proto.getShaderProgram, _proto.s
 cc.defineGetterSetter(_proto, "maxS", _proto.getMaxS, _proto.setMaxS);
 cc.defineGetterSetter(_proto, "maxT", _proto.getMaxT, _proto.setMaxT);
 cc.defineGetterSetter(cc.Texture2D, "defaultPixelFormat", cc.Texture2D.getDefaultAlphaPixelFormat, cc.Texture2D.setDefaultAlphaPixelFormat);
+
+_proto = cc.LabelAtlas.prototype;
+cc.defineGetterSetter(_proto, "string", _proto.getString, _proto.setString);
+cc.defineGetterSetter(_proto, "opacity", _proto.getOpacity, _proto.setOpacity);
+
+_proto = cc.LabelBMFont.prototype;
+cc.defineGetterSetter(_proto, "string", _proto.getString, _proto._setStringForSetter);
+cc.defineGetterSetter(_proto, "textAlign", _proto._getAlignment, _proto.setAlignment);
+cc.defineGetterSetter(_proto, "boundingWidth", _proto._getBoundingWidth, _proto.setBoundingWidth);
+cc.defineGetterSetter(_proto, "boundingHeight", _proto._getBoundingHeight, _proto.setBoundingHeight);
+
 
 _proto = cc.ParticleBatchNode.prototype;
 cc.defineGetterSetter(_proto, "textureAtlas", _proto.getTextureAtlas, _proto.setTextureAtlas);
