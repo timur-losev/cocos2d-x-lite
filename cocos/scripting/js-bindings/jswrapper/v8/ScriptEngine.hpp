@@ -36,6 +36,10 @@ namespace node {
         class Agent;
     }
 
+    namespace tracing {
+        class Agent;
+    }
+
     class Environment;
     class IsolateData;
 }
@@ -308,6 +312,7 @@ namespace se {
 
 #if SE_ENABLE_INSPECTOR
         node::Environment* _env;
+        node::tracing::Agent* tracing_agent_;
         node::IsolateData* _isolateData;
 #endif
 

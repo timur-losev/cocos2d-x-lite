@@ -42,19 +42,30 @@
     <ClCompile Include="..\jswrapper\MappingUtils.cpp" />
     <ClCompile Include="..\jswrapper\RefCounter.cpp" />
     <ClCompile Include="..\jswrapper\State.cpp" />
+    <ClCompile Include="..\jswrapper\v8\async-wrap.cc" />
     <ClCompile Include="..\jswrapper\v8\Class.cpp" />
     <ClCompile Include="..\jswrapper\v8\env.cc" />
+    <ClCompile Include="..\jswrapper\v8\handle_wrap.cc" />
     <ClCompile Include="..\jswrapper\v8\http_parser.cpp" />
     <ClCompile Include="..\jswrapper\v8\inspector_agent.cc" />
     <ClCompile Include="..\jswrapper\v8\inspector_io.cc" />
     <ClCompile Include="..\jswrapper\v8\inspector_socket.cc" />
     <ClCompile Include="..\jswrapper\v8\inspector_socket_server.cc" />
     <ClCompile Include="..\jswrapper\v8\node.cc" />
+    <ClCompile Include="..\jswrapper\v8\node_buffer.cc" />
+    <ClCompile Include="..\jswrapper\v8\node_constants.cc" />
     <ClCompile Include="..\jswrapper\v8\node_debug_options.cc" />
+    <ClCompile Include="..\jswrapper\v8\node_revert.cc" />
     <ClCompile Include="..\jswrapper\v8\Object.cpp" />
     <ClCompile Include="..\jswrapper\v8\ObjectWrap.cpp" />
     <ClCompile Include="..\jswrapper\v8\ScriptEngine.cpp" />
     <ClCompile Include="..\jswrapper\v8\SHA1.cpp" />
+    <ClCompile Include="..\jswrapper\v8\string_bytes.cc" />
+    <ClCompile Include="..\jswrapper\v8\string_search.cc" />
+    <ClCompile Include="..\jswrapper\v8\tracing\agent.cc" />
+    <ClCompile Include="..\jswrapper\v8\tracing\node_trace_buffer.cc" />
+    <ClCompile Include="..\jswrapper\v8\tracing\node_trace_writer.cc" />
+    <ClCompile Include="..\jswrapper\v8\tracing\trace_event.cc" />
     <ClCompile Include="..\jswrapper\v8\util.cc" />
     <ClCompile Include="..\jswrapper\v8\Utils.cpp" />
     <ClCompile Include="..\jswrapper\Value.cpp" />
@@ -117,10 +128,15 @@
     <ClInclude Include="..\jswrapper\RefCounter.hpp" />
     <ClInclude Include="..\jswrapper\SeApi.h" />
     <ClInclude Include="..\jswrapper\State.hpp" />
+    <ClInclude Include="..\jswrapper\v8\async-wrap-inl.h" />
+    <ClInclude Include="..\jswrapper\v8\async-wrap.h" />
+    <ClInclude Include="..\jswrapper\v8\base-object-inl.h" />
+    <ClInclude Include="..\jswrapper\v8\base-object.h" />
     <ClInclude Include="..\jswrapper\v8\Base.h" />
     <ClInclude Include="..\jswrapper\v8\base64.h" />
     <ClInclude Include="..\jswrapper\v8\Class.hpp" />
     <ClInclude Include="..\jswrapper\v8\env.h" />
+    <ClInclude Include="..\jswrapper\v8\handle_wrap.h" />
     <ClInclude Include="..\jswrapper\v8\HelperMacros.h" />
     <ClInclude Include="..\jswrapper\v8\http_parser.h" />
     <ClInclude Include="..\jswrapper\v8\inspector_agent.h" />
@@ -128,13 +144,25 @@
     <ClInclude Include="..\jswrapper\v8\inspector_socket.h" />
     <ClInclude Include="..\jswrapper\v8\inspector_socket_server.h" />
     <ClInclude Include="..\jswrapper\v8\node.h" />
+    <ClInclude Include="..\jswrapper\v8\node_buffer.h" />
+    <ClInclude Include="..\jswrapper\v8\node_constants.h" />
     <ClInclude Include="..\jswrapper\v8\node_debug_options.h" />
+    <ClInclude Include="..\jswrapper\v8\node_internals.h" />
     <ClInclude Include="..\jswrapper\v8\node_mutex.h" />
+    <ClInclude Include="..\jswrapper\v8\node_revert.h" />
+    <ClInclude Include="..\jswrapper\v8\node_version.h" />
     <ClInclude Include="..\jswrapper\v8\Object.hpp" />
     <ClInclude Include="..\jswrapper\v8\ObjectWrap.h" />
     <ClInclude Include="..\jswrapper\v8\ScriptEngine.hpp" />
     <ClInclude Include="..\jswrapper\v8\SeApi.h" />
     <ClInclude Include="..\jswrapper\v8\SHA1.h" />
+    <ClInclude Include="..\jswrapper\v8\string_bytes.h" />
+    <ClInclude Include="..\jswrapper\v8\string_search.h" />
+    <ClInclude Include="..\jswrapper\v8\tracing\agent.h" />
+    <ClInclude Include="..\jswrapper\v8\tracing\node_trace_buffer.h" />
+    <ClInclude Include="..\jswrapper\v8\tracing\node_trace_writer.h" />
+    <ClInclude Include="..\jswrapper\v8\tracing\trace_event.h" />
+    <ClInclude Include="..\jswrapper\v8\tracing\trace_event_common.h" />
     <ClInclude Include="..\jswrapper\v8\util-inl.h" />
     <ClInclude Include="..\jswrapper\v8\util.h" />
     <ClInclude Include="..\jswrapper\v8\Utils.hpp" />
@@ -260,7 +288,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;HAVE_INSPECTOR;_DEBUG;_LIB;COCOS2D_DEBUG=1;XP_WIN;JS_HAVE___INTN;JS_INTPTR_TYPE=int;COCOS2D_JAVASCRIPT=1;CC_ENABLE_CHIPMUNK_INTEGRATION=1;_CRT_SECURE_NO_WARNINGS;_USRJSSTATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;HAVE_INSPECTOR;_DEBUG;_LIB;COCOS2D_DEBUG=1;XP_WIN;JS_HAVE___INTN;JS_INTPTR_TYPE=int;COCOS2D_JAVASCRIPT=1;CC_ENABLE_CHIPMUNK_INTEGRATION=1;_CRT_SECURE_NO_WARNINGS;_USRJSSTATIC;NODE_WANT_INTERNALS=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir)..;$(EngineRoot);$(EngineRoot)cocos\editor-support;$(ProjectDir)..\auto;$(ProjectDir)..\manual;$(EngineRoot)external\win32\include\v8;$(EngineRoot)external\win32\include\uv;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4068;4101;4800;4251;4244;4099;4083;4700;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>

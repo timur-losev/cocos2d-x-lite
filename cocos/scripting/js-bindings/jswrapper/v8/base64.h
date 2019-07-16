@@ -1,6 +1,11 @@
 #ifndef SRC_BASE64_H_
 #define SRC_BASE64_H_
 
+#include "../config.hpp"
+
+#if (SCRIPT_ENGINE_TYPE == SCRIPT_ENGINE_V8) && SE_ENABLE_INSPECTOR
+
+
 #if defined(NODE_WANT_INTERNALS) && NODE_WANT_INTERNALS
 
 #include "util.h"
@@ -192,3 +197,6 @@ static size_t base64_encode(const char* src,
 #endif  // defined(NODE_WANT_INTERNALS) && NODE_WANT_INTERNALS
 
 #endif  // SRC_BASE64_H_
+
+#endif //#if (SCRIPT_ENGINE_TYPE == SCRIPT_ENGINE_V8) && SE_ENABLE_INSPECTOR
+

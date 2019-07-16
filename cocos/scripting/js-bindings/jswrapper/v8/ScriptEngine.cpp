@@ -33,6 +33,7 @@
 
 #if SE_ENABLE_INSPECTOR
 #include "inspector_agent.h"
+#include "tracing/agent.h"
 #include "env.h"
 #include "node.h"
 #endif
@@ -468,6 +469,12 @@ namespace se {
             __oldConsoleAssert.setUndefined();
 
 #if SE_ENABLE_INSPECTOR
+            if (tracing_agent_) {
+                tracing_agent_->Stop();
+                delete tracing_agent_;
+                tracing_agent_ = nullptr;
+            }
+
             if (_isolateData != nullptr)
             {
                 node::FreeIsolateData(_isolateData);
@@ -563,6 +570,9 @@ namespace se {
             options.set_host_name(_debuggerServerAddr.c_str());
             bool ok = _env->inspector_agent()->Start(_platform, "", options);
             assert(ok);
+/*
+            tracing_agent_ = new node::tracing::Agent();
+            tracing_agent_->Start(_platform, "");*/
 #endif
         }
         //
