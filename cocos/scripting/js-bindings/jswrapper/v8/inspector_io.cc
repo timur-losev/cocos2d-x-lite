@@ -3,6 +3,7 @@
 
 #include "inspector_socket_server.h"
 #include "env.h"
+#include "env-inl.h"
 #include "node.h"
 //cjh #include "node_crypto.h"
 #include "node_mutex.h"

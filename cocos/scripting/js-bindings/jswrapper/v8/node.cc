@@ -1076,12 +1076,12 @@ Local<Value> WinapiErrnoException(Isolate* isolate,
 #endif
 
 
-void* ArrayBufferAllocator::Allocate(size_t size) {
-  if (zero_fill_field_ || zero_fill_all_buffers)
-    return node::UncheckedCalloc(size);
-  else
-    return node::UncheckedMalloc(size);
-}
+//void* ArrayBufferAllocator::Allocate(size_t size) {
+//  if (zero_fill_field_ || zero_fill_all_buffers)
+//    return node::UncheckedCalloc(size);
+//  else
+//    return node::UncheckedMalloc(size);
+//}
 
 namespace {
 
@@ -3337,6 +3337,10 @@ void SetupProcessObject(Environment* env,
                              NeedImmediateCallbackSetter,
                              env->as_external()).FromJust());
 
+
+
+
+
   // -e, --eval
   if (eval_string) {
     READONLY_PROPERTY(process,
@@ -3389,6 +3393,7 @@ void SetupProcessObject(Environment* env,
     READONLY_PROPERTY(process, "traceProcessWarnings", True(env->isolate()));
   }
 
+
   // --throw-deprecation
   if (throw_deprecation) {
     READONLY_PROPERTY(process, "throwDeprecation", True(env->isolate()));
@@ -3427,6 +3432,7 @@ void SetupProcessObject(Environment* env,
     READONLY_DONT_ENUM_PROPERTY(process,
                                 "_invalidDebug", True(env->isolate()));
   }
+  
 
   // --security-revert flags
 #define V(code, _, __)                                                        \
@@ -3437,29 +3443,6 @@ void SetupProcessObject(Environment* env,
   } while (0);
   REVERSIONS(V)
 #undef V
-
-  size_t exec_path_len = 2 * PATH_MAX;
-  char* exec_path = new char[exec_path_len];
-  Local<String> exec_path_value;
-  if (uv_exepath(exec_path, &exec_path_len) == 0) {
-    exec_path_value = String::NewFromUtf8(env->isolate(),
-                                          exec_path,
-                                          String::kNormalString,
-                                          exec_path_len);
-  } else {
-    exec_path_value = String::NewFromUtf8(env->isolate(), argv[0]);
-  }
-  process->Set(FIXED_ONE_BYTE_STRING(env->isolate(), "execPath"),
-               exec_path_value);
-  delete[] exec_path;
-
-  auto debug_port_string = FIXED_ONE_BYTE_STRING(env->isolate(), "debugPort");
-  CHECK(process->SetAccessor(env->context(),
-                             debug_port_string,
-                             DebugPortGetter,
-                             DebugPortSetter,
-                             env->as_external()).FromJust());
-
   // define various internal methods
   env->SetMethod(process,
                  "_startProfilerIdleNotifier",
@@ -4588,8 +4571,8 @@ inline int Start(uv_loop_t* event_loop,
                  int argc, const char* const* argv,
                  int exec_argc, const char* const* exec_argv) {
   Isolate::CreateParams params;
-  ArrayBufferAllocator allocator;
-  params.array_buffer_allocator = &allocator;
+  //ArrayBufferAllocator allocator;
+  params.array_buffer_allocator = v8::ArrayBuffer::Allocator::NewDefaultAllocator();
 #ifdef NODE_ENABLE_VTUNE_PROFILING
   params.code_event_handler = vTune::GetVtuneCodeEventHandler();
 #endif
@@ -4618,7 +4601,7 @@ inline int Start(uv_loop_t* event_loop,
     Locker locker(isolate);
     Isolate::Scope isolate_scope(isolate);
     HandleScope handle_scope(isolate);
-    IsolateData isolate_data(isolate, event_loop, allocator.zero_fill_field());
+    IsolateData isolate_data(isolate, event_loop);
     exit_code = Start(isolate, &isolate_data, argc, argv, exec_argc, exec_argv);
   }
 

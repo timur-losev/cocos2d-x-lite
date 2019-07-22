@@ -1151,11 +1151,16 @@ std::string Widget::getDescription() const
     return "Widget";
 }
 
-Widget* Widget::clone()
+Widget* Widget::clone(bool toCloneChildren)
 {
     Widget* clonedWidget = createCloneInstance();
     clonedWidget->copyProperties(this);
-    clonedWidget->copyClonedWidgetChildren(this);
+
+    if (toCloneChildren)
+    {
+        clonedWidget->copyClonedWidgetChildren(this);
+    }
+
     return clonedWidget;
 }
 

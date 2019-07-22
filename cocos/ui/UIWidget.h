@@ -570,7 +570,7 @@ public:
      * Create a new widget copy of the original one.
      * @return A cloned widget copy of original.
      */
-    Widget* clone();
+    Widget* clone(bool toCloneChildren = true);
     /**
      * @lua NA
      */

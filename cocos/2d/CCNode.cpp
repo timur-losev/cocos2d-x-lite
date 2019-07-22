@@ -535,6 +535,23 @@ bool Node::isVisible() const
     return _visible;
 }
 
+bool Node::isBoardNode() const
+{
+    bool bblnNode = false;
+    const Node* n = this;
+    while (n) {
+        if (n->getName() == "ContainerLayer" || n->getName() == "AnimationLayer") {
+            bblnNode = true;
+            break;
+        }
+
+        n = n->getParent();
+    }
+
+    return bblnNode;
+
+}
+
 /// isVisible setter
 void Node::setVisible(bool visible)
 {
@@ -1649,10 +1666,10 @@ void Node::update(float fDelta)
 //    }
 //#endif
 
-    if (_componentContainer && !_componentContainer->isEmpty())
-    {
-        _componentContainer->visit(fDelta);
-    }
+    //if (_componentContainer && !_componentContainer->isEmpty())
+    //{
+    //    _componentContainer->visit(fDelta);
+    //}
 }
 
 // MARK: coordinates

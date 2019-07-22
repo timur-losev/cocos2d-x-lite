@@ -177,6 +177,10 @@ bool ScriptEngineManager::sendActionEventToJS(Action* actionObject, int eventTyp
 
 bool ScriptEngineManager::sendNodeEventToJS(Node* node, int action)
 {
+    if (node->isBoardNode())
+        return false;
+
+
     auto scriptEngine = getInstance()->getScriptEngine();
     
     if (scriptEngine->isCalledFromScript())
@@ -197,6 +201,10 @@ bool ScriptEngineManager::sendNodeEventToJS(Node* node, int action)
 
 bool ScriptEngineManager::sendNodeEventToJSExtended(Node* node, int action)
 {
+    if (node->isBoardNode())
+        return false;
+
+
     auto scriptEngine = getInstance()->getScriptEngine();
     
     if (!scriptEngine->isCalledFromScript())

@@ -161,7 +161,7 @@ int ScriptingCore::sendEvent(cocos2d::ScriptEvent* evt)
             break;
         case kScriptActionEvent:
         {
-            return handleActionEvent(evt->data);
+            //return handleActionEvent(evt->data);
         }
             break;
 //        case kMenuClickedEvent:

@@ -312,7 +312,7 @@ namespace se {
 
 #if SE_ENABLE_INSPECTOR
         node::Environment* _env;
-        node::tracing::Agent* tracing_agent_;
+        node::tracing::Agent* tracing_agent_ = nullptr;
         node::IsolateData* _isolateData;
 #endif
 

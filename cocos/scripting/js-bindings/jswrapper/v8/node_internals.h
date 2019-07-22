@@ -197,18 +197,18 @@ inline bool IsBigEndian() {
   return GetEndianness() == kBigEndian;
 }
 
-class ArrayBufferAllocator : public v8::ArrayBuffer::Allocator {
- public:
-  inline uint32_t* zero_fill_field() { return &zero_fill_field_; }
-
-  virtual void* Allocate(size_t size);  // Defined in src/node.cc
-  virtual void* AllocateUninitialized(size_t size)
-    { return node::UncheckedMalloc(size); }
-  virtual void Free(void* data, size_t) { free(data); }
-
- private:
-  uint32_t zero_fill_field_ = 1;  // Boolean but exposed as uint32 to JS land.
-};
+//class ArrayBufferAllocator : public v8::ArrayBuffer::Allocator {
+// public:
+//  inline uint32_t* zero_fill_field() { return &zero_fill_field_; }
+//
+//  virtual void* Allocate(size_t size);  // Defined in src/node.cc
+//  virtual void* AllocateUninitialized(size_t size)
+//    { return node::UncheckedMalloc(size); }
+//  virtual void Free(void* data, size_t) { free(data); }
+//
+// private:
+//  uint32_t zero_fill_field_ = 1;  // Boolean but exposed as uint32 to JS land.
+//};
 
 // Clear any domain and/or uncaughtException handlers to force the error's
 // propagation and shutdown the process. Use this to force the process to exit

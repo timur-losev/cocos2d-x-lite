@@ -29,6 +29,17 @@ LOCAL_SRC_FILES := \
 					../jswrapper/v8/inspector_socket.cc \
 					../jswrapper/v8/inspector_socket_server.cc \
 					../jswrapper/v8/node.cc \
+                    ../jswrapper/v8/node_buffer.cc \
+                    ../jswrapper/v8/async-wrap.cc \
+                    ../jswrapper/v8/handle_wrap.cc \
+                    ../jswrapper/v8/node_constants.cc \
+                    ../jswrapper/v8/node_revert.cc \
+                    ../jswrapper/v8/string_bytes.cc \
+                    ../jswrapper/v8/string_search.cc \
+                    ../jswrapper/v8/tracing/agent.cc \
+                    ../jswrapper/v8/tracing/node_trace_buffer.cc \
+                    ../jswrapper/v8/tracing/node_trace_writer.cc \
+                    ../jswrapper/v8/tracing/trace_event.cc \
 					../jswrapper/v8/node_debug_options.cc \
 					../jswrapper/v8/util.cc \
 					../jswrapper/v8/SHA1.cpp \
@@ -72,11 +83,12 @@ LOCAL_SRC_FILES := \
                     ../manual/cocostudio/jsb_cocos2dx_studio_conversions.cpp \
 					../manual/jsb_xmlhttprequest.cpp
 
-LOCAL_CFLAGS := -DHAVE_INSPECTOR
+LOCAL_CFLAGS := -DHAVE_INSPECTOR -DNODE_WANT_INTERNALS
 
 LOCAL_EXPORT_CFLAGS := 
 
-LOCAL_C_INCLUDES := $(LOCAL_PATH)/../manual \
+LOCAL_C_INCLUDES := $(LOCAL_PATH)/.. \
+                    $(LOCAL_PATH)/../manual \
                     $(LOCAL_PATH)/../manual/cocostudio \
                     $(LOCAL_PATH)/../manual/spine \
                     $(LOCAL_PATH)/../manual/platform/android \

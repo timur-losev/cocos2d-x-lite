@@ -536,6 +536,8 @@ public:
     virtual bool isVisible() const;
 
 
+    bool isBoardNode() const;
+
     /**
      * Sets the rotation (angle) of the node in degrees.
      *
