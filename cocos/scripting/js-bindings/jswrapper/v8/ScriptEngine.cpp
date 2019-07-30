@@ -475,11 +475,7 @@ namespace se {
                 tracing_agent_ = nullptr;
             }
 
-            if (_isolateData != nullptr)
-            {
-                node::FreeIsolateData(_isolateData);
-                _isolateData = nullptr;
-            }
+
 
             if (_env != nullptr)
             {
@@ -487,6 +483,12 @@ namespace se {
                 _env->CleanupHandles();
                 node::FreeEnvironment(_env);
                 _env = nullptr;
+            }
+
+            if (_isolateData != nullptr)
+            {
+                node::FreeIsolateData(_isolateData);
+                _isolateData = nullptr;
             }
 #endif
 
