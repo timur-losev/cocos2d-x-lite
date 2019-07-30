@@ -972,6 +972,16 @@ getColor : function (
 },
 
 /**
+ * @method getAfterVisitCallback
+ * @return {function}
+ */
+getAfterVisitCallback : function (
+)
+{
+    return std::function<void (cocos2d::Renderer )>;
+},
+
+/**
  * @method setonEnterTransitionDidFinishCallback
  * @param {function} arg0
  */
@@ -1258,16 +1268,6 @@ node
 },
 
 /**
- * @method getAfterVisitCallback
- * @return {function}
- */
-getAfterVisitCallback : function (
-)
-{
-    return std::function<void (cocos2d::Renderer )>;
-},
-
-/**
  * @method getOnEnterCallback
  * @return {function}
  */
@@ -1446,17 +1446,15 @@ component
 },
 
 /**
- * @method visit
-* @param {cc.Renderer} renderer
-* @param {mat4_object} mat4
-* @param {unsigned int} int
-*/
-visit : function(
-renderer,
-mat4,
-int 
+ * @method runAction
+ * @param {cc.Action} arg0
+ * @return {cc.Action}
+ */
+runAction : function (
+action 
 )
 {
+    return cc.Action;
 },
 
 /**
@@ -1490,15 +1488,17 @@ getAnchorPointInPoints : function (
 },
 
 /**
- * @method runAction
- * @param {cc.Action} arg0
- * @return {cc.Action}
- */
-runAction : function (
-action 
+ * @method visit
+* @param {cc.Renderer} renderer
+* @param {mat4_object} mat4
+* @param {unsigned int} int
+*/
+visit : function(
+renderer,
+mat4,
+int 
 )
 {
-    return cc.Action;
 },
 
 /**
@@ -5064,6 +5064,20 @@ getDataLen : function (
 saveToFile : function (
 str, 
 bool 
+)
+{
+    return false;
+},
+
+/**
+ * @method initWithImageData
+ * @param {unsigned char} arg0
+ * @param {int} arg1
+ * @return {bool}
+ */
+initWithImageData : function (
+char, 
+int 
 )
 {
     return false;

@@ -1192,7 +1192,16 @@ static bool js_cocos2dx_ui_Widget_clone(se::State& s)
         SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_Widget_clone : Error processing arguments");
         return true;
     }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    if (argc == 1) {
+        bool arg0;
+        ok &= seval_to_boolean(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_Widget_clone : Error processing arguments");
+        cocos2d::ui::Widget* result = cobj->clone(arg0);
+        ok &= native_ptr_to_seval<cocos2d::ui::Widget>((cocos2d::ui::Widget*)result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_ui_Widget_clone : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
     return false;
 }
 SE_BIND_FUNC(js_cocos2dx_ui_Widget_clone)
@@ -1482,8 +1491,7 @@ static bool js_cocos2dx_ui_Widget_addTouchEventListener(se::State& s)
             {
                 se::Value jsThis(s.thisObject());
                 se::Value jsFunc(args[0]);
-                //jsThis.toObject()->attachObject(jsFunc.toObject());
-                jsThis.toObject()->root();
+                jsThis.toObject()->attachObject(jsFunc.toObject());
                 auto lambda = [=](cocos2d::Ref* larg0, cocos2d::ui::Widget::TouchEventType larg1) -> void {
                     se::ScriptEngine::getInstance()->clearException();
                     se::AutoHandleScope hs;
